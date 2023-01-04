@@ -1,0 +1,45 @@
+2022-12-21 13:45:38 INFO HV000001: Hibernate Validator 8.0.0.Final
+2022-12-21 13:45:38 INFO Starting GroceryApplication using Java 17.0.5 with PID 9464 (C:\groceryProject\grocery\target\classes started by palao in C:\groceryProject)
+2022-12-21 13:45:38 INFO No active profile set, falling back to 1 default profile: "default"
+2022-12-21 13:45:38 INFO Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2022-12-21 13:45:38 INFO For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2022-12-21 13:45:40 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-12-21 13:45:40 INFO Finished Spring Data repository scanning in 109 ms. Found 7 JPA repository interfaces.
+2022-12-21 13:45:41 INFO Tomcat initialized with port(s): 8080 (http)
+2022-12-21 13:45:41 INFO Initializing ProtocolHandler ["http-nio-8080"]
+2022-12-21 13:45:41 INFO Starting service [Tomcat]
+2022-12-21 13:45:41 INFO Starting Servlet engine: [Apache Tomcat/10.1.1]
+2022-12-21 13:45:41 INFO Initializing Spring embedded WebApplicationContext
+2022-12-21 13:45:41 INFO Root WebApplicationContext: initialization completed in 2786 ms
+2022-12-21 13:45:41 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-12-21 13:45:41 INFO HHH000412: Hibernate ORM core version 6.1.5.Final
+2022-12-21 13:45:41 WARN HHH90000021: Encountered deprecated setting [javax.persistence.validation.mode], use [jakarta.persistence.validation.mode] instead
+2022-12-21 13:45:41 WARN HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2022-12-21 13:45:42 INFO HikariPool-1 - Starting...
+2022-12-21 13:45:42 INFO HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@151b7b51
+2022-12-21 13:45:42 INFO HikariPool-1 - Start completed.
+2022-12-21 13:45:42 INFO HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2022-12-21 13:45:44 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-12-21 13:45:44 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-12-21 13:45:45 WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-12-21 13:45:47 INFO LiveReload server is running on port 35729
+2022-12-21 13:45:47 INFO Starting ProtocolHandler ["http-nio-8080"]
+2022-12-21 13:45:47 INFO Tomcat started on port(s): 8080 (http) with context path ''
+2022-12-21 13:45:47 INFO Started GroceryApplication in 9.728 seconds (process running for 10.493)
+2022-12-21 13:45:50 INFO Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-12-21 13:45:50 INFO Initializing Servlet 'dispatcherServlet'
+2022-12-21 13:45:50 INFO Completed initialization in 3 ms
+2022-12-21 13:45:51 WARN Using deprecated '-debug' fallback for parameter name resolution. Compile the affected code with '-parameters' instead or avoid its introspection: com.example.grocery.webApi.controller.ProductsController
+2022-12-21 13:45:51 WARN Using deprecated '-debug' fallback for parameter name resolution. Compile the affected code with '-parameters' instead or avoid its introspection: com.example.grocery.webApi.controller.IndividualCustomersController
+2022-12-21 13:45:51 WARN Using deprecated '-debug' fallback for parameter name resolution. Compile the affected code with '-parameters' instead or avoid its introspection: com.example.grocery.webApi.controller.EmployeesController
+2022-12-21 13:45:51 WARN Using deprecated '-debug' fallback for parameter name resolution. Compile the affected code with '-parameters' instead or avoid its introspection: com.example.grocery.webApi.controller.CorporateCustomersController
+2022-12-21 13:45:51 WARN Using deprecated '-debug' fallback for parameter name resolution. Compile the affected code with '-parameters' instead or avoid its introspection: com.example.grocery.webApi.controller.CategoriesController
+2022-12-21 13:45:52 WARN Using deprecated '-debug' fallback for parameter name resolution. Compile the affected code with '-parameters' instead or avoid its introspection: com.example.grocery.webApi.controller.UsersController
+2022-12-21 13:45:52 WARN Using deprecated '-debug' fallback for parameter name resolution. Compile the affected code with '-parameters' instead or avoid its introspection: com.example.grocery.webApi.controller.CustomersController
+2022-12-21 13:45:52 INFO Init duration for springdoc-openapi is: 1220 ms
+2022-12-21 13:47:09 WARN Resolved [com.example.grocery.core.utilities.exceptions.BusinessException: Employer must be older than 18!]
+2022-12-21 13:47:18 INFO added employee: string2 string3 logged to file!
+2022-12-21 13:48:58 WARN Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Unexpected character ('"' (code 34)): was expecting comma to separate Object entries]
+2022-12-21 13:49:20 WARN Resolved [com.example.grocery.core.utilities.exceptions.BusinessException: National Identity can not be repeated!]
+2022-12-21 13:49:27 INFO modified employee: string23 string34 logged to file!
+2022-12-21 13:49:58 INFO deleted employee: string23 string34 logged to file!

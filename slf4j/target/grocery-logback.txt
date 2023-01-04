@@ -1,0 +1,38 @@
+2022-12-23 15:11:57 INFO Starting GroceryApplication using Java 17.0.5 with PID 15164 (C:\groceryProject\grocery\target\classes started by palao in C:\groceryProject)
+2022-12-23 15:11:57 INFO No active profile set, falling back to 1 default profile: "default"
+2022-12-23 15:11:58 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-12-23 15:11:58 INFO Finished Spring Data repository scanning in 109 ms. Found 7 JPA repository interfaces.
+2022-12-23 15:11:58 INFO Tomcat initialized with port(s): 8080 (http)
+2022-12-23 15:11:58 INFO Initializing ProtocolHandler ["http-nio-8080"]
+2022-12-23 15:11:58 INFO Starting service [Tomcat]
+2022-12-23 15:11:58 INFO Starting Servlet engine: [Apache Tomcat/10.1.1]
+2022-12-23 15:11:58 INFO Initializing Spring embedded WebApplicationContext
+2022-12-23 15:11:58 INFO Root WebApplicationContext: initialization completed in 995 ms
+2022-12-23 15:11:59 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-12-23 15:11:59 WARN HHH90000021: Encountered deprecated setting [javax.persistence.validation.mode], use [jakarta.persistence.validation.mode] instead
+2022-12-23 15:11:59 WARN HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2022-12-23 15:11:59 INFO HikariPool-3 - Starting...
+2022-12-23 15:11:59 INFO HikariPool-3 - Added connection org.postgresql.jdbc.PgConnection@48fb93f0
+2022-12-23 15:11:59 INFO HikariPool-3 - Start completed.
+2022-12-23 15:11:59 INFO HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2022-12-23 15:11:59 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-12-23 15:11:59 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-12-23 15:12:00 WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-12-23 15:12:01 INFO LiveReload server is running on port 35729
+2022-12-23 15:12:01 INFO Starting ProtocolHandler ["http-nio-8080"]
+2022-12-23 15:12:01 INFO Tomcat started on port(s): 8080 (http) with context path ''
+2022-12-23 15:12:01 INFO Started GroceryApplication in 3.332 seconds (process running for 1617.283)
+2022-12-23 15:12:01 INFO Condition evaluation unchanged
+2022-12-23 15:12:14 INFO Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-12-23 15:12:14 INFO Initializing Servlet 'dispatcherServlet'
+2022-12-23 15:12:14 INFO Completed initialization in 0 ms
+2022-12-23 15:12:36 WARN Resolved [com.example.grocery.core.utilities.exceptions.BusinessException: Id not found!]
+2022-12-23 15:12:43 INFO removed product: leek logged to file!
+2022-12-23 15:15:10 WARN Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public org.springframework.http.ResponseEntity<com.example.grocery.core.utilities.results.Result> com.example.grocery.webApi.controller.EmployeesController.add(com.example.grocery.webApi.requests.employee.CreateEmployeeRequest) with 2 errors: [Field error in object 'createEmployeeRequest' on field 'yearOfBirth': rejected value [2022-12-23]; codes [Past.createEmployeeRequest.yearOfBirth,Past.yearOfBirth,Past.java.time.LocalDate,Past]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [createEmployeeRequest.yearOfBirth,yearOfBirth]; arguments []; default message [yearOfBirth]]; default message [geçmiþ bir tarih olmalý]] [Field error in object 'createEmployeeRequest' on field 'email': rejected value [string]; codes [Email.createEmployeeRequest.email,Email.email,Email.java.lang.String,Email]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [createEmployeeRequest.email,email]; arguments []; default message [email],[Ljakarta.validation.constraints.Pattern$Flag;@3ea4c574,.*]; default message [düzgün biçimli bir e-posta adresi deðil!]] ]
+2022-12-23 15:15:46 WARN Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public org.springframework.http.ResponseEntity<com.example.grocery.core.utilities.results.Result> com.example.grocery.webApi.controller.EmployeesController.add(com.example.grocery.webApi.requests.employee.CreateEmployeeRequest): [Field error in object 'createEmployeeRequest' on field 'email': rejected value [string]; codes [Email.createEmployeeRequest.email,Email.email,Email.java.lang.String,Email]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [createEmployeeRequest.email,email]; arguments []; default message [email],[Ljakarta.validation.constraints.Pattern$Flag;@3ea4c574,.*]; default message [düzgün biçimli bir e-posta adresi deðil!]] ]
+2022-12-23 15:16:03 INFO added employee: string string logged to file!
+2022-12-23 15:16:11 WARN Resolved [com.example.grocery.core.utilities.exceptions.BusinessException: Email address can not be repeat!]
+2022-12-23 15:16:34 WARN Resolved [com.example.grocery.core.utilities.exceptions.BusinessException: National Identity can not be repeated!]
+2022-12-23 15:16:44 WARN Resolved [com.example.grocery.core.utilities.exceptions.BusinessException: Password can not include firstname, lastname or year of birth]
+2022-12-23 15:17:20 INFO deleted employee: string string logged to file!
+2022-12-23 15:17:25 WARN Resolved [com.example.grocery.core.utilities.exceptions.BusinessException: Id is not found on DB!]
