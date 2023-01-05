@@ -20,4 +20,6 @@ public class GetAllProductResponse {
     private LocalDate expirationDate;
     private int stock;
     private int categoryId;
+    private int supplierId;
+    private int producerId;
 }

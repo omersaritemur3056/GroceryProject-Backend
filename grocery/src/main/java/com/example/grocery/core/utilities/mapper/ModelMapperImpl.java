@@ -1,11 +1,11 @@
-package com.example.grocery.core.utilities.modelMapper;
+package com.example.grocery.core.utilities.mapper;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ModelMapperImpl implements ModelMapperService {
+public class ModelMapperImpl implements MapperService {
 
     public ModelMapper getModelMapper() {
         ModelMapper modelMapper = new ModelMapper();

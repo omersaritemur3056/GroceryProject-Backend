@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.example.grocery.business.abstracts.CategoryService;
 import com.example.grocery.core.utilities.business.BusinessRules;
 import com.example.grocery.core.utilities.exceptions.BusinessException;
-import com.example.grocery.core.utilities.modelMapper.ModelMapperService;
+import com.example.grocery.core.utilities.mapper.MapperService;
 import com.example.grocery.core.utilities.results.DataResult;
 import com.example.grocery.core.utilities.results.Result;
 import com.example.grocery.core.utilities.results.SuccessDataResult;
@@ -31,14 +31,14 @@ public class CategoryManager implements CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
     @Autowired
-    private ModelMapperService modelMapperService;
+    private MapperService mapperService;
 
     @Override
     public Result add(CreateCategoryRequest createCategoryRequest) {
 
         Result rules = BusinessRules.run(isExistName(createCategoryRequest.getName()));
 
-        Category category = modelMapperService.getModelMapper().map(createCategoryRequest, Category.class);
+        Category category = mapperService.getModelMapper().map(createCategoryRequest, Category.class);
         categoryRepository.save(category);
         log.info("succeed category : {} logged to file!", createCategoryRequest.getName());
         return new SuccessResult("Category saved on DB");
@@ -49,8 +49,8 @@ public class CategoryManager implements CategoryService {
 
         Result rules = BusinessRules.run(isExistId(deleteCategoryRequest.getId()));
 
-        Category category = modelMapperService.getModelMapper().map(deleteCategoryRequest, Category.class);
-        log.info("removed category: {} logged to file!", getId(deleteCategoryRequest.getId()).getName());
+        Category category = mapperService.getModelMapper().map(deleteCategoryRequest, Category.class);
+        log.info("removed category: {} logged to file!", getCategoryById(deleteCategoryRequest.getId()).getName());
         categoryRepository.delete(category);
         return new SuccessResult("Category deleted on DB");
     }
@@ -61,7 +61,7 @@ public class CategoryManager implements CategoryService {
         Result rules = BusinessRules.run(isExistName(updateCategoryRequest.getName()), isExistId(id));
 
         var inDbCategory = categoryRepository.findById(id).orElseThrow(() -> new BusinessException("Id not found!"));
-        Category category = modelMapperService.getModelMapper().map(updateCategoryRequest, Category.class);
+        Category category = mapperService.getModelMapper().map(updateCategoryRequest, Category.class);
         category.setId(inDbCategory.getId());
         categoryRepository.save(category);
         log.info("modified category : {} logged to file!", updateCategoryRequest.getName());
@@ -72,25 +72,22 @@ public class CategoryManager implements CategoryService {
     public DataResult<List<GetAllCategoryResponse>> getAll() {
         List<Category> categories = categoryRepository.findAll();
         List<GetAllCategoryResponse> returnList = categories.stream()
-                .map(c -> modelMapperService.getModelMapper().map(c, GetAllCategoryResponse.class)).toList();
+                .map(c -> mapperService.getModelMapper().map(c, GetAllCategoryResponse.class)).toList();
 
         return new SuccessDataResult<>(returnList, "categories listed");
     }
 
     @Override
     public DataResult<GetByIdCategoryResponse> getById(int id) {
-        Category category = categoryRepository.findById(id).orElse(null);
-        if (category == null) {
-            throw new BusinessException("Id not found!");
-        }
-        GetByIdCategoryResponse getByIdCategoryResponse = modelMapperService.getModelMapper().map(category,
+        Category category = categoryRepository.findById(id).orElseThrow(() -> new BusinessException("Id not found!"));
+        GetByIdCategoryResponse getByIdCategoryResponse = mapperService.getModelMapper().map(category,
                 GetByIdCategoryResponse.class);
         return new SuccessDataResult<>(getByIdCategoryResponse, "Category is found by id");
     }
 
     // ProductManager sınıfımızda bağımlılığı kontrol altına alma adına kullanılmak
     // üzere tasarlandı.
-    public Category getId(int id) {
+    public Category getCategoryById(int id) {
         return categoryRepository.findById(id).orElseThrow(() -> new BusinessException("Category id not found!"));
     }
 

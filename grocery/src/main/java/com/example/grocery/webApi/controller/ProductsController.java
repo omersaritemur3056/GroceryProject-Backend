@@ -16,9 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.grocery.business.abstracts.ProductService;
 import com.example.grocery.core.utilities.results.DataResult;
-import com.example.grocery.core.utilities.results.ErrorResult;
 import com.example.grocery.core.utilities.results.Result;
-import com.example.grocery.core.utilities.results.SuccessResult;
 import com.example.grocery.webApi.requests.product.CreateProductRequest;
 import com.example.grocery.webApi.requests.product.DeleteProductRequest;
 import com.example.grocery.webApi.requests.product.UpdateProductRequest;
@@ -33,8 +31,6 @@ public class ProductsController {
 
     @Autowired
     private ProductService productService;
-    SuccessResult success = new SuccessResult("Başarılı!");
-    ErrorResult error = new ErrorResult("Başarısız!");
 
     @PostMapping("/add")
     public ResponseEntity<Result> add(@Valid @RequestBody CreateProductRequest createProductRequest) {

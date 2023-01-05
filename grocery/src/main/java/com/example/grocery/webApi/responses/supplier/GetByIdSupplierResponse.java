@@ -1,4 +1,4 @@
-package com.example.grocery.webApi.responses.product;
+package com.example.grocery.webApi.responses.supplier;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,12 +9,15 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class GetByIdProductResponse {
+public class GetByIdSupplierResponse {
 
     private int id;
+
     private String name;
-    private double price;
-    private int categoryId;
-    private int supplierId;
-    private int producerId;
+
+    private String address;
+
+    private String phoneNumber;
+
+    private String email;
 }

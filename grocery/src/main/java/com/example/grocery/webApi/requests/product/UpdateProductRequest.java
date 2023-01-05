@@ -46,4 +46,10 @@ public class UpdateProductRequest {
 
     @Positive
     private int categoryId;
+
+    @Positive
+    private int supplierId;
+
+    @Positive
+    private int producerId;
 }

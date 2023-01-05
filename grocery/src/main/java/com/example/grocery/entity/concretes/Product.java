@@ -1,7 +1,6 @@
 package com.example.grocery.entity.concretes;
 
 import java.time.LocalDate;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -61,4 +60,12 @@ public class Product {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "category_fk_id")
     private Category category;
+
+    @ManyToOne
+    @JoinColumn(name = "supplier_fk_id")
+    private Supplier supplier;
+
+    @ManyToOne
+    @JoinColumn(name = "producer_fk_id", nullable = false)
+    private Producer producer;
 }

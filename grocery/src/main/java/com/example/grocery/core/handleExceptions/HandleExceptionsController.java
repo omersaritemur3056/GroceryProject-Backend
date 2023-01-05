@@ -7,9 +7,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import com.example.grocery.core.utilities.exceptions.BusinessException;
 import com.example.grocery.core.utilities.results.ErrorResult;
 
-//@ControllerAdvice
 @RestControllerAdvice
-public class HandleBusinessExceptionsController {
+public class HandleExceptionsController {
 
     @ExceptionHandler(value = { BusinessException.class })
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)

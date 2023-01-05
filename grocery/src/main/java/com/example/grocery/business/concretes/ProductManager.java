@@ -8,10 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.grocery.business.abstracts.CategoryService;
+import com.example.grocery.business.abstracts.ProducerService;
 import com.example.grocery.business.abstracts.ProductService;
+import com.example.grocery.business.abstracts.SupplierService;
 import com.example.grocery.core.utilities.business.BusinessRules;
 import com.example.grocery.core.utilities.exceptions.BusinessException;
-import com.example.grocery.core.utilities.modelMapper.ModelMapperService;
+import com.example.grocery.core.utilities.mapper.MapperService;
 import com.example.grocery.core.utilities.results.DataResult;
 import com.example.grocery.core.utilities.results.Result;
 import com.example.grocery.core.utilities.results.SuccessDataResult;
@@ -35,7 +37,11 @@ public class ProductManager implements ProductService {
     @Autowired
     private CategoryService categoryService;
     @Autowired
-    private ModelMapperService modelMapperService;
+    private ProducerService producerService;
+    @Autowired
+    private SupplierService supplierService;
+    @Autowired
+    private MapperService mapperService;
 
     @Override
     public Result add(CreateProductRequest createProductRequest) {
@@ -43,10 +49,10 @@ public class ProductManager implements ProductService {
         Result rules = BusinessRules.run(isExistName(createProductRequest.getName()),
                 isExistCategoryId(createProductRequest.getCategoryId()));
 
-        Product addProduct = modelMapperService.getModelMapper().map(createProductRequest, Product.class);
-        // aşağıdaki şeyi anlamaya çalış!
-        addProduct = updateCategory(addProduct,
-                createProductRequest.getCategoryId());
+        Product addProduct = mapperService.getModelMapper().map(createProductRequest, Product.class);
+        addProduct.setCategory(categoryService.getCategoryById(createProductRequest.getCategoryId()));
+        addProduct.setProducer(producerService.getProducerById(createProductRequest.getProducerId()));
+        addProduct.setSupplier(supplierService.getSupplierById(createProductRequest.getSupplierId()));
         productRepository.save((addProduct));
         log.info("added product: {} logged to file!", createProductRequest.getName());
         return new SuccessResult("Product added.");
@@ -58,10 +64,15 @@ public class ProductManager implements ProductService {
         Product inDbProduct = productRepository.findById(id).orElseThrow(() -> new BusinessException("Id not found!"));
 
         Result rules = BusinessRules.run(isExistName(updateProductRequest.getName()), isExistId(id),
-                isExistCategoryId(updateProductRequest.getCategoryId()));
+                isExistCategoryId(updateProductRequest.getCategoryId()),
+                isExistProducerId(updateProductRequest.getProducerId()),
+                isExistSupplierId(updateProductRequest.getSupplierId()));
 
-        Product product = modelMapperService.getModelMapper().map(updateProductRequest, Product.class);
+        Product product = mapperService.getModelMapper().map(updateProductRequest, Product.class);
         product.setId(inDbProduct.getId());
+        product.setCategory(categoryService.getCategoryById(updateProductRequest.getCategoryId()));
+        product.setProducer(producerService.getProducerById(updateProductRequest.getProducerId()));
+        product.setSupplier(supplierService.getSupplierById(updateProductRequest.getSupplierId()));
         log.info("modified product : {} logged to file!", updateProductRequest.getName());
         productRepository.save(product);
 
@@ -74,7 +85,7 @@ public class ProductManager implements ProductService {
         Result rules = BusinessRules.run(isExistId(deleteProductRequest.getId()));
         removeExpiratedProduct();
 
-        Product product = modelMapperService.getModelMapper().map(deleteProductRequest, Product.class);
+        Product product = mapperService.getModelMapper().map(deleteProductRequest, Product.class);
 
         Product productForLog = productRepository.findById(deleteProductRequest.getId())
                 .orElseThrow(() -> new BusinessException("Id not found!"));
@@ -90,9 +101,11 @@ public class ProductManager implements ProductService {
         List<Product> productList = productRepository.findAll();
         for (Product product : productList) {
             Product product1 = productRepository.findById(product.getId()).get();
-            GetAllProductResponse addFields = modelMapperService.getModelMapper().map(product,
+            GetAllProductResponse addFields = mapperService.getModelMapper().map(product,
                     GetAllProductResponse.class);
             addFields.setCategoryId(product1.getCategory().getId());
+            addFields.setProducerId(product1.getProducer().getId());
+            addFields.setSupplierId(product1.getSupplier().getId());
             returnList.add(addFields);
         }
         return new SuccessDataResult<List<GetAllProductResponse>>(returnList, "Products listed.");
@@ -100,20 +113,18 @@ public class ProductManager implements ProductService {
 
     @Override
     public DataResult<GetByIdProductResponse> getById(int id) {
-        Product product = productRepository.findById(id).orElse(null);
-        if (product == null) {
-            // return new ErrorDataResult<>("Id not found!");
-            throw new BusinessException("Id not found!");
-        }
-        GetByIdProductResponse getByIdProductResponse = modelMapperService.getModelMapper().map(product,
+        Product product = productRepository.findById(id).orElseThrow(() -> new BusinessException("Id not found!"));
+        GetByIdProductResponse getByIdProductResponse = mapperService.getModelMapper().map(product,
                 GetByIdProductResponse.class);
         getByIdProductResponse.setCategoryId(product.getCategory().getId());
+        getByIdProductResponse.setProducerId(product.getProducer().getId());
+        getByIdProductResponse.setSupplierId(product.getSupplier().getId());
         return new SuccessDataResult<>(getByIdProductResponse, "Product listed");
     }
 
     // yorum bekle...
     private Product updateCategory(Product product, int id) {
-        product.setCategory(categoryService.getId(id));
+        product.setCategory(categoryService.getCategoryById(id));
         return product;
     }
 
@@ -140,10 +151,23 @@ public class ProductManager implements ProductService {
         return new SuccessResult();
     }
 
-    // olmayan kategori id'leri ayıkla
     private Result isExistCategoryId(int categoryId) {
-        if (categoryService.getId(categoryId) == null) {
+        if (categoryService.getCategoryById(categoryId) == null) {
             throw new BusinessException("Category id not found!");
+        }
+        return new SuccessResult();
+    }
+
+    private Result isExistSupplierId(int supplierId) {
+        if (supplierService.getSupplierById(supplierId) == null) {
+            throw new BusinessException("Supplier id not found!");
+        }
+        return new SuccessResult();
+    }
+
+    private Result isExistProducerId(int producerId) {
+        if (producerService.getProducerById(producerId) == null) {
+            throw new BusinessException("Producer id not found!");
         }
         return new SuccessResult();
     }

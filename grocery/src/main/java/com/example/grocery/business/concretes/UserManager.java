@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.grocery.business.abstracts.UserService;
 import com.example.grocery.core.utilities.exceptions.BusinessException;
-import com.example.grocery.core.utilities.modelMapper.ModelMapperService;
+import com.example.grocery.core.utilities.mapper.MapperService;
 import com.example.grocery.core.utilities.results.DataResult;
 import com.example.grocery.core.utilities.results.SuccessDataResult;
 import com.example.grocery.dataAccess.abstracts.UserRepository;
@@ -21,20 +21,20 @@ public class UserManager implements UserService {
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private ModelMapperService modelMapperService;
+    private MapperService mapperService;
 
     @Override
     public DataResult<List<GetAllUserResponse>> getAll() {
         List<User> userList = userRepository.findAll();
         List<GetAllUserResponse> returnList = userList.stream()
-                .map(u -> modelMapperService.getModelMapper().map(u, GetAllUserResponse.class)).toList();
+                .map(u -> mapperService.getModelMapper().map(u, GetAllUserResponse.class)).toList();
         return new SuccessDataResult<>(returnList, "Users listed!");
     }
 
     @Override
     public DataResult<GetByIdUserResponse> getById(int id) {
         User inDbUser = userRepository.findById(id).orElseThrow(() -> new BusinessException("Id not found!"));
-        GetByIdUserResponse returnObj = modelMapperService.getModelMapper().map(inDbUser, GetByIdUserResponse.class);
+        GetByIdUserResponse returnObj = mapperService.getModelMapper().map(inDbUser, GetByIdUserResponse.class);
         return new SuccessDataResult<>(returnObj, "Users listed by id!");
     }
 

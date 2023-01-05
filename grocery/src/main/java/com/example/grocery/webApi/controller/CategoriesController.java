@@ -27,11 +27,9 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/api/category")
 public class CategoriesController {
+
     @Autowired
     private CategoryService categoryService;
-
-    SuccessResult success = new SuccessResult("Başarılı!");
-    ErrorResult error = new ErrorResult("Başarısız!");
 
     @PostMapping("/add")
     public ResponseEntity<Result> add(@Valid @RequestBody CreateCategoryRequest createCategoryRequest) {

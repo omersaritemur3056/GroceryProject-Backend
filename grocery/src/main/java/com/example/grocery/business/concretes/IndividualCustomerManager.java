@@ -10,7 +10,7 @@ import com.example.grocery.business.abstracts.IndividualCustomerService;
 import com.example.grocery.business.abstracts.UserService;
 import com.example.grocery.core.utilities.business.BusinessRules;
 import com.example.grocery.core.utilities.exceptions.BusinessException;
-import com.example.grocery.core.utilities.modelMapper.ModelMapperService;
+import com.example.grocery.core.utilities.mapper.MapperService;
 import com.example.grocery.core.utilities.results.DataResult;
 import com.example.grocery.core.utilities.results.Result;
 import com.example.grocery.core.utilities.results.SuccessDataResult;
@@ -32,7 +32,7 @@ public class IndividualCustomerManager implements IndividualCustomerService {
         @Autowired
         private IndividualCustomerRepository individualCustomerRepository;
         @Autowired
-        private ModelMapperService modelMapperService;
+        private MapperService mapperService;
         @Autowired
         private UserService userService;
 
@@ -45,7 +45,7 @@ public class IndividualCustomerManager implements IndividualCustomerService {
                                                 createIndividualCustomerRequest.getFirstName(),
                                                 createIndividualCustomerRequest.getLastName()));
 
-                IndividualCustomer individualCustomer = modelMapperService.getModelMapper().map(
+                IndividualCustomer individualCustomer = mapperService.getModelMapper().map(
                                 createIndividualCustomerRequest,
                                 IndividualCustomer.class);
                 individualCustomerRepository.save(individualCustomer);
@@ -60,7 +60,7 @@ public class IndividualCustomerManager implements IndividualCustomerService {
 
                 Result rules = BusinessRules.run(isExistId(deleteIndividualCustomerRequest.getId()));
 
-                IndividualCustomer individualCustomer = modelMapperService.getModelMapper().map(
+                IndividualCustomer individualCustomer = mapperService.getModelMapper().map(
                                 deleteIndividualCustomerRequest,
                                 IndividualCustomer.class);
                 IndividualCustomer logForIndividual = individualCustomerRepository
@@ -84,7 +84,7 @@ public class IndividualCustomerManager implements IndividualCustomerService {
                 IndividualCustomer inDbIndividualCustomer = individualCustomerRepository.findById(id)
                                 .orElseThrow(() -> new BusinessException("Id not found!"));
 
-                IndividualCustomer individualCustomer = modelMapperService.getModelMapper().map(
+                IndividualCustomer individualCustomer = mapperService.getModelMapper().map(
                                 updateIndividualCustomerRequest,
                                 IndividualCustomer.class);
                 individualCustomer.setId(inDbIndividualCustomer.getId());
@@ -99,7 +99,7 @@ public class IndividualCustomerManager implements IndividualCustomerService {
         public DataResult<List<GetAllIndividualCustomerResponse>> getAll() {
                 List<IndividualCustomer> individualCustomers = individualCustomerRepository.findAll();
                 List<GetAllIndividualCustomerResponse> returnList = individualCustomers.stream()
-                                .map(ic -> modelMapperService.getModelMapper().map(ic,
+                                .map(ic -> mapperService.getModelMapper().map(ic,
                                                 GetAllIndividualCustomerResponse.class))
                                 .toList();
                 return new SuccessDataResult<List<GetAllIndividualCustomerResponse>>(returnList,
@@ -110,7 +110,7 @@ public class IndividualCustomerManager implements IndividualCustomerService {
         public DataResult<GetByIdIndividualCustomerResponse> getById(int id) {
                 IndividualCustomer inDbIndividualCustomer = individualCustomerRepository.findById(id)
                                 .orElseThrow(() -> new BusinessException("Id not found!"));
-                GetByIdIndividualCustomerResponse returnObj = modelMapperService.getModelMapper().map(
+                GetByIdIndividualCustomerResponse returnObj = mapperService.getModelMapper().map(
                                 inDbIndividualCustomer,
                                 GetByIdIndividualCustomerResponse.class);
                 return new SuccessDataResult<GetByIdIndividualCustomerResponse>(returnObj,

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.grocery.business.abstracts.CustomerService;
 import com.example.grocery.core.utilities.exceptions.BusinessException;
-import com.example.grocery.core.utilities.modelMapper.ModelMapperService;
+import com.example.grocery.core.utilities.mapper.MapperService;
 import com.example.grocery.core.utilities.results.DataResult;
 import com.example.grocery.core.utilities.results.SuccessDataResult;
 import com.example.grocery.dataAccess.abstracts.CustomerRepository;
@@ -21,13 +21,13 @@ public class CustomerManager implements CustomerService {
     @Autowired
     private CustomerRepository customerRepository;
     @Autowired
-    private ModelMapperService modelMapperService;
+    private MapperService mapperService;
 
     @Override
     public DataResult<List<GetAllCustomerResponse>> getAll() {
         List<Customer> inDbCustomers = customerRepository.findAll();
         List<GetAllCustomerResponse> returnList = inDbCustomers.stream()
-                .map(c -> modelMapperService.getModelMapper().map(c, GetAllCustomerResponse.class)).toList();
+                .map(c -> mapperService.getModelMapper().map(c, GetAllCustomerResponse.class)).toList();
         return new SuccessDataResult<List<GetAllCustomerResponse>>(returnList, "Customers listed");
     }
 
@@ -35,7 +35,7 @@ public class CustomerManager implements CustomerService {
     public DataResult<GetByIdCustomerResponse> getById(int id) {
         Customer inDbCustomer = customerRepository.findById(id)
                 .orElseThrow(() -> new BusinessException("Id not found!"));
-        GetByIdCustomerResponse returnObj = modelMapperService.getModelMapper().map(inDbCustomer,
+        GetByIdCustomerResponse returnObj = mapperService.getModelMapper().map(inDbCustomer,
                 GetByIdCustomerResponse.class);
         return new SuccessDataResult<GetByIdCustomerResponse>(returnObj, "Customer listed by chosen id");
     }

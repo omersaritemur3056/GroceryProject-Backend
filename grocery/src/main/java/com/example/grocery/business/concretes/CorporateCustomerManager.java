@@ -9,7 +9,7 @@ import com.example.grocery.business.abstracts.CorporateCustomerService;
 import com.example.grocery.business.abstracts.UserService;
 import com.example.grocery.core.utilities.business.BusinessRules;
 import com.example.grocery.core.utilities.exceptions.BusinessException;
-import com.example.grocery.core.utilities.modelMapper.ModelMapperService;
+import com.example.grocery.core.utilities.mapper.MapperService;
 import com.example.grocery.core.utilities.results.DataResult;
 import com.example.grocery.core.utilities.results.Result;
 import com.example.grocery.core.utilities.results.SuccessDataResult;
@@ -31,7 +31,7 @@ public class CorporateCustomerManager implements CorporateCustomerService {
         @Autowired
         private CorporateCustomerRepository corporateCustomerRepository;
         @Autowired
-        private ModelMapperService modelMapperService;
+        private MapperService mapperService;
         @Autowired
         private UserService userService;
 
@@ -41,7 +41,7 @@ public class CorporateCustomerManager implements CorporateCustomerService {
                 Result rules = BusinessRules.run(isExistEmail(createCorporateCustomerRequest.getEmail()),
                                 isExistTaxNumber(createCorporateCustomerRequest.getTaxNumber()));
 
-                CorporateCustomer corporateCustomer = modelMapperService.getModelMapper().map(
+                CorporateCustomer corporateCustomer = mapperService.getModelMapper().map(
                                 createCorporateCustomerRequest,
                                 CorporateCustomer.class);
                 corporateCustomerRepository.save(corporateCustomer);
@@ -55,7 +55,7 @@ public class CorporateCustomerManager implements CorporateCustomerService {
 
                 Result rules = BusinessRules.run(isExistId(deleteCorporateCustomerRequest.getId()));
 
-                CorporateCustomer corporateCustomer = modelMapperService.getModelMapper().map(
+                CorporateCustomer corporateCustomer = mapperService.getModelMapper().map(
                                 deleteCorporateCustomerRequest,
                                 CorporateCustomer.class);
                 CorporateCustomer logForCorporate = corporateCustomerRepository
@@ -75,7 +75,7 @@ public class CorporateCustomerManager implements CorporateCustomerService {
                 CorporateCustomer inDbCorporateCustomer = corporateCustomerRepository.findById(id)
                                 .orElseThrow(() -> new BusinessException("Id not found!"));
 
-                CorporateCustomer corporateCustomer = modelMapperService.getModelMapper()
+                CorporateCustomer corporateCustomer = mapperService.getModelMapper()
                                 .map(updateCorporateCustomerRequest, CorporateCustomer.class);
                 corporateCustomer.setId(inDbCorporateCustomer.getId());
                 log.info("modified corporate customer: {} logged to file!",
@@ -88,7 +88,7 @@ public class CorporateCustomerManager implements CorporateCustomerService {
         public DataResult<List<GetAllCorporateCustomerResponse>> getAll() {
                 List<CorporateCustomer> corporateCustomers = corporateCustomerRepository.findAll();
                 List<GetAllCorporateCustomerResponse> returnList = corporateCustomers.stream()
-                                .map(cc -> modelMapperService.getModelMapper().map(cc,
+                                .map(cc -> mapperService.getModelMapper().map(cc,
                                                 GetAllCorporateCustomerResponse.class))
                                 .toList();
                 return new SuccessDataResult<List<GetAllCorporateCustomerResponse>>(returnList,
@@ -99,7 +99,7 @@ public class CorporateCustomerManager implements CorporateCustomerService {
         public DataResult<GetByIdCorporateCustomerResponse> getById(int id) {
                 CorporateCustomer inDbCorporateCustomer = corporateCustomerRepository.findById(id)
                                 .orElseThrow(() -> new BusinessException("Id not found!"));
-                GetByIdCorporateCustomerResponse returnObj = modelMapperService.getModelMapper()
+                GetByIdCorporateCustomerResponse returnObj = mapperService.getModelMapper()
                                 .map(inDbCorporateCustomer, GetByIdCorporateCustomerResponse.class);
                 return new SuccessDataResult<GetByIdCorporateCustomerResponse>(returnObj,
                                 "Corporate customer listed by chosen id");

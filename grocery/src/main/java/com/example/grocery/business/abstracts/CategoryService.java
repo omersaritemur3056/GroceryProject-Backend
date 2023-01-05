@@ -23,7 +23,7 @@ public interface CategoryService {
 
     DataResult<GetByIdCategoryResponse> getById(int id);
 
-    default Category getId(int id) {
+    default Category getCategoryById(int id) {
         return null;
     }
 }

@@ -10,7 +10,7 @@ import com.example.grocery.business.abstracts.EmployeeService;
 import com.example.grocery.business.abstracts.UserService;
 import com.example.grocery.core.utilities.business.BusinessRules;
 import com.example.grocery.core.utilities.exceptions.BusinessException;
-import com.example.grocery.core.utilities.modelMapper.ModelMapperService;
+import com.example.grocery.core.utilities.mapper.MapperService;
 import com.example.grocery.core.utilities.results.DataResult;
 import com.example.grocery.core.utilities.results.Result;
 import com.example.grocery.core.utilities.results.SuccessDataResult;
@@ -32,7 +32,7 @@ public class EmployeeManager implements EmployeeService {
     @Autowired
     private EmployeeRepository employeeRepository;
     @Autowired
-    private ModelMapperService modelMapperService;
+    private MapperService mapperService;
     @Autowired
     private UserService userService;
 
@@ -45,7 +45,7 @@ public class EmployeeManager implements EmployeeService {
                 isValidPassword(createEmployeeRequest.getPassword(), createEmployeeRequest.getFirstName(),
                         createEmployeeRequest.getLastName(), createEmployeeRequest.getYearOfBirth()));
 
-        Employee employee = modelMapperService.getModelMapper().map(createEmployeeRequest, Employee.class);
+        Employee employee = mapperService.getModelMapper().map(createEmployeeRequest, Employee.class);
         employeeRepository.save(employee);
         log.info("added employee: {} {} logged to file!", createEmployeeRequest.getFirstName(),
                 createEmployeeRequest.getLastName());
@@ -57,7 +57,7 @@ public class EmployeeManager implements EmployeeService {
 
         Result rules = BusinessRules.run(isExistId(deleteEmployeeRequest.getId()));
 
-        Employee employee = modelMapperService.getModelMapper().map(deleteEmployeeRequest, Employee.class);
+        Employee employee = mapperService.getModelMapper().map(deleteEmployeeRequest, Employee.class);
         Employee employeeForLog = employeeRepository.findById(deleteEmployeeRequest.getId())
                 .orElseThrow(() -> new BusinessException("Id not found!"));
         log.info("deleted employee: {} {} logged to file!", employeeForLog.getFirstName(),
@@ -79,7 +79,7 @@ public class EmployeeManager implements EmployeeService {
         Employee inDbEmployee = employeeRepository.findById(id)
                 .orElseThrow(() -> new BusinessException("Id not found!"));
 
-        Employee employee = modelMapperService.getModelMapper().map(updateEmployeeRequest, Employee.class);
+        Employee employee = mapperService.getModelMapper().map(updateEmployeeRequest, Employee.class);
         employee.setId(inDbEmployee.getId());
         employeeRepository.save(employee);
         log.info("modified employee: {} {} logged to file!", updateEmployeeRequest.getFirstName(),
@@ -91,7 +91,7 @@ public class EmployeeManager implements EmployeeService {
     public DataResult<List<GetAllEmployeeResponse>> getAll() {
         List<Employee> employeeList = employeeRepository.findAll();
         List<GetAllEmployeeResponse> returnList = employeeList.stream()
-                .map(e -> modelMapperService.getModelMapper().map(e, GetAllEmployeeResponse.class)).toList();
+                .map(e -> mapperService.getModelMapper().map(e, GetAllEmployeeResponse.class)).toList();
         return new SuccessDataResult<List<GetAllEmployeeResponse>>(returnList, "Employees listed");
     }
 
@@ -99,7 +99,7 @@ public class EmployeeManager implements EmployeeService {
     public DataResult<GetByIdEmployeeResponse> getById(int id) {
         Employee inDbEmployee = employeeRepository.findById(id)
                 .orElseThrow(() -> new BusinessException("Id not found!"));
-        GetByIdEmployeeResponse returnObj = modelMapperService.getModelMapper().map(inDbEmployee,
+        GetByIdEmployeeResponse returnObj = mapperService.getModelMapper().map(inDbEmployee,
                 GetByIdEmployeeResponse.class);
         // returnObj.setId(inDbEmployee.getId());
         return new SuccessDataResult<GetByIdEmployeeResponse>(returnObj, "Employee listed by chosen id");
