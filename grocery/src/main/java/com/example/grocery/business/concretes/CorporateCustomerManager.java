@@ -7,6 +7,12 @@ import org.springframework.stereotype.Service;
 
 import com.example.grocery.business.abstracts.CorporateCustomerService;
 import com.example.grocery.business.abstracts.UserService;
+import com.example.grocery.business.constants.Messages.CreateMessages;
+import com.example.grocery.business.constants.Messages.DeleteMessages;
+import com.example.grocery.business.constants.Messages.ErrorMessages;
+import com.example.grocery.business.constants.Messages.GetByIdMessages;
+import com.example.grocery.business.constants.Messages.GetListMessages;
+import com.example.grocery.business.constants.Messages.UpdateMessages;
 import com.example.grocery.core.utilities.business.BusinessRules;
 import com.example.grocery.core.utilities.exceptions.BusinessException;
 import com.example.grocery.core.utilities.mapper.MapperService;
@@ -47,7 +53,7 @@ public class CorporateCustomerManager implements CorporateCustomerService {
                 corporateCustomerRepository.save(corporateCustomer);
                 log.info("added corporate customer: {} logged to file!",
                                 createCorporateCustomerRequest.getCompanyName());
-                return new SuccessResult("Corporate customer saved in DB");
+                return new SuccessResult(CreateMessages.corporateCustomerCreated);
         }
 
         @Override
@@ -60,10 +66,10 @@ public class CorporateCustomerManager implements CorporateCustomerService {
                                 CorporateCustomer.class);
                 CorporateCustomer logForCorporate = corporateCustomerRepository
                                 .findById(deleteCorporateCustomerRequest.getId())
-                                .orElseThrow(() -> new BusinessException("Id not found!"));
+                                .orElseThrow(() -> new BusinessException(ErrorMessages.idNotFound));
                 log.info("deleted corporate customer: {} logged to file!", logForCorporate.getCompanyName());
                 corporateCustomerRepository.delete(corporateCustomer);
-                return new SuccessResult("Corporate customer has been removed from DB");
+                return new SuccessResult(DeleteMessages.corporateCustomerDeleted);
         }
 
         @Override
@@ -73,7 +79,7 @@ public class CorporateCustomerManager implements CorporateCustomerService {
                                 isExistTaxNumber(updateCorporateCustomerRequest.getTaxNumber()));
 
                 CorporateCustomer inDbCorporateCustomer = corporateCustomerRepository.findById(id)
-                                .orElseThrow(() -> new BusinessException("Id not found!"));
+                                .orElseThrow(() -> new BusinessException(ErrorMessages.idNotFound));
 
                 CorporateCustomer corporateCustomer = mapperService.getModelMapper()
                                 .map(updateCorporateCustomerRequest, CorporateCustomer.class);
@@ -81,7 +87,7 @@ public class CorporateCustomerManager implements CorporateCustomerService {
                 log.info("modified corporate customer: {} logged to file!",
                                 updateCorporateCustomerRequest.getCompanyName());
                 corporateCustomerRepository.save(corporateCustomer);
-                return new SuccessResult("Corporate customer has been modified");
+                return new SuccessResult(UpdateMessages.corporateCustomerModified);
         }
 
         @Override
@@ -92,36 +98,36 @@ public class CorporateCustomerManager implements CorporateCustomerService {
                                                 GetAllCorporateCustomerResponse.class))
                                 .toList();
                 return new SuccessDataResult<List<GetAllCorporateCustomerResponse>>(returnList,
-                                "Corporate customers listed");
+                                GetListMessages.corporateCustomersListed);
         }
 
         @Override
         public DataResult<GetByIdCorporateCustomerResponse> getById(int id) {
                 CorporateCustomer inDbCorporateCustomer = corporateCustomerRepository.findById(id)
-                                .orElseThrow(() -> new BusinessException("Id not found!"));
+                                .orElseThrow(() -> new BusinessException(ErrorMessages.idNotFound));
                 GetByIdCorporateCustomerResponse returnObj = mapperService.getModelMapper()
                                 .map(inDbCorporateCustomer, GetByIdCorporateCustomerResponse.class);
                 return new SuccessDataResult<GetByIdCorporateCustomerResponse>(returnObj,
-                                "Corporate customer listed by chosen id");
+                                GetByIdMessages.corporateCustomerListed);
         }
 
         private Result isExistEmail(String email) {
                 if (userService.existByEmail(email)) {
-                        throw new BusinessException("Email address can not be repeat!");
+                        throw new BusinessException(ErrorMessages.emailRepeated);
                 }
                 return new SuccessResult();
         }
 
         private Result isExistTaxNumber(String taxNumber) {
                 if (corporateCustomerRepository.existsByTaxNumber(taxNumber)) {
-                        throw new BusinessException("Tax number can not be repeat!");
+                        throw new BusinessException(ErrorMessages.taxNumberRepeated);
                 }
                 return new SuccessResult();
         }
 
         private Result isExistId(int id) {
                 if (!userService.existById(id)) {
-                        throw new BusinessException("Id is not found on DB!");
+                        throw new BusinessException(ErrorMessages.idNotFound);
                 }
                 return new SuccessResult();
         }

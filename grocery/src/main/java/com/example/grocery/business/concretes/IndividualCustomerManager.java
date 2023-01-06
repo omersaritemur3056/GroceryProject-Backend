@@ -8,6 +8,12 @@ import org.springframework.stereotype.Service;
 
 import com.example.grocery.business.abstracts.IndividualCustomerService;
 import com.example.grocery.business.abstracts.UserService;
+import com.example.grocery.business.constants.Messages.CreateMessages;
+import com.example.grocery.business.constants.Messages.DeleteMessages;
+import com.example.grocery.business.constants.Messages.ErrorMessages;
+import com.example.grocery.business.constants.Messages.GetByIdMessages;
+import com.example.grocery.business.constants.Messages.GetListMessages;
+import com.example.grocery.business.constants.Messages.UpdateMessages;
 import com.example.grocery.core.utilities.business.BusinessRules;
 import com.example.grocery.core.utilities.exceptions.BusinessException;
 import com.example.grocery.core.utilities.mapper.MapperService;
@@ -52,7 +58,7 @@ public class IndividualCustomerManager implements IndividualCustomerService {
                 log.info("added individual customer: {} {} logged to file!",
                                 createIndividualCustomerRequest.getFirstName(),
                                 createIndividualCustomerRequest.getLastName());
-                return new SuccessResult("Individual customer saved in DB");
+                return new SuccessResult(CreateMessages.individualCustomerCreated);
         }
 
         @Override
@@ -65,11 +71,11 @@ public class IndividualCustomerManager implements IndividualCustomerService {
                                 IndividualCustomer.class);
                 IndividualCustomer logForIndividual = individualCustomerRepository
                                 .findById(deleteIndividualCustomerRequest.getId())
-                                .orElseThrow(() -> new BusinessException("Id not found!"));
+                                .orElseThrow(() -> new BusinessException(ErrorMessages.idNotFound));
                 log.info("deleted individual customer: {} {} logged to file!", logForIndividual.getFirstName(),
                                 logForIndividual.getLastName());
                 individualCustomerRepository.delete(individualCustomer);
-                return new SuccessResult("Individual customer removed from DB");
+                return new SuccessResult(DeleteMessages.individualCustomerDeleted);
         }
 
         @Override
@@ -82,7 +88,7 @@ public class IndividualCustomerManager implements IndividualCustomerService {
                                                 updateIndividualCustomerRequest.getLastName()));
 
                 IndividualCustomer inDbIndividualCustomer = individualCustomerRepository.findById(id)
-                                .orElseThrow(() -> new BusinessException("Id not found!"));
+                                .orElseThrow(() -> new BusinessException(ErrorMessages.idNotFound));
 
                 IndividualCustomer individualCustomer = mapperService.getModelMapper().map(
                                 updateIndividualCustomerRequest,
@@ -92,7 +98,7 @@ public class IndividualCustomerManager implements IndividualCustomerService {
                 log.info("modified individual customer: {} {} logged to file!",
                                 updateIndividualCustomerRequest.getFirstName(),
                                 updateIndividualCustomerRequest.getLastName());
-                return new SuccessResult("Individual customer has been modified");
+                return new SuccessResult(UpdateMessages.individualCustomerModified);
         }
 
         @Override
@@ -103,7 +109,7 @@ public class IndividualCustomerManager implements IndividualCustomerService {
                                                 GetAllIndividualCustomerResponse.class))
                                 .toList();
                 return new SuccessDataResult<List<GetAllIndividualCustomerResponse>>(returnList,
-                                "Individual customers listed");
+                                GetListMessages.individualCustomersListed);
         }
 
         @Override
@@ -114,26 +120,26 @@ public class IndividualCustomerManager implements IndividualCustomerService {
                                 inDbIndividualCustomer,
                                 GetByIdIndividualCustomerResponse.class);
                 return new SuccessDataResult<GetByIdIndividualCustomerResponse>(returnObj,
-                                "Individual customer listed by chosen id");
+                                GetByIdMessages.individualCustomerListed);
         }
 
         private Result isExistId(int id) {
                 if (!userService.existById(id)) {
-                        throw new BusinessException("Id is not found on DB!");
+                        throw new BusinessException(ErrorMessages.idNotFound);
                 }
                 return new SuccessResult();
         }
 
         private Result isExistEmail(String email) {
                 if (userService.existByEmail(email)) {
-                        throw new BusinessException("Email address can not be repeat!");
+                        throw new BusinessException(ErrorMessages.emailRepeated);
                 }
                 return new SuccessResult();
         }
 
         private Result isExistNationalId(String nationalId) {
                 if (individualCustomerRepository.existsByNationalIdentity(nationalId)) {
-                        throw new BusinessException("National Identity can not be repeated!");
+                        throw new BusinessException(ErrorMessages.nationalIdentityRepeated);
                 }
                 return new SuccessResult();
         }
@@ -141,7 +147,7 @@ public class IndividualCustomerManager implements IndividualCustomerService {
         private Result isValidPassword(String password, String firstName, String lastName) {
                 if (password.contains(firstName)
                                 || password.contains(lastName)) {
-                        throw new BusinessException("Password can not include firstname or lastname");
+                        throw new BusinessException(ErrorMessages.individualCustomerPasswordNotValid);
                 }
                 return new SuccessResult();
         }

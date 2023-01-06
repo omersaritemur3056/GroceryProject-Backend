@@ -10,7 +10,7 @@ public interface CategoryRepository extends JpaRepository<Category, Integer> {
 
     boolean existsById(int id);
 
-    boolean existsByName(String name);
+    boolean existsByNameIgnoreCase(String name);
 
     Optional<Category> findByName(String name);
 }

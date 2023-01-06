@@ -6,6 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.grocery.business.abstracts.CategoryService;
+import com.example.grocery.business.constants.Messages.CreateMessages;
+import com.example.grocery.business.constants.Messages.DeleteMessages;
+import com.example.grocery.business.constants.Messages.ErrorMessages;
+import com.example.grocery.business.constants.Messages.GetByIdMessages;
+import com.example.grocery.business.constants.Messages.GetListMessages;
+import com.example.grocery.business.constants.Messages.UpdateMessages;
 import com.example.grocery.core.utilities.business.BusinessRules;
 import com.example.grocery.core.utilities.exceptions.BusinessException;
 import com.example.grocery.core.utilities.mapper.MapperService;
@@ -41,7 +47,7 @@ public class CategoryManager implements CategoryService {
         Category category = mapperService.getModelMapper().map(createCategoryRequest, Category.class);
         categoryRepository.save(category);
         log.info("succeed category : {} logged to file!", createCategoryRequest.getName());
-        return new SuccessResult("Category saved on DB");
+        return new SuccessResult(CreateMessages.categoryCreated);
     }
 
     @Override
@@ -52,7 +58,7 @@ public class CategoryManager implements CategoryService {
         Category category = mapperService.getModelMapper().map(deleteCategoryRequest, Category.class);
         log.info("removed category: {} logged to file!", getCategoryById(deleteCategoryRequest.getId()).getName());
         categoryRepository.delete(category);
-        return new SuccessResult("Category deleted on DB");
+        return new SuccessResult(DeleteMessages.categoryDeleted);
     }
 
     @Override
@@ -60,12 +66,13 @@ public class CategoryManager implements CategoryService {
 
         Result rules = BusinessRules.run(isExistName(updateCategoryRequest.getName()), isExistId(id));
 
-        var inDbCategory = categoryRepository.findById(id).orElseThrow(() -> new BusinessException("Id not found!"));
+        var inDbCategory = categoryRepository.findById(id)
+                .orElseThrow(() -> new BusinessException(ErrorMessages.idNotFound));
         Category category = mapperService.getModelMapper().map(updateCategoryRequest, Category.class);
         category.setId(inDbCategory.getId());
         categoryRepository.save(category);
         log.info("modified category : {} logged to file!", updateCategoryRequest.getName());
-        return new SuccessResult("Category has been modified");
+        return new SuccessResult(UpdateMessages.categoryModified);
     }
 
     @Override
@@ -74,36 +81,38 @@ public class CategoryManager implements CategoryService {
         List<GetAllCategoryResponse> returnList = categories.stream()
                 .map(c -> mapperService.getModelMapper().map(c, GetAllCategoryResponse.class)).toList();
 
-        return new SuccessDataResult<>(returnList, "categories listed");
+        return new SuccessDataResult<>(returnList, GetListMessages.categoriesListed);
     }
 
     @Override
     public DataResult<GetByIdCategoryResponse> getById(int id) {
-        Category category = categoryRepository.findById(id).orElseThrow(() -> new BusinessException("Id not found!"));
+        Category category = categoryRepository.findById(id)
+                .orElseThrow(() -> new BusinessException(ErrorMessages.idNotFound));
         GetByIdCategoryResponse getByIdCategoryResponse = mapperService.getModelMapper().map(category,
                 GetByIdCategoryResponse.class);
-        return new SuccessDataResult<>(getByIdCategoryResponse, "Category is found by id");
+        return new SuccessDataResult<>(getByIdCategoryResponse, GetByIdMessages.categoryListed);
     }
 
     // ProductManager sınıfımızda bağımlılığı kontrol altına alma adına kullanılmak
     // üzere tasarlandı.
     public Category getCategoryById(int id) {
-        return categoryRepository.findById(id).orElseThrow(() -> new BusinessException("Category id not found!"));
+        return categoryRepository.findById(id)
+                .orElseThrow(() -> new BusinessException(ErrorMessages.categoryIdNotFound));
     }
 
     private Result isExistId(int id) {
         if (!categoryRepository.existsById(id)) {
-            log.error("Category id could not saved!", new BusinessException("Category id could not found!"));
-            throw new BusinessException("Id was not found on DB!");
+            log.error("Category id could not saved!");
+            throw new BusinessException(ErrorMessages.idNotFound);
         }
         return new SuccessResult();
     }
 
     private Result isExistName(String name) {
-        if (categoryRepository.existsByName(name)) {
+        if (categoryRepository.existsByNameIgnoreCase(name)) {
             // update ve create için ayrı ve anlamlı bir log yaz.
             log.error("category name: {} couldn't saved", name);
-            throw new BusinessException("Category name can not be repeated!");
+            throw new BusinessException(ErrorMessages.categoryNameRepeated);
         }
         return new SuccessResult();
     }

@@ -6,5 +6,5 @@ import com.example.grocery.entity.concretes.Producer;
 
 public interface ProducerRepository extends JpaRepository<Producer, Integer> {
 
-    boolean existsByName(String name);
+    boolean existsByNameIgnoreCase(String name);
 }

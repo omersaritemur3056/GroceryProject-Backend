@@ -8,6 +8,12 @@ import org.springframework.stereotype.Service;
 
 import com.example.grocery.business.abstracts.EmployeeService;
 import com.example.grocery.business.abstracts.UserService;
+import com.example.grocery.business.constants.Messages.CreateMessages;
+import com.example.grocery.business.constants.Messages.DeleteMessages;
+import com.example.grocery.business.constants.Messages.ErrorMessages;
+import com.example.grocery.business.constants.Messages.GetByIdMessages;
+import com.example.grocery.business.constants.Messages.GetListMessages;
+import com.example.grocery.business.constants.Messages.UpdateMessages;
 import com.example.grocery.core.utilities.business.BusinessRules;
 import com.example.grocery.core.utilities.exceptions.BusinessException;
 import com.example.grocery.core.utilities.mapper.MapperService;
@@ -38,7 +44,7 @@ public class EmployeeManager implements EmployeeService {
 
     @Override
     public Result add(CreateEmployeeRequest createEmployeeRequest) {
-        // asgari ücretin altında salary olamaz
+        // asgari ücretin altında salary olamaz eklenebilir...
         Result rules = BusinessRules.run(isExistEmail(createEmployeeRequest.getEmail()),
                 isExistNationalId(createEmployeeRequest.getNationalIdentity()),
                 isPermissibleAge(createEmployeeRequest.getYearOfBirth()),
@@ -49,7 +55,7 @@ public class EmployeeManager implements EmployeeService {
         employeeRepository.save(employee);
         log.info("added employee: {} {} logged to file!", createEmployeeRequest.getFirstName(),
                 createEmployeeRequest.getLastName());
-        return new SuccessResult("Employee saved in DB");
+        return new SuccessResult(CreateMessages.employeeCreated);
     }
 
     @Override
@@ -59,11 +65,11 @@ public class EmployeeManager implements EmployeeService {
 
         Employee employee = mapperService.getModelMapper().map(deleteEmployeeRequest, Employee.class);
         Employee employeeForLog = employeeRepository.findById(deleteEmployeeRequest.getId())
-                .orElseThrow(() -> new BusinessException("Id not found!"));
+                .orElseThrow(() -> new BusinessException(ErrorMessages.idNotFound));
         log.info("deleted employee: {} {} logged to file!", employeeForLog.getFirstName(),
                 employeeForLog.getLastName());
         employeeRepository.delete(employee);
-        return new SuccessResult("Employee deleted from DB");
+        return new SuccessResult(DeleteMessages.employeeDeleted);
     }
 
     @Override
@@ -77,14 +83,14 @@ public class EmployeeManager implements EmployeeService {
                 isExistId(id));
 
         Employee inDbEmployee = employeeRepository.findById(id)
-                .orElseThrow(() -> new BusinessException("Id not found!"));
+                .orElseThrow(() -> new BusinessException(ErrorMessages.idNotFound));
 
         Employee employee = mapperService.getModelMapper().map(updateEmployeeRequest, Employee.class);
         employee.setId(inDbEmployee.getId());
         employeeRepository.save(employee);
         log.info("modified employee: {} {} logged to file!", updateEmployeeRequest.getFirstName(),
                 updateEmployeeRequest.getLastName());
-        return new SuccessResult("Employee has been modified.");
+        return new SuccessResult(UpdateMessages.employeeModified);
     }
 
     @Override
@@ -92,44 +98,42 @@ public class EmployeeManager implements EmployeeService {
         List<Employee> employeeList = employeeRepository.findAll();
         List<GetAllEmployeeResponse> returnList = employeeList.stream()
                 .map(e -> mapperService.getModelMapper().map(e, GetAllEmployeeResponse.class)).toList();
-        return new SuccessDataResult<List<GetAllEmployeeResponse>>(returnList, "Employees listed");
+        return new SuccessDataResult<List<GetAllEmployeeResponse>>(returnList, GetListMessages.employeesListed);
     }
 
     @Override
     public DataResult<GetByIdEmployeeResponse> getById(int id) {
         Employee inDbEmployee = employeeRepository.findById(id)
-                .orElseThrow(() -> new BusinessException("Id not found!"));
+                .orElseThrow(() -> new BusinessException(ErrorMessages.idNotFound));
         GetByIdEmployeeResponse returnObj = mapperService.getModelMapper().map(inDbEmployee,
                 GetByIdEmployeeResponse.class);
-        // returnObj.setId(inDbEmployee.getId());
-        return new SuccessDataResult<GetByIdEmployeeResponse>(returnObj, "Employee listed by chosen id");
+        return new SuccessDataResult<GetByIdEmployeeResponse>(returnObj, GetByIdMessages.employeeListed);
     }
 
     private Result isExistId(int id) {
         if (!userService.existById(id)) {
-            throw new BusinessException("Id is not found on DB!");
+            throw new BusinessException(ErrorMessages.idNotFound);
         }
         return new SuccessResult();
     }
 
     private Result isExistEmail(String email) {
         if (userService.existByEmail(email)) {
-            throw new BusinessException("Email address can not be repeat!");
+            throw new BusinessException(ErrorMessages.emailRepeated);
         }
         return new SuccessResult();
     }
 
     private Result isExistNationalId(String nationalId) {
         if (employeeRepository.existsByNationalIdentity(nationalId)) {
-            throw new BusinessException("National Identity can not be repeated!");
+            throw new BusinessException(ErrorMessages.nationalIdentityRepeated);
         }
         return new SuccessResult();
     }
 
     private Result isPermissibleAge(LocalDate birthYear) {
         if (LocalDate.now().getYear() - birthYear.getYear() < 18) {
-            throw new BusinessException("Employer must be older than 18!");// bunu geliştir yaş 60tan büyükler olmasın
-                                                                           // ve ayrıca gün ve ay kısmını doğru ayarla
+            throw new BusinessException(ErrorMessages.ageNotPermissible);
         }
         return new SuccessResult();
     }
@@ -138,7 +142,7 @@ public class EmployeeManager implements EmployeeService {
         if (password.contains(firstName)
                 || password.contains(lastName)
                 || password.contains(String.valueOf(birthDay.getYear()))) {
-            throw new BusinessException("Password can not include firstname, lastname or year of birth");
+            throw new BusinessException(ErrorMessages.employeePasswordNotValid);
         }
         return new SuccessResult();
     }

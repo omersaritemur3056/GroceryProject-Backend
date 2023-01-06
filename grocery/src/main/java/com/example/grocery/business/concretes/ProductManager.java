@@ -11,6 +11,12 @@ import com.example.grocery.business.abstracts.CategoryService;
 import com.example.grocery.business.abstracts.ProducerService;
 import com.example.grocery.business.abstracts.ProductService;
 import com.example.grocery.business.abstracts.SupplierService;
+import com.example.grocery.business.constants.Messages.CreateMessages;
+import com.example.grocery.business.constants.Messages.DeleteMessages;
+import com.example.grocery.business.constants.Messages.ErrorMessages;
+import com.example.grocery.business.constants.Messages.GetByIdMessages;
+import com.example.grocery.business.constants.Messages.GetListMessages;
+import com.example.grocery.business.constants.Messages.UpdateMessages;
 import com.example.grocery.core.utilities.business.BusinessRules;
 import com.example.grocery.core.utilities.exceptions.BusinessException;
 import com.example.grocery.core.utilities.mapper.MapperService;
@@ -55,13 +61,14 @@ public class ProductManager implements ProductService {
         addProduct.setSupplier(supplierService.getSupplierById(createProductRequest.getSupplierId()));
         productRepository.save((addProduct));
         log.info("added product: {} logged to file!", createProductRequest.getName());
-        return new SuccessResult("Product added.");
+        return new SuccessResult(CreateMessages.productCreated);
     }
 
     @Override
     public Result update(UpdateProductRequest updateProductRequest, int id) {
 
-        Product inDbProduct = productRepository.findById(id).orElseThrow(() -> new BusinessException("Id not found!"));
+        Product inDbProduct = productRepository.findById(id)
+                .orElseThrow(() -> new BusinessException(ErrorMessages.idNotFound));
 
         Result rules = BusinessRules.run(isExistName(updateProductRequest.getName()), isExistId(id),
                 isExistCategoryId(updateProductRequest.getCategoryId()),
@@ -76,7 +83,7 @@ public class ProductManager implements ProductService {
         log.info("modified product : {} logged to file!", updateProductRequest.getName());
         productRepository.save(product);
 
-        return new SuccessResult("Product modified.");
+        return new SuccessResult(UpdateMessages.productModified);
     }
 
     @Override
@@ -88,11 +95,11 @@ public class ProductManager implements ProductService {
         Product product = mapperService.getModelMapper().map(deleteProductRequest, Product.class);
 
         Product productForLog = productRepository.findById(deleteProductRequest.getId())
-                .orElseThrow(() -> new BusinessException("Id not found!"));
+                .orElseThrow(() -> new BusinessException(ErrorMessages.idNotFound));
         log.info("removed product: {} logged to file!", productForLog.getName());
         productRepository.delete(product);
 
-        return new SuccessResult("Product has been deleted.");
+        return new SuccessResult(DeleteMessages.productDeleted);
     }
 
     @Override
@@ -108,24 +115,19 @@ public class ProductManager implements ProductService {
             addFields.setSupplierId(product1.getSupplier().getId());
             returnList.add(addFields);
         }
-        return new SuccessDataResult<List<GetAllProductResponse>>(returnList, "Products listed.");
+        return new SuccessDataResult<List<GetAllProductResponse>>(returnList, GetListMessages.productsListed);
     }
 
     @Override
     public DataResult<GetByIdProductResponse> getById(int id) {
-        Product product = productRepository.findById(id).orElseThrow(() -> new BusinessException("Id not found!"));
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new BusinessException(ErrorMessages.idNotFound));
         GetByIdProductResponse getByIdProductResponse = mapperService.getModelMapper().map(product,
                 GetByIdProductResponse.class);
         getByIdProductResponse.setCategoryId(product.getCategory().getId());
         getByIdProductResponse.setProducerId(product.getProducer().getId());
         getByIdProductResponse.setSupplierId(product.getSupplier().getId());
-        return new SuccessDataResult<>(getByIdProductResponse, "Product listed");
-    }
-
-    // yorum bekle...
-    private Product updateCategory(Product product, int id) {
-        product.setCategory(categoryService.getCategoryById(id));
-        return product;
+        return new SuccessDataResult<>(getByIdProductResponse, GetByIdMessages.productListed);
     }
 
     private void removeExpiratedProduct() {
@@ -138,36 +140,36 @@ public class ProductManager implements ProductService {
 
     private Result isExistId(int id) {
         if (!productRepository.existsById(id)) {
-            throw new BusinessException("Id not found!");
+            throw new BusinessException(ErrorMessages.idNotFound);
         }
         return new SuccessResult();
     }
 
     private Result isExistName(String name) {
-        if (productRepository.existsByName(name)) {
+        if (productRepository.existsByNameIgnoreCase(name)) {
             log.error("product name: {} couldn't saved", name);
-            throw new BusinessException("Product name can not be repeated!");
+            throw new BusinessException(ErrorMessages.productNameRepeated);
         }
         return new SuccessResult();
     }
 
     private Result isExistCategoryId(int categoryId) {
         if (categoryService.getCategoryById(categoryId) == null) {
-            throw new BusinessException("Category id not found!");
+            throw new BusinessException(ErrorMessages.categoryIdNotFound);
         }
         return new SuccessResult();
     }
 
     private Result isExistSupplierId(int supplierId) {
         if (supplierService.getSupplierById(supplierId) == null) {
-            throw new BusinessException("Supplier id not found!");
+            throw new BusinessException(ErrorMessages.supplierIdNotFound);
         }
         return new SuccessResult();
     }
 
     private Result isExistProducerId(int producerId) {
         if (producerService.getProducerById(producerId) == null) {
-            throw new BusinessException("Producer id not found!");
+            throw new BusinessException(ErrorMessages.producerIdNotFound);
         }
         return new SuccessResult();
     }
