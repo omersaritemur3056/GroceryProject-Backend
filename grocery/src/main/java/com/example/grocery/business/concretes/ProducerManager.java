@@ -46,7 +46,7 @@ public class ProducerManager implements ProducerService {
         Producer producer = mapperService.getModelMapper().map(createProducerRequest, Producer.class);
         producerRepository.save(producer);
         log.info("succeed producer : {} logged to file!", createProducerRequest.getName());
-        return new SuccessResult(CreateMessages.producerCreated);
+        return new SuccessResult(CreateMessages.PRODUCER_CREATED);
     }
 
     @Override
@@ -55,12 +55,12 @@ public class ProducerManager implements ProducerService {
         Result rules = BusinessRules.run(isExistId(id), isExistName(updateProducerRequest.getName()));
 
         var inDbProducer = producerRepository.findById(id)
-                .orElseThrow(() -> new BusinessException(ErrorMessages.idNotFound));
+                .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
         Producer producer = mapperService.getModelMapper().map(updateProducerRequest, Producer.class);
         producer.setId(inDbProducer.getId());
         producerRepository.save(producer);
         log.info("modified producer : {} logged to file!", updateProducerRequest.getName());
-        return new SuccessResult(UpdateMessages.producerModified);
+        return new SuccessResult(UpdateMessages.PRODUCER_MODIFIED);
     }
 
     @Override
@@ -71,7 +71,7 @@ public class ProducerManager implements ProducerService {
         Producer producer = mapperService.getModelMapper().map(deleteProducerRequest, Producer.class);
         log.info("removed producer: {} logged to file!", getProducerById(deleteProducerRequest.getId()).getName());
         producerRepository.delete(producer);
-        return new SuccessResult(DeleteMessages.producerDeleted);
+        return new SuccessResult(DeleteMessages.PRODUCER_DELETED);
     }
 
     @Override
@@ -79,35 +79,35 @@ public class ProducerManager implements ProducerService {
         List<Producer> producers = producerRepository.findAll();
         List<GetAllProducerResponse> returnList = producers.stream()
                 .map(p -> mapperService.getModelMapper().map(p, GetAllProducerResponse.class)).toList();
-        return new SuccessDataResult<>(returnList, GetListMessages.producersListed);
+        return new SuccessDataResult<>(returnList, GetListMessages.PRODUCERS_LISTED);
     }
 
     @Override
     public DataResult<GetByIdProducerResponse> getById(int id) {
         Producer producer = producerRepository.findById(id)
-                .orElseThrow(() -> new BusinessException(ErrorMessages.idNotFound));
+                .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
         GetByIdProducerResponse getByIdProducerResponse = mapperService.getModelMapper().map(producer,
                 GetByIdProducerResponse.class);
-        return new SuccessDataResult<>(getByIdProducerResponse, GetByIdMessages.producerListed);
+        return new SuccessDataResult<>(getByIdProducerResponse, GetByIdMessages.PRODUCER_LISTED);
     }
 
     // ProductManager sınıfımızda bağımlılığı kontrol altına alma adına kullanılmak
     // üzere tasarlandı.
     public Producer getProducerById(int id) {
         return producerRepository.findById(id)
-                .orElseThrow(() -> new BusinessException(ErrorMessages.producerIdNotFound));
+                .orElseThrow(() -> new BusinessException(ErrorMessages.PRODUCER_ID_NOT_FOUND));
     }
 
     private Result isExistId(int id) {
         if (!producerRepository.existsById(id)) {
-            throw new BusinessException(ErrorMessages.idNotFound);
+            throw new BusinessException(ErrorMessages.ID_NOT_FOUND);
         }
         return new SuccessResult();
     }
 
     private Result isExistName(String name) {
         if (producerRepository.existsByNameIgnoreCase(name)) {
-            throw new BusinessException(ErrorMessages.producerNameRepeated);
+            throw new BusinessException(ErrorMessages.PRODUCER_NAME_REPEATED);
         }
         return new SuccessResult();
     }

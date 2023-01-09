@@ -47,7 +47,7 @@ public class CategoryManager implements CategoryService {
         Category category = mapperService.getModelMapper().map(createCategoryRequest, Category.class);
         categoryRepository.save(category);
         log.info("succeed category : {} logged to file!", createCategoryRequest.getName());
-        return new SuccessResult(CreateMessages.categoryCreated);
+        return new SuccessResult(CreateMessages.CATEGORY_CREATED);
     }
 
     @Override
@@ -58,7 +58,7 @@ public class CategoryManager implements CategoryService {
         Category category = mapperService.getModelMapper().map(deleteCategoryRequest, Category.class);
         log.info("removed category: {} logged to file!", getCategoryById(deleteCategoryRequest.getId()).getName());
         categoryRepository.delete(category);
-        return new SuccessResult(DeleteMessages.categoryDeleted);
+        return new SuccessResult(DeleteMessages.CATEGORY_DELETED);
     }
 
     @Override
@@ -67,12 +67,12 @@ public class CategoryManager implements CategoryService {
         Result rules = BusinessRules.run(isExistName(updateCategoryRequest.getName()), isExistId(id));
 
         var inDbCategory = categoryRepository.findById(id)
-                .orElseThrow(() -> new BusinessException(ErrorMessages.idNotFound));
+                .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
         Category category = mapperService.getModelMapper().map(updateCategoryRequest, Category.class);
         category.setId(inDbCategory.getId());
         categoryRepository.save(category);
         log.info("modified category : {} logged to file!", updateCategoryRequest.getName());
-        return new SuccessResult(UpdateMessages.categoryModified);
+        return new SuccessResult(UpdateMessages.CATEGORY_MODIFIED);
     }
 
     @Override
@@ -81,29 +81,29 @@ public class CategoryManager implements CategoryService {
         List<GetAllCategoryResponse> returnList = categories.stream()
                 .map(c -> mapperService.getModelMapper().map(c, GetAllCategoryResponse.class)).toList();
 
-        return new SuccessDataResult<>(returnList, GetListMessages.categoriesListed);
+        return new SuccessDataResult<>(returnList, GetListMessages.CATEGORIES_LISTED);
     }
 
     @Override
     public DataResult<GetByIdCategoryResponse> getById(int id) {
         Category category = categoryRepository.findById(id)
-                .orElseThrow(() -> new BusinessException(ErrorMessages.idNotFound));
+                .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
         GetByIdCategoryResponse getByIdCategoryResponse = mapperService.getModelMapper().map(category,
                 GetByIdCategoryResponse.class);
-        return new SuccessDataResult<>(getByIdCategoryResponse, GetByIdMessages.categoryListed);
+        return new SuccessDataResult<>(getByIdCategoryResponse, GetByIdMessages.CATEGORY_LISTED);
     }
 
     // ProductManager sınıfımızda bağımlılığı kontrol altına alma adına kullanılmak
     // üzere tasarlandı.
     public Category getCategoryById(int id) {
         return categoryRepository.findById(id)
-                .orElseThrow(() -> new BusinessException(ErrorMessages.categoryIdNotFound));
+                .orElseThrow(() -> new BusinessException(ErrorMessages.CATEGORY_ID_NOT_FOUND));
     }
 
     private Result isExistId(int id) {
         if (!categoryRepository.existsById(id)) {
             log.error("Category id could not saved!");
-            throw new BusinessException(ErrorMessages.idNotFound);
+            throw new BusinessException(ErrorMessages.ID_NOT_FOUND);
         }
         return new SuccessResult();
     }
@@ -112,7 +112,7 @@ public class CategoryManager implements CategoryService {
         if (categoryRepository.existsByNameIgnoreCase(name)) {
             // update ve create için ayrı ve anlamlı bir log yaz.
             log.error("category name: {} couldn't saved", name);
-            throw new BusinessException(ErrorMessages.categoryNameRepeated);
+            throw new BusinessException(ErrorMessages.CATEGORY_NAME_REPEATED);
         }
         return new SuccessResult();
     }

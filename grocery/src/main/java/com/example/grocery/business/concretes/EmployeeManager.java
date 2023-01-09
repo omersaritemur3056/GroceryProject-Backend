@@ -55,7 +55,7 @@ public class EmployeeManager implements EmployeeService {
         employeeRepository.save(employee);
         log.info("added employee: {} {} logged to file!", createEmployeeRequest.getFirstName(),
                 createEmployeeRequest.getLastName());
-        return new SuccessResult(CreateMessages.employeeCreated);
+        return new SuccessResult(CreateMessages.EMPLOYEE_CREATED);
     }
 
     @Override
@@ -65,11 +65,11 @@ public class EmployeeManager implements EmployeeService {
 
         Employee employee = mapperService.getModelMapper().map(deleteEmployeeRequest, Employee.class);
         Employee employeeForLog = employeeRepository.findById(deleteEmployeeRequest.getId())
-                .orElseThrow(() -> new BusinessException(ErrorMessages.idNotFound));
+                .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
         log.info("deleted employee: {} {} logged to file!", employeeForLog.getFirstName(),
                 employeeForLog.getLastName());
         employeeRepository.delete(employee);
-        return new SuccessResult(DeleteMessages.employeeDeleted);
+        return new SuccessResult(DeleteMessages.EMPLOYEE_DELETED);
     }
 
     @Override
@@ -83,14 +83,14 @@ public class EmployeeManager implements EmployeeService {
                 isExistId(id));
 
         Employee inDbEmployee = employeeRepository.findById(id)
-                .orElseThrow(() -> new BusinessException(ErrorMessages.idNotFound));
+                .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
 
         Employee employee = mapperService.getModelMapper().map(updateEmployeeRequest, Employee.class);
         employee.setId(inDbEmployee.getId());
         employeeRepository.save(employee);
         log.info("modified employee: {} {} logged to file!", updateEmployeeRequest.getFirstName(),
                 updateEmployeeRequest.getLastName());
-        return new SuccessResult(UpdateMessages.employeeModified);
+        return new SuccessResult(UpdateMessages.EMPLOYEE_MODIFIED);
     }
 
     @Override
@@ -98,42 +98,42 @@ public class EmployeeManager implements EmployeeService {
         List<Employee> employeeList = employeeRepository.findAll();
         List<GetAllEmployeeResponse> returnList = employeeList.stream()
                 .map(e -> mapperService.getModelMapper().map(e, GetAllEmployeeResponse.class)).toList();
-        return new SuccessDataResult<List<GetAllEmployeeResponse>>(returnList, GetListMessages.employeesListed);
+        return new SuccessDataResult<List<GetAllEmployeeResponse>>(returnList, GetListMessages.EMPLOYEES_LISTED);
     }
 
     @Override
     public DataResult<GetByIdEmployeeResponse> getById(int id) {
         Employee inDbEmployee = employeeRepository.findById(id)
-                .orElseThrow(() -> new BusinessException(ErrorMessages.idNotFound));
+                .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
         GetByIdEmployeeResponse returnObj = mapperService.getModelMapper().map(inDbEmployee,
                 GetByIdEmployeeResponse.class);
-        return new SuccessDataResult<GetByIdEmployeeResponse>(returnObj, GetByIdMessages.employeeListed);
+        return new SuccessDataResult<GetByIdEmployeeResponse>(returnObj, GetByIdMessages.EMPLOYEE_LISTED);
     }
 
     private Result isExistId(int id) {
         if (!userService.existById(id)) {
-            throw new BusinessException(ErrorMessages.idNotFound);
+            throw new BusinessException(ErrorMessages.ID_NOT_FOUND);
         }
         return new SuccessResult();
     }
 
     private Result isExistEmail(String email) {
         if (userService.existByEmail(email)) {
-            throw new BusinessException(ErrorMessages.emailRepeated);
+            throw new BusinessException(ErrorMessages.EMAIL_REPEATED);
         }
         return new SuccessResult();
     }
 
     private Result isExistNationalId(String nationalId) {
         if (employeeRepository.existsByNationalIdentity(nationalId)) {
-            throw new BusinessException(ErrorMessages.nationalIdentityRepeated);
+            throw new BusinessException(ErrorMessages.NATIONAL_IDENTITY_REPEATED);
         }
         return new SuccessResult();
     }
 
     private Result isPermissibleAge(LocalDate birthYear) {
         if (LocalDate.now().getYear() - birthYear.getYear() < 18) {
-            throw new BusinessException(ErrorMessages.ageNotPermissible);
+            throw new BusinessException(ErrorMessages.AGE_NOT_PERMISSIBLE);
         }
         return new SuccessResult();
     }
@@ -142,7 +142,7 @@ public class EmployeeManager implements EmployeeService {
         if (password.contains(firstName)
                 || password.contains(lastName)
                 || password.contains(String.valueOf(birthDay.getYear()))) {
-            throw new BusinessException(ErrorMessages.employeePasswordNotValid);
+            throw new BusinessException(ErrorMessages.EMPLOYEE_PASSWORD_NOT_VALID);
         }
         return new SuccessResult();
     }

@@ -1,13 +1,13 @@
 package com.example.grocery.webApi.requests.corporateCustomer;
 
+import java.time.LocalDateTime;
+
+import jakarta.persistence.Transient;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-
-// import javax.validation.constraints.NotBlank;
-// import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,6 +30,13 @@ public class UpdateCorporateCustomerRequest {
     @Size(min = 8, max = 15)
     @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,15}$")
     private String password;
+
+    @Transient
+    private LocalDateTime createdDateTime;
+
+    private LocalDateTime updatedDateTime = LocalDateTime.now();
+
+    private boolean isActive = true;
 
     @NotBlank
     @NotNull

@@ -31,15 +31,15 @@ public class CustomerManager implements CustomerService {
         List<Customer> inDbCustomers = customerRepository.findAll();
         List<GetAllCustomerResponse> returnList = inDbCustomers.stream()
                 .map(c -> mapperService.getModelMapper().map(c, GetAllCustomerResponse.class)).toList();
-        return new SuccessDataResult<List<GetAllCustomerResponse>>(returnList, GetListMessages.customersListed);
+        return new SuccessDataResult<List<GetAllCustomerResponse>>(returnList, GetListMessages.CUSTOMERS_LISTED);
     }
 
     @Override
     public DataResult<GetByIdCustomerResponse> getById(int id) {
         Customer inDbCustomer = customerRepository.findById(id)
-                .orElseThrow(() -> new BusinessException(ErrorMessages.idNotFound));
+                .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
         GetByIdCustomerResponse returnObj = mapperService.getModelMapper().map(inDbCustomer,
                 GetByIdCustomerResponse.class);
-        return new SuccessDataResult<GetByIdCustomerResponse>(returnObj, GetByIdMessages.customerListed);
+        return new SuccessDataResult<GetByIdCustomerResponse>(returnObj, GetByIdMessages.CUSTOMER_LISTED);
     }
 }

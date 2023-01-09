@@ -32,14 +32,15 @@ public class UserManager implements UserService {
         List<User> userList = userRepository.findAll();
         List<GetAllUserResponse> returnList = userList.stream()
                 .map(u -> mapperService.getModelMapper().map(u, GetAllUserResponse.class)).toList();
-        return new SuccessDataResult<>(returnList, GetListMessages.usersListed);
+        return new SuccessDataResult<>(returnList, GetListMessages.USERS_LISTED);
     }
 
     @Override
     public DataResult<GetByIdUserResponse> getById(int id) {
-        User inDbUser = userRepository.findById(id).orElseThrow(() -> new BusinessException(ErrorMessages.idNotFound));
+        User inDbUser = userRepository.findById(id)
+                .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
         GetByIdUserResponse returnObj = mapperService.getModelMapper().map(inDbUser, GetByIdUserResponse.class);
-        return new SuccessDataResult<>(returnObj, GetByIdMessages.userListed);
+        return new SuccessDataResult<>(returnObj, GetByIdMessages.USER_LISTED);
     }
 
     @Override

@@ -48,7 +48,7 @@ public class SupplierManager implements SupplierService {
         Supplier supplier = mapperService.getModelMapper().map(createSupplierRequest, Supplier.class);
         supplierRepository.save(supplier);
         log.info("succeed supplier : {} logged to file!", createSupplierRequest.getName());
-        return new SuccessResult(CreateMessages.supplierCreated);
+        return new SuccessResult(CreateMessages.SUPPLIER_CREATED);
     }
 
     @Override
@@ -60,12 +60,12 @@ public class SupplierManager implements SupplierService {
                 isExistId(id));
 
         var inDbSupplier = supplierRepository.findById(id)
-                .orElseThrow(() -> new BusinessException(ErrorMessages.idNotFound));
+                .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
         Supplier supplier = mapperService.getModelMapper().map(updateSupplierRequest, Supplier.class);
         supplier.setId(inDbSupplier.getId());
         supplierRepository.save(supplier);
         log.info("modified supplier : {} logged to file!", updateSupplierRequest.getName());
-        return new SuccessResult(UpdateMessages.supplierModified);
+        return new SuccessResult(UpdateMessages.SUPPLIER_MODIFIED);
     }
 
     @Override
@@ -76,7 +76,7 @@ public class SupplierManager implements SupplierService {
         Supplier supplier = mapperService.getModelMapper().map(deleteSupplierRequest, Supplier.class);
         log.info("removed supplier: {} logged to file!", getSupplierById(deleteSupplierRequest.getId()).getName());
         supplierRepository.delete(supplier);
-        return new SuccessResult(DeleteMessages.supplierDeleted);
+        return new SuccessResult(DeleteMessages.SUPPLIER_DELETED);
     }
 
     @Override
@@ -84,49 +84,49 @@ public class SupplierManager implements SupplierService {
         List<Supplier> suppliers = supplierRepository.findAll();
         List<GetAllSupplierResponse> returnList = suppliers.stream()
                 .map(s -> mapperService.getModelMapper().map(s, GetAllSupplierResponse.class)).toList();
-        return new SuccessDataResult<>(returnList, GetListMessages.suppliersListed);
+        return new SuccessDataResult<>(returnList, GetListMessages.SUPPLIERS_LISTED);
     }
 
     @Override
     public DataResult<GetByIdSupplierResponse> getById(int id) {
         Supplier supplier = supplierRepository.findById(id)
-                .orElseThrow(() -> new BusinessException(ErrorMessages.idNotFound));
+                .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
         GetByIdSupplierResponse getByIdSupplierResponse = mapperService.getModelMapper().map(supplier,
                 GetByIdSupplierResponse.class);
-        return new SuccessDataResult<>(getByIdSupplierResponse, GetByIdMessages.supplierListed);
+        return new SuccessDataResult<>(getByIdSupplierResponse, GetByIdMessages.SUPPLIER_LISTED);
     }
 
     // ProductManager sınıfımızda bağımlılığı kontrol altına alma adına kullanılmak
     // üzere tasarlandı.
     public Supplier getSupplierById(int id) {
         return supplierRepository.findById(id)
-                .orElseThrow(() -> new BusinessException(ErrorMessages.supplierIdNotFound));
+                .orElseThrow(() -> new BusinessException(ErrorMessages.SUPPLIER_ID_NOT_FOUND));
     }
 
     private Result isExistId(int id) {
         if (!supplierRepository.existsById(id)) {
-            throw new BusinessException(ErrorMessages.idNotFound);
+            throw new BusinessException(ErrorMessages.ID_NOT_FOUND);
         }
         return new SuccessResult();
     }
 
     private Result isExistName(String name) {
         if (supplierRepository.existsByName(name)) {
-            throw new BusinessException(ErrorMessages.supplierNameRepeated);
+            throw new BusinessException(ErrorMessages.SUPPLIER_NAME_REPEATED);
         }
         return new SuccessResult();
     }
 
     private Result isExistEmail(String email) {
         if (supplierRepository.existsByEmail(email)) {
-            throw new BusinessException(ErrorMessages.emailRepeated);
+            throw new BusinessException(ErrorMessages.EMAIL_REPEATED);
         }
         return new SuccessResult();
     }
 
     private Result isExistPhoneNumber(String phoneNumber) {
         if (supplierRepository.existsByPhoneNumber(phoneNumber)) {
-            throw new BusinessException(ErrorMessages.phoneNumberRepeated);
+            throw new BusinessException(ErrorMessages.PHONE_NUMBER_REPEATED);
         }
         return new SuccessResult();
     }

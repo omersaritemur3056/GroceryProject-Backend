@@ -61,14 +61,14 @@ public class ProductManager implements ProductService {
         addProduct.setSupplier(supplierService.getSupplierById(createProductRequest.getSupplierId()));
         productRepository.save((addProduct));
         log.info("added product: {} logged to file!", createProductRequest.getName());
-        return new SuccessResult(CreateMessages.productCreated);
+        return new SuccessResult(CreateMessages.PRODUCT_CREATED);
     }
 
     @Override
     public Result update(UpdateProductRequest updateProductRequest, int id) {
 
         Product inDbProduct = productRepository.findById(id)
-                .orElseThrow(() -> new BusinessException(ErrorMessages.idNotFound));
+                .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
 
         Result rules = BusinessRules.run(isExistName(updateProductRequest.getName()), isExistId(id),
                 isExistCategoryId(updateProductRequest.getCategoryId()),
@@ -83,7 +83,7 @@ public class ProductManager implements ProductService {
         log.info("modified product : {} logged to file!", updateProductRequest.getName());
         productRepository.save(product);
 
-        return new SuccessResult(UpdateMessages.productModified);
+        return new SuccessResult(UpdateMessages.PRODUCT_MODIFIED);
     }
 
     @Override
@@ -95,11 +95,11 @@ public class ProductManager implements ProductService {
         Product product = mapperService.getModelMapper().map(deleteProductRequest, Product.class);
 
         Product productForLog = productRepository.findById(deleteProductRequest.getId())
-                .orElseThrow(() -> new BusinessException(ErrorMessages.idNotFound));
+                .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
         log.info("removed product: {} logged to file!", productForLog.getName());
         productRepository.delete(product);
 
-        return new SuccessResult(DeleteMessages.productDeleted);
+        return new SuccessResult(DeleteMessages.PRODUCT_DELETED);
     }
 
     @Override
@@ -115,19 +115,19 @@ public class ProductManager implements ProductService {
             addFields.setSupplierId(product1.getSupplier().getId());
             returnList.add(addFields);
         }
-        return new SuccessDataResult<List<GetAllProductResponse>>(returnList, GetListMessages.productsListed);
+        return new SuccessDataResult<List<GetAllProductResponse>>(returnList, GetListMessages.PRODUCTS_LISTED);
     }
 
     @Override
     public DataResult<GetByIdProductResponse> getById(int id) {
         Product product = productRepository.findById(id)
-                .orElseThrow(() -> new BusinessException(ErrorMessages.idNotFound));
+                .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
         GetByIdProductResponse getByIdProductResponse = mapperService.getModelMapper().map(product,
                 GetByIdProductResponse.class);
         getByIdProductResponse.setCategoryId(product.getCategory().getId());
         getByIdProductResponse.setProducerId(product.getProducer().getId());
         getByIdProductResponse.setSupplierId(product.getSupplier().getId());
-        return new SuccessDataResult<>(getByIdProductResponse, GetByIdMessages.productListed);
+        return new SuccessDataResult<>(getByIdProductResponse, GetByIdMessages.PRODUCT_LISTED);
     }
 
     private void removeExpiratedProduct() {
@@ -140,7 +140,7 @@ public class ProductManager implements ProductService {
 
     private Result isExistId(int id) {
         if (!productRepository.existsById(id)) {
-            throw new BusinessException(ErrorMessages.idNotFound);
+            throw new BusinessException(ErrorMessages.ID_NOT_FOUND);
         }
         return new SuccessResult();
     }
@@ -148,28 +148,28 @@ public class ProductManager implements ProductService {
     private Result isExistName(String name) {
         if (productRepository.existsByNameIgnoreCase(name)) {
             log.error("product name: {} couldn't saved", name);
-            throw new BusinessException(ErrorMessages.productNameRepeated);
+            throw new BusinessException(ErrorMessages.PRODUCER_NAME_REPEATED);
         }
         return new SuccessResult();
     }
 
     private Result isExistCategoryId(int categoryId) {
         if (categoryService.getCategoryById(categoryId) == null) {
-            throw new BusinessException(ErrorMessages.categoryIdNotFound);
+            throw new BusinessException(ErrorMessages.CATEGORY_ID_NOT_FOUND);
         }
         return new SuccessResult();
     }
 
     private Result isExistSupplierId(int supplierId) {
         if (supplierService.getSupplierById(supplierId) == null) {
-            throw new BusinessException(ErrorMessages.supplierIdNotFound);
+            throw new BusinessException(ErrorMessages.SUPPLIER_ID_NOT_FOUND);
         }
         return new SuccessResult();
     }
 
     private Result isExistProducerId(int producerId) {
         if (producerService.getProducerById(producerId) == null) {
-            throw new BusinessException(ErrorMessages.producerIdNotFound);
+            throw new BusinessException(ErrorMessages.PRODUCER_ID_NOT_FOUND);
         }
         return new SuccessResult();
     }

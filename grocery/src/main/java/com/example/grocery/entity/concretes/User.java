@@ -1,5 +1,7 @@
 package com.example.grocery.entity.concretes;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -8,15 +10,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.Table;
-
-// import javax.persistence.Column;
-// import javax.persistence.Entity;
-// import javax.persistence.GeneratedValue;
-// import javax.persistence.GenerationType;
-// import javax.persistence.Id;
-// import javax.persistence.Inheritance;
-// import javax.persistence.InheritanceType;
-// import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -43,5 +36,14 @@ public class User {
 
     @Column(name = "password")
     private String password;
+
+    @Column(name = "created_date_time", nullable = false)
+    private LocalDateTime createdDateTime;
+
+    @Column(name = "updated_date_time")
+    private LocalDateTime updatedDateTime;
+
+    @Column(name = "is_active")
+    private boolean isActive;
 
 }

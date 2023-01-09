@@ -1,6 +1,7 @@
 package com.example.grocery.webApi.responses.employee;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,6 +19,12 @@ public class GetByIdEmployeeResponse {
     private String email;
 
     private String password;
+
+    private LocalDateTime createdDateTime;
+
+    private LocalDateTime updatedDateTime;
+
+    private boolean isActive;
 
     private String firstName;
 

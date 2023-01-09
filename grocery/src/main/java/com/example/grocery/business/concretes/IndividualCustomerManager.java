@@ -58,7 +58,7 @@ public class IndividualCustomerManager implements IndividualCustomerService {
                 log.info("added individual customer: {} {} logged to file!",
                                 createIndividualCustomerRequest.getFirstName(),
                                 createIndividualCustomerRequest.getLastName());
-                return new SuccessResult(CreateMessages.individualCustomerCreated);
+                return new SuccessResult(CreateMessages.INDIVIDUAL_CUSTOMER_CREATED);
         }
 
         @Override
@@ -71,11 +71,11 @@ public class IndividualCustomerManager implements IndividualCustomerService {
                                 IndividualCustomer.class);
                 IndividualCustomer logForIndividual = individualCustomerRepository
                                 .findById(deleteIndividualCustomerRequest.getId())
-                                .orElseThrow(() -> new BusinessException(ErrorMessages.idNotFound));
+                                .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
                 log.info("deleted individual customer: {} {} logged to file!", logForIndividual.getFirstName(),
                                 logForIndividual.getLastName());
                 individualCustomerRepository.delete(individualCustomer);
-                return new SuccessResult(DeleteMessages.individualCustomerDeleted);
+                return new SuccessResult(DeleteMessages.INDIVIDUAL_CUSTOMER_DELETED);
         }
 
         @Override
@@ -88,7 +88,7 @@ public class IndividualCustomerManager implements IndividualCustomerService {
                                                 updateIndividualCustomerRequest.getLastName()));
 
                 IndividualCustomer inDbIndividualCustomer = individualCustomerRepository.findById(id)
-                                .orElseThrow(() -> new BusinessException(ErrorMessages.idNotFound));
+                                .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
 
                 IndividualCustomer individualCustomer = mapperService.getModelMapper().map(
                                 updateIndividualCustomerRequest,
@@ -98,7 +98,7 @@ public class IndividualCustomerManager implements IndividualCustomerService {
                 log.info("modified individual customer: {} {} logged to file!",
                                 updateIndividualCustomerRequest.getFirstName(),
                                 updateIndividualCustomerRequest.getLastName());
-                return new SuccessResult(UpdateMessages.individualCustomerModified);
+                return new SuccessResult(UpdateMessages.INDIVIDUAL_CUSTOMER_MODIFIED);
         }
 
         @Override
@@ -109,37 +109,37 @@ public class IndividualCustomerManager implements IndividualCustomerService {
                                                 GetAllIndividualCustomerResponse.class))
                                 .toList();
                 return new SuccessDataResult<List<GetAllIndividualCustomerResponse>>(returnList,
-                                GetListMessages.individualCustomersListed);
+                                GetListMessages.INDIVIDUAL_CUSTOMERS_LISTED);
         }
 
         @Override
         public DataResult<GetByIdIndividualCustomerResponse> getById(int id) {
                 IndividualCustomer inDbIndividualCustomer = individualCustomerRepository.findById(id)
-                                .orElseThrow(() -> new BusinessException("Id not found!"));
+                                .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
                 GetByIdIndividualCustomerResponse returnObj = mapperService.getModelMapper().map(
                                 inDbIndividualCustomer,
                                 GetByIdIndividualCustomerResponse.class);
                 return new SuccessDataResult<GetByIdIndividualCustomerResponse>(returnObj,
-                                GetByIdMessages.individualCustomerListed);
+                                GetByIdMessages.INDIVIDUAL_CUSTOMER_LISTED);
         }
 
         private Result isExistId(int id) {
                 if (!userService.existById(id)) {
-                        throw new BusinessException(ErrorMessages.idNotFound);
+                        throw new BusinessException(ErrorMessages.ID_NOT_FOUND);
                 }
                 return new SuccessResult();
         }
 
         private Result isExistEmail(String email) {
                 if (userService.existByEmail(email)) {
-                        throw new BusinessException(ErrorMessages.emailRepeated);
+                        throw new BusinessException(ErrorMessages.EMAIL_REPEATED);
                 }
                 return new SuccessResult();
         }
 
         private Result isExistNationalId(String nationalId) {
                 if (individualCustomerRepository.existsByNationalIdentity(nationalId)) {
-                        throw new BusinessException(ErrorMessages.nationalIdentityRepeated);
+                        throw new BusinessException(ErrorMessages.NATIONAL_IDENTITY_REPEATED);
                 }
                 return new SuccessResult();
         }
@@ -147,7 +147,7 @@ public class IndividualCustomerManager implements IndividualCustomerService {
         private Result isValidPassword(String password, String firstName, String lastName) {
                 if (password.contains(firstName)
                                 || password.contains(lastName)) {
-                        throw new BusinessException(ErrorMessages.individualCustomerPasswordNotValid);
+                        throw new BusinessException(ErrorMessages.INDIVIDUAL_CUSTOMER_PASSWORD_NOT_VALID);
                 }
                 return new SuccessResult();
         }
