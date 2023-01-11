@@ -2,10 +2,6 @@ package com.example.grocery.webApi.requests.product;
 
 import java.time.LocalDate;
 
-// import javax.validation.constraints.NotBlank;
-// import javax.validation.constraints.NotNull;
-// import javax.validation.constraints.Size;
-
 import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.validation.constraints.Future;

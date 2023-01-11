@@ -1,12 +1,7 @@
 package com.example.grocery.webApi.requests.employee;
 
 import java.time.LocalDate;
-
-// import javax.validation.constraints.Email;
-// import javax.validation.constraints.NotBlank;
-// import javax.validation.constraints.NotNull;
-// import javax.validation.constraints.Pattern;
-// import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -38,6 +33,12 @@ public class CreateEmployeeRequest {
     @Size(min = 8, max = 15)
     @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,15}$")
     private String password;
+
+    private LocalDateTime createdDateTime = LocalDateTime.now();
+
+    private LocalDateTime updatedDateTime = LocalDateTime.now();
+
+    private boolean isActive = true;
 
     @NotBlank
     @NotNull
