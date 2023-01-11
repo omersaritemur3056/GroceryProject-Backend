@@ -11,8 +11,17 @@
     <appender name="fout" class="ch.qos.logback.core.FileAppender">
         # Name of a log file
         <file>slf4j/target/grocery-logback.log</file>
+        <append>true</append>
+        <encoder>
+            # Pattern of log message for file appender
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} %p %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="fout2" class="ch.qos.logback.core.FileAppender">
+        # Name of a log file
         <file>slf4j/target/grocery-logback.txt</file>
-        <append>false</append>
+        <append>true</append>
         <encoder>
             # Pattern of log message for file appender
             <pattern>%d{yyyy-MM-dd HH:mm:ss} %p %m%n</pattern>
@@ -82,5 +91,6 @@
     <root level="INFO">
         <appender-ref ref="stdout"/>
         <appender-ref ref="fout"/>
+        <appender-ref ref="fout2"/>
     </root>
 </configuration>
