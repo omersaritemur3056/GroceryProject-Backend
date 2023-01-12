@@ -1,23 +1,19 @@
-package com.example.grocery.business.concretes;
+package com.example.grocery.core.security.user;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.grocery.business.abstracts.UserService;
-import com.example.grocery.business.constants.Messages;
 import com.example.grocery.business.constants.Messages.ErrorMessages;
 import com.example.grocery.business.constants.Messages.GetByIdMessages;
 import com.example.grocery.business.constants.Messages.GetListMessages;
+import com.example.grocery.core.security.DTOs.GetAllUserResponseDto;
+import com.example.grocery.core.security.DTOs.GetByIdUserResponseDto;
 import com.example.grocery.core.utilities.exceptions.BusinessException;
 import com.example.grocery.core.utilities.mapper.MapperService;
 import com.example.grocery.core.utilities.results.DataResult;
 import com.example.grocery.core.utilities.results.SuccessDataResult;
-import com.example.grocery.dataAccess.abstracts.UserRepository;
-import com.example.grocery.entity.concretes.User;
-import com.example.grocery.webApi.responses.user.GetAllUserResponse;
-import com.example.grocery.webApi.responses.user.GetByIdUserResponse;
 
 @Service
 public class UserManager implements UserService {
@@ -28,18 +24,18 @@ public class UserManager implements UserService {
     private MapperService mapperService;
 
     @Override
-    public DataResult<List<GetAllUserResponse>> getAll() {
+    public DataResult<List<GetAllUserResponseDto>> getAll() {
         List<User> userList = userRepository.findAll();
-        List<GetAllUserResponse> returnList = userList.stream()
-                .map(u -> mapperService.getModelMapper().map(u, GetAllUserResponse.class)).toList();
+        List<GetAllUserResponseDto> returnList = userList.stream()
+                .map(u -> mapperService.getModelMapper().map(u, GetAllUserResponseDto.class)).toList();
         return new SuccessDataResult<>(returnList, GetListMessages.USERS_LISTED);
     }
 
     @Override
-    public DataResult<GetByIdUserResponse> getById(int id) {
+    public DataResult<GetByIdUserResponseDto> getById(int id) {
         User inDbUser = userRepository.findById(id)
                 .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
-        GetByIdUserResponse returnObj = mapperService.getModelMapper().map(inDbUser, GetByIdUserResponse.class);
+        GetByIdUserResponseDto returnObj = mapperService.getModelMapper().map(inDbUser, GetByIdUserResponseDto.class);
         return new SuccessDataResult<>(returnObj, GetByIdMessages.USER_LISTED);
     }
 

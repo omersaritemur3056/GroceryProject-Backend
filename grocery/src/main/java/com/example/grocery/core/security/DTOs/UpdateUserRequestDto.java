@@ -1,7 +1,8 @@
-package com.example.grocery.webApi.requests.user;
+package com.example.grocery.core.security.DTOs;
 
 import java.time.LocalDateTime;
 
+import jakarta.persistence.Transient;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -13,11 +14,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
-public class CreateUserRequest {
+@NoArgsConstructor
+@AllArgsConstructor
+public class UpdateUserRequestDto {
+
+    @NotNull
+    @NotBlank
+    @Size(min = 3, max = 20)
+    private String username;
 
     @NotBlank
     @NotNull
@@ -26,11 +32,12 @@ public class CreateUserRequest {
 
     @NotNull
     @NotBlank
-    @Size(min = 8, max = 15)
-    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,15}$")
+    @Size(min = 6, max = 21)
+    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{6,21}$")
     private String password;
 
-    private LocalDateTime createdDateTime = LocalDateTime.now();
+    @Transient
+    private LocalDateTime createdDateTime;
 
     private LocalDateTime updatedDateTime = LocalDateTime.now();
 

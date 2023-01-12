@@ -23,6 +23,11 @@ import lombok.Setter;
 @Setter
 public class CreateEmployeeRequest {
 
+    @NotNull
+    @NotBlank
+    @Size(min = 3, max = 20)
+    private String username;
+
     @NotBlank
     @NotNull
     @Email
@@ -30,8 +35,8 @@ public class CreateEmployeeRequest {
 
     @NotNull
     @NotBlank
-    @Size(min = 8, max = 15)
-    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,15}$")
+    @Size(min = 6, max = 21)
+    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{6,21}$")
     private String password;
 
     private LocalDateTime createdDateTime = LocalDateTime.now();

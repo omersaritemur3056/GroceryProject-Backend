@@ -15,6 +15,8 @@ public class GetAllCustomerResponse {
 
     private int id;
 
+    private String username;
+
     private String email;
 
     private String password;

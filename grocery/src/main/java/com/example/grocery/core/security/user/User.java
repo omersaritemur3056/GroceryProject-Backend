@@ -1,4 +1,4 @@
-package com.example.grocery.entity.concretes;
+package com.example.grocery.core.security.user;
 
 import java.time.LocalDateTime;
 
@@ -30,6 +30,9 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private int id;
+
+    @Column(name = "username")
+    private String username;
 
     @Column(name = "email", unique = true)
     private String email;

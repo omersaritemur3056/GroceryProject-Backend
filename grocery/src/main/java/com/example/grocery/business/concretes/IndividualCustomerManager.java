@@ -1,19 +1,18 @@
 package com.example.grocery.business.concretes;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.grocery.business.abstracts.IndividualCustomerService;
-import com.example.grocery.business.abstracts.UserService;
 import com.example.grocery.business.constants.Messages.CreateMessages;
 import com.example.grocery.business.constants.Messages.DeleteMessages;
 import com.example.grocery.business.constants.Messages.ErrorMessages;
 import com.example.grocery.business.constants.Messages.GetByIdMessages;
 import com.example.grocery.business.constants.Messages.GetListMessages;
 import com.example.grocery.business.constants.Messages.UpdateMessages;
+import com.example.grocery.core.security.user.UserService;
 import com.example.grocery.core.utilities.business.BusinessRules;
 import com.example.grocery.core.utilities.exceptions.BusinessException;
 import com.example.grocery.core.utilities.mapper.MapperService;

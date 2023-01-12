@@ -1,4 +1,4 @@
-package com.example.grocery.webApi.responses.user;
+package com.example.grocery.core.security.DTOs;
 
 import java.time.LocalDateTime;
 
@@ -11,9 +11,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class GetByIdUserResponse {
+public class GetByIdUserResponseDto {
 
     private int id;
+
+    private String username;
 
     private String email;
 

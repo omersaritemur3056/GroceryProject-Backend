@@ -1,8 +1,6 @@
-package com.example.grocery.dataAccess.abstracts;
+package com.example.grocery.core.security.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import com.example.grocery.entity.concretes.User;
 
 public interface UserRepository extends JpaRepository<User, Integer> {
 

@@ -1,4 +1,4 @@
-package com.example.grocery.webApi.controller;
+package com.example.grocery.core.security.user;
 
 import java.util.List;
 
@@ -9,10 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.grocery.business.abstracts.UserService;
+import com.example.grocery.core.security.DTOs.GetAllUserResponseDto;
+import com.example.grocery.core.security.DTOs.GetByIdUserResponseDto;
 import com.example.grocery.core.utilities.results.DataResult;
-import com.example.grocery.webApi.responses.user.GetAllUserResponse;
-import com.example.grocery.webApi.responses.user.GetByIdUserResponse;
 
 @RestController
 @RequestMapping("/api/user")
@@ -22,12 +21,12 @@ public class UsersController {
     private UserService userService;
 
     @GetMapping("/getall")
-    public ResponseEntity<DataResult<List<GetAllUserResponse>>> getAll() {
+    public ResponseEntity<DataResult<List<GetAllUserResponseDto>>> getAll() {
         return ResponseEntity.ok(userService.getAll());
     }
 
     @GetMapping("/getbyid")
-    public ResponseEntity<DataResult<GetByIdUserResponse>> getById(@RequestParam int id) {
+    public ResponseEntity<DataResult<GetByIdUserResponseDto>> getById(@RequestParam int id) {
         return ResponseEntity.ok().body(userService.getById(id));
     }
 }

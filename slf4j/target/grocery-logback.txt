@@ -54,3 +54,44 @@
 2023-01-11 20:33:48 INFO Starting ProtocolHandler ["http-nio-8080"]
 2023-01-11 20:33:48 INFO Tomcat started on port(s): 8080 (http) with context path ''
 2023-01-11 20:33:48 INFO Started GroceryApplication in 7.599 seconds (process running for 8.366)
+2023-01-12 14:33:36 INFO HV000001: Hibernate Validator 8.0.0.Final
+2023-01-12 14:33:36 INFO Starting GroceryApplication using Java 17.0.5 with PID 13128 (C:\groceryProject\grocery\target\classes started by palao in C:\groceryProject)
+2023-01-12 14:33:36 INFO No active profile set, falling back to 1 default profile: "default"
+2023-01-12 14:33:36 INFO Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-01-12 14:33:36 INFO For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-01-12 14:33:37 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-01-12 14:33:37 INFO Finished Spring Data repository scanning in 109 ms. Found 9 JPA repository interfaces.
+2023-01-12 14:33:38 INFO Tomcat initialized with port(s): 8080 (http)
+2023-01-12 14:33:38 INFO Initializing ProtocolHandler ["http-nio-8080"]
+2023-01-12 14:33:38 INFO Starting service [Tomcat]
+2023-01-12 14:33:38 INFO Starting Servlet engine: [Apache Tomcat/10.1.1]
+2023-01-12 14:33:38 INFO Initializing Spring embedded WebApplicationContext
+2023-01-12 14:33:38 INFO Root WebApplicationContext: initialization completed in 2233 ms
+2023-01-12 14:33:38 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-01-12 14:33:38 INFO HHH000412: Hibernate ORM core version 6.1.5.Final
+2023-01-12 14:33:39 WARN HHH90000021: Encountered deprecated setting [javax.persistence.validation.mode], use [jakarta.persistence.validation.mode] instead
+2023-01-12 14:33:39 WARN HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-01-12 14:33:39 INFO HikariPool-1 - Starting...
+2023-01-12 14:33:39 INFO HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@70ee68a
+2023-01-12 14:33:39 INFO HikariPool-1 - Start completed.
+2023-01-12 14:33:39 INFO HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2023-01-12 14:33:41 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-01-12 14:33:41 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-01-12 14:33:41 WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-01-12 14:33:43 INFO LiveReload server is running on port 35729
+2023-01-12 14:33:43 INFO Starting ProtocolHandler ["http-nio-8080"]
+2023-01-12 14:33:43 INFO Tomcat started on port(s): 8080 (http) with context path ''
+2023-01-12 14:33:43 INFO Started GroceryApplication in 7.298 seconds (process running for 8.07)
+2023-01-12 14:33:50 INFO Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-01-12 14:33:50 INFO Initializing Servlet 'dispatcherServlet'
+2023-01-12 14:33:50 INFO Completed initialization in 2 ms
+2023-01-12 14:33:52 WARN Using deprecated '-debug' fallback for parameter name resolution. Compile the affected code with '-parameters' instead or avoid its introspection: com.example.grocery.webApi.controller.SuppliersController
+2023-01-12 14:33:52 WARN Using deprecated '-debug' fallback for parameter name resolution. Compile the affected code with '-parameters' instead or avoid its introspection: com.example.grocery.webApi.controller.ProductsController
+2023-01-12 14:33:52 WARN Using deprecated '-debug' fallback for parameter name resolution. Compile the affected code with '-parameters' instead or avoid its introspection: com.example.grocery.webApi.controller.ProducersController
+2023-01-12 14:33:53 WARN Using deprecated '-debug' fallback for parameter name resolution. Compile the affected code with '-parameters' instead or avoid its introspection: com.example.grocery.webApi.controller.IndividualCustomersController
+2023-01-12 14:33:53 WARN Using deprecated '-debug' fallback for parameter name resolution. Compile the affected code with '-parameters' instead or avoid its introspection: com.example.grocery.webApi.controller.EmployeesController
+2023-01-12 14:33:53 WARN Using deprecated '-debug' fallback for parameter name resolution. Compile the affected code with '-parameters' instead or avoid its introspection: com.example.grocery.webApi.controller.CorporateCustomersController
+2023-01-12 14:33:53 WARN Using deprecated '-debug' fallback for parameter name resolution. Compile the affected code with '-parameters' instead or avoid its introspection: com.example.grocery.webApi.controller.CategoriesController
+2023-01-12 14:33:53 WARN Using deprecated '-debug' fallback for parameter name resolution. Compile the affected code with '-parameters' instead or avoid its introspection: com.example.grocery.webApi.controller.UsersController
+2023-01-12 14:33:53 WARN Using deprecated '-debug' fallback for parameter name resolution. Compile the affected code with '-parameters' instead or avoid its introspection: com.example.grocery.webApi.controller.CustomersController
+2023-01-12 14:33:53 INFO Init duration for springdoc-openapi is: 779 ms
