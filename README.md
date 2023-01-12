@@ -9,8 +9,8 @@ bir şekilde işlemesi ve sektörde pazarlama ile teknolojiyi buluşturup kararl
 Stok takibi, ürünlerin yönetimi, market çalışanlarının durumlarını kontrol altına alarak marketin kendi içerisindeki dinamiğini düzenlemek ve geliştirmesi en temel 
 amaçlarından birisidir.
 
-İkincisi ve en az birincisi kadar önemli önemli çözümü, müşterilerine online olarak alışveriş imkanı sağlaması ve siparişlerini konforunu bozmadan kapılarına kadar
-teslim edilmesi sayesinde alışverişinde ürünün yanında zaman kazancı vaat etmesi.
+İkincisi ve en az birincisi kadar önemli önemli çözümü, müşterilerine online olarak alışveriş imkanı sağlaması ve siparişlerini konforunlarını bozmadan kapılarına kadar
+teslim edilmesi sayesinde zaman kazancı vaat etmesi.
 
 
 
