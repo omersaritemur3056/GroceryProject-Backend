@@ -42,4 +42,11 @@ public class CustomerManager implements CustomerService {
                 GetByIdCustomerResponse.class);
         return new SuccessDataResult<GetByIdCustomerResponse>(returnObj, GetByIdMessages.CUSTOMER_LISTED);
     }
+
+    //Bağımlılığı kontrol altına almak için tasarlandı
+    @Override
+    public Customer getCustomerById(int id) {
+        return customerRepository.findById(id).orElseThrow(() -> 
+            new BusinessException(ErrorMessages.CUSTOMER_ID_NOT_FOUND));
+    }
 }

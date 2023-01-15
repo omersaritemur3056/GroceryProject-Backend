@@ -8,6 +8,9 @@ public class Messages {
         public static final String PRODUCER_ID_NOT_FOUND = "Entered producer id not found on DB";
         public static final String SUPPLIER_ID_NOT_FOUND = "Entered supplier id not found on DB";
         public static final String USER_ID_NOT_FOUND = "Entered user id not found on DB";
+        public static final String PRODUCT_ID_NOT_FOUND = "Entered product id not found on DB";
+        public static final String CUSTOMER_ID_NOT_FOUND = "Entered customer id not found on DB";
+        public static final String PAYMENT_ID_NOT_FOUND = "Entered payment id not found on DB";
 
         public static final String CATEGORY_NAME_REPEATED = "Category name can not be repeat!";
         public static final String PRODUCT_NAME_REPEATED = "Product name can not be repeat!";
@@ -21,6 +24,7 @@ public class Messages {
         public static final String INDIVIDUAL_CUSTOMER_PASSWORD_NOT_VALID = "Password can not include firstname or lastname";
         public static final String EMPLOYEE_PASSWORD_NOT_VALID = "Password can not include firstname, lastname or year of birth";
         public static final String AGE_NOT_PERMISSIBLE = "Employee is must older than 18";
+        public static final String DEBIT_CARD_NOT_VALID = "Debit card informations not valid!";
 
     }
 
@@ -34,6 +38,8 @@ public class Messages {
         public static final String CUSTOMERS_LISTED = "Customers listed!";
         public static final String CORPORATE_CUSTOMERS_LISTED = "Corporate customers listed!";
         public static final String CATEGORIES_LISTED = "Categories listed!";
+        public static final String PAYMENTS_LISTED = "Debit cards listed!";
+        public static final String ORDERS_LISTED = "Orders listed!";
     }
 
     public class GetByIdMessages {
@@ -46,17 +52,21 @@ public class Messages {
         public static final String CUSTOMER_LISTED = "Customer listed by entered id!";
         public static final String CORPORATE_CUSTOMER_LISTED = "Corporate customer listed by entered id!";
         public static final String CATEGORY_LISTED = "Category listed by entered id!";
+        public static final String PAYMENT_LISTED = "Debit card listed by entered id!";
+        public static final String ORDER_LISTED = "Order listed by entered id!";
     }
 
     public class CreateMessages {
-        public static final String PRODUCT_CREATED = "Product added!";
-        public static final String PRODUCER_CREATED = "Producer added!";
-        public static final String SUPPLIER_CREATED = "Supplier added!";
-        public static final String CATEGORY_CREATED = "Category added!";
-        public static final String EMPLOYEE_CREATED = "Employee added!";
-        public static final String INDIVIDUAL_CUSTOMER_CREATED = "Individual customer added!";
-        public static final String CORPORATE_CUSTOMER_CREATED = "Corporate customer added!";
-        public static final String USER_CREATED = "User added!";
+        public static final String PRODUCT_CREATED = "Product saved to DB!";
+        public static final String PRODUCER_CREATED = "Producer saved to DB!";
+        public static final String SUPPLIER_CREATED = "Supplier saved to DB!";
+        public static final String CATEGORY_CREATED = "Category saved to DB!";
+        public static final String EMPLOYEE_CREATED = "Employee saved to DB!";
+        public static final String INDIVIDUAL_CUSTOMER_CREATED = "Individual customer saved to DB!";
+        public static final String CORPORATE_CUSTOMER_CREATED = "Corporate customer saved to DB!";
+        public static final String USER_CREATED = "User saved to DB!";
+        public static final String PAYMENT_CREATED = "Debit card information saved to DB";
+        public static final String ORDER_CREATED = "Order saved to DB!";
     }
 
     public class DeleteMessages {
@@ -68,6 +78,8 @@ public class Messages {
         public static final String INDIVIDUAL_CUSTOMER_DELETED = "Individual customer removed from DB!";
         public static final String CORPORATE_CUSTOMER_DELETED = "Corporate customer removed from DB!";
         public static final String USER_DELETED = "User removed from DB";
+        public static final String PAYMENT_DELETED = "Debit card information removed from DB";
+        public static final String ORDER_DELETED = "Order removed from DB!";
     }
 
     public class UpdateMessages {
@@ -79,6 +91,8 @@ public class Messages {
         public static final String INDIVIDUAL_CUSTOMER_MODIFIED = "Individual customer updated!";
         public static final String CORPORATE_CUSTOMER_MODIFIED = "Corporate customer updated!";
         public static final String USER_MODIFIED = "User updated!";
+        public static final String PAYMENT_UPDATED = "Debit card updated!";
+        public static final String ORDER_UPDATED = "Order updated!";
     }
 
     public class LogMessages {

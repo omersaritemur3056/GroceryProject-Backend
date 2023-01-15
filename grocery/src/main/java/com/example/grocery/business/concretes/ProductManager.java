@@ -107,7 +107,8 @@ public class ProductManager implements ProductService {
         List<GetAllProductResponse> returnList = new ArrayList<>();
         List<Product> productList = productRepository.findAll();
         for (Product product : productList) {
-            Product product1 = productRepository.findById(product.getId()).get();
+            Product product1 = productRepository.findById(product.getId())
+                    .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
             GetAllProductResponse addFields = mapperService.getModelMapper().map(product,
                     GetAllProductResponse.class);
             addFields.setCategoryId(product1.getCategory().getId());
@@ -115,7 +116,7 @@ public class ProductManager implements ProductService {
             addFields.setSupplierId(product1.getSupplier().getId());
             returnList.add(addFields);
         }
-        return new SuccessDataResult<List<GetAllProductResponse>>(returnList, GetListMessages.PRODUCTS_LISTED);
+        return new SuccessDataResult<>(returnList, GetListMessages.PRODUCTS_LISTED);
     }
 
     @Override
@@ -128,6 +129,24 @@ public class ProductManager implements ProductService {
         getByIdProductResponse.setProducerId(product.getProducer().getId());
         getByIdProductResponse.setSupplierId(product.getSupplier().getId());
         return new SuccessDataResult<>(getByIdProductResponse, GetByIdMessages.PRODUCT_LISTED);
+    }
+
+    // bağımlılğı kontrol altına almak üzere tasarlandı
+    @Override
+    public Product getProductById(int id) {
+        return productRepository.findById(id)
+                .orElseThrow(() -> new BusinessException(ErrorMessages.PRODUCT_ID_NOT_FOUND));
+    }
+
+    @Override
+    public List<Product> getProductsById(int[] productId) {
+        List<Product> resultList = new ArrayList<>();
+        for (int forEachId : productId) {
+            Product findProductById = productRepository.findById(forEachId)
+                    .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
+            resultList.add(findProductById);
+        }
+        return resultList;
     }
 
     private void removeExpiratedProduct() {

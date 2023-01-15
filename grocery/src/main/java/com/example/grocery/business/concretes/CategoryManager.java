@@ -95,6 +95,7 @@ public class CategoryManager implements CategoryService {
 
     // ProductManager sınıfımızda bağımlılığı kontrol altına alma adına kullanılmak
     // üzere tasarlandı.
+    @Override
     public Category getCategoryById(int id) {
         return categoryRepository.findById(id)
                 .orElseThrow(() -> new BusinessException(ErrorMessages.CATEGORY_ID_NOT_FOUND));
@@ -102,7 +103,7 @@ public class CategoryManager implements CategoryService {
 
     private Result isExistId(int id) {
         if (!categoryRepository.existsById(id)) {
-            log.error("Category id could not saved!");
+            log.warn("Category id could not found!");
             throw new BusinessException(ErrorMessages.ID_NOT_FOUND);
         }
         return new SuccessResult();
@@ -111,7 +112,7 @@ public class CategoryManager implements CategoryService {
     private Result isExistName(String name) {
         if (categoryRepository.existsByNameIgnoreCase(name)) {
             // update ve create için ayrı ve anlamlı bir log yaz.
-            log.error("category name: {} couldn't saved", name);
+            log.warn("category name: {} couldn't saved", name);
             throw new BusinessException(ErrorMessages.CATEGORY_NAME_REPEATED);
         }
         return new SuccessResult();

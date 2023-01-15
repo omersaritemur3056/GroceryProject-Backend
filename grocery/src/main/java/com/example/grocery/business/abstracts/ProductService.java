@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.example.grocery.core.utilities.results.DataResult;
 import com.example.grocery.core.utilities.results.Result;
+import com.example.grocery.entity.concretes.Product;
 import com.example.grocery.webApi.requests.product.CreateProductRequest;
 import com.example.grocery.webApi.requests.product.DeleteProductRequest;
 import com.example.grocery.webApi.requests.product.UpdateProductRequest;
@@ -21,4 +22,8 @@ public interface ProductService {
     DataResult<List<GetAllProductResponse>> getAll();
 
     DataResult<GetByIdProductResponse> getById(int id);
+
+    Product getProductById(int id);
+
+    List<Product> getProductsById(int[] productId);
 }
