@@ -111,7 +111,6 @@ public class PaymentManager implements PaymentService {
 
     private Result isValidCard(String cardNumber, String fullName, int cardExpirationYear, int cardExpirationMonth,
             String cardCvv) {
-
         if (!debitCardValidationService
                 .checkIfRealDebitCard(cardNumber, fullName, cardExpirationYear, cardExpirationMonth, cardCvv)
                 .isSuccess()) {
@@ -122,7 +121,7 @@ public class PaymentManager implements PaymentService {
 
     private Result isExistId(int id) {
         if (!paymentRepository.existsById(id)) {
-            log.warn("Category id could not found!");
+            log.warn("Payment id could not found!");
             throw new BusinessException(ErrorMessages.ID_NOT_FOUND);
         }
         return new SuccessResult();
