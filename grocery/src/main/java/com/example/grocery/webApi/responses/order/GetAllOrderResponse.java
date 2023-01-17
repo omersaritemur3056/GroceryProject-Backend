@@ -1,9 +1,9 @@
 package com.example.grocery.webApi.responses.order;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import com.example.grocery.entity.enums.OrderStatus;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,5 +27,5 @@ public class GetAllOrderResponse {
 
     private int customerId;
 
-    // private List<Product> products; ürünleri nasıl gösterebilirim?
+    private List<Integer> productIds;
 }

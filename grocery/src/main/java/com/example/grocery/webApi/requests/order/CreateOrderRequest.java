@@ -5,6 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.example.grocery.entity.enums.OrderStatus;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
@@ -33,5 +34,8 @@ public class CreateOrderRequest {
     @Positive
     private int customerId;
 
-    // private List<Product> products; değerlendir...
+    @NotNull
+    @NotBlank
+    // referans tipte @Positive olmaz alternatif bul...
+    private int[] productIds;
 }

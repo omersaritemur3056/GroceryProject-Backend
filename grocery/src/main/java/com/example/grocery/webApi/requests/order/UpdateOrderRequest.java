@@ -1,11 +1,11 @@
 package com.example.grocery.webApi.requests.order;
 
 import java.time.LocalDateTime;
-
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.example.grocery.entity.enums.OrderStatus;
 
+import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
@@ -20,6 +20,7 @@ import lombok.Setter;
 public class UpdateOrderRequest {
 
     @NotNull
+    @Transient
     private LocalDateTime createdDate = LocalDateTime.now();
 
     @DateTimeFormat(pattern = "yyyy-MM-dd-HH-mm-ss:")
@@ -34,5 +35,7 @@ public class UpdateOrderRequest {
     @Positive
     private int customerId;
 
-    // private List<Product> products; değerlendir...
+    @NotNull
+    // referans tipte @Positive olmaz alternatif bul...
+    private int[] productIds;
 }

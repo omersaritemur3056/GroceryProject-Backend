@@ -25,6 +25,7 @@ import com.example.grocery.core.utilities.results.SuccessDataResult;
 import com.example.grocery.core.utilities.results.SuccessResult;
 import com.example.grocery.dataAccess.abstracts.OrderRepository;
 import com.example.grocery.entity.concretes.Order;
+import com.example.grocery.entity.concretes.Product;
 import com.example.grocery.webApi.requests.order.CreateOrderRequest;
 import com.example.grocery.webApi.requests.order.DeleteOrderRequest;
 import com.example.grocery.webApi.requests.order.UpdateOrderRequest;
@@ -57,7 +58,7 @@ public class OrderManager implements OrderService {
         Order order = mapperService.getModelMapper().map(createOrderRequest, Order.class);
         order.setCustomer(customerService.getCustomerById(createOrderRequest.getCustomerId()));
         order.setPayment(paymentService.getPaymentById(createOrderRequest.getPaymentId()));
-        // List<Product> set edilecek...
+        order.setProducts(productService.getProductsById(createOrderRequest.getProductIds()));
         orderRepository.save(order);
         log.info("order saved to DB");
         return new SuccessResult(CreateMessages.ORDER_CREATED);
@@ -88,7 +89,7 @@ public class OrderManager implements OrderService {
         Order order = mapperService.getModelMapper().map(updateOrderRequest, Order.class);
         order.setCustomer(customerService.getCustomerById(updateOrderRequest.getCustomerId()));
         order.setPayment(paymentService.getPaymentById(updateOrderRequest.getPaymentId()));
-        // List<Product> set edilecek...
+        order.setProducts(productService.getProductsById(updateOrderRequest.getProductIds()));
         order.setId(inDbOrder.getId());
         orderRepository.save(order);
         log.info("order id: {} updated", id);
@@ -106,7 +107,11 @@ public class OrderManager implements OrderService {
                     GetAllOrderResponse.class);
             addFields.setCustomerId(order1.getCustomer().getId());
             addFields.setPaymentId(order1.getPayment().getId());
-            // List<Product> set edilecek...
+            List<Integer> ids = new ArrayList<>();
+            for (Product x : order.getProducts()) {
+                ids.add(x.getId());
+            }
+            addFields.setProductIds(ids);
             returnList.add(addFields);
         }
         return new SuccessDataResult<>(returnList, GetListMessages.ORDERS_LISTED);
@@ -120,7 +125,11 @@ public class OrderManager implements OrderService {
                 GetByIdOrderResponse.class);
         getByIdOrderResponse.setCustomerId(order.getCustomer().getId());
         getByIdOrderResponse.setPaymentId(order.getPayment().getId());
-        // List<Product> set edilecek...
+        List<Integer> ids = new ArrayList<>();
+        for (Product x : order.getProducts()) {
+            ids.add(x.getId());
+        }
+        getByIdOrderResponse.setProductIds(ids);
         return new SuccessDataResult<>(getByIdOrderResponse, GetByIdMessages.ORDER_LISTED);
     }
 
