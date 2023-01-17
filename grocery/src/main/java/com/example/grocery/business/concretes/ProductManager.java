@@ -139,7 +139,7 @@ public class ProductManager implements ProductService {
     }
 
     @Override
-    public List<Product> getProductsById(int[] productId) {
+    public List<Product> getProductsByIds(int[] productId) {
         List<Product> resultList = new ArrayList<>();
         for (int forEachId : productId) {
             Product findProductById = productRepository.findById(forEachId)

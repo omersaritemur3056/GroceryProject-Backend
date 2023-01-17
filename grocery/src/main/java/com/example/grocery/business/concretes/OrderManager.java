@@ -58,7 +58,7 @@ public class OrderManager implements OrderService {
         Order order = mapperService.getModelMapper().map(createOrderRequest, Order.class);
         order.setCustomer(customerService.getCustomerById(createOrderRequest.getCustomerId()));
         order.setPayment(paymentService.getPaymentById(createOrderRequest.getPaymentId()));
-        order.setProducts(productService.getProductsById(createOrderRequest.getProductIds()));
+        order.setProducts(productService.getProductsByIds(createOrderRequest.getProductIds()));
         orderRepository.save(order);
         log.info("order saved to DB");
         return new SuccessResult(CreateMessages.ORDER_CREATED);
@@ -89,7 +89,7 @@ public class OrderManager implements OrderService {
         Order order = mapperService.getModelMapper().map(updateOrderRequest, Order.class);
         order.setCustomer(customerService.getCustomerById(updateOrderRequest.getCustomerId()));
         order.setPayment(paymentService.getPaymentById(updateOrderRequest.getPaymentId()));
-        order.setProducts(productService.getProductsById(updateOrderRequest.getProductIds()));
+        order.setProducts(productService.getProductsByIds(updateOrderRequest.getProductIds()));
         order.setId(inDbOrder.getId());
         orderRepository.save(order);
         log.info("order id: {} updated", id);
