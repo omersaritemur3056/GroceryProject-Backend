@@ -1,4 +1,4 @@
-package com.example.grocery.core.security.user;
+package com.example.grocery.core.security.services;
 
 import java.util.List;
 
@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 import com.example.grocery.business.constants.Messages.ErrorMessages;
 import com.example.grocery.business.constants.Messages.GetByIdMessages;
 import com.example.grocery.business.constants.Messages.GetListMessages;
-import com.example.grocery.core.security.DTOs.GetAllUserResponseDto;
-import com.example.grocery.core.security.DTOs.GetByIdUserResponseDto;
+import com.example.grocery.core.security.DTOs.response.GetAllUserResponseDto;
+import com.example.grocery.core.security.DTOs.response.GetByIdUserResponseDto;
+import com.example.grocery.core.security.models.User;
+import com.example.grocery.core.security.repository.UserRepository;
 import com.example.grocery.core.utilities.exceptions.BusinessException;
 import com.example.grocery.core.utilities.mapper.MapperService;
 import com.example.grocery.core.utilities.results.DataResult;
@@ -41,7 +43,8 @@ public class UserManager implements UserService {
 
     @Override
     public User getByEmail(String email) {
-        return userRepository.findByEmail(email);
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new BusinessException(ErrorMessages.USER_EMAIL_NOT_FOUND));
     }
 
     @Override

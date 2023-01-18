@@ -1,4 +1,4 @@
-package com.example.grocery.core.security.DTOs;
+package com.example.grocery.core.security.DTOs.response;
 
 import java.time.LocalDateTime;
 

@@ -2,7 +2,7 @@ package com.example.grocery.entity.concretes;
 
 import java.time.LocalDate;
 
-import com.example.grocery.core.security.user.User;
+import com.example.grocery.core.security.models.User;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

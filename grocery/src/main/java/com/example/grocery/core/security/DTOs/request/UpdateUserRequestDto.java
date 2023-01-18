@@ -1,7 +1,8 @@
-package com.example.grocery.core.security.DTOs;
+package com.example.grocery.core.security.DTOs.request;
 
 import java.time.LocalDateTime;
 
+import jakarta.persistence.Transient;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -13,11 +14,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
-public class UserForRegisterDto {
+@NoArgsConstructor
+@AllArgsConstructor
+public class UpdateUserRequestDto {
 
     @NotNull
     @NotBlank
@@ -35,7 +36,8 @@ public class UserForRegisterDto {
     @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{6,21}$")
     private String password;
 
-    private LocalDateTime createdDateTime = LocalDateTime.now();
+    @Transient
+    private LocalDateTime createdDateTime;
 
     private LocalDateTime updatedDateTime = LocalDateTime.now();
 

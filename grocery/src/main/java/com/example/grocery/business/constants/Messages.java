@@ -25,6 +25,7 @@ public class Messages {
         public static final String EMPLOYEE_PASSWORD_NOT_VALID = "Password can not include firstname, lastname or year of birth";
         public static final String AGE_NOT_PERMISSIBLE = "Employee is must older than 18";
         public static final String DEBIT_CARD_NOT_VALID = "Debit card informations not valid!";
+        public static final String USER_EMAIL_NOT_FOUND = "Entered user email not found on DB!";
 
     }
 

@@ -4,8 +4,4 @@ public enum Authority {
 
     USER,
     ADMIN;
-
-    public String getAuthority() {
-        return name();
-    }
 }
