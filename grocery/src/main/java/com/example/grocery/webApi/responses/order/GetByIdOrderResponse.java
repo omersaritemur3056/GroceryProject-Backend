@@ -15,7 +15,7 @@ import lombok.Setter;
 @Setter
 public class GetByIdOrderResponse {
 
-    private int id;
+    private Long id;
 
     private LocalDateTime createdDate;
 
@@ -23,9 +23,9 @@ public class GetByIdOrderResponse {
 
     private OrderStatus orderStatus;
 
-    private int paymentId;
+    private Long paymentId;
 
-    private int customerId;
+    private Long customerId;
 
-    private List<Integer> productIds;
+    private List<Long> productIds;
 }

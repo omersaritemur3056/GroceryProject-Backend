@@ -73,7 +73,7 @@ public class CorporateCustomerManager implements CorporateCustomerService {
         }
 
         @Override
-        public Result update(UpdateCorporateCustomerRequest updateCorporateCustomerRequest, int id) {
+        public Result update(UpdateCorporateCustomerRequest updateCorporateCustomerRequest, Long id) {
 
                 Result rules = BusinessRules.run(isExistEmail(updateCorporateCustomerRequest.getEmail()),
                                 isExistTaxNumber(updateCorporateCustomerRequest.getTaxNumber()));
@@ -97,17 +97,17 @@ public class CorporateCustomerManager implements CorporateCustomerService {
                                 .map(cc -> mapperService.getModelMapper().map(cc,
                                                 GetAllCorporateCustomerResponse.class))
                                 .toList();
-                return new SuccessDataResult<List<GetAllCorporateCustomerResponse>>(returnList,
+                return new SuccessDataResult<>(returnList,
                                 GetListMessages.CORPORATE_CUSTOMERS_LISTED);
         }
 
         @Override
-        public DataResult<GetByIdCorporateCustomerResponse> getById(int id) {
+        public DataResult<GetByIdCorporateCustomerResponse> getById(Long id) {
                 CorporateCustomer inDbCorporateCustomer = corporateCustomerRepository.findById(id)
                                 .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
                 GetByIdCorporateCustomerResponse returnObj = mapperService.getModelMapper()
                                 .map(inDbCorporateCustomer, GetByIdCorporateCustomerResponse.class);
-                return new SuccessDataResult<GetByIdCorporateCustomerResponse>(returnObj,
+                return new SuccessDataResult<>(returnObj,
                                 GetByIdMessages.CORPORATE_CUSTOMER_LISTED);
         }
 
@@ -125,7 +125,7 @@ public class CorporateCustomerManager implements CorporateCustomerService {
                 return new SuccessResult();
         }
 
-        private Result isExistId(int id) {
+        private Result isExistId(Long id) {
                 if (!userService.existById(id)) {
                         throw new BusinessException(ErrorMessages.ID_NOT_FOUND);
                 }

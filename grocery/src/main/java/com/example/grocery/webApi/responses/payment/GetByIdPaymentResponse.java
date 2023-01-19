@@ -15,7 +15,7 @@ import lombok.Setter;
 @Setter
 public class GetByIdPaymentResponse {
 
-    private int id;
+    private Long id;
 
     private String cardNumber;
 

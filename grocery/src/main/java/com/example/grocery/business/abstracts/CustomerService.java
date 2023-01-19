@@ -11,7 +11,7 @@ public interface CustomerService {
 
     DataResult<List<GetAllCustomerResponse>> getAll();
 
-    DataResult<GetByIdCustomerResponse> getById(int id);
-    
-    Customer getCustomerById(int id);
+    DataResult<GetByIdCustomerResponse> getById(Long id);
+
+    Customer getCustomerById(Long id);
 }

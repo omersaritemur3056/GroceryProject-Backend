@@ -36,7 +36,7 @@ public class CategoriesController {
 
     @PutMapping("/update")
     public ResponseEntity<Result> update(@Valid @RequestBody UpdateCategoryRequest updateCategoryRequest,
-            @RequestParam int id) {
+            @RequestParam Long id) {
         return ResponseEntity.ok().body(categoryService.update(updateCategoryRequest, id));
     }
 
@@ -51,7 +51,7 @@ public class CategoriesController {
     }
 
     @GetMapping("/getbyid")
-    public ResponseEntity<DataResult<GetByIdCategoryResponse>> getById(@RequestParam int id) {
+    public ResponseEntity<DataResult<GetByIdCategoryResponse>> getById(@RequestParam Long id) {
         return ResponseEntity.ok().body(categoryService.getById(id));
     }
 }

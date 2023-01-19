@@ -17,11 +17,11 @@ public interface PaymentService {
 
     Result delete(DeletePaymentRequest deletePaymentRequest);
 
-    Result update(UpdatePaymentRequest updatePaymentRequest, int id);
+    Result update(UpdatePaymentRequest updatePaymentRequest, Long id);
 
     DataResult<List<GetAllPaymentResponse>> getAll();
 
-    DataResult<GetByIdPaymentResponse> getById(int id);
+    DataResult<GetByIdPaymentResponse> getById(Long id);
 
-    Payment getPaymentById(int id);
+    Payment getPaymentById(Long id);
 }

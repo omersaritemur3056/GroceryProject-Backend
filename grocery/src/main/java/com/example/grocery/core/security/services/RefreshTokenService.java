@@ -15,6 +15,8 @@ import com.example.grocery.core.security.repository.UserRepository;
 import com.example.grocery.core.utilities.exceptions.BusinessException;
 import com.example.grocery.core.utilities.exceptions.TokenRefreshException;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class RefreshTokenService {
 
@@ -50,5 +52,10 @@ public class RefreshTokenService {
 
     public Optional<RefreshToken> findByToken(String token) {
         return refreshTokenRepository.findByToken(token);
+    }
+
+    @Transactional
+    public int deleteByUserId(Long userId) {
+        return refreshTokenRepository.deleteByUser(userRepository.findById(userId).get());
     }
 }

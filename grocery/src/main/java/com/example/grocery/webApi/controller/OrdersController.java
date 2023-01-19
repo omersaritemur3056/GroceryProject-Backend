@@ -43,7 +43,7 @@ public class OrdersController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Result> update(@Valid @RequestBody UpdateOrderRequest updateOrderRequest, int id) {
+    public ResponseEntity<Result> update(@Valid @RequestBody UpdateOrderRequest updateOrderRequest, Long id) {
         return ResponseEntity.ok().body(orderService.update(updateOrderRequest, id));
     }
 

@@ -79,7 +79,7 @@ public class OrderManager implements OrderService {
     }
 
     @Override
-    public Result update(UpdateOrderRequest updateOrderRequest, int id) {
+    public Result update(UpdateOrderRequest updateOrderRequest, Long id) {
         Order inDbOrder = orderRepository.findById(id)
                 .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
 
@@ -107,7 +107,7 @@ public class OrderManager implements OrderService {
                     GetAllOrderResponse.class);
             addFields.setCustomerId(order1.getCustomer().getId());
             addFields.setPaymentId(order1.getPayment().getId());
-            List<Integer> ids = new ArrayList<>();
+            List<Long> ids = new ArrayList<>();
             for (Product x : order.getProducts()) {
                 ids.add(x.getId());
             }
@@ -118,14 +118,14 @@ public class OrderManager implements OrderService {
     }
 
     @Override
-    public DataResult<GetByIdOrderResponse> getById(int id) {
+    public DataResult<GetByIdOrderResponse> getById(Long id) {
         Order order = orderRepository.findById(id)
                 .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
         GetByIdOrderResponse getByIdOrderResponse = mapperService.getModelMapper().map(order,
                 GetByIdOrderResponse.class);
         getByIdOrderResponse.setCustomerId(order.getCustomer().getId());
         getByIdOrderResponse.setPaymentId(order.getPayment().getId());
-        List<Integer> ids = new ArrayList<>();
+        List<Long> ids = new ArrayList<>();
         for (Product x : order.getProducts()) {
             ids.add(x.getId());
         }
@@ -133,7 +133,7 @@ public class OrderManager implements OrderService {
         return new SuccessDataResult<>(getByIdOrderResponse, GetByIdMessages.ORDER_LISTED);
     }
 
-    private Result isExistId(int id) {
+    private Result isExistId(Long id) {
         if (!orderRepository.existsById(id)) {
             log.warn("Order id could not found!");
             throw new BusinessException(ErrorMessages.ID_NOT_FOUND);
@@ -141,14 +141,14 @@ public class OrderManager implements OrderService {
         return new SuccessResult();
     }
 
-    private Result isExistCustomerId(int customerId) {
+    private Result isExistCustomerId(Long customerId) {
         if (customerService.getCustomerById(customerId) == null) {
             throw new BusinessException(ErrorMessages.CUSTOMER_ID_NOT_FOUND);
         }
         return new SuccessResult();
     }
 
-    private Result isExistPaymentId(int paymentId) {
+    private Result isExistPaymentId(Long paymentId) {
         if (paymentService.getPaymentById(paymentId) == null) {
             throw new BusinessException(ErrorMessages.PAYMENT_ID_NOT_FOUND);
         }

@@ -62,7 +62,7 @@ public class CategoryManager implements CategoryService {
     }
 
     @Override
-    public Result update(UpdateCategoryRequest updateCategoryRequest, int id) {
+    public Result update(UpdateCategoryRequest updateCategoryRequest, Long id) {
 
         Result rules = BusinessRules.run(isExistName(updateCategoryRequest.getName()), isExistId(id));
 
@@ -85,7 +85,7 @@ public class CategoryManager implements CategoryService {
     }
 
     @Override
-    public DataResult<GetByIdCategoryResponse> getById(int id) {
+    public DataResult<GetByIdCategoryResponse> getById(Long id) {
         Category category = categoryRepository.findById(id)
                 .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
         GetByIdCategoryResponse getByIdCategoryResponse = mapperService.getModelMapper().map(category,
@@ -96,12 +96,12 @@ public class CategoryManager implements CategoryService {
     // ProductManager sınıfımızda bağımlılığı kontrol altına alma adına kullanılmak
     // üzere tasarlandı.
     @Override
-    public Category getCategoryById(int id) {
+    public Category getCategoryById(Long id) {
         return categoryRepository.findById(id)
                 .orElseThrow(() -> new BusinessException(ErrorMessages.CATEGORY_ID_NOT_FOUND));
     }
 
-    private Result isExistId(int id) {
+    private Result isExistId(Long id) {
         if (!categoryRepository.existsById(id)) {
             log.warn("Category id could not found!");
             throw new BusinessException(ErrorMessages.ID_NOT_FOUND);

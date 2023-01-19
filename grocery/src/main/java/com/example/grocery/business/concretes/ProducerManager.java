@@ -50,7 +50,7 @@ public class ProducerManager implements ProducerService {
     }
 
     @Override
-    public Result update(UpdateProducerRequest updateProducerRequest, int id) {
+    public Result update(UpdateProducerRequest updateProducerRequest, Long id) {
 
         Result rules = BusinessRules.run(isExistId(id), isExistName(updateProducerRequest.getName()));
 
@@ -83,7 +83,7 @@ public class ProducerManager implements ProducerService {
     }
 
     @Override
-    public DataResult<GetByIdProducerResponse> getById(int id) {
+    public DataResult<GetByIdProducerResponse> getById(Long id) {
         Producer producer = producerRepository.findById(id)
                 .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
         GetByIdProducerResponse getByIdProducerResponse = mapperService.getModelMapper().map(producer,
@@ -93,12 +93,12 @@ public class ProducerManager implements ProducerService {
 
     // ProductManager sınıfımızda bağımlılığı kontrol altına alma adına kullanılmak
     // üzere tasarlandı.
-    public Producer getProducerById(int id) {
+    public Producer getProducerById(Long id) {
         return producerRepository.findById(id)
                 .orElseThrow(() -> new BusinessException(ErrorMessages.PRODUCER_ID_NOT_FOUND));
     }
 
-    private Result isExistId(int id) {
+    private Result isExistId(Long id) {
         if (!producerRepository.existsById(id)) {
             throw new BusinessException(ErrorMessages.ID_NOT_FOUND);
         }

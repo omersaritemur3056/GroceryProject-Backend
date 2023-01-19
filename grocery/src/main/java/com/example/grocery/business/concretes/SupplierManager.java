@@ -52,7 +52,7 @@ public class SupplierManager implements SupplierService {
     }
 
     @Override
-    public Result update(UpdateSupplierRequest updateSupplierRequest, int id) {
+    public Result update(UpdateSupplierRequest updateSupplierRequest, Long id) {
 
         Result rules = BusinessRules.run(isExistEmail(updateSupplierRequest.getEmail()),
                 isExistName(updateSupplierRequest.getName()),
@@ -88,7 +88,7 @@ public class SupplierManager implements SupplierService {
     }
 
     @Override
-    public DataResult<GetByIdSupplierResponse> getById(int id) {
+    public DataResult<GetByIdSupplierResponse> getById(Long id) {
         Supplier supplier = supplierRepository.findById(id)
                 .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
         GetByIdSupplierResponse getByIdSupplierResponse = mapperService.getModelMapper().map(supplier,
@@ -98,12 +98,12 @@ public class SupplierManager implements SupplierService {
 
     // ProductManager sınıfımızda bağımlılığı kontrol altına alma adına kullanılmak
     // üzere tasarlandı.
-    public Supplier getSupplierById(int id) {
+    public Supplier getSupplierById(Long id) {
         return supplierRepository.findById(id)
                 .orElseThrow(() -> new BusinessException(ErrorMessages.SUPPLIER_ID_NOT_FOUND));
     }
 
-    private Result isExistId(int id) {
+    private Result isExistId(Long id) {
         if (!supplierRepository.existsById(id)) {
             throw new BusinessException(ErrorMessages.ID_NOT_FOUND);
         }

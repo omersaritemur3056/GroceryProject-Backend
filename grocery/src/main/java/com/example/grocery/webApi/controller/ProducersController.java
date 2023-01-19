@@ -39,7 +39,7 @@ public class ProducersController {
 
     @PutMapping("/update")
     public ResponseEntity<Result> update(@Valid @RequestBody UpdateProducerRequest updateProducerRequest,
-            @RequestParam int id) {
+            @RequestParam Long id) {
         return ResponseEntity.ok().body(producerService.update(updateProducerRequest, id));
     }
 
@@ -54,7 +54,7 @@ public class ProducersController {
     }
 
     @GetMapping("/getbyid")
-    public ResponseEntity<DataResult<GetByIdProducerResponse>> getById(@RequestParam int id) {
-        return new ResponseEntity<DataResult<GetByIdProducerResponse>>(producerService.getById(id), HttpStatus.OK);
+    public ResponseEntity<DataResult<GetByIdProducerResponse>> getById(@RequestParam Long id) {
+        return new ResponseEntity<>(producerService.getById(id), HttpStatus.OK);
     }
 }

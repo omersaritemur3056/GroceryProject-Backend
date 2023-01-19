@@ -41,11 +41,11 @@ public class CreateProductRequest {
     private int stock;
 
     @Positive
-    private int categoryId;
+    private Long categoryId;
 
     @Positive
-    private int supplierId;
+    private Long supplierId;
 
     @Positive
-    private int producerId;
+    private Long producerId;
 }

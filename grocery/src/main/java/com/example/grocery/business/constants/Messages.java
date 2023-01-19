@@ -3,14 +3,14 @@ package com.example.grocery.business.constants;
 public class Messages {
 
     public class ErrorMessages {
-        public static final String ID_NOT_FOUND = "Entered id not found on DB!";
-        public static final String CATEGORY_ID_NOT_FOUND = "Entered category id not found on DB";
-        public static final String PRODUCER_ID_NOT_FOUND = "Entered producer id not found on DB";
-        public static final String SUPPLIER_ID_NOT_FOUND = "Entered supplier id not found on DB";
-        public static final String USER_ID_NOT_FOUND = "Entered user id not found on DB";
-        public static final String PRODUCT_ID_NOT_FOUND = "Entered product id not found on DB";
-        public static final String CUSTOMER_ID_NOT_FOUND = "Entered customer id not found on DB";
-        public static final String PAYMENT_ID_NOT_FOUND = "Entered payment id not found on DB";
+        public static final String ID_NOT_FOUND = "Entered id not found in DB!";
+        public static final String CATEGORY_ID_NOT_FOUND = "Entered category id not found in DB";
+        public static final String PRODUCER_ID_NOT_FOUND = "Entered producer id not found in DB";
+        public static final String SUPPLIER_ID_NOT_FOUND = "Entered supplier id not found in DB";
+        public static final String USER_ID_NOT_FOUND = "Entered user id not found in DB";
+        public static final String PRODUCT_ID_NOT_FOUND = "Entered product id not found in DB";
+        public static final String CUSTOMER_ID_NOT_FOUND = "Entered customer id not found in DB";
+        public static final String PAYMENT_ID_NOT_FOUND = "Entered payment id not found in DB";
 
         public static final String CATEGORY_NAME_REPEATED = "Category name can not be repeat!";
         public static final String PRODUCT_NAME_REPEATED = "Product name can not be repeat!";
@@ -25,7 +25,10 @@ public class Messages {
         public static final String EMPLOYEE_PASSWORD_NOT_VALID = "Password can not include firstname, lastname or year of birth";
         public static final String AGE_NOT_PERMISSIBLE = "Employee is must older than 18";
         public static final String DEBIT_CARD_NOT_VALID = "Debit card informations not valid!";
-        public static final String USER_EMAIL_NOT_FOUND = "Entered user email not found on DB!";
+        public static final String USER_EMAIL_NOT_FOUND = "Entered user email not found in DB!";
+        public static final String REFRESH_TOKEN_NOT_FOUND = "Refresh token is not in DB!";
+        public static final String USERNAME_EXIST = "Username already exists";
+        public static final String ROLE_NOT_FOUND = "Role not found in DB!";
 
     }
 
@@ -81,6 +84,7 @@ public class Messages {
         public static final String USER_DELETED = "User removed from DB";
         public static final String PAYMENT_DELETED = "Debit card information removed from DB";
         public static final String ORDER_DELETED = "Order removed from DB!";
+        public static final String SIGN_OUT = "Log out successful!";
     }
 
     public class UpdateMessages {

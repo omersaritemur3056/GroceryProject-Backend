@@ -39,7 +39,7 @@ public class ProductsController {
 
     @PutMapping("/update")
     public ResponseEntity<Result> update(@Valid @RequestBody UpdateProductRequest updateProductRequest,
-            @RequestParam int id) {
+            @RequestParam Long id) {
         return ResponseEntity.ok().body(productService.update(updateProductRequest, id));
     }
 
@@ -54,7 +54,7 @@ public class ProductsController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<DataResult<GetByIdProductResponse>> getById(@RequestParam int id) {
-        return new ResponseEntity<DataResult<GetByIdProductResponse>>(productService.getById(id), HttpStatus.OK);
+    public ResponseEntity<DataResult<GetByIdProductResponse>> getById(@RequestParam Long id) {
+        return new ResponseEntity<>(productService.getById(id), HttpStatus.OK);
     }
 }

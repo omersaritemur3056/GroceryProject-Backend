@@ -65,7 +65,7 @@ public class ProductManager implements ProductService {
     }
 
     @Override
-    public Result update(UpdateProductRequest updateProductRequest, int id) {
+    public Result update(UpdateProductRequest updateProductRequest, Long id) {
 
         Product inDbProduct = productRepository.findById(id)
                 .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
@@ -120,7 +120,7 @@ public class ProductManager implements ProductService {
     }
 
     @Override
-    public DataResult<GetByIdProductResponse> getById(int id) {
+    public DataResult<GetByIdProductResponse> getById(Long id) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
         GetByIdProductResponse getByIdProductResponse = mapperService.getModelMapper().map(product,
@@ -133,15 +133,15 @@ public class ProductManager implements ProductService {
 
     // bağımlılğı kontrol altına almak üzere tasarlandı
     @Override
-    public Product getProductById(int id) {
+    public Product getProductById(Long id) {
         return productRepository.findById(id)
                 .orElseThrow(() -> new BusinessException(ErrorMessages.PRODUCT_ID_NOT_FOUND));
     }
 
     @Override
-    public List<Product> getProductsByIds(int[] productId) {
+    public List<Product> getProductsByIds(Long[] productId) {
         List<Product> resultList = new ArrayList<>();
-        for (int forEachId : productId) {
+        for (Long forEachId : productId) {
             Product findProductById = productRepository.findById(forEachId)
                     .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
             resultList.add(findProductById);
@@ -157,7 +157,7 @@ public class ProductManager implements ProductService {
         }
     }
 
-    private Result isExistId(int id) {
+    private Result isExistId(Long id) {
         if (!productRepository.existsById(id)) {
             throw new BusinessException(ErrorMessages.ID_NOT_FOUND);
         }
@@ -172,21 +172,21 @@ public class ProductManager implements ProductService {
         return new SuccessResult();
     }
 
-    private Result isExistCategoryId(int categoryId) {
+    private Result isExistCategoryId(Long categoryId) {
         if (categoryService.getCategoryById(categoryId) == null) {
             throw new BusinessException(ErrorMessages.CATEGORY_ID_NOT_FOUND);
         }
         return new SuccessResult();
     }
 
-    private Result isExistSupplierId(int supplierId) {
+    private Result isExistSupplierId(Long supplierId) {
         if (supplierService.getSupplierById(supplierId) == null) {
             throw new BusinessException(ErrorMessages.SUPPLIER_ID_NOT_FOUND);
         }
         return new SuccessResult();
     }
 
-    private Result isExistProducerId(int producerId) {
+    private Result isExistProducerId(Long producerId) {
         if (producerService.getProducerById(producerId) == null) {
             throw new BusinessException(ErrorMessages.PRODUCER_ID_NOT_FOUND);
         }

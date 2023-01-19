@@ -17,13 +17,13 @@ public interface CategoryService {
 
     Result delete(DeleteCategoryRequest deleteCategoryRequest);
 
-    Result update(UpdateCategoryRequest updateCategoryRequest, int id);
+    Result update(UpdateCategoryRequest updateCategoryRequest, Long id);
 
     DataResult<List<GetAllCategoryResponse>> getAll();
 
-    DataResult<GetByIdCategoryResponse> getById(int id);
+    DataResult<GetByIdCategoryResponse> getById(Long id);
 
-    default Category getCategoryById(int id) {
+    default Category getCategoryById(Long id) {
         return null;
     }
 }

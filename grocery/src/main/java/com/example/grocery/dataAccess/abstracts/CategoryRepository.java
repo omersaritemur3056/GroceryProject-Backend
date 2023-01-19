@@ -6,9 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.example.grocery.entity.concretes.Category;
 
-public interface CategoryRepository extends JpaRepository<Category, Integer> {
+public interface CategoryRepository extends JpaRepository<Category, Long> {
 
-    boolean existsById(int id);
+    boolean existsById(Long id);
 
     boolean existsByNameIgnoreCase(String name);
 

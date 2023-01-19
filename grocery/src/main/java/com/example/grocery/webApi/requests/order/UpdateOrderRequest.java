@@ -30,12 +30,12 @@ public class UpdateOrderRequest {
     private OrderStatus orderStatus;
 
     @Positive
-    private int paymentId;
+    private Long paymentId;
 
     @Positive
-    private int customerId;
+    private Long customerId;
 
     @NotNull
     // referans tipte @Positive olmaz alternatif bul...
-    private int[] productIds;
+    private Long[] productIds;
 }

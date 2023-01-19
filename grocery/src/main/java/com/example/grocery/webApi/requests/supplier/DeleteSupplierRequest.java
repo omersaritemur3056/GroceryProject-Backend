@@ -13,5 +13,5 @@ import lombok.Setter;
 public class DeleteSupplierRequest {
 
     @Positive
-    private int id;
+    private Long id;
 }

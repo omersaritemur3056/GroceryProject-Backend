@@ -13,5 +13,5 @@ import lombok.Setter;
 public class DeleteProducerRequest {
 
     @Positive
-    private int id;
+    private Long id;
 }

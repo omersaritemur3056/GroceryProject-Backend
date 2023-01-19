@@ -40,7 +40,7 @@ public class IndividualCustomersController {
     @PutMapping("/update")
     public ResponseEntity<Result> update(
             @Valid @RequestBody UpdateIndividualCustomerRequest updateIndividualCustomerRequest,
-            @RequestParam int id) {
+            @RequestParam Long id) {
         return ResponseEntity.ok().body(individualCustomerService.update(updateIndividualCustomerRequest, id));
     }
 
@@ -56,7 +56,7 @@ public class IndividualCustomersController {
     }
 
     @GetMapping("/getbyid")
-    public ResponseEntity<DataResult<GetByIdIndividualCustomerResponse>> getById(@RequestParam int id) {
+    public ResponseEntity<DataResult<GetByIdIndividualCustomerResponse>> getById(@RequestParam Long id) {
         return ResponseEntity.ok().body(individualCustomerService.getById(id));
     }
 }

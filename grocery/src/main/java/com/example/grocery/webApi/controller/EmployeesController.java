@@ -38,7 +38,7 @@ public class EmployeesController {
 
     @PutMapping("/update")
     public ResponseEntity<Result> update(@Valid @RequestBody UpdateEmployeeRequest updateEmployeeRequest,
-            @RequestParam int id) {
+            @RequestParam Long id) {
         return ResponseEntity.ok().body(employeeService.update(updateEmployeeRequest, id));
     }
 
@@ -53,7 +53,7 @@ public class EmployeesController {
     }
 
     @GetMapping("/getbyid")
-    public ResponseEntity<DataResult<GetByIdEmployeeResponse>> getById(@RequestParam int id) {
+    public ResponseEntity<DataResult<GetByIdEmployeeResponse>> getById(@RequestParam Long id) {
         return ResponseEntity.ok().body(employeeService.getById(id));
     }
 }

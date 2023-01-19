@@ -14,5 +14,5 @@ import lombok.Setter;
 public class DeleteCategoryRequest {
 
     @Positive
-    private int id;
+    private Long id;
 }

@@ -14,7 +14,7 @@ import lombok.Setter;
 @Setter
 public class GetByIdEmployeeResponse {
 
-    private int id;
+    private Long id;
 
     private String username;
 

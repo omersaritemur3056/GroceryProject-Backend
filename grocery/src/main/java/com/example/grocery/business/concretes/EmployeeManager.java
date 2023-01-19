@@ -73,7 +73,7 @@ public class EmployeeManager implements EmployeeService {
     }
 
     @Override
-    public Result update(UpdateEmployeeRequest updateEmployeeRequest, int id) {
+    public Result update(UpdateEmployeeRequest updateEmployeeRequest, Long id) {
 
         Result rules = BusinessRules.run(isExistEmail(updateEmployeeRequest.getEmail()),
                 isExistNationalId(updateEmployeeRequest.getNationalIdentity()),
@@ -98,19 +98,19 @@ public class EmployeeManager implements EmployeeService {
         List<Employee> employeeList = employeeRepository.findAll();
         List<GetAllEmployeeResponse> returnList = employeeList.stream()
                 .map(e -> mapperService.getModelMapper().map(e, GetAllEmployeeResponse.class)).toList();
-        return new SuccessDataResult<List<GetAllEmployeeResponse>>(returnList, GetListMessages.EMPLOYEES_LISTED);
+        return new SuccessDataResult<>(returnList, GetListMessages.EMPLOYEES_LISTED);
     }
 
     @Override
-    public DataResult<GetByIdEmployeeResponse> getById(int id) {
+    public DataResult<GetByIdEmployeeResponse> getById(Long id) {
         Employee inDbEmployee = employeeRepository.findById(id)
                 .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
         GetByIdEmployeeResponse returnObj = mapperService.getModelMapper().map(inDbEmployee,
                 GetByIdEmployeeResponse.class);
-        return new SuccessDataResult<GetByIdEmployeeResponse>(returnObj, GetByIdMessages.EMPLOYEE_LISTED);
+        return new SuccessDataResult<>(returnObj, GetByIdMessages.EMPLOYEE_LISTED);
     }
 
-    private Result isExistId(int id) {
+    private Result isExistId(Long id) {
         if (!userService.existById(id)) {
             throw new BusinessException(ErrorMessages.ID_NOT_FOUND);
         }

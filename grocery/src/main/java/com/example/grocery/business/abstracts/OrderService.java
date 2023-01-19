@@ -16,9 +16,9 @@ public interface OrderService {
 
     Result delete(DeleteOrderRequest deleteOrderRequest);
 
-    Result update(UpdateOrderRequest updateOrderRequest, int id);
+    Result update(UpdateOrderRequest updateOrderRequest, Long id);
 
     DataResult<List<GetAllOrderResponse>> getAll();
 
-    DataResult<GetByIdOrderResponse> getById(int id);
+    DataResult<GetByIdOrderResponse> getById(Long id);
 }

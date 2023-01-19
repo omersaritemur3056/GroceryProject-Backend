@@ -11,6 +11,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class GetAllCategoryResponse {
 
-    private int id;
+    private Long id;
     private String name;
 }

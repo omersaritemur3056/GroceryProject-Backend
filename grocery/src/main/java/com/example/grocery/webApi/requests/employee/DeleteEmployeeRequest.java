@@ -17,5 +17,5 @@ import lombok.Setter;
 public class DeleteEmployeeRequest {
 
     @Positive
-    private int id;
+    private Long id;
 }

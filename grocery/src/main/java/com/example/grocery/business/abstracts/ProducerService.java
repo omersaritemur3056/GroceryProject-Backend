@@ -15,15 +15,15 @@ public interface ProducerService {
 
     Result add(CreateProducerRequest createProducerRequest);
 
-    Result update(UpdateProducerRequest updateProducerRequest, int id);
+    Result update(UpdateProducerRequest updateProducerRequest, Long id);
 
     Result delete(DeleteProducerRequest deleteProducerRequest);
 
     DataResult<List<GetAllProducerResponse>> getAll();
 
-    DataResult<GetByIdProducerResponse> getById(int id);
+    DataResult<GetByIdProducerResponse> getById(Long id);
 
-    default Producer getProducerById(int id) {
+    default Producer getProducerById(Long id) {
         return null;
     }
 }

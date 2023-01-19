@@ -13,7 +13,7 @@ import lombok.Setter;
 @Setter
 public class GetAllUserResponseDto {
 
-    private int id;
+    private Long id;
 
     private String username;
 

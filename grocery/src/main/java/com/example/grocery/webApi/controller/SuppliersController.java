@@ -38,7 +38,7 @@ public class SuppliersController {
 
     @PutMapping("/update")
     public ResponseEntity<Result> update(@Valid @RequestBody UpdateSupplierRequest updateSupplierRequest,
-            @RequestParam int id) {
+            @RequestParam Long id) {
         return ResponseEntity.ok().body(supplierService.update(updateSupplierRequest, id));
     }
 
@@ -53,7 +53,7 @@ public class SuppliersController {
     }
 
     @GetMapping("/getbyid")
-    public ResponseEntity<DataResult<GetByIdSupplierResponse>> getById(@RequestParam int id) {
+    public ResponseEntity<DataResult<GetByIdSupplierResponse>> getById(@RequestParam Long id) {
         return ResponseEntity.ok().body(supplierService.getById(id));
     }
 }

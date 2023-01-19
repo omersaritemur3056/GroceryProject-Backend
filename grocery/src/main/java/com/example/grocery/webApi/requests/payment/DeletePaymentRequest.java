@@ -13,5 +13,5 @@ import lombok.Setter;
 public class DeletePaymentRequest {
 
     @Positive
-    private int id;
+    private Long id;
 }

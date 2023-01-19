@@ -11,6 +11,6 @@ import lombok.Setter;
 @Setter
 public class GetByIdCategoryResponse {
 
-    private int id;
+    private Long id;
     private String name;
 }

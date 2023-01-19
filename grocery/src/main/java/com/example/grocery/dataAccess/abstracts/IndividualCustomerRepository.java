@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.example.grocery.entity.concretes.IndividualCustomer;
 
-public interface IndividualCustomerRepository extends JpaRepository<IndividualCustomer, Integer> {
+public interface IndividualCustomerRepository extends JpaRepository<IndividualCustomer, Long> {
 
     boolean existsByNationalIdentity(String nationIdentity);
 }

@@ -15,15 +15,15 @@ public interface SupplierService {
 
     Result add(CreateSupplierRequest createSupplierRequest);
 
-    Result update(UpdateSupplierRequest updateSupplierRequest, int id);
+    Result update(UpdateSupplierRequest updateSupplierRequest, Long id);
 
     Result delete(DeleteSupplierRequest deleteSupplierRequest);
 
     DataResult<List<GetAllSupplierResponse>> getAll();
 
-    DataResult<GetByIdSupplierResponse> getById(int id);
+    DataResult<GetByIdSupplierResponse> getById(Long id);
 
-    default Supplier getSupplierById(int id) {
+    default Supplier getSupplierById(Long id) {
         return null;
     }
 }

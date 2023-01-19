@@ -40,7 +40,7 @@ public class CorporateCustomersController {
     @PutMapping("/update")
     public ResponseEntity<Result> update(
             @Valid @RequestBody UpdateCorporateCustomerRequest updateCorporateCustomerRequest,
-            @RequestParam int id) {
+            @RequestParam Long id) {
         return ResponseEntity.ok().body(corporateCustomerService.update(updateCorporateCustomerRequest, id));
     }
 
@@ -56,7 +56,7 @@ public class CorporateCustomersController {
     }
 
     @GetMapping("/getbyid")
-    public ResponseEntity<DataResult<GetByIdCorporateCustomerResponse>> getById(@RequestParam int id) {
+    public ResponseEntity<DataResult<GetByIdCorporateCustomerResponse>> getById(@RequestParam Long id) {
         return ResponseEntity.ok().body(corporateCustomerService.getById(id));
     }
 }

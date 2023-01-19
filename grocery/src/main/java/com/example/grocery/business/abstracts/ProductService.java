@@ -15,15 +15,15 @@ public interface ProductService {
 
     Result add(CreateProductRequest createProductRequest);
 
-    Result update(UpdateProductRequest updateProductRequest, int id);
+    Result update(UpdateProductRequest updateProductRequest, Long id);
 
     Result delete(DeleteProductRequest deleteProductRequest);
 
     DataResult<List<GetAllProductResponse>> getAll();
 
-    DataResult<GetByIdProductResponse> getById(int id);
+    DataResult<GetByIdProductResponse> getById(Long id);
 
-    Product getProductById(int id);
+    Product getProductById(Long id);
 
-    List<Product> getProductsByIds(int[] productId);
+    List<Product> getProductsByIds(Long[] productId);
 }

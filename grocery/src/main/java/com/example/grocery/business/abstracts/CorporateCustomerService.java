@@ -16,9 +16,9 @@ public interface CorporateCustomerService {
 
     Result delete(DeleteCorporateCustomerRequest deleteCorporateCustomerRequest);
 
-    Result update(UpdateCorporateCustomerRequest updateCorporateCustomerRequest, int id);
+    Result update(UpdateCorporateCustomerRequest updateCorporateCustomerRequest, Long id);
 
     DataResult<List<GetAllCorporateCustomerResponse>> getAll();
 
-    DataResult<GetByIdCorporateCustomerResponse> getById(int id);
+    DataResult<GetByIdCorporateCustomerResponse> getById(Long id);
 }

@@ -31,22 +31,22 @@ public class CustomerManager implements CustomerService {
         List<Customer> inDbCustomers = customerRepository.findAll();
         List<GetAllCustomerResponse> returnList = inDbCustomers.stream()
                 .map(c -> mapperService.getModelMapper().map(c, GetAllCustomerResponse.class)).toList();
-        return new SuccessDataResult<List<GetAllCustomerResponse>>(returnList, GetListMessages.CUSTOMERS_LISTED);
+        return new SuccessDataResult<>(returnList, GetListMessages.CUSTOMERS_LISTED);
     }
 
     @Override
-    public DataResult<GetByIdCustomerResponse> getById(int id) {
+    public DataResult<GetByIdCustomerResponse> getById(Long id) {
         Customer inDbCustomer = customerRepository.findById(id)
                 .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
         GetByIdCustomerResponse returnObj = mapperService.getModelMapper().map(inDbCustomer,
                 GetByIdCustomerResponse.class);
-        return new SuccessDataResult<GetByIdCustomerResponse>(returnObj, GetByIdMessages.CUSTOMER_LISTED);
+        return new SuccessDataResult<>(returnObj, GetByIdMessages.CUSTOMER_LISTED);
     }
 
-    //Bağımlılığı kontrol altına almak için tasarlandı
+    // Bağımlılığı kontrol altına almak için tasarlandı
     @Override
-    public Customer getCustomerById(int id) {
-        return customerRepository.findById(id).orElseThrow(() -> 
-            new BusinessException(ErrorMessages.CUSTOMER_ID_NOT_FOUND));
+    public Customer getCustomerById(Long id) {
+        return customerRepository.findById(id)
+                .orElseThrow(() -> new BusinessException(ErrorMessages.CUSTOMER_ID_NOT_FOUND));
     }
 }

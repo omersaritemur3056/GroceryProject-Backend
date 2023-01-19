@@ -78,7 +78,7 @@ public class IndividualCustomerManager implements IndividualCustomerService {
         }
 
         @Override
-        public Result update(UpdateIndividualCustomerRequest updateIndividualCustomerRequest, int id) {
+        public Result update(UpdateIndividualCustomerRequest updateIndividualCustomerRequest, Long id) {
 
                 Result rules = BusinessRules.run(isExistEmail(updateIndividualCustomerRequest.getEmail()),
                                 isExistNationalId(updateIndividualCustomerRequest.getNationalIdentity()),
@@ -107,22 +107,22 @@ public class IndividualCustomerManager implements IndividualCustomerService {
                                 .map(ic -> mapperService.getModelMapper().map(ic,
                                                 GetAllIndividualCustomerResponse.class))
                                 .toList();
-                return new SuccessDataResult<List<GetAllIndividualCustomerResponse>>(returnList,
+                return new SuccessDataResult<>(returnList,
                                 GetListMessages.INDIVIDUAL_CUSTOMERS_LISTED);
         }
 
         @Override
-        public DataResult<GetByIdIndividualCustomerResponse> getById(int id) {
+        public DataResult<GetByIdIndividualCustomerResponse> getById(Long id) {
                 IndividualCustomer inDbIndividualCustomer = individualCustomerRepository.findById(id)
                                 .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
                 GetByIdIndividualCustomerResponse returnObj = mapperService.getModelMapper().map(
                                 inDbIndividualCustomer,
                                 GetByIdIndividualCustomerResponse.class);
-                return new SuccessDataResult<GetByIdIndividualCustomerResponse>(returnObj,
+                return new SuccessDataResult<>(returnObj,
                                 GetByIdMessages.INDIVIDUAL_CUSTOMER_LISTED);
         }
 
-        private Result isExistId(int id) {
+        private Result isExistId(Long id) {
                 if (!userService.existById(id)) {
                         throw new BusinessException(ErrorMessages.ID_NOT_FOUND);
                 }

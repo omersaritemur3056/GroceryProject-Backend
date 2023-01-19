@@ -16,9 +16,9 @@ public interface IndividualCustomerService {
 
     Result delete(DeleteIndividualCustomerRequest deleteIndividualCustomerRequest);
 
-    Result update(UpdateIndividualCustomerRequest updateIndividualCustomerRequest, int id);
+    Result update(UpdateIndividualCustomerRequest updateIndividualCustomerRequest, Long id);
 
     DataResult<List<GetAllIndividualCustomerResponse>> getAll();
 
-    DataResult<GetByIdIndividualCustomerResponse> getById(int id);
+    DataResult<GetByIdIndividualCustomerResponse> getById(Long id);
 }

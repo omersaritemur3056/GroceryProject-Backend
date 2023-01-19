@@ -43,7 +43,7 @@ public class PaymentsController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Result> update(@Valid @RequestBody UpdatePaymentRequest updatePaymentRequest, int id) {
+    public ResponseEntity<Result> update(@Valid @RequestBody UpdatePaymentRequest updatePaymentRequest, Long id) {
         return ResponseEntity.ok().body(paymentService.update(updatePaymentRequest, id));
     }
 
@@ -53,7 +53,7 @@ public class PaymentsController {
     }
 
     @GetMapping("/getbyid")
-    public ResponseEntity<DataResult<GetByIdPaymentResponse>> getById(@RequestParam int id) {
+    public ResponseEntity<DataResult<GetByIdPaymentResponse>> getById(@RequestParam Long id) {
         return new ResponseEntity<>(paymentService.getById(id), HttpStatus.OK);
     }
 }

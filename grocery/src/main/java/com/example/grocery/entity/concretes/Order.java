@@ -36,7 +36,7 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id")
-    private int id;
+    private Long id;
 
     @CreatedDate
     @Column(name = "created_date")

@@ -11,10 +11,10 @@ import lombok.Setter;
 @Setter
 public class GetByIdProductResponse {
 
-    private int id;
+    private Long id;
     private String name;
     private double price;
-    private int categoryId;
-    private int supplierId;
-    private int producerId;
+    private Long categoryId;
+    private Long supplierId;
+    private Long producerId;
 }

@@ -67,7 +67,7 @@ public class PaymentManager implements PaymentService {
     }
 
     @Override
-    public Result update(UpdatePaymentRequest updatePaymentRequest, int id) {
+    public Result update(UpdatePaymentRequest updatePaymentRequest, Long id) {
         // Card number, Cvv numaralarını formatlacak kodlar yazılacak...
         Payment inDbPayment = paymentRepository.findById(id)
                 .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
@@ -94,7 +94,7 @@ public class PaymentManager implements PaymentService {
     }
 
     @Override
-    public DataResult<GetByIdPaymentResponse> getById(int id) {
+    public DataResult<GetByIdPaymentResponse> getById(Long id) {
         Payment payment = paymentRepository.findById(id)
                 .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
         GetByIdPaymentResponse getByIdPaymentResponse = mapperService.getModelMapper().map(payment,
@@ -104,7 +104,7 @@ public class PaymentManager implements PaymentService {
 
     // Bağımlılığın kontrol altına alınması için tasarlandı
     @Override
-    public Payment getPaymentById(int id) {
+    public Payment getPaymentById(Long id) {
         return paymentRepository.findById(id)
                 .orElseThrow(() -> new BusinessException(ErrorMessages.PAYMENT_ID_NOT_FOUND));
     }
@@ -119,7 +119,7 @@ public class PaymentManager implements PaymentService {
         return new SuccessResult();
     }
 
-    private Result isExistId(int id) {
+    private Result isExistId(Long id) {
         if (!paymentRepository.existsById(id)) {
             log.warn("Payment id could not found!");
             throw new BusinessException(ErrorMessages.ID_NOT_FOUND);

@@ -12,6 +12,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 import com.example.grocery.core.security.jwt.AuthEntryPointJwt;
 import com.example.grocery.core.security.jwt.AuthTokenFilter;
@@ -53,6 +56,26 @@ public class WebSecurityConfig {
         return authConfig.getAuthenticationManager();
     }
 
+    // @Bean
+    // public CorsFilter corsWebFilter() {
+    // UrlBasedCorsConfigurationSource configurationSource = new
+    // UrlBasedCorsConfigurationSource();
+    // CorsConfiguration corsConfig = new CorsConfiguration();
+    // corsConfig.setAllowCredentials(true);
+    // corsConfig.addAllowedOrigin("*");
+    // corsConfig.addAllowedHeader("*");
+    // corsConfig.addAllowedMethod("OPTIONS");
+    // corsConfig.addAllowedMethod("HEAD");
+    // corsConfig.addAllowedMethod("GET");
+    // corsConfig.addAllowedMethod("PUT");
+    // corsConfig.addAllowedMethod("POST");
+    // corsConfig.addAllowedMethod("DELETE");
+    // corsConfig.addAllowedMethod("PATCH");
+    // configurationSource.registerCorsConfiguration("/**", corsConfig);
+    // return new CorsFilter(configurationSource);
+
+    // }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -62,12 +85,10 @@ public class WebSecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeHttpRequests()
-                .requestMatchers("/swagger-ui/**", "/api/**", "/javainuse-openapi/**")
+                .requestMatchers("/swagger-ui/**", "*", "/*", "/api/**", "/javainuse-openapi/**")
                 .permitAll()
                 .anyRequest()
-                .authenticated()
-                .and()
-                .httpBasic();
+                .authenticated();
 
         http.authenticationProvider(authenticationProvider());
 
