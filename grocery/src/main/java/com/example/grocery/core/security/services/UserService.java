@@ -32,4 +32,6 @@ public interface UserService {
     boolean existByEmail(String email);
 
     boolean existById(Long id);
+
+    User getUserById(Long userId);
 }

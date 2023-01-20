@@ -1,8 +1,5 @@
 package com.example.grocery.webApi.requests.individualCustomer;
 
-import java.time.LocalDateTime;
-
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -18,28 +15,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CreateIndividualCustomerRequest {
-
-    @NotNull
-    @NotBlank
-    @Size(min = 3, max = 20)
-    private String username;
-
-    @NotBlank
-    @NotNull
-    @Email
-    private String email;
-
-    @NotNull
-    @NotBlank
-    @Size(min = 6, max = 21)
-    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{6,21}$")
-    private String password;
-
-    private LocalDateTime createdDateTime = LocalDateTime.now();
-
-    private LocalDateTime updatedDateTime = LocalDateTime.now();
-
-    private boolean isActive = true;
 
     @NotBlank
     @NotNull
@@ -62,4 +37,6 @@ public class CreateIndividualCustomerRequest {
 
     @Size(min = 11, max = 11)
     private String nationalIdentity;
+
+    private Long userId;
 }

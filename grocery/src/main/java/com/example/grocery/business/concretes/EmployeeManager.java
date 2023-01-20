@@ -1,6 +1,7 @@
 package com.example.grocery.business.concretes;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,13 +46,11 @@ public class EmployeeManager implements EmployeeService {
     @Override
     public Result add(CreateEmployeeRequest createEmployeeRequest) {
         // asgari ücretin altında salary olamaz eklenebilir...
-        Result rules = BusinessRules.run(isExistEmail(createEmployeeRequest.getEmail()),
-                isExistNationalId(createEmployeeRequest.getNationalIdentity()),
-                isPermissibleAge(createEmployeeRequest.getYearOfBirth()),
-                isValidPassword(createEmployeeRequest.getPassword(), createEmployeeRequest.getFirstName(),
-                        createEmployeeRequest.getLastName(), createEmployeeRequest.getYearOfBirth()));
+        Result rules = BusinessRules.run(isExistNationalId(createEmployeeRequest.getNationalIdentity()),
+                isPermissibleAge(createEmployeeRequest.getYearOfBirth()));
 
         Employee employee = mapperService.getModelMapper().map(createEmployeeRequest, Employee.class);
+        employee.setUser(userService.getUserById(createEmployeeRequest.getUserId()));
         employeeRepository.save(employee);
         log.info("added employee: {} {} logged to file!", createEmployeeRequest.getFirstName(),
                 createEmployeeRequest.getLastName());
@@ -75,18 +74,15 @@ public class EmployeeManager implements EmployeeService {
     @Override
     public Result update(UpdateEmployeeRequest updateEmployeeRequest, Long id) {
 
-        Result rules = BusinessRules.run(isExistEmail(updateEmployeeRequest.getEmail()),
-                isExistNationalId(updateEmployeeRequest.getNationalIdentity()),
-                isPermissibleAge(updateEmployeeRequest.getYearOfBirth()),
-                isValidPassword(updateEmployeeRequest.getPassword(), updateEmployeeRequest.getFirstName(),
-                        updateEmployeeRequest.getLastName(), updateEmployeeRequest.getYearOfBirth()),
-                isExistId(id));
+        Result rules = BusinessRules.run(isExistNationalId(updateEmployeeRequest.getNationalIdentity()),
+                isPermissibleAge(updateEmployeeRequest.getYearOfBirth()));
 
         Employee inDbEmployee = employeeRepository.findById(id)
                 .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
 
         Employee employee = mapperService.getModelMapper().map(updateEmployeeRequest, Employee.class);
         employee.setId(inDbEmployee.getId());
+        employee.setUser(userService.getUserById(updateEmployeeRequest.getUserId()));
         employeeRepository.save(employee);
         log.info("modified employee: {} {} logged to file!", updateEmployeeRequest.getFirstName(),
                 updateEmployeeRequest.getLastName());
@@ -96,8 +92,12 @@ public class EmployeeManager implements EmployeeService {
     @Override
     public DataResult<List<GetAllEmployeeResponse>> getAll() {
         List<Employee> employeeList = employeeRepository.findAll();
-        List<GetAllEmployeeResponse> returnList = employeeList.stream()
-                .map(e -> mapperService.getModelMapper().map(e, GetAllEmployeeResponse.class)).toList();
+        List<GetAllEmployeeResponse> returnList = new ArrayList<>();
+        for (var x : employeeList) {
+            GetAllEmployeeResponse abc = mapperService.getModelMapper().map(x, GetAllEmployeeResponse.class);
+            abc.setUserId(x.getUser().getId());
+            returnList.add(abc);
+        }
         return new SuccessDataResult<>(returnList, GetListMessages.EMPLOYEES_LISTED);
     }
 
@@ -107,19 +107,13 @@ public class EmployeeManager implements EmployeeService {
                 .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
         GetByIdEmployeeResponse returnObj = mapperService.getModelMapper().map(inDbEmployee,
                 GetByIdEmployeeResponse.class);
+        returnObj.setUserId(inDbEmployee.getUser().getId());
         return new SuccessDataResult<>(returnObj, GetByIdMessages.EMPLOYEE_LISTED);
     }
 
     private Result isExistId(Long id) {
-        if (!userService.existById(id)) {
+        if (!employeeRepository.existsById(id)) {
             throw new BusinessException(ErrorMessages.ID_NOT_FOUND);
-        }
-        return new SuccessResult();
-    }
-
-    private Result isExistEmail(String email) {
-        if (userService.existByEmail(email)) {
-            throw new BusinessException(ErrorMessages.EMAIL_REPEATED);
         }
         return new SuccessResult();
     }
@@ -134,15 +128,6 @@ public class EmployeeManager implements EmployeeService {
     private Result isPermissibleAge(LocalDate birthYear) {
         if (LocalDate.now().getYear() - birthYear.getYear() < 18) {
             throw new BusinessException(ErrorMessages.AGE_NOT_PERMISSIBLE);
-        }
-        return new SuccessResult();
-    }
-
-    private Result isValidPassword(String password, String firstName, String lastName, LocalDate birthDay) {
-        if (password.contains(firstName)
-                || password.contains(lastName)
-                || password.contains(String.valueOf(birthDay.getYear()))) {
-            throw new BusinessException(ErrorMessages.EMPLOYEE_PASSWORD_NOT_VALID);
         }
         return new SuccessResult();
     }

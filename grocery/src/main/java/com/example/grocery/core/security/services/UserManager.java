@@ -65,7 +65,8 @@ public class UserManager implements UserService {
     @Override
     public Result register(UserForRegisterDto userForRegisterDto) {
         Result rules = BusinessRules.run(isEmailExist(userForRegisterDto.getEmail()),
-                isUsernameExist(userForRegisterDto.getUsername()));
+                isUsernameExist(userForRegisterDto.getUsername()),
+                isValidPassword(userForRegisterDto.getPassword(), userForRegisterDto.getUsername()));
 
         User user = mapperService.getModelMapper().map(userForRegisterDto, User.class);
         user.setPassword(passwordEncoder.encode(userForRegisterDto.getPassword()));
@@ -174,6 +175,13 @@ public class UserManager implements UserService {
 
     // Bağımlılığı kontrol altına almak üzere tasarlandılar
     @Override
+    public User getUserById(Long userId) {
+
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new BusinessException(ErrorMessages.USER_ID_NOT_FOUND));
+    }
+
+    @Override
     public User getByEmail(String email) {
         return userRepository.findByEmail(email)
                 .orElseThrow(() -> new BusinessException(ErrorMessages.USER_EMAIL_NOT_FOUND));
@@ -199,6 +207,13 @@ public class UserManager implements UserService {
     private Result isEmailExist(String email) {
         if (userRepository.existsByEmail(email)) {
             throw new BusinessException(ErrorMessages.EMAIL_REPEATED);
+        }
+        return new SuccessResult();
+    }
+
+    private Result isValidPassword(String password, String username) {
+        if (password.contains(username)) {
+            throw new BusinessException(ErrorMessages.PASSWORD_NOT_VALID);
         }
         return new SuccessResult();
     }

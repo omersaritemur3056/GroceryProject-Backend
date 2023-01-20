@@ -6,7 +6,11 @@ import com.example.grocery.core.security.models.User;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.PrimaryKeyJoinColumn;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -22,8 +26,12 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-@PrimaryKeyJoinColumn(name = "employee_id", referencedColumnName = "user_id")
-public class Employee extends User {
+public class Employee {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "employee_id")
+    private Long id;
 
     @Column(name = "first_name")
     private String firstName;
@@ -39,4 +47,8 @@ public class Employee extends User {
 
     @Column(name = "salary")
     private double salary;
+
+    @OneToOne
+    @JoinColumn(name = "user_fk_id", referencedColumnName = "user_id")
+    private User user;
 }

@@ -1,5 +1,6 @@
 package com.example.grocery.business.concretes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import com.example.grocery.business.abstracts.CustomerService;
 import com.example.grocery.business.constants.Messages.ErrorMessages;
 import com.example.grocery.business.constants.Messages.GetByIdMessages;
 import com.example.grocery.business.constants.Messages.GetListMessages;
+import com.example.grocery.core.security.services.UserService;
 import com.example.grocery.core.utilities.exceptions.BusinessException;
 import com.example.grocery.core.utilities.mapper.MapperService;
 import com.example.grocery.core.utilities.results.DataResult;
@@ -25,12 +27,18 @@ public class CustomerManager implements CustomerService {
     private CustomerRepository customerRepository;
     @Autowired
     private MapperService mapperService;
+    @Autowired
+    private UserService userService;
 
     @Override
     public DataResult<List<GetAllCustomerResponse>> getAll() {
         List<Customer> inDbCustomers = customerRepository.findAll();
-        List<GetAllCustomerResponse> returnList = inDbCustomers.stream()
-                .map(c -> mapperService.getModelMapper().map(c, GetAllCustomerResponse.class)).toList();
+        List<GetAllCustomerResponse> returnList = new ArrayList<>();
+        for (var x : inDbCustomers) {
+            GetAllCustomerResponse abc = mapperService.getModelMapper().map(x, GetAllCustomerResponse.class);
+            abc.setUserId(x.getUser().getId());
+            returnList.add(abc);
+        }
         return new SuccessDataResult<>(returnList, GetListMessages.CUSTOMERS_LISTED);
     }
 
@@ -40,6 +48,7 @@ public class CustomerManager implements CustomerService {
                 .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
         GetByIdCustomerResponse returnObj = mapperService.getModelMapper().map(inDbCustomer,
                 GetByIdCustomerResponse.class);
+        returnObj.setUserId(inDbCustomer.getUser().getId());
         return new SuccessDataResult<>(returnObj, GetByIdMessages.CUSTOMER_LISTED);
     }
 

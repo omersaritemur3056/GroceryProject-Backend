@@ -21,8 +21,7 @@ public class Messages {
 
         public static final String EMAIL_REPEATED = "Email address can not be repeat!";
         public static final String PHONE_NUMBER_REPEATED = "Phone number can not be repeat!";
-        public static final String INDIVIDUAL_CUSTOMER_PASSWORD_NOT_VALID = "Password can not include firstname or lastname";
-        public static final String EMPLOYEE_PASSWORD_NOT_VALID = "Password can not include firstname, lastname or year of birth";
+        public static final String PASSWORD_NOT_VALID = "Password can not contains username!";
         public static final String AGE_NOT_PERMISSIBLE = "Employee is must older than 18";
         public static final String DEBIT_CARD_NOT_VALID = "Debit card informations not valid!";
         public static final String USER_EMAIL_NOT_FOUND = "Entered user email not found in DB!";
