@@ -20339,3 +20339,39 @@ java.lang.Error: Unresolved compilation problem:
 2023-01-21 02:06:43 INFO Initializing Servlet 'dispatcherServlet'
 2023-01-21 02:06:43 INFO Completed initialization in 2 ms
 2023-01-21 02:06:47 INFO Init duration for springdoc-openapi is: 1630 ms
+2023-01-21 02:20:42 INFO HV000001: Hibernate Validator 8.0.0.Final
+2023-01-21 02:20:42 INFO Starting GroceryApplication using Java 17.0.5 with PID 3108 (C:\GroceryProject-Backend\grocery\target\classes started by palao in C:\GroceryProject-Backend)
+2023-01-21 02:20:42 INFO No active profile set, falling back to 1 default profile: "default"
+2023-01-21 02:20:42 INFO Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-01-21 02:20:42 INFO For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-01-21 02:20:43 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-01-21 02:20:43 INFO Finished Spring Data repository scanning in 89 ms. Found 13 JPA repository interfaces.
+2023-01-21 02:20:44 INFO Tomcat initialized with port(s): 8080 (http)
+2023-01-21 02:20:44 INFO Initializing ProtocolHandler ["http-nio-8080"]
+2023-01-21 02:20:44 INFO Starting service [Tomcat]
+2023-01-21 02:20:44 INFO Starting Servlet engine: [Apache Tomcat/10.1.4]
+2023-01-21 02:20:44 INFO Initializing Spring embedded WebApplicationContext
+2023-01-21 02:20:44 INFO Root WebApplicationContext: initialization completed in 1688 ms
+2023-01-21 02:20:44 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-01-21 02:20:44 INFO HHH000412: Hibernate ORM core version 6.1.6.Final
+2023-01-21 02:20:44 WARN HHH90000021: Encountered deprecated setting [javax.persistence.validation.mode], use [jakarta.persistence.validation.mode] instead
+2023-01-21 02:20:44 WARN HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-01-21 02:20:44 INFO HikariPool-1 - Starting...
+2023-01-21 02:20:45 INFO HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@49a79a63
+2023-01-21 02:20:45 INFO HikariPool-1 - Start completed.
+2023-01-21 02:20:45 INFO HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2023-01-21 02:20:46 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-01-21 02:20:46 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-01-21 02:20:46 WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-01-21 02:20:47 INFO Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@580add0b, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1cf98b30, org.springframework.security.web.context.SecurityContextHolderFilter@c9a0eba, org.springframework.security.web.header.HeaderWriterFilter@468a2185, org.springframework.web.filter.CorsFilter@2aa64003, org.springframework.security.web.authentication.logout.LogoutFilter@24326490, com.example.grocery.core.security.jwt.AuthTokenFilter@6da80ac1, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1cdeaa8f, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4450426f, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6ee39375, org.springframework.security.web.session.SessionManagementFilter@14918d8f, org.springframework.security.web.access.ExceptionTranslationFilter@7751e45e, org.springframework.security.web.access.intercept.AuthorizationFilter@4b61fac0]
+2023-01-21 02:20:47 INFO LiveReload server is running on port 35729
+2023-01-21 02:20:47 INFO Starting ProtocolHandler ["http-nio-8080"]
+2023-01-21 02:20:47 INFO Tomcat started on port(s): 8080 (http) with context path ''
+2023-01-21 02:20:47 INFO Started GroceryApplication in 5.406 seconds (process running for 5.927)
+2023-01-21 02:20:54 INFO Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-01-21 02:20:54 INFO Initializing Servlet 'dispatcherServlet'
+2023-01-21 02:20:54 INFO Completed initialization in 1 ms
+2023-01-21 02:20:58 INFO Init duration for springdoc-openapi is: 1756 ms
+2023-01-21 02:21:38 ERROR Unauthorized error: Bad credentials
+2023-01-21 02:21:54 ERROR Unauthorized error: Bad credentials
+2023-01-21 02:22:04 INFO User: omer logined
