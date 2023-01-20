@@ -15,6 +15,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import com.example.grocery.core.security.jwt.AuthEntryPointJwt;
 import com.example.grocery.core.security.jwt.AuthTokenFilter;
@@ -22,6 +23,7 @@ import com.example.grocery.core.security.services.UserDetailsServiceImpl;
 
 @Configuration
 @EnableWebSecurity
+@EnableWebMvc
 public class WebSecurityConfig {
 
     final AuthEntryPointJwt unauthorizatedHandler;
@@ -85,7 +87,11 @@ public class WebSecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeHttpRequests()
-                .requestMatchers("/swagger-ui/**", "*", "/*", "/api/**", "/javainuse-openapi/**")
+                .requestMatchers("/swagger-ui/**", "*", "/*", "/api/**", "/javainuse-openapi/**",
+                        "/swagger-ui/index.html", "/v3/api-docs/**",
+                        "/swagger-ui/**",
+                        "/v2/api-docs/**",
+                        "/swagger-resources/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated();
