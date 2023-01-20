@@ -27,7 +27,7 @@ public class CustomersController {
     }
 
     @GetMapping("/getbyid")
-    public ResponseEntity<DataResult<GetByIdCustomerResponse>> getById(@RequestParam int id) {
+    public ResponseEntity<DataResult<GetByIdCustomerResponse>> getById(@RequestParam Long id) {
         return ResponseEntity.ok().body(customerService.getById(id));
     }
 }

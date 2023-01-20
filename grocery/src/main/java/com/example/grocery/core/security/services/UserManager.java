@@ -121,7 +121,7 @@ public class UserManager implements UserService {
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
         String jwt = jwtUtils.generateJwtToken(userDetails);
-
+        // roller null gidiyor o yüzden defaul alıyor. çözülecek...
         List<String> roles = userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList();
 
         RefreshToken refreshToken = refreshTokenService.createRefreshToken(userDetails.getId());
@@ -135,7 +135,7 @@ public class UserManager implements UserService {
     public Result signout() {
         UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal();
-        int userId = userDetails.getId();
+        Long userId = userDetails.getId();
         refreshTokenService.deleteByUserId(userId);
         log.info("User: {} signout", userDetails.getUsername());
         return new SuccessResult(DeleteMessages.SIGN_OUT);

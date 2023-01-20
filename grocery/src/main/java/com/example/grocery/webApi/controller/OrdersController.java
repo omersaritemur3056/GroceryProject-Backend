@@ -53,7 +53,7 @@ public class OrdersController {
     }
 
     @GetMapping("/getbyid")
-    public ResponseEntity<DataResult<GetByIdOrderResponse>> getById(@RequestParam int id) {
+    public ResponseEntity<DataResult<GetByIdOrderResponse>> getById(@RequestParam Long id) {
         return new ResponseEntity<>(orderService.getById(id), HttpStatus.OK);
     }
 }

@@ -56,29 +56,29 @@ public class WebSecurityConfig {
         return authConfig.getAuthenticationManager();
     }
 
-    // @Bean
-    // public CorsFilter corsWebFilter() {
-    // UrlBasedCorsConfigurationSource configurationSource = new
-    // UrlBasedCorsConfigurationSource();
-    // CorsConfiguration corsConfig = new CorsConfiguration();
-    // corsConfig.setAllowCredentials(true);
-    // corsConfig.addAllowedOrigin("*");
-    // corsConfig.addAllowedHeader("*");
-    // corsConfig.addAllowedMethod("OPTIONS");
-    // corsConfig.addAllowedMethod("HEAD");
-    // corsConfig.addAllowedMethod("GET");
-    // corsConfig.addAllowedMethod("PUT");
-    // corsConfig.addAllowedMethod("POST");
-    // corsConfig.addAllowedMethod("DELETE");
-    // corsConfig.addAllowedMethod("PATCH");
-    // configurationSource.registerCorsConfiguration("/**", corsConfig);
-    // return new CorsFilter(configurationSource);
+    @Bean
+    public CorsFilter corsWebFilter() {
+        UrlBasedCorsConfigurationSource configurationSource = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration corsConfig = new CorsConfiguration();
+        corsConfig.setAllowCredentials(true);
+        corsConfig.addAllowedOrigin("*");
+        corsConfig.addAllowedHeader("*");
+        corsConfig.addAllowedMethod("OPTIONS");
+        corsConfig.addAllowedMethod("HEAD");
+        corsConfig.addAllowedMethod("GET");
+        corsConfig.addAllowedMethod("PUT");
+        corsConfig.addAllowedMethod("POST");
+        corsConfig.addAllowedMethod("DELETE");
+        corsConfig.addAllowedMethod("PATCH");
+        configurationSource.registerCorsConfiguration("/**", corsConfig);
+        return new CorsFilter(configurationSource);
 
-    // }
+    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
+                .cors().and()
                 .csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(unauthorizatedHandler)
                 .and()

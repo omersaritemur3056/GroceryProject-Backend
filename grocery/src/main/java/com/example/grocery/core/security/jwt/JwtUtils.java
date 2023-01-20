@@ -1,5 +1,6 @@
 package com.example.grocery.core.security.jwt;
 
+import java.security.Key;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -7,12 +8,9 @@ import org.springframework.stereotype.Component;
 
 import com.example.grocery.core.security.services.UserDetailsImpl;
 
-import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.*;
-import io.jsonwebtoken.MalformedJwtException;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.SignatureException;
-import io.jsonwebtoken.UnsupportedJwtException;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
 
 @Component
@@ -25,27 +23,24 @@ public class JwtUtils {
     @Value("${grocery.app.jwtExpirationMs}")
     private int jwtExpirationMs;
 
-    // public String generateJwtToken(UserDetailsImpl userPrincipal) {
-    // return generateTokenFromUsername(userPrincipal.getUsername());
-    // }
+    public String generateJwtToken(UserDetailsImpl userPrincipal) {
+        return generateTokenFromUsername(userPrincipal.getUsername());
+    }
 
-    // public String generateTokenFromUsername(String username) {
-    // return Jwts.builder().setSubject(username).setIssuedAt(new Date())
-    // .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
-    // .signWith(SignatureAlgorithm.HS512, jwtSecret).compact();
-    // }
+    public String generateTokenFromUsername(String username) {
+        return Jwts.builder().setSubject(username).setIssuedAt(new Date())
+                .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
+                .signWith(getSignInKey(), SignatureAlgorithm.HS256).compact();
+    }
 
-    // public String getUsernameFromJwtToken(String token) {
-    // return
-    // Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
-    // }
+    public String getUsernameFromJwtToken(String token) {
+        return Jwts.parserBuilder().setSigningKey(jwtSecret).build().parseClaimsJws(token).getBody().getSubject();
+    }
 
     public boolean validateJwtToken(String authToken) {
         try {
-            Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
+            Jwts.parserBuilder().setSigningKey(jwtSecret).build().parseClaimsJws(authToken);
             return true;
-        } catch (SignatureException e) {
-            log.error("Invalid JWT signature: {}", e.getMessage());
         } catch (MalformedJwtException e) {
             log.error("Invalid JWT token: {}", e.getMessage());
         } catch (ExpiredJwtException e) {
@@ -57,5 +52,10 @@ public class JwtUtils {
         }
 
         return false;
+    }
+
+    private Key getSignInKey() {
+        byte[] keyBytes = Decoders.BASE64.decode(jwtSecret);
+        return Keys.hmacShaKeyFor(keyBytes);
     }
 }
