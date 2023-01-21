@@ -19,7 +19,7 @@ public interface UserService {
 
     DataResult<JwtResponse> login(UserForLoginDto userForLoginDto);
 
-    Result signout();
+    // Result signout();
 
     DataResult<TokenRefreshResponse> refreshtoken(TokenRefreshRequest tokenRefreshRequest);
 

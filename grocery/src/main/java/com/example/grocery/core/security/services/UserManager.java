@@ -132,15 +132,16 @@ public class UserManager implements UserService {
                 userDetails.getUsername(), userDetails.getEmail(), roles));
     }
 
-    @Override
-    public Result signout() {
-        UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication()
-                .getPrincipal();
-        Long userId = userDetails.getId();
-        refreshTokenService.deleteByUserId(userId);
-        log.info("User: {} signout", userDetails.getUsername());
-        return new SuccessResult(DeleteMessages.SIGN_OUT);
-    }
+    // @Override
+    // public Result signout() {
+    // UserDetailsImpl userDetails = (UserDetailsImpl)
+    // SecurityContextHolder.getContext().getAuthentication()
+    // .getPrincipal();
+    // Long userId = userDetails.getId();
+    // refreshTokenService.deleteByUserId(userId);
+    // log.info("User: {} signout", userDetails.getUsername());
+    // return new SuccessResult(DeleteMessages.SIGN_OUT);
+    // }
 
     @Override
     public DataResult<TokenRefreshResponse> refreshtoken(TokenRefreshRequest tokenRefreshRequest) {

@@ -59,8 +59,8 @@ public class UsersController {
         return ResponseEntity.ok(userService.refreshtoken(tokenRefreshRequest));
     }
 
-    @PostMapping("/signout")
-    public ResponseEntity<Result> signout() {
-        return ResponseEntity.ok(userService.signout());
-    }
+    // @PostMapping("/signout")
+    // public ResponseEntity<Result> signout() {
+    // return ResponseEntity.ok(userService.signout());
+    // }
 }
