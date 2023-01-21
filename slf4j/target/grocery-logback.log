@@ -22894,3 +22894,29 @@ java.lang.ClassCastException: class java.lang.String cannot be cast to class com
 2023-01-21 15:57:30 INFO Closing JPA EntityManagerFactory for persistence unit 'default'
 2023-01-21 15:57:30 INFO HikariPool-3 - Shutdown initiated...
 2023-01-21 15:57:30 INFO HikariPool-3 - Shutdown completed.
+2023-01-21 15:57:30 INFO Starting GroceryApplication using Java 17.0.5 with PID 9900 (C:\GroceryProject-Backend\grocery\target\classes started by palao in C:\GroceryProject-Backend)
+2023-01-21 15:57:30 INFO No active profile set, falling back to 1 default profile: "default"
+2023-01-21 15:57:32 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-01-21 15:57:32 INFO Finished Spring Data repository scanning in 91 ms. Found 13 JPA repository interfaces.
+2023-01-21 15:57:32 INFO Tomcat initialized with port(s): 8080 (http)
+2023-01-21 15:57:32 INFO Initializing ProtocolHandler ["http-nio-8080"]
+2023-01-21 15:57:32 INFO Starting service [Tomcat]
+2023-01-21 15:57:32 INFO Starting Servlet engine: [Apache Tomcat/10.1.4]
+2023-01-21 15:57:32 INFO Initializing Spring embedded WebApplicationContext
+2023-01-21 15:57:32 INFO Root WebApplicationContext: initialization completed in 1777 ms
+2023-01-21 15:57:32 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-01-21 15:57:32 WARN HHH90000021: Encountered deprecated setting [javax.persistence.validation.mode], use [jakarta.persistence.validation.mode] instead
+2023-01-21 15:57:32 WARN HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-01-21 15:57:32 INFO HikariPool-4 - Starting...
+2023-01-21 15:57:32 INFO HikariPool-4 - Added connection org.postgresql.jdbc.PgConnection@522dada1
+2023-01-21 15:57:32 INFO HikariPool-4 - Start completed.
+2023-01-21 15:57:32 INFO HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2023-01-21 15:57:32 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-01-21 15:57:32 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-01-21 15:57:33 WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-01-21 15:57:33 INFO Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@19d74c19, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1c67db9e, org.springframework.security.web.context.SecurityContextHolderFilter@bc0e13f, org.springframework.security.web.header.HeaderWriterFilter@5adc9bfd, org.springframework.web.filter.CorsFilter@6a062fc4, org.springframework.security.web.authentication.logout.LogoutFilter@6bbdd10c, com.example.grocery.core.security.jwt.AuthTokenFilter@7762f60e, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@37a78065, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@99af61f, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@63acc1f1, org.springframework.security.web.session.SessionManagementFilter@2a789e9f, org.springframework.security.web.access.ExceptionTranslationFilter@3c7e389, org.springframework.security.web.access.intercept.AuthorizationFilter@3ee6f8a5]
+2023-01-21 15:57:33 INFO LiveReload server is running on port 35729
+2023-01-21 15:57:33 INFO Starting ProtocolHandler ["http-nio-8080"]
+2023-01-21 15:57:33 INFO Tomcat started on port(s): 8080 (http) with context path ''
+2023-01-21 15:57:33 INFO Started GroceryApplication in 3.152 seconds (process running for 127.493)
+2023-01-21 15:57:33 INFO Condition evaluation unchanged
