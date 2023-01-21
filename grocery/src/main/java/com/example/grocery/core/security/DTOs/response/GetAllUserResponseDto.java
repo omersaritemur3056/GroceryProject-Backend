@@ -1,7 +1,7 @@
 package com.example.grocery.core.security.DTOs.response;
 
 import java.time.LocalDateTime;
-
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,6 +20,8 @@ public class GetAllUserResponseDto {
     private String email;
 
     private String password;
+
+    private List<String> roles;
 
     private LocalDateTime createdDateTime;
 

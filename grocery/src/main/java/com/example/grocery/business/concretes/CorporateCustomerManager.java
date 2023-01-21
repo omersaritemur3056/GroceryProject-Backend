@@ -95,11 +95,11 @@ public class CorporateCustomerManager implements CorporateCustomerService {
         public DataResult<List<GetAllCorporateCustomerResponse>> getAll() {
                 List<CorporateCustomer> corporateCustomers = corporateCustomerRepository.findAll();
                 List<GetAllCorporateCustomerResponse> returnList = new ArrayList<>();
-                for (var x : corporateCustomers) {
-                        GetAllCorporateCustomerResponse abc = mapperService.getModelMapper().map(x,
+                for (CorporateCustomer forEachCustomer : corporateCustomers) {
+                        GetAllCorporateCustomerResponse obj = mapperService.getModelMapper().map(forEachCustomer,
                                         GetAllCorporateCustomerResponse.class);
-                        abc.setUserId(x.getUser().getId());
-                        returnList.add(abc);
+                        obj.setUserId(forEachCustomer.getUser().getId());
+                        returnList.add(obj);
                 }
                 return new SuccessDataResult<>(returnList,
                                 GetListMessages.CORPORATE_CUSTOMERS_LISTED);

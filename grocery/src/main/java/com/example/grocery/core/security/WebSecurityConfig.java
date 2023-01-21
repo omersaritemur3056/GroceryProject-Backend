@@ -17,6 +17,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import com.example.grocery.core.security.enums.Authority;
 import com.example.grocery.core.security.jwt.AuthEntryPointJwt;
 import com.example.grocery.core.security.jwt.AuthTokenFilter;
 import com.example.grocery.core.security.services.UserDetailsServiceImpl;
@@ -87,12 +88,16 @@ public class WebSecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeHttpRequests()
-                .requestMatchers("/swagger-ui/**", "*", "/*", "/api/**", "/javainuse-openapi/**",
-                        "/swagger-ui/index.html", "/v3/api-docs/**",
+                .requestMatchers("/*",
+                        "/api/**",
+                        "/swagger-ui/index.html",
+                        "/v3/api-docs/**",
                         "/swagger-ui/**",
                         "/v2/api-docs/**",
                         "/swagger-resources/**")
                 .permitAll()
+                // .requestMatchers("/api/order/**") //test succeed
+                // .hasAnyAuthority(Authority.ADMIN.name(), Authority.USER.name())
                 .anyRequest()
                 .authenticated();
 

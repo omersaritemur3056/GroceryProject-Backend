@@ -34,10 +34,11 @@ public class CustomerManager implements CustomerService {
     public DataResult<List<GetAllCustomerResponse>> getAll() {
         List<Customer> inDbCustomers = customerRepository.findAll();
         List<GetAllCustomerResponse> returnList = new ArrayList<>();
-        for (var x : inDbCustomers) {
-            GetAllCustomerResponse abc = mapperService.getModelMapper().map(x, GetAllCustomerResponse.class);
-            abc.setUserId(x.getUser().getId());
-            returnList.add(abc);
+        for (Customer forEachCustomer : inDbCustomers) {
+            GetAllCustomerResponse obj = mapperService.getModelMapper().map(forEachCustomer,
+                    GetAllCustomerResponse.class);
+            obj.setUserId(forEachCustomer.getUser().getId());
+            returnList.add(obj);
         }
         return new SuccessDataResult<>(returnList, GetListMessages.CUSTOMERS_LISTED);
     }

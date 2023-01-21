@@ -93,10 +93,11 @@ public class EmployeeManager implements EmployeeService {
     public DataResult<List<GetAllEmployeeResponse>> getAll() {
         List<Employee> employeeList = employeeRepository.findAll();
         List<GetAllEmployeeResponse> returnList = new ArrayList<>();
-        for (var x : employeeList) {
-            GetAllEmployeeResponse abc = mapperService.getModelMapper().map(x, GetAllEmployeeResponse.class);
-            abc.setUserId(x.getUser().getId());
-            returnList.add(abc);
+        for (Employee forEachEmployee : employeeList) {
+            GetAllEmployeeResponse obj = mapperService.getModelMapper().map(forEachEmployee,
+                    GetAllEmployeeResponse.class);
+            obj.setUserId(forEachEmployee.getUser().getId());
+            returnList.add(obj);
         }
         return new SuccessDataResult<>(returnList, GetListMessages.EMPLOYEES_LISTED);
     }

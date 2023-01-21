@@ -101,11 +101,11 @@ public class IndividualCustomerManager implements IndividualCustomerService {
         public DataResult<List<GetAllIndividualCustomerResponse>> getAll() {
                 List<IndividualCustomer> individualCustomers = individualCustomerRepository.findAll();
                 List<GetAllIndividualCustomerResponse> returnList = new ArrayList<>();
-                for (var x : individualCustomers) {
-                        GetAllIndividualCustomerResponse abc = mapperService.getModelMapper().map(x,
+                for (var forEachCustomer : individualCustomers) {
+                        GetAllIndividualCustomerResponse obj = mapperService.getModelMapper().map(forEachCustomer,
                                         GetAllIndividualCustomerResponse.class);
-                        abc.setUserId(x.getUser().getId());
-                        returnList.add(abc);
+                        obj.setUserId(forEachCustomer.getUser().getId());
+                        returnList.add(obj);
                 }
                 return new SuccessDataResult<>(returnList,
                                 GetListMessages.INDIVIDUAL_CUSTOMERS_LISTED);

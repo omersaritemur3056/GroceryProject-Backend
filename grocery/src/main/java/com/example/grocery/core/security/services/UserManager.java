@@ -1,5 +1,6 @@
 package com.example.grocery.core.security.services;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -81,19 +82,19 @@ public class UserManager implements UserService {
         } else {
             strRoles.forEach(role -> {
                 switch (role) {
-                    case "admin":
+                    case "ADMIN":
                         Role adminRole = roleRepository.findByName(Authority.ADMIN)
                                 .orElseThrow(() -> new BusinessException(ErrorMessages.ROLE_NOT_FOUND));
                         roles.add(adminRole);
 
                         break;
-                    case "moderator":
+                    case "MODERATOR":
                         Role moderatorRole = roleRepository.findByName(Authority.MODERATOR)
                                 .orElseThrow(() -> new BusinessException(ErrorMessages.ROLE_NOT_FOUND));
                         roles.add(moderatorRole);
 
                         break;
-                    case "editor":
+                    case "EDITOR":
                         Role editorRole = roleRepository.findByName(Authority.EDITOR)
                                 .orElseThrow(() -> new BusinessException(ErrorMessages.ROLE_NOT_FOUND));
                         roles.add(editorRole);
@@ -122,7 +123,6 @@ public class UserManager implements UserService {
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
         String jwt = jwtUtils.generateJwtToken(userDetails);
-        // roller null gidiyor o yüzden defaul alıyor. çözülecek...
         List<String> roles = userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList();
 
         RefreshToken refreshToken = refreshTokenService.createRefreshToken(userDetails.getId());
@@ -162,6 +162,7 @@ public class UserManager implements UserService {
         List<User> userList = userRepository.findAll();
         List<GetAllUserResponseDto> returnList = userList.stream()
                 .map(u -> mapperService.getModelMapper().map(u, GetAllUserResponseDto.class)).toList();
+
         return new SuccessDataResult<>(returnList, GetListMessages.USERS_LISTED);
     }
 
@@ -170,6 +171,7 @@ public class UserManager implements UserService {
         User inDbUser = userRepository.findById(id)
                 .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
         GetByIdUserResponseDto returnObj = mapperService.getModelMapper().map(inDbUser, GetByIdUserResponseDto.class);
+        returnObj.setRoles(inDbUser.getRoles());
         return new SuccessDataResult<>(returnObj, GetByIdMessages.USER_LISTED);
     }
 

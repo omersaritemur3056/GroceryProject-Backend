@@ -1,6 +1,9 @@
 package com.example.grocery.core.security.DTOs.response;
 
 import java.time.LocalDateTime;
+import java.util.Set;
+
+import com.example.grocery.core.security.models.Role;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,6 +23,8 @@ public class GetByIdUserResponseDto {
     private String email;
 
     private String password;
+
+    private Set<Role> roles;
 
     private LocalDateTime createdDateTime;
 
