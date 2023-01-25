@@ -11,7 +11,9 @@ import com.example.grocery.business.constants.Messages.CreateMessages;
 import com.example.grocery.business.constants.Messages.DeleteMessages;
 import com.example.grocery.business.constants.Messages.ErrorMessages;
 import com.example.grocery.business.constants.Messages.GetByIdMessages;
+import com.example.grocery.business.constants.Messages.GetByUrlMessages;
 import com.example.grocery.business.constants.Messages.GetListMessages;
+import com.example.grocery.business.constants.Messages.UpdateMessages;
 import com.example.grocery.core.utilities.exceptions.BusinessException;
 import com.example.grocery.core.utilities.image.ImageService;
 import com.example.grocery.core.utilities.mapper.MapperService;
@@ -23,7 +25,9 @@ import com.example.grocery.dataAccess.abstracts.ImageRepository;
 import com.example.grocery.entity.concretes.Image;
 import com.example.grocery.webApi.responses.image.GetAllImageResponse;
 import com.example.grocery.webApi.responses.image.GetByIdImageResponse;
+import com.example.grocery.webApi.responses.image.GetByUrlImageResponse;
 
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
@@ -38,6 +42,7 @@ public class PhotoManager implements PhotoService {
     private MapperService mapperService;
 
     @Override
+    @Transactional
     public DataResult<?> upload(MultipartFile file) {
         // resim formatı için iş kuralı getirilebilir...
         var result = imageService.save(file);
@@ -48,6 +53,7 @@ public class PhotoManager implements PhotoService {
     }
 
     @Override
+    @Transactional
     public Result delete(String imageUrl) {
         imageService.delete(imageUrl);
         Image image = imageRepository.findByUrl(imageUrl)
@@ -55,6 +61,22 @@ public class PhotoManager implements PhotoService {
         log.info("delete image url: {}", image.getUrl());
         imageRepository.delete(image);
         return new SuccessResult(DeleteMessages.IMAGE_DELETED);
+    }
+
+    @Override
+    @Transactional
+    public DataResult<?> update(Long id, MultipartFile file) {
+        Image inDbImage = imageRepository.findById(id)
+                .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
+
+        delete(inDbImage.getUrl());
+
+        var result = imageService.save(file);
+        Image image = mapperService.getModelMapper().map(result.getData(), Image.class);
+        image.setId(inDbImage.getId());
+        imageRepository.save(image);
+        log.info("updated image url: {}", image.getUrl());
+        return new SuccessDataResult<>(image.getUrl(), UpdateMessages.IMAGE_UPDATED_AND_ADDED);
     }
 
     @Override
@@ -70,6 +92,14 @@ public class PhotoManager implements PhotoService {
         Image image = imageRepository.findById(id).orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
         GetByIdImageResponse response = mapperService.getModelMapper().map(image, GetByIdImageResponse.class);
         return new SuccessDataResult<>(response, GetByIdMessages.IMAGE_LISTED);
+    }
+
+    @Override
+    public DataResult<GetByUrlImageResponse> getByUrl(String imageUrl) {
+        Image image = imageRepository.findByUrl(imageUrl)
+                .orElseThrow(() -> new BusinessException(ErrorMessages.IMAGE_URL_NOT_FOUND));
+        GetByUrlImageResponse response = mapperService.getModelMapper().map(image, GetByUrlImageResponse.class);
+        return new SuccessDataResult<>(response, GetByUrlMessages.IMAGE_LISTED);
     }
 
     // bağımlılığın kontrol altına alınması adına tasarlandı

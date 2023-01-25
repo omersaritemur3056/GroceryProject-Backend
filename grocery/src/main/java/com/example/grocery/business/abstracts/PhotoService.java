@@ -9,6 +9,7 @@ import com.example.grocery.core.utilities.results.Result;
 import com.example.grocery.entity.concretes.Image;
 import com.example.grocery.webApi.responses.image.GetAllImageResponse;
 import com.example.grocery.webApi.responses.image.GetByIdImageResponse;
+import com.example.grocery.webApi.responses.image.GetByUrlImageResponse;
 
 public interface PhotoService {
 
@@ -16,9 +17,13 @@ public interface PhotoService {
 
     Result delete(String imageUrl);
 
+    DataResult<?> update(Long id, MultipartFile file);
+
     DataResult<List<GetAllImageResponse>> getAll();
 
     DataResult<GetByIdImageResponse> getById(Long id);
+
+    DataResult<GetByUrlImageResponse> getByUrl(String imageUrl);
 
     Image getImageById(Long id);
 

@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +19,7 @@ import com.example.grocery.core.utilities.results.DataResult;
 import com.example.grocery.core.utilities.results.Result;
 import com.example.grocery.webApi.responses.image.GetAllImageResponse;
 import com.example.grocery.webApi.responses.image.GetByIdImageResponse;
+import com.example.grocery.webApi.responses.image.GetByUrlImageResponse;
 
 @RestController
 @RequestMapping("/api/image")
@@ -36,6 +38,11 @@ public class PhotosController {
         return ResponseEntity.ok(photoService.delete(imageUrl));
     }
 
+    @PutMapping("/update")
+    public ResponseEntity<Result> update(Long id, MultipartFile file) {
+        return ResponseEntity.ok(photoService.update(id, file));
+    }
+
     @GetMapping("/getall")
     public ResponseEntity<DataResult<List<GetAllImageResponse>>> getAll() {
         return new ResponseEntity<>(this.photoService.getAll(), HttpStatus.OK);
@@ -44,5 +51,10 @@ public class PhotosController {
     @GetMapping("/getbyid")
     public ResponseEntity<DataResult<GetByIdImageResponse>> getById(@RequestParam Long id) {
         return new ResponseEntity<>(this.photoService.getById(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/getbyurl")
+    public ResponseEntity<DataResult<GetByUrlImageResponse>> getById(@RequestParam String imageUrl) {
+        return new ResponseEntity<>(this.photoService.getByUrl(imageUrl), HttpStatus.OK);
     }
 }

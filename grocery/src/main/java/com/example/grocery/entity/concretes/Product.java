@@ -66,7 +66,7 @@ public class Product {
     private List<Order> orders;
 
     @ManyToMany
-    @JoinTable(name = "images_products", joinColumns = {
+    @JoinTable(name = "products_images", joinColumns = {
             @JoinColumn(name = "products_product_id") }, inverseJoinColumns = { @JoinColumn(name = "images_image_id") })
     private List<Image> images;
 

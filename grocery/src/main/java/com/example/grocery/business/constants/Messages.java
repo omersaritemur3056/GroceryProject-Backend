@@ -104,6 +104,13 @@ public class Messages {
         public static final String USER_MODIFIED = "User updated!";
         public static final String PAYMENT_UPDATED = "Debit card updated!";
         public static final String ORDER_UPDATED = "Order updated!";
+        public static final String IMAGE_UPDATED_AND_ADDED = "Image updated and saved to DB!";
+    }
+
+    public class GetByUrlMessages {
+
+        public static final String IMAGE_LISTED = "Image listed by entered url!";
+
     }
 
     public class LogMessages {
