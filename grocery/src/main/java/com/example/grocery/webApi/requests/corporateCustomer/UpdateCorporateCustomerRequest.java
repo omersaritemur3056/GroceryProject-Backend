@@ -35,4 +35,6 @@ public class UpdateCorporateCustomerRequest {
     private String taxNumber;
 
     private Long userId;
+
+    private Long imageId;
 }

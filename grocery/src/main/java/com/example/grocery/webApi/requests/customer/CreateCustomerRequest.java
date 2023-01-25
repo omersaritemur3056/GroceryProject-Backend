@@ -26,4 +26,6 @@ public class CreateCustomerRequest {
     private String phoneNumber;
 
     private Long userId;
+
+    private Long imageId;
 }

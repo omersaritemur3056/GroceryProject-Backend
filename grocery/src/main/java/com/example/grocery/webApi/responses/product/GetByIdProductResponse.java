@@ -1,5 +1,7 @@
 package com.example.grocery.webApi.responses.product;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,4 +19,5 @@ public class GetByIdProductResponse {
     private Long categoryId;
     private Long supplierId;
     private Long producerId;
+    private List<Long> imageIds;
 }

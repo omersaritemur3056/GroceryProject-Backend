@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.grocery.business.abstracts.CustomerService;
+import com.example.grocery.business.abstracts.PhotoService;
 import com.example.grocery.business.constants.Messages.ErrorMessages;
 import com.example.grocery.business.constants.Messages.GetByIdMessages;
 import com.example.grocery.business.constants.Messages.GetListMessages;
@@ -29,6 +30,8 @@ public class CustomerManager implements CustomerService {
     private MapperService mapperService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private PhotoService photoService;
 
     @Override
     public DataResult<List<GetAllCustomerResponse>> getAll() {
@@ -38,6 +41,7 @@ public class CustomerManager implements CustomerService {
             GetAllCustomerResponse obj = mapperService.getModelMapper().map(forEachCustomer,
                     GetAllCustomerResponse.class);
             obj.setUserId(forEachCustomer.getUser().getId());
+            obj.setImageId(forEachCustomer.getImage().getId());
             returnList.add(obj);
         }
         return new SuccessDataResult<>(returnList, GetListMessages.CUSTOMERS_LISTED);
@@ -50,6 +54,7 @@ public class CustomerManager implements CustomerService {
         GetByIdCustomerResponse returnObj = mapperService.getModelMapper().map(inDbCustomer,
                 GetByIdCustomerResponse.class);
         returnObj.setUserId(inDbCustomer.getUser().getId());
+        returnObj.setImageId(inDbCustomer.getImage().getId());
         return new SuccessDataResult<>(returnObj, GetByIdMessages.CUSTOMER_LISTED);
     }
 

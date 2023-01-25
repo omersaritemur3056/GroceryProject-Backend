@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.grocery.business.abstracts.CategoryService;
+import com.example.grocery.business.abstracts.PhotoService;
 import com.example.grocery.business.abstracts.ProducerService;
 import com.example.grocery.business.abstracts.ProductService;
 import com.example.grocery.business.abstracts.SupplierService;
@@ -25,6 +26,7 @@ import com.example.grocery.core.utilities.results.Result;
 import com.example.grocery.core.utilities.results.SuccessDataResult;
 import com.example.grocery.core.utilities.results.SuccessResult;
 import com.example.grocery.dataAccess.abstracts.ProductRepository;
+import com.example.grocery.entity.concretes.Image;
 import com.example.grocery.entity.concretes.Product;
 import com.example.grocery.webApi.requests.product.CreateProductRequest;
 import com.example.grocery.webApi.requests.product.DeleteProductRequest;
@@ -48,6 +50,8 @@ public class ProductManager implements ProductService {
     private SupplierService supplierService;
     @Autowired
     private MapperService mapperService;
+    @Autowired
+    private PhotoService photoService;
 
     @Override
     public Result add(CreateProductRequest createProductRequest) {
@@ -59,6 +63,7 @@ public class ProductManager implements ProductService {
         addProduct.setCategory(categoryService.getCategoryById(createProductRequest.getCategoryId()));
         addProduct.setProducer(producerService.getProducerById(createProductRequest.getProducerId()));
         addProduct.setSupplier(supplierService.getSupplierById(createProductRequest.getSupplierId()));
+        addProduct.setImages(photoService.getImagesByIds(createProductRequest.getImageIds()));
         productRepository.save((addProduct));
         log.info("added product: {} logged to file!", createProductRequest.getName());
         return new SuccessResult(CreateMessages.PRODUCT_CREATED);
@@ -80,6 +85,7 @@ public class ProductManager implements ProductService {
         product.setCategory(categoryService.getCategoryById(updateProductRequest.getCategoryId()));
         product.setProducer(producerService.getProducerById(updateProductRequest.getProducerId()));
         product.setSupplier(supplierService.getSupplierById(updateProductRequest.getSupplierId()));
+        product.setImages(photoService.getImagesByIds(updateProductRequest.getImageIds()));
         log.info("modified product : {} logged to file!", updateProductRequest.getName());
         productRepository.save(product);
 
@@ -114,6 +120,11 @@ public class ProductManager implements ProductService {
             addFields.setCategoryId(product1.getCategory().getId());
             addFields.setProducerId(product1.getProducer().getId());
             addFields.setSupplierId(product1.getSupplier().getId());
+            List<Long> ids = new ArrayList<>();
+            for (Image x : product.getImages()) {
+                ids.add(x.getId());
+            }
+            addFields.setImageIds(ids);
             returnList.add(addFields);
         }
         return new SuccessDataResult<>(returnList, GetListMessages.PRODUCTS_LISTED);
@@ -128,6 +139,11 @@ public class ProductManager implements ProductService {
         getByIdProductResponse.setCategoryId(product.getCategory().getId());
         getByIdProductResponse.setProducerId(product.getProducer().getId());
         getByIdProductResponse.setSupplierId(product.getSupplier().getId());
+        List<Long> ids = new ArrayList<>();
+        for (Image x : product.getImages()) {
+            ids.add(x.getId());
+        }
+        getByIdProductResponse.setImageIds(ids);
         return new SuccessDataResult<>(getByIdProductResponse, GetByIdMessages.PRODUCT_LISTED);
     }
 

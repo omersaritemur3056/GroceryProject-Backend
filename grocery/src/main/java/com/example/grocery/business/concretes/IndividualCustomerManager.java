@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.grocery.business.abstracts.IndividualCustomerService;
+import com.example.grocery.business.abstracts.PhotoService;
 import com.example.grocery.business.constants.Messages.CreateMessages;
 import com.example.grocery.business.constants.Messages.DeleteMessages;
 import com.example.grocery.business.constants.Messages.ErrorMessages;
@@ -41,6 +42,8 @@ public class IndividualCustomerManager implements IndividualCustomerService {
         private MapperService mapperService;
         @Autowired
         private UserService userService;
+        @Autowired
+        private PhotoService photoService;
 
         @Override
         public Result add(CreateIndividualCustomerRequest createIndividualCustomerRequest) {
@@ -52,6 +55,7 @@ public class IndividualCustomerManager implements IndividualCustomerService {
                                 createIndividualCustomerRequest,
                                 IndividualCustomer.class);
                 individualCustomer.setUser(userService.getUserById(createIndividualCustomerRequest.getUserId()));
+                individualCustomer.setImage(photoService.getImageById(createIndividualCustomerRequest.getImageId()));
                 individualCustomerRepository.save(individualCustomer);
                 log.info("added individual customer: {} {} logged to file!",
                                 createIndividualCustomerRequest.getFirstName(),
@@ -90,6 +94,7 @@ public class IndividualCustomerManager implements IndividualCustomerService {
                                 IndividualCustomer.class);
                 individualCustomer.setId(inDbIndividualCustomer.getId());
                 individualCustomer.setUser(userService.getUserById(updateIndividualCustomerRequest.getUserId()));
+                individualCustomer.setImage(photoService.getImageById(updateIndividualCustomerRequest.getImageId()));
                 individualCustomerRepository.save(individualCustomer);
                 log.info("modified individual customer: {} {} logged to file!",
                                 updateIndividualCustomerRequest.getFirstName(),
@@ -105,6 +110,7 @@ public class IndividualCustomerManager implements IndividualCustomerService {
                         GetAllIndividualCustomerResponse obj = mapperService.getModelMapper().map(forEachCustomer,
                                         GetAllIndividualCustomerResponse.class);
                         obj.setUserId(forEachCustomer.getUser().getId());
+                        obj.setImageId(forEachCustomer.getImage().getId());
                         returnList.add(obj);
                 }
                 return new SuccessDataResult<>(returnList,
@@ -119,6 +125,7 @@ public class IndividualCustomerManager implements IndividualCustomerService {
                                 inDbIndividualCustomer,
                                 GetByIdIndividualCustomerResponse.class);
                 returnObj.setUserId(inDbIndividualCustomer.getUser().getId());
+                returnObj.setImageId(inDbIndividualCustomer.getImage().getId());
                 return new SuccessDataResult<>(returnObj,
                                 GetByIdMessages.INDIVIDUAL_CUSTOMER_LISTED);
         }

@@ -15,6 +15,8 @@ public class GetByIdCorporateCustomerResponse {
 
     private Long userId;
 
+    private Long imageId;
+
     private String address;
 
     private String phoneNumber;

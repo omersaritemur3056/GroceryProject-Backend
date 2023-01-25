@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -43,5 +44,9 @@ public class Customer {
     @OneToOne
     @JoinColumn(name = "user_fk_id", referencedColumnName = "user_id")
     private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "image_fk_id")
+    private Image image;
 
 }

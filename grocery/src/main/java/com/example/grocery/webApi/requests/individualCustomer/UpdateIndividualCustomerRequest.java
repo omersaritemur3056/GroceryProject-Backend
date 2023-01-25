@@ -39,4 +39,6 @@ public class UpdateIndividualCustomerRequest {
     private String nationalIdentity;
 
     private Long userId;
+
+    private Long imageId;
 }

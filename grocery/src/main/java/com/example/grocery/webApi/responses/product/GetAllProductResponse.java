@@ -1,6 +1,7 @@
 package com.example.grocery.webApi.responses.product;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,4 +23,5 @@ public class GetAllProductResponse {
     private Long categoryId;
     private Long supplierId;
     private Long producerId;
+    private List<Long> imageIds;
 }

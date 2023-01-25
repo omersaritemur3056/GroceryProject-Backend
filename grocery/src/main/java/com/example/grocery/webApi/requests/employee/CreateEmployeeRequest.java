@@ -41,4 +41,6 @@ public class CreateEmployeeRequest {
     private double salary;
 
     private Long userId;
+
+    private Long imageId;
 }

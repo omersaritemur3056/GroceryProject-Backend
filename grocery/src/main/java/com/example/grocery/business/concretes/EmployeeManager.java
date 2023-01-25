@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.grocery.business.abstracts.EmployeeService;
+import com.example.grocery.business.abstracts.PhotoService;
 import com.example.grocery.business.constants.Messages.CreateMessages;
 import com.example.grocery.business.constants.Messages.DeleteMessages;
 import com.example.grocery.business.constants.Messages.ErrorMessages;
@@ -42,6 +43,8 @@ public class EmployeeManager implements EmployeeService {
     private MapperService mapperService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private PhotoService photoService;
 
     @Override
     public Result add(CreateEmployeeRequest createEmployeeRequest) {
@@ -51,6 +54,7 @@ public class EmployeeManager implements EmployeeService {
 
         Employee employee = mapperService.getModelMapper().map(createEmployeeRequest, Employee.class);
         employee.setUser(userService.getUserById(createEmployeeRequest.getUserId()));
+        employee.setImage(photoService.getImageById(createEmployeeRequest.getImageId()));
         employeeRepository.save(employee);
         log.info("added employee: {} {} logged to file!", createEmployeeRequest.getFirstName(),
                 createEmployeeRequest.getLastName());
@@ -83,6 +87,7 @@ public class EmployeeManager implements EmployeeService {
         Employee employee = mapperService.getModelMapper().map(updateEmployeeRequest, Employee.class);
         employee.setId(inDbEmployee.getId());
         employee.setUser(userService.getUserById(updateEmployeeRequest.getUserId()));
+        employee.setImage(photoService.getImageById(updateEmployeeRequest.getImageId()));
         employeeRepository.save(employee);
         log.info("modified employee: {} {} logged to file!", updateEmployeeRequest.getFirstName(),
                 updateEmployeeRequest.getLastName());
@@ -97,6 +102,7 @@ public class EmployeeManager implements EmployeeService {
             GetAllEmployeeResponse obj = mapperService.getModelMapper().map(forEachEmployee,
                     GetAllEmployeeResponse.class);
             obj.setUserId(forEachEmployee.getUser().getId());
+            obj.setImageId(forEachEmployee.getImage().getId());
             returnList.add(obj);
         }
         return new SuccessDataResult<>(returnList, GetListMessages.EMPLOYEES_LISTED);
@@ -109,6 +115,7 @@ public class EmployeeManager implements EmployeeService {
         GetByIdEmployeeResponse returnObj = mapperService.getModelMapper().map(inDbEmployee,
                 GetByIdEmployeeResponse.class);
         returnObj.setUserId(inDbEmployee.getUser().getId());
+        returnObj.setImageId(inDbEmployee.getImage().getId());
         return new SuccessDataResult<>(returnObj, GetByIdMessages.EMPLOYEE_LISTED);
     }
 

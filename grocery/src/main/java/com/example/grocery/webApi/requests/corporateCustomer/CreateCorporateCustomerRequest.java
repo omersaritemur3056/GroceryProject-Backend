@@ -35,4 +35,6 @@ public class CreateCorporateCustomerRequest {
     private String taxNumber;
 
     private Long userId;
+
+    private Long imageId;
 }

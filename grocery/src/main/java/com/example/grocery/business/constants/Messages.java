@@ -28,6 +28,9 @@ public class Messages {
         public static final String REFRESH_TOKEN_NOT_FOUND = "Refresh token is not in DB!";
         public static final String USERNAME_EXIST = "Username already exists";
         public static final String ROLE_NOT_FOUND = "Role not found in DB!";
+        public static final String UNSUPPORTED_FORMAT = "Unsupported format!";
+        public static final String IMAGE_URL_NOT_FOUND = "Entered image url not found in DB!";
+        public static final String IMAGE_ID_NOT_FOUND = "Entered image id not found in DB!";
 
     }
 
@@ -43,6 +46,7 @@ public class Messages {
         public static final String CATEGORIES_LISTED = "Categories listed!";
         public static final String PAYMENTS_LISTED = "Debit cards listed!";
         public static final String ORDERS_LISTED = "Orders listed!";
+        public static final String IMAGES_LISTED = "Images listed!";
     }
 
     public class GetByIdMessages {
@@ -57,6 +61,7 @@ public class Messages {
         public static final String CATEGORY_LISTED = "Category listed by entered id!";
         public static final String PAYMENT_LISTED = "Debit card listed by entered id!";
         public static final String ORDER_LISTED = "Order listed by entered id!";
+        public static final String IMAGE_LISTED = "Image listed by entered id!";
     }
 
     public class CreateMessages {
@@ -70,6 +75,7 @@ public class Messages {
         public static final String USER_CREATED = "User saved to DB!";
         public static final String PAYMENT_CREATED = "Debit card information saved to DB";
         public static final String ORDER_CREATED = "Order saved to DB!";
+        public static final String IMAGE_UPLOADED_AND_ADDED = "Image uploaded and saved to DB!";
     }
 
     public class DeleteMessages {
@@ -84,6 +90,7 @@ public class Messages {
         public static final String PAYMENT_DELETED = "Debit card information removed from DB";
         public static final String ORDER_DELETED = "Order removed from DB!";
         public static final String SIGN_OUT = "Log out successful!";
+        public static final String IMAGE_DELETED = "Image removed from DB!";
     }
 
     public class UpdateMessages {

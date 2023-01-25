@@ -16,6 +16,8 @@ public class GetByIdEmployeeResponse {
 
     private Long userId;
 
+    private Long imageId;
+
     private String firstName;
 
     private String lastName;

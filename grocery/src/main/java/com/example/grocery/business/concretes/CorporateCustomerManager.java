@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.grocery.business.abstracts.CorporateCustomerService;
+import com.example.grocery.business.abstracts.PhotoService;
 import com.example.grocery.business.constants.Messages.CreateMessages;
 import com.example.grocery.business.constants.Messages.DeleteMessages;
 import com.example.grocery.business.constants.Messages.ErrorMessages;
@@ -41,6 +42,8 @@ public class CorporateCustomerManager implements CorporateCustomerService {
         private MapperService mapperService;
         @Autowired
         private UserService userService;
+        @Autowired
+        private PhotoService photoService;
 
         @Override
         public Result add(CreateCorporateCustomerRequest createCorporateCustomerRequest) {
@@ -51,6 +54,7 @@ public class CorporateCustomerManager implements CorporateCustomerService {
                                 createCorporateCustomerRequest,
                                 CorporateCustomer.class);
                 corporateCustomer.setUser(userService.getUserById(createCorporateCustomerRequest.getUserId()));
+                corporateCustomer.setImage(photoService.getImageById(createCorporateCustomerRequest.getImageId()));
                 corporateCustomerRepository.save(corporateCustomer);
                 log.info("added corporate customer: {} logged to file!",
                                 createCorporateCustomerRequest.getCompanyName());
@@ -85,6 +89,7 @@ public class CorporateCustomerManager implements CorporateCustomerService {
                                 .map(updateCorporateCustomerRequest, CorporateCustomer.class);
                 corporateCustomer.setId(inDbCorporateCustomer.getId());
                 corporateCustomer.setUser(userService.getUserById(updateCorporateCustomerRequest.getUserId()));
+                corporateCustomer.setImage(photoService.getImageById(updateCorporateCustomerRequest.getImageId()));
                 log.info("modified corporate customer: {} logged to file!",
                                 updateCorporateCustomerRequest.getCompanyName());
                 corporateCustomerRepository.save(corporateCustomer);
@@ -99,6 +104,7 @@ public class CorporateCustomerManager implements CorporateCustomerService {
                         GetAllCorporateCustomerResponse obj = mapperService.getModelMapper().map(forEachCustomer,
                                         GetAllCorporateCustomerResponse.class);
                         obj.setUserId(forEachCustomer.getUser().getId());
+                        obj.setImageId(forEachCustomer.getImage().getId());
                         returnList.add(obj);
                 }
                 return new SuccessDataResult<>(returnList,
@@ -112,6 +118,7 @@ public class CorporateCustomerManager implements CorporateCustomerService {
                 GetByIdCorporateCustomerResponse returnObj = mapperService.getModelMapper()
                                 .map(inDbCorporateCustomer, GetByIdCorporateCustomerResponse.class);
                 returnObj.setUserId(inDbCorporateCustomer.getUser().getId());
+                returnObj.setImageId(inDbCorporateCustomer.getImage().getId());
                 return new SuccessDataResult<>(returnObj,
                                 GetByIdMessages.CORPORATE_CUSTOMER_LISTED);
         }

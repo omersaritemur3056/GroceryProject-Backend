@@ -11,6 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -63,4 +64,10 @@ public class Product {
 
     @ManyToMany(mappedBy = "products", cascade = { CascadeType.MERGE, CascadeType.PERSIST })
     private List<Order> orders;
+
+    @ManyToMany
+    @JoinTable(name = "images_products", joinColumns = {
+            @JoinColumn(name = "products_product_id") }, inverseJoinColumns = { @JoinColumn(name = "images_image_id") })
+    private List<Image> images;
+
 }

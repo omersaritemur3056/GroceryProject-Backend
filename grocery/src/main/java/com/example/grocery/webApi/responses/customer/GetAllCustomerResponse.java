@@ -15,6 +15,8 @@ public class GetAllCustomerResponse {
 
     private Long userId;
 
+    private Long imageId;
+
     private String address;
 
     private String phoneNumber;

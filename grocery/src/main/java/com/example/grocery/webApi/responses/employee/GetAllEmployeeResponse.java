@@ -16,6 +16,8 @@ public class GetAllEmployeeResponse {
 
     private Long userId;
 
+    private Long imageId;
+
     private String firstName; // challenge= full name yapıp ikisini de almaya çalış...
 
     private String lastName;

@@ -1,7 +1,6 @@
 package com.example.grocery.webApi.requests.product;
 
 import java.time.LocalDate;
-
 import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.validation.constraints.Future;
@@ -48,4 +47,6 @@ public class UpdateProductRequest {
 
     @Positive
     private Long producerId;
+
+    private Long[] imageIds;
 }
