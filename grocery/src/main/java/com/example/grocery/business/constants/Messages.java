@@ -31,6 +31,7 @@ public class Messages {
         public static final String UNSUPPORTED_FORMAT = "Unsupported format!";
         public static final String IMAGE_URL_NOT_FOUND = "Entered image url not found in DB!";
         public static final String IMAGE_ID_NOT_FOUND = "Entered image id not found in DB!";
+        public static final String FILE_IS_NULL = "Sending file is null!";
 
     }
 
@@ -167,6 +168,7 @@ public class Messages {
             public static final String USERNAME_EXIST = "Username: {} already exists!";
             public static final String USER_EMAIL_REPEATED = "Email: {} already exists!";
             public static final String USER_PASSWORD_NOT_VALID = "Invalid password! {} include {}";
+            public static final String UNSUPPORTED_FORMAT = "Unsupported format!";
 
         }
 
@@ -180,6 +182,7 @@ public class Messages {
             public static final String JWT_CLAIMS_EMPTY = "JWT claims string is empty: {}";
             public static final String UPLOAD_FAILED = "Cloudinary upload failed! IOException message: {}";
             public static final String DELETE_FAILED = "Cloudinary delete failed! IOException message: {}";
+            public static final String FILE_IS_NULL = "Sending file is null!";
 
         }
     }

@@ -14,7 +14,10 @@ import com.example.grocery.business.constants.Messages.GetByIdMessages;
 import com.example.grocery.business.constants.Messages.GetByUrlMessages;
 import com.example.grocery.business.constants.Messages.GetListMessages;
 import com.example.grocery.business.constants.Messages.UpdateMessages;
+import com.example.grocery.business.constants.Messages.LogMessages.LogErrorMessages;
 import com.example.grocery.business.constants.Messages.LogMessages.LogInfoMessages;
+import com.example.grocery.business.constants.Messages.LogMessages.LogWarnMessages;
+import com.example.grocery.core.utilities.business.BusinessRules;
 import com.example.grocery.core.utilities.exceptions.BusinessException;
 import com.example.grocery.core.utilities.image.ImageService;
 import com.example.grocery.core.utilities.mapper.MapperService;
@@ -45,8 +48,8 @@ public class PhotoManager implements PhotoService {
     @Override
     @Transactional
     public DataResult<?> upload(MultipartFile file) {
-        // resim formatı için iş kuralı getirilebilir... ayrıca log.warn ile unsupported
-        // format de
+        Result rules = BusinessRules.run(isFormatValid(file));
+
         var result = imageService.save(file);
         Image image = mapperService.getModelMapper().map(result.getData(), Image.class);
         imageRepository.save(image);
@@ -68,6 +71,8 @@ public class PhotoManager implements PhotoService {
     @Override
     @Transactional
     public DataResult<?> update(Long id, MultipartFile file) {
+        Result rules = BusinessRules.run(isFormatValid(file));
+
         Image inDbImage = imageRepository.findById(id)
                 .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
 
@@ -119,6 +124,27 @@ public class PhotoManager implements PhotoService {
             resultList.add(findImageById);
         }
         return resultList;
+    }
+
+    private Result isFormatValid(MultipartFile file) {
+        ArrayList<String> formats = new ArrayList<>();
+        formats.add("png");
+        formats.add("jpg");
+        formats.add("jpeg");
+
+        String format = file.getOriginalFilename();
+        if (format == null) {
+            log.error(LogErrorMessages.FILE_IS_NULL);
+            throw new BusinessException(ErrorMessages.FILE_IS_NULL);
+        }
+
+        for (String x : formats) {
+            if (format.contains(x)) {
+                return new SuccessResult();
+            }
+        }
+        log.warn(LogWarnMessages.UNSUPPORTED_FORMAT);
+        throw new BusinessException(ErrorMessages.UNSUPPORTED_FORMAT);
     }
 
 }
