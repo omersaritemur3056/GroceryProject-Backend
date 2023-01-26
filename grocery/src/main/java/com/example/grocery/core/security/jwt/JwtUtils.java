@@ -6,6 +6,7 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import com.example.grocery.business.constants.Messages.LogMessages.LogErrorMessages;
 import com.example.grocery.core.security.services.UserDetailsImpl;
 
 import io.jsonwebtoken.*;
@@ -42,13 +43,13 @@ public class JwtUtils {
             Jwts.parserBuilder().setSigningKey(jwtSecret).build().parseClaimsJws(authToken);
             return true;
         } catch (MalformedJwtException e) {
-            log.error("Invalid JWT token: {}", e.getMessage());
+            log.error(LogErrorMessages.INVALID_JWT_TOKEN, e.getMessage());
         } catch (ExpiredJwtException e) {
-            log.error("JWT token is expired: {}", e.getMessage());
+            log.error(LogErrorMessages.JWT_TOKEN_EXPIRED, e.getMessage());
         } catch (UnsupportedJwtException e) {
-            log.error("JWT token is unsupported: {}", e.getMessage());
+            log.error(LogErrorMessages.JWT_TOKEN_UNSUPPORTED, e.getMessage());
         } catch (IllegalArgumentException e) {
-            log.error("JWT claims string is empty: {}", e.getMessage());
+            log.error(LogErrorMessages.JWT_CLAIMS_EMPTY, e.getMessage());
         }
 
         return false;

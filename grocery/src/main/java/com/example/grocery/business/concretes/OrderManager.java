@@ -16,6 +16,7 @@ import com.example.grocery.business.constants.Messages.ErrorMessages;
 import com.example.grocery.business.constants.Messages.GetByIdMessages;
 import com.example.grocery.business.constants.Messages.GetListMessages;
 import com.example.grocery.business.constants.Messages.UpdateMessages;
+import com.example.grocery.business.constants.Messages.LogMessages.LogInfoMessages;
 import com.example.grocery.core.utilities.business.BusinessRules;
 import com.example.grocery.core.utilities.exceptions.BusinessException;
 import com.example.grocery.core.utilities.mapper.MapperService;
@@ -32,6 +33,7 @@ import com.example.grocery.webApi.requests.order.UpdateOrderRequest;
 import com.example.grocery.webApi.responses.order.GetAllOrderResponse;
 import com.example.grocery.webApi.responses.order.GetByIdOrderResponse;
 
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
@@ -60,11 +62,13 @@ public class OrderManager implements OrderService {
         order.setPayment(paymentService.getPaymentById(createOrderRequest.getPaymentId()));
         order.setProducts(productService.getProductsByIds(createOrderRequest.getProductIds()));
         orderRepository.save(order);
-        log.info("order saved to DB");
+        log.info(LogInfoMessages.ORDER_CREATED, createOrderRequest.getCustomerId(), createOrderRequest.getPaymentId(),
+                createOrderRequest.getProductIds());
         return new SuccessResult(CreateMessages.ORDER_CREATED);
     }
 
     @Override
+    @Transactional
     public Result delete(DeleteOrderRequest deleteOrderRequest) {
 
         Result rules = BusinessRules.run(isExistId(deleteOrderRequest.getId()));
@@ -73,7 +77,7 @@ public class OrderManager implements OrderService {
                 .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
 
         Order order = mapperService.getModelMapper().map(deleteOrderRequest, Order.class);
-        log.info("order id: {} removed from DB", orderForLogging.getId());
+        log.info(LogInfoMessages.ORDER_DELETED, orderForLogging.getId());
         orderRepository.delete(order);
         return new SuccessResult(DeleteMessages.ORDER_DELETED);
     }
@@ -92,7 +96,9 @@ public class OrderManager implements OrderService {
         order.setProducts(productService.getProductsByIds(updateOrderRequest.getProductIds()));
         order.setId(inDbOrder.getId());
         orderRepository.save(order);
-        log.info("order id: {} updated", id);
+        log.info(LogInfoMessages.ORDER_UPDATED, id, updateOrderRequest.getCustomerId(),
+                updateOrderRequest.getPaymentId(),
+                updateOrderRequest.getProductIds());
         return new SuccessResult(UpdateMessages.ORDER_UPDATED);
     }
 
@@ -135,7 +141,6 @@ public class OrderManager implements OrderService {
 
     private Result isExistId(Long id) {
         if (!orderRepository.existsById(id)) {
-            log.warn("Order id could not found!");
             throw new BusinessException(ErrorMessages.ID_NOT_FOUND);
         }
         return new SuccessResult();

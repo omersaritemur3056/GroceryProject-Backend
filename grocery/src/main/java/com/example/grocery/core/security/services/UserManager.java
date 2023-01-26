@@ -19,6 +19,8 @@ import com.example.grocery.business.constants.Messages.DeleteMessages;
 import com.example.grocery.business.constants.Messages.ErrorMessages;
 import com.example.grocery.business.constants.Messages.GetByIdMessages;
 import com.example.grocery.business.constants.Messages.GetListMessages;
+import com.example.grocery.business.constants.Messages.LogMessages.LogInfoMessages;
+import com.example.grocery.business.constants.Messages.LogMessages.LogWarnMessages;
 import com.example.grocery.core.security.DTOs.request.TokenRefreshRequest;
 import com.example.grocery.core.security.DTOs.request.UserForLoginDto;
 import com.example.grocery.core.security.DTOs.request.UserForRegisterDto;
@@ -110,7 +112,7 @@ public class UserManager implements UserService {
 
         user.setRoles(roles);
         userRepository.save(user);
-        log.info("User: {} saved in DB!", user.getUsername());
+        log.info(LogInfoMessages.USER_CREATED, user.getUsername());
         return new SuccessResult(CreateMessages.USER_CREATED);
     }
 
@@ -127,7 +129,7 @@ public class UserManager implements UserService {
 
         RefreshToken refreshToken = refreshTokenService.createRefreshToken(userDetails.getId());
 
-        log.info("User: {} logined", userForLoginDto.getUsername());
+        log.info(LogInfoMessages.USER_LOGINED, userForLoginDto.getUsername());
         return new SuccessDataResult<>(new JwtResponse(jwt, refreshToken.getToken(), userDetails.getId(),
                 userDetails.getUsername(), userDetails.getEmail(), roles));
     }
@@ -202,6 +204,7 @@ public class UserManager implements UserService {
 
     private Result isUsernameExist(String username) {
         if (userRepository.existsByUsername(username)) {
+            log.warn(LogWarnMessages.USERNAME_EXIST, username);
             throw new BusinessException(ErrorMessages.USERNAME_EXIST);
         }
         return new SuccessResult();
@@ -209,6 +212,7 @@ public class UserManager implements UserService {
 
     private Result isEmailExist(String email) {
         if (userRepository.existsByEmail(email)) {
+            log.warn(LogWarnMessages.USER_EMAIL_REPEATED, email);
             throw new BusinessException(ErrorMessages.EMAIL_REPEATED);
         }
         return new SuccessResult();
@@ -216,6 +220,7 @@ public class UserManager implements UserService {
 
     private Result isValidPassword(String password, String username) {
         if (password.contains(username)) {
+            log.warn(LogWarnMessages.USER_PASSWORD_NOT_VALID, password, username);
             throw new BusinessException(ErrorMessages.PASSWORD_NOT_VALID);
         }
         return new SuccessResult();

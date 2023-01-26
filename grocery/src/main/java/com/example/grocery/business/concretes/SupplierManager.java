@@ -12,6 +12,8 @@ import com.example.grocery.business.constants.Messages.ErrorMessages;
 import com.example.grocery.business.constants.Messages.GetByIdMessages;
 import com.example.grocery.business.constants.Messages.GetListMessages;
 import com.example.grocery.business.constants.Messages.UpdateMessages;
+import com.example.grocery.business.constants.Messages.LogMessages.LogInfoMessages;
+import com.example.grocery.business.constants.Messages.LogMessages.LogWarnMessages;
 import com.example.grocery.core.utilities.business.BusinessRules;
 import com.example.grocery.core.utilities.exceptions.BusinessException;
 import com.example.grocery.core.utilities.mapper.MapperService;
@@ -47,7 +49,7 @@ public class SupplierManager implements SupplierService {
 
         Supplier supplier = mapperService.getModelMapper().map(createSupplierRequest, Supplier.class);
         supplierRepository.save(supplier);
-        log.info("succeed supplier : {} logged to file!", createSupplierRequest.getName());
+        log.info(LogInfoMessages.SUPPLIER_ADDED, createSupplierRequest.getName());
         return new SuccessResult(CreateMessages.SUPPLIER_CREATED);
     }
 
@@ -64,7 +66,7 @@ public class SupplierManager implements SupplierService {
         Supplier supplier = mapperService.getModelMapper().map(updateSupplierRequest, Supplier.class);
         supplier.setId(inDbSupplier.getId());
         supplierRepository.save(supplier);
-        log.info("modified supplier : {} logged to file!", updateSupplierRequest.getName());
+        log.info(LogInfoMessages.SUPPLIER_UPDATED, updateSupplierRequest.getName());
         return new SuccessResult(UpdateMessages.SUPPLIER_MODIFIED);
     }
 
@@ -74,7 +76,7 @@ public class SupplierManager implements SupplierService {
         Result rules = BusinessRules.run(isExistId(deleteSupplierRequest.getId()));
 
         Supplier supplier = mapperService.getModelMapper().map(deleteSupplierRequest, Supplier.class);
-        log.info("removed supplier: {} logged to file!", getSupplierById(deleteSupplierRequest.getId()).getName());
+        log.info(LogInfoMessages.SUPPLIER_DELETED, getSupplierById(deleteSupplierRequest.getId()).getName());
         supplierRepository.delete(supplier);
         return new SuccessResult(DeleteMessages.SUPPLIER_DELETED);
     }
@@ -98,6 +100,7 @@ public class SupplierManager implements SupplierService {
 
     // ProductManager sınıfımızda bağımlılığı kontrol altına alma adına kullanılmak
     // üzere tasarlandı.
+    @Override
     public Supplier getSupplierById(Long id) {
         return supplierRepository.findById(id)
                 .orElseThrow(() -> new BusinessException(ErrorMessages.SUPPLIER_ID_NOT_FOUND));
@@ -112,6 +115,7 @@ public class SupplierManager implements SupplierService {
 
     private Result isExistName(String name) {
         if (supplierRepository.existsByName(name)) {
+            log.warn(LogWarnMessages.SUPPLIER_NAME_REPEATED, name);
             throw new BusinessException(ErrorMessages.SUPPLIER_NAME_REPEATED);
         }
         return new SuccessResult();
@@ -119,6 +123,7 @@ public class SupplierManager implements SupplierService {
 
     private Result isExistEmail(String email) {
         if (supplierRepository.existsByEmail(email)) {
+            log.warn(LogWarnMessages.SUPPLIER_EMAIL_REPEATED, email);
             throw new BusinessException(ErrorMessages.EMAIL_REPEATED);
         }
         return new SuccessResult();
@@ -126,6 +131,7 @@ public class SupplierManager implements SupplierService {
 
     private Result isExistPhoneNumber(String phoneNumber) {
         if (supplierRepository.existsByPhoneNumber(phoneNumber)) {
+            log.warn(LogWarnMessages.SUPPLIER_PHONE_NUMBER_REPEATED, phoneNumber);
             throw new BusinessException(ErrorMessages.PHONE_NUMBER_REPEATED);
         }
         return new SuccessResult();

@@ -14,6 +14,7 @@ import com.example.grocery.business.constants.Messages.GetByIdMessages;
 import com.example.grocery.business.constants.Messages.GetByUrlMessages;
 import com.example.grocery.business.constants.Messages.GetListMessages;
 import com.example.grocery.business.constants.Messages.UpdateMessages;
+import com.example.grocery.business.constants.Messages.LogMessages.LogInfoMessages;
 import com.example.grocery.core.utilities.exceptions.BusinessException;
 import com.example.grocery.core.utilities.image.ImageService;
 import com.example.grocery.core.utilities.mapper.MapperService;
@@ -44,11 +45,12 @@ public class PhotoManager implements PhotoService {
     @Override
     @Transactional
     public DataResult<?> upload(MultipartFile file) {
-        // resim formatı için iş kuralı getirilebilir...
+        // resim formatı için iş kuralı getirilebilir... ayrıca log.warn ile unsupported
+        // format de
         var result = imageService.save(file);
         Image image = mapperService.getModelMapper().map(result.getData(), Image.class);
         imageRepository.save(image);
-        log.info("saved image url: {}", image.getUrl());
+        log.info(LogInfoMessages.SAVED_IMAGE_URL, image.getUrl());
         return new SuccessDataResult<>(image.getUrl(), CreateMessages.IMAGE_UPLOADED_AND_ADDED);
     }
 
@@ -58,7 +60,7 @@ public class PhotoManager implements PhotoService {
         imageService.delete(imageUrl);
         Image image = imageRepository.findByUrl(imageUrl)
                 .orElseThrow(() -> new BusinessException(ErrorMessages.IMAGE_URL_NOT_FOUND));
-        log.info("delete image url: {}", image.getUrl());
+        log.info(LogInfoMessages.DELETED_IMAGE_URL, image.getUrl());
         imageRepository.delete(image);
         return new SuccessResult(DeleteMessages.IMAGE_DELETED);
     }
@@ -75,7 +77,7 @@ public class PhotoManager implements PhotoService {
         Image image = mapperService.getModelMapper().map(result.getData(), Image.class);
         image.setId(inDbImage.getId());
         imageRepository.save(image);
-        log.info("updated image url: {}", image.getUrl());
+        log.info(LogInfoMessages.UPDATED_IMAGE_URL, image.getUrl());
         return new SuccessDataResult<>(image.getUrl(), UpdateMessages.IMAGE_UPDATED_AND_ADDED);
     }
 

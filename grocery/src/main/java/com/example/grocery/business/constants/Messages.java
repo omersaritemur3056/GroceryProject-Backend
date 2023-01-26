@@ -115,5 +115,72 @@ public class Messages {
 
     public class LogMessages {
 
+        public class LogInfoMessages {
+
+            public static final String SAVED_IMAGE_URL = "saved image url: {}";
+            public static final String DELETED_IMAGE_URL = "deleted image url: {}";
+            public static final String UPDATED_IMAGE_URL = "updated image url: {}";
+            public static final String CATEGORY_ADDED = "Category: {} added!";
+            public static final String CATEGORY_DELETED = "Category: {} deleted!";
+            public static final String CATEGORY_UPDATED = "Category: {} updated!";
+            public static final String PRODUCT_ADDED = "Product: {} added!";
+            public static final String PRODUCT_DELETED = "Product: {} deleted!";
+            public static final String PRODUCT_UPDATED = "Product: {} updated!";
+            public static final String SUPPLIER_ADDED = "Supplier: {} added!";
+            public static final String SUPPLIER_DELETED = "Supplier: {} deleted!";
+            public static final String SUPPLIER_UPDATED = "Supplier: {} updated!";
+            public static final String PRODUCER_ADDED = "Producer: {} added!";
+            public static final String PRODUCER_DELETED = "Producer: {} deleted!";
+            public static final String PRODUCER_UPDATED = "Producer: {} updated!";
+            public static final String EMPLOYEE_ADDED = "Employee: {} {} added!";
+            public static final String EMPLOYEE_DELETED = "Employee: {} {} deleted!";
+            public static final String EMPLOYEE_UPDATED = "Employee: {} {} updated!";
+            public static final String INDIVIDUAL_CUSTOMER_ADDED = "Individual customer: {} {} added!";
+            public static final String INDIVIDUAL_CUSTOMER_DELETED = "Individual customer: {} {} deleted!";
+            public static final String INDIVIDUAL_CUSTOMER_UPDATED = "Individual customer: {} {} updated!";
+            public static final String CORPORATE_CUSTOMER_ADDED = "Corporate customer: {} added!";
+            public static final String CORPORATE_CUSTOMER_DELETED = "Corporate customer: {} deleted!";
+            public static final String CORPORATE_CUSTOMER_UPDATED = "Corporate customer: {} updated!";
+            public static final String ORDER_CREATED = "Order= Customer id: {}, Payment id: {}, Product ids: {} saved to DB";
+            public static final String ORDER_DELETED = "Order id: {} removed from DB";
+            public static final String ORDER_UPDATED = "Order id: {} -> Order= Customer id: {}, Payment id: {}, Product ids: {} updated";
+            public static final String PAYMENT_CREATED = "Card number: {}, Fullname: {}, Card expiration year: {}, Card expiration month: {}, Card cvv: {} has been successfully saved to the database";
+            public static final String PAYMENT_DELETED = "Card id: {} has been successfully removed from DB";
+            public static final String PAYMENT_UPDATED = "Card information id: {} -> Card number: {}, Fullname: {}, Card expiration year: {}, Card expiration month: {}, Card cvv: {} has been successfully updated";
+            public static final String USER_CREATED = "User: {} saved in DB!";
+            public static final String USER_LOGINED = "User: {} logined!";
+
+        }
+
+        public class LogWarnMessages {
+
+            public static final String CATEGORY_NAME_REPEATED = "Category name: {} already exists!";
+            public static final String PRODUCT_NAME_REPEATED = "Product name: {} already exists!";
+            public static final String PRODUCER_NAME_REPEATED = "Producer name: {} already exists!";
+            public static final String SUPPLIER_NAME_REPEATED = "Supplier name: {} already exists!";
+            public static final String SUPPLIER_EMAIL_REPEATED = "Supplier email: {} already exists!";
+            public static final String SUPPLIER_PHONE_NUMBER_REPEATED = "Supplier phone number: {} already exists!";
+            public static final String NATIONAL_IDENTITY_REPEATED = "National Identity: {} already exists!";
+            public static final String AGE_NOT_PERMISSIBLE = "Entered birthdate: {} not permissible!";
+            public static final String TAX_NUMBER_REPEATED = "Tax number: {} already exists!";
+            public static final String DEBIT_CARD_NOT_VALID = "Card informations {}, {}, {}, {}, {} not valid!";
+            public static final String USERNAME_EXIST = "Username: {} already exists!";
+            public static final String USER_EMAIL_REPEATED = "Email: {} already exists!";
+            public static final String USER_PASSWORD_NOT_VALID = "Invalid password! {} include {}";
+
+        }
+
+        public class LogErrorMessages {
+
+            public static final String UNAUTHORIZED_ERROR = "Unauthorized error: {}";
+            public static final String CANNOT_SET_USER_AUTHENTICATION = "Cannot set user authentication: {}";
+            public static final String INVALID_JWT_TOKEN = "Invalid JWT token: {}";
+            public static final String JWT_TOKEN_EXPIRED = "JWT token is expired: {}";
+            public static final String JWT_TOKEN_UNSUPPORTED = "JWT token is unsupported: {}";
+            public static final String JWT_CLAIMS_EMPTY = "JWT claims string is empty: {}";
+            public static final String UPLOAD_FAILED = "Cloudinary upload failed! IOException message: {}";
+            public static final String DELETE_FAILED = "Cloudinary delete failed! IOException message: {}";
+
+        }
     }
 }

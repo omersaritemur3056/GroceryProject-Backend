@@ -7,11 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.grocery.business.abstracts.CustomerService;
-import com.example.grocery.business.abstracts.PhotoService;
 import com.example.grocery.business.constants.Messages.ErrorMessages;
 import com.example.grocery.business.constants.Messages.GetByIdMessages;
 import com.example.grocery.business.constants.Messages.GetListMessages;
-import com.example.grocery.core.security.services.UserService;
 import com.example.grocery.core.utilities.exceptions.BusinessException;
 import com.example.grocery.core.utilities.mapper.MapperService;
 import com.example.grocery.core.utilities.results.DataResult;
@@ -28,10 +26,6 @@ public class CustomerManager implements CustomerService {
     private CustomerRepository customerRepository;
     @Autowired
     private MapperService mapperService;
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private PhotoService photoService;
 
     @Override
     public DataResult<List<GetAllCustomerResponse>> getAll() {

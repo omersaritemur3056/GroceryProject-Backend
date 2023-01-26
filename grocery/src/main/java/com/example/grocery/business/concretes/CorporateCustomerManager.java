@@ -14,6 +14,8 @@ import com.example.grocery.business.constants.Messages.ErrorMessages;
 import com.example.grocery.business.constants.Messages.GetByIdMessages;
 import com.example.grocery.business.constants.Messages.GetListMessages;
 import com.example.grocery.business.constants.Messages.UpdateMessages;
+import com.example.grocery.business.constants.Messages.LogMessages.LogInfoMessages;
+import com.example.grocery.business.constants.Messages.LogMessages.LogWarnMessages;
 import com.example.grocery.core.security.services.UserService;
 import com.example.grocery.core.utilities.business.BusinessRules;
 import com.example.grocery.core.utilities.exceptions.BusinessException;
@@ -56,7 +58,7 @@ public class CorporateCustomerManager implements CorporateCustomerService {
                 corporateCustomer.setUser(userService.getUserById(createCorporateCustomerRequest.getUserId()));
                 corporateCustomer.setImage(photoService.getImageById(createCorporateCustomerRequest.getImageId()));
                 corporateCustomerRepository.save(corporateCustomer);
-                log.info("added corporate customer: {} logged to file!",
+                log.info(LogInfoMessages.CORPORATE_CUSTOMER_ADDED,
                                 createCorporateCustomerRequest.getCompanyName());
                 return new SuccessResult(CreateMessages.CORPORATE_CUSTOMER_CREATED);
         }
@@ -72,7 +74,7 @@ public class CorporateCustomerManager implements CorporateCustomerService {
                 CorporateCustomer logForCorporate = corporateCustomerRepository
                                 .findById(deleteCorporateCustomerRequest.getId())
                                 .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
-                log.info("deleted corporate customer: {} logged to file!", logForCorporate.getCompanyName());
+                log.info(LogInfoMessages.CORPORATE_CUSTOMER_DELETED, logForCorporate.getCompanyName());
                 corporateCustomerRepository.delete(corporateCustomer);
                 return new SuccessResult(DeleteMessages.CORPORATE_CUSTOMER_DELETED);
         }
@@ -90,7 +92,7 @@ public class CorporateCustomerManager implements CorporateCustomerService {
                 corporateCustomer.setId(inDbCorporateCustomer.getId());
                 corporateCustomer.setUser(userService.getUserById(updateCorporateCustomerRequest.getUserId()));
                 corporateCustomer.setImage(photoService.getImageById(updateCorporateCustomerRequest.getImageId()));
-                log.info("modified corporate customer: {} logged to file!",
+                log.info(LogInfoMessages.CORPORATE_CUSTOMER_UPDATED,
                                 updateCorporateCustomerRequest.getCompanyName());
                 corporateCustomerRepository.save(corporateCustomer);
                 return new SuccessResult(UpdateMessages.CORPORATE_CUSTOMER_MODIFIED);
@@ -125,6 +127,7 @@ public class CorporateCustomerManager implements CorporateCustomerService {
 
         private Result isExistTaxNumber(String taxNumber) {
                 if (corporateCustomerRepository.existsByTaxNumber(taxNumber)) {
+                        log.warn(LogWarnMessages.TAX_NUMBER_REPEATED, taxNumber);
                         throw new BusinessException(ErrorMessages.TAX_NUMBER_REPEATED);
                 }
                 return new SuccessResult();

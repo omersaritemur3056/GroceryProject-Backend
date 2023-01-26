@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import com.example.grocery.business.constants.Messages.LogMessages.LogErrorMessages;
 import com.example.grocery.core.utilities.image.ImageModel;
 import com.example.grocery.core.utilities.image.ImageService;
 import com.example.grocery.core.utilities.results.DataResult;
@@ -18,7 +19,10 @@ import com.example.grocery.core.utilities.results.Result;
 import com.example.grocery.core.utilities.results.SuccessDataResult;
 import com.example.grocery.core.utilities.results.SuccessResult;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class CloudinaryImageAdapter implements ImageService {
 
     @Autowired
@@ -31,6 +35,7 @@ public class CloudinaryImageAdapter implements ImageService {
         try {
             result = cloudinary.uploader().upload(file.getBytes(), ObjectUtils.emptyMap());
         } catch (IOException e) {
+            log.error(LogErrorMessages.UPLOAD_FAILED, e.getMessage());
             return new ErrorDataResult<>(e.getMessage());
         }
 
@@ -52,6 +57,7 @@ public class CloudinaryImageAdapter implements ImageService {
             cloudinary.uploader().destroy(CloudinaryImageHelper.getImagePublicIdFromUrl(imageUrl),
                     ObjectUtils.emptyMap());
         } catch (IOException e) {
+            log.error(LogErrorMessages.DELETE_FAILED, e.getMessage());
             return new ErrorResult(e.getMessage());
         }
 

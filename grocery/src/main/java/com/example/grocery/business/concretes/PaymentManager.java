@@ -11,6 +11,8 @@ import com.example.grocery.business.constants.Messages.ErrorMessages;
 import com.example.grocery.business.constants.Messages.GetByIdMessages;
 import com.example.grocery.business.constants.Messages.GetListMessages;
 import com.example.grocery.business.constants.Messages.UpdateMessages;
+import com.example.grocery.business.constants.Messages.LogMessages.LogInfoMessages;
+import com.example.grocery.business.constants.Messages.LogMessages.LogWarnMessages;
 import com.example.grocery.core.utilities.business.BusinessRules;
 import com.example.grocery.core.utilities.exceptions.BusinessException;
 import com.example.grocery.core.utilities.mapper.MapperService;
@@ -27,6 +29,7 @@ import com.example.grocery.webApi.requests.payment.UpdatePaymentRequest;
 import com.example.grocery.webApi.responses.payment.GetAllPaymentResponse;
 import com.example.grocery.webApi.responses.payment.GetByIdPaymentResponse;
 
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -51,18 +54,21 @@ public class PaymentManager implements PaymentService {
         Payment payment = mapperService.getModelMapper().map(createPaymentRequest, Payment.class);
         payment.setFullName(createPaymentRequest.getFullName().toUpperCase());
         paymentRepository.save(payment);
-        log.info("card information has been successfully saved to the database");
+        log.info(LogInfoMessages.PAYMENT_CREATED, createPaymentRequest.getCardNumber(),
+                createPaymentRequest.getFullName(), createPaymentRequest.getCardExpirationYear(),
+                createPaymentRequest.getCardExpirationMonth(), createPaymentRequest.getCardCvv());
         return new SuccessResult(CreateMessages.PAYMENT_CREATED);
     }
 
     @Override
+    @Transactional
     public Result delete(DeletePaymentRequest deletePaymentRequest) {
 
         Result rules = BusinessRules.run(isExistId(deletePaymentRequest.getId()));
 
         Payment payment = mapperService.getModelMapper().map(deletePaymentRequest, Payment.class);
+        log.info(LogInfoMessages.PAYMENT_DELETED, deletePaymentRequest.getId());
         paymentRepository.delete(payment);
-        log.info("card information has been successfully deleted from DB");
         return new SuccessResult(DeleteMessages.PAYMENT_DELETED);
     }
 
@@ -80,7 +86,9 @@ public class PaymentManager implements PaymentService {
         payment.setId(inDbPayment.getId());
         payment.setFullName(updatePaymentRequest.getFullName().toUpperCase());
         paymentRepository.save(payment);
-        log.info("card information has been successfully updated");
+        log.info(LogInfoMessages.PAYMENT_UPDATED, id, updatePaymentRequest.getCardNumber(),
+                updatePaymentRequest.getFullName(), updatePaymentRequest.getCardExpirationYear(),
+                updatePaymentRequest.getCardExpirationMonth(), updatePaymentRequest.getCardCvv());
         return new SuccessResult(UpdateMessages.PAYMENT_UPDATED);
     }
 
@@ -114,6 +122,8 @@ public class PaymentManager implements PaymentService {
         if (!debitCardValidationService
                 .checkIfRealDebitCard(cardNumber, fullName, cardExpirationYear, cardExpirationMonth, cardCvv)
                 .isSuccess()) {
+            log.warn(LogWarnMessages.DEBIT_CARD_NOT_VALID, cardNumber, fullName, cardExpirationYear,
+                    cardExpirationMonth, cardCvv);
             throw new BusinessException(ErrorMessages.DEBIT_CARD_NOT_VALID);
         }
         return new SuccessResult();
@@ -121,7 +131,6 @@ public class PaymentManager implements PaymentService {
 
     private Result isExistId(Long id) {
         if (!paymentRepository.existsById(id)) {
-            log.warn("Payment id could not found!");
             throw new BusinessException(ErrorMessages.ID_NOT_FOUND);
         }
         return new SuccessResult();

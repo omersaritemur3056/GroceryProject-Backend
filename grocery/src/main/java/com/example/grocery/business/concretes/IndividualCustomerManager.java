@@ -14,6 +14,8 @@ import com.example.grocery.business.constants.Messages.ErrorMessages;
 import com.example.grocery.business.constants.Messages.GetByIdMessages;
 import com.example.grocery.business.constants.Messages.GetListMessages;
 import com.example.grocery.business.constants.Messages.UpdateMessages;
+import com.example.grocery.business.constants.Messages.LogMessages.LogInfoMessages;
+import com.example.grocery.business.constants.Messages.LogMessages.LogWarnMessages;
 import com.example.grocery.core.security.services.UserService;
 import com.example.grocery.core.utilities.business.BusinessRules;
 import com.example.grocery.core.utilities.exceptions.BusinessException;
@@ -57,7 +59,7 @@ public class IndividualCustomerManager implements IndividualCustomerService {
                 individualCustomer.setUser(userService.getUserById(createIndividualCustomerRequest.getUserId()));
                 individualCustomer.setImage(photoService.getImageById(createIndividualCustomerRequest.getImageId()));
                 individualCustomerRepository.save(individualCustomer);
-                log.info("added individual customer: {} {} logged to file!",
+                log.info(LogInfoMessages.INDIVIDUAL_CUSTOMER_ADDED,
                                 createIndividualCustomerRequest.getFirstName(),
                                 createIndividualCustomerRequest.getLastName());
                 return new SuccessResult(CreateMessages.INDIVIDUAL_CUSTOMER_CREATED);
@@ -74,7 +76,7 @@ public class IndividualCustomerManager implements IndividualCustomerService {
                 IndividualCustomer logForIndividual = individualCustomerRepository
                                 .findById(deleteIndividualCustomerRequest.getId())
                                 .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
-                log.info("deleted individual customer: {} {} logged to file!", logForIndividual.getFirstName(),
+                log.info(LogInfoMessages.INDIVIDUAL_CUSTOMER_DELETED, logForIndividual.getFirstName(),
                                 logForIndividual.getLastName());
                 individualCustomerRepository.delete(individualCustomer);
                 return new SuccessResult(DeleteMessages.INDIVIDUAL_CUSTOMER_DELETED);
@@ -96,7 +98,7 @@ public class IndividualCustomerManager implements IndividualCustomerService {
                 individualCustomer.setUser(userService.getUserById(updateIndividualCustomerRequest.getUserId()));
                 individualCustomer.setImage(photoService.getImageById(updateIndividualCustomerRequest.getImageId()));
                 individualCustomerRepository.save(individualCustomer);
-                log.info("modified individual customer: {} {} logged to file!",
+                log.info(LogInfoMessages.INDIVIDUAL_CUSTOMER_UPDATED,
                                 updateIndividualCustomerRequest.getFirstName(),
                                 updateIndividualCustomerRequest.getLastName());
                 return new SuccessResult(UpdateMessages.INDIVIDUAL_CUSTOMER_MODIFIED);
@@ -139,6 +141,7 @@ public class IndividualCustomerManager implements IndividualCustomerService {
 
         private Result isExistNationalId(String nationalId) {
                 if (individualCustomerRepository.existsByNationalIdentity(nationalId)) {
+                        log.warn(LogWarnMessages.NATIONAL_IDENTITY_REPEATED, nationalId);
                         throw new BusinessException(ErrorMessages.NATIONAL_IDENTITY_REPEATED);
                 }
                 return new SuccessResult();

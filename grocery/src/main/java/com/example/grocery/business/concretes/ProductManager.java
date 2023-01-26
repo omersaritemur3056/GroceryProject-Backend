@@ -18,6 +18,8 @@ import com.example.grocery.business.constants.Messages.ErrorMessages;
 import com.example.grocery.business.constants.Messages.GetByIdMessages;
 import com.example.grocery.business.constants.Messages.GetListMessages;
 import com.example.grocery.business.constants.Messages.UpdateMessages;
+import com.example.grocery.business.constants.Messages.LogMessages.LogInfoMessages;
+import com.example.grocery.business.constants.Messages.LogMessages.LogWarnMessages;
 import com.example.grocery.core.utilities.business.BusinessRules;
 import com.example.grocery.core.utilities.exceptions.BusinessException;
 import com.example.grocery.core.utilities.mapper.MapperService;
@@ -65,7 +67,7 @@ public class ProductManager implements ProductService {
         addProduct.setSupplier(supplierService.getSupplierById(createProductRequest.getSupplierId()));
         addProduct.setImages(photoService.getImagesByIds(createProductRequest.getImageIds()));
         productRepository.save((addProduct));
-        log.info("added product: {} logged to file!", createProductRequest.getName());
+        log.info(LogInfoMessages.PRODUCT_ADDED, createProductRequest.getName());
         return new SuccessResult(CreateMessages.PRODUCT_CREATED);
     }
 
@@ -86,7 +88,7 @@ public class ProductManager implements ProductService {
         product.setProducer(producerService.getProducerById(updateProductRequest.getProducerId()));
         product.setSupplier(supplierService.getSupplierById(updateProductRequest.getSupplierId()));
         product.setImages(photoService.getImagesByIds(updateProductRequest.getImageIds()));
-        log.info("modified product : {} logged to file!", updateProductRequest.getName());
+        log.info(LogInfoMessages.PRODUCT_UPDATED, updateProductRequest.getName());
         productRepository.save(product);
 
         return new SuccessResult(UpdateMessages.PRODUCT_MODIFIED);
@@ -102,7 +104,7 @@ public class ProductManager implements ProductService {
 
         Product productForLog = productRepository.findById(deleteProductRequest.getId())
                 .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
-        log.info("removed product: {} logged to file!", productForLog.getName());
+        log.info(LogInfoMessages.PRODUCT_DELETED, productForLog.getName());
         productRepository.delete(product);
 
         return new SuccessResult(DeleteMessages.PRODUCT_DELETED);
@@ -182,7 +184,7 @@ public class ProductManager implements ProductService {
 
     private Result isExistName(String name) {
         if (productRepository.existsByNameIgnoreCase(name)) {
-            log.error("product name: {} couldn't saved", name);
+            log.warn(LogWarnMessages.PRODUCT_NAME_REPEATED, name);
             throw new BusinessException(ErrorMessages.PRODUCER_NAME_REPEATED);
         }
         return new SuccessResult();

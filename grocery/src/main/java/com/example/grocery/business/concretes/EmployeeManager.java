@@ -15,6 +15,8 @@ import com.example.grocery.business.constants.Messages.ErrorMessages;
 import com.example.grocery.business.constants.Messages.GetByIdMessages;
 import com.example.grocery.business.constants.Messages.GetListMessages;
 import com.example.grocery.business.constants.Messages.UpdateMessages;
+import com.example.grocery.business.constants.Messages.LogMessages.LogInfoMessages;
+import com.example.grocery.business.constants.Messages.LogMessages.LogWarnMessages;
 import com.example.grocery.core.security.services.UserService;
 import com.example.grocery.core.utilities.business.BusinessRules;
 import com.example.grocery.core.utilities.exceptions.BusinessException;
@@ -56,7 +58,7 @@ public class EmployeeManager implements EmployeeService {
         employee.setUser(userService.getUserById(createEmployeeRequest.getUserId()));
         employee.setImage(photoService.getImageById(createEmployeeRequest.getImageId()));
         employeeRepository.save(employee);
-        log.info("added employee: {} {} logged to file!", createEmployeeRequest.getFirstName(),
+        log.info(LogInfoMessages.EMPLOYEE_ADDED, createEmployeeRequest.getFirstName(),
                 createEmployeeRequest.getLastName());
         return new SuccessResult(CreateMessages.EMPLOYEE_CREATED);
     }
@@ -69,7 +71,7 @@ public class EmployeeManager implements EmployeeService {
         Employee employee = mapperService.getModelMapper().map(deleteEmployeeRequest, Employee.class);
         Employee employeeForLog = employeeRepository.findById(deleteEmployeeRequest.getId())
                 .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
-        log.info("deleted employee: {} {} logged to file!", employeeForLog.getFirstName(),
+        log.info(LogInfoMessages.EMPLOYEE_DELETED, employeeForLog.getFirstName(),
                 employeeForLog.getLastName());
         employeeRepository.delete(employee);
         return new SuccessResult(DeleteMessages.EMPLOYEE_DELETED);
@@ -89,7 +91,7 @@ public class EmployeeManager implements EmployeeService {
         employee.setUser(userService.getUserById(updateEmployeeRequest.getUserId()));
         employee.setImage(photoService.getImageById(updateEmployeeRequest.getImageId()));
         employeeRepository.save(employee);
-        log.info("modified employee: {} {} logged to file!", updateEmployeeRequest.getFirstName(),
+        log.info(LogInfoMessages.EMPLOYEE_UPDATED, updateEmployeeRequest.getFirstName(),
                 updateEmployeeRequest.getLastName());
         return new SuccessResult(UpdateMessages.EMPLOYEE_MODIFIED);
     }
@@ -128,6 +130,7 @@ public class EmployeeManager implements EmployeeService {
 
     private Result isExistNationalId(String nationalId) {
         if (employeeRepository.existsByNationalIdentity(nationalId)) {
+            log.warn(LogWarnMessages.NATIONAL_IDENTITY_REPEATED, nationalId);
             throw new BusinessException(ErrorMessages.NATIONAL_IDENTITY_REPEATED);
         }
         return new SuccessResult();
@@ -135,6 +138,7 @@ public class EmployeeManager implements EmployeeService {
 
     private Result isPermissibleAge(LocalDate birthYear) {
         if (LocalDate.now().getYear() - birthYear.getYear() < 18) {
+            log.warn(LogWarnMessages.AGE_NOT_PERMISSIBLE, birthYear);
             throw new BusinessException(ErrorMessages.AGE_NOT_PERMISSIBLE);
         }
         return new SuccessResult();

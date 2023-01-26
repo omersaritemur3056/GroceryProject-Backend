@@ -12,6 +12,8 @@ import com.example.grocery.business.constants.Messages.ErrorMessages;
 import com.example.grocery.business.constants.Messages.GetByIdMessages;
 import com.example.grocery.business.constants.Messages.GetListMessages;
 import com.example.grocery.business.constants.Messages.UpdateMessages;
+import com.example.grocery.business.constants.Messages.LogMessages.LogInfoMessages;
+import com.example.grocery.business.constants.Messages.LogMessages.LogWarnMessages;
 import com.example.grocery.core.utilities.business.BusinessRules;
 import com.example.grocery.core.utilities.exceptions.BusinessException;
 import com.example.grocery.core.utilities.mapper.MapperService;
@@ -45,7 +47,7 @@ public class ProducerManager implements ProducerService {
 
         Producer producer = mapperService.getModelMapper().map(createProducerRequest, Producer.class);
         producerRepository.save(producer);
-        log.info("succeed producer : {} logged to file!", createProducerRequest.getName());
+        log.info(LogInfoMessages.PRODUCER_ADDED, createProducerRequest.getName());
         return new SuccessResult(CreateMessages.PRODUCER_CREATED);
     }
 
@@ -59,7 +61,7 @@ public class ProducerManager implements ProducerService {
         Producer producer = mapperService.getModelMapper().map(updateProducerRequest, Producer.class);
         producer.setId(inDbProducer.getId());
         producerRepository.save(producer);
-        log.info("modified producer : {} logged to file!", updateProducerRequest.getName());
+        log.info(LogInfoMessages.PRODUCER_UPDATED, updateProducerRequest.getName());
         return new SuccessResult(UpdateMessages.PRODUCER_MODIFIED);
     }
 
@@ -69,7 +71,7 @@ public class ProducerManager implements ProducerService {
         Result rules = BusinessRules.run(isExistId(deleteProducerRequest.getId()));
 
         Producer producer = mapperService.getModelMapper().map(deleteProducerRequest, Producer.class);
-        log.info("removed producer: {} logged to file!", getProducerById(deleteProducerRequest.getId()).getName());
+        log.info(LogInfoMessages.PRODUCER_DELETED, getProducerById(deleteProducerRequest.getId()).getName());
         producerRepository.delete(producer);
         return new SuccessResult(DeleteMessages.PRODUCER_DELETED);
     }
@@ -93,6 +95,7 @@ public class ProducerManager implements ProducerService {
 
     // ProductManager sınıfımızda bağımlılığı kontrol altına alma adına kullanılmak
     // üzere tasarlandı.
+    @Override
     public Producer getProducerById(Long id) {
         return producerRepository.findById(id)
                 .orElseThrow(() -> new BusinessException(ErrorMessages.PRODUCER_ID_NOT_FOUND));
@@ -107,6 +110,7 @@ public class ProducerManager implements ProducerService {
 
     private Result isExistName(String name) {
         if (producerRepository.existsByNameIgnoreCase(name)) {
+            log.warn(LogWarnMessages.PRODUCER_NAME_REPEATED, name);
             throw new BusinessException(ErrorMessages.PRODUCER_NAME_REPEATED);
         }
         return new SuccessResult();

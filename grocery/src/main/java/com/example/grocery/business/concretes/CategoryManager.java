@@ -12,6 +12,8 @@ import com.example.grocery.business.constants.Messages.ErrorMessages;
 import com.example.grocery.business.constants.Messages.GetByIdMessages;
 import com.example.grocery.business.constants.Messages.GetListMessages;
 import com.example.grocery.business.constants.Messages.UpdateMessages;
+import com.example.grocery.business.constants.Messages.LogMessages.LogInfoMessages;
+import com.example.grocery.business.constants.Messages.LogMessages.LogWarnMessages;
 import com.example.grocery.core.utilities.business.BusinessRules;
 import com.example.grocery.core.utilities.exceptions.BusinessException;
 import com.example.grocery.core.utilities.mapper.MapperService;
@@ -46,7 +48,7 @@ public class CategoryManager implements CategoryService {
 
         Category category = mapperService.getModelMapper().map(createCategoryRequest, Category.class);
         categoryRepository.save(category);
-        log.info("succeed category : {} logged to file!", createCategoryRequest.getName());
+        log.info(LogInfoMessages.CATEGORY_ADDED, createCategoryRequest.getName());
         return new SuccessResult(CreateMessages.CATEGORY_CREATED);
     }
 
@@ -56,7 +58,7 @@ public class CategoryManager implements CategoryService {
         Result rules = BusinessRules.run(isExistId(deleteCategoryRequest.getId()));
 
         Category category = mapperService.getModelMapper().map(deleteCategoryRequest, Category.class);
-        log.info("removed category: {} logged to file!", getCategoryById(deleteCategoryRequest.getId()).getName());
+        log.info(LogInfoMessages.CATEGORY_DELETED, getCategoryById(deleteCategoryRequest.getId()).getName());
         categoryRepository.delete(category);
         return new SuccessResult(DeleteMessages.CATEGORY_DELETED);
     }
@@ -71,7 +73,7 @@ public class CategoryManager implements CategoryService {
         Category category = mapperService.getModelMapper().map(updateCategoryRequest, Category.class);
         category.setId(inDbCategory.getId());
         categoryRepository.save(category);
-        log.info("modified category : {} logged to file!", updateCategoryRequest.getName());
+        log.info(LogInfoMessages.CATEGORY_UPDATED, updateCategoryRequest.getName());
         return new SuccessResult(UpdateMessages.CATEGORY_MODIFIED);
     }
 
@@ -103,7 +105,6 @@ public class CategoryManager implements CategoryService {
 
     private Result isExistId(Long id) {
         if (!categoryRepository.existsById(id)) {
-            log.warn("Category id could not found!");
             throw new BusinessException(ErrorMessages.ID_NOT_FOUND);
         }
         return new SuccessResult();
@@ -112,7 +113,7 @@ public class CategoryManager implements CategoryService {
     private Result isExistName(String name) {
         if (categoryRepository.existsByNameIgnoreCase(name)) {
             // update ve create için ayrı ve anlamlı bir log yaz.
-            log.warn("category name: {} couldn't saved", name);
+            log.warn(LogWarnMessages.CATEGORY_NAME_REPEATED, name);
             throw new BusinessException(ErrorMessages.CATEGORY_NAME_REPEATED);
         }
         return new SuccessResult();
