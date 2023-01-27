@@ -45,6 +45,8 @@ public class CategoryManager implements CategoryService {
     public Result add(CreateCategoryRequest createCategoryRequest) {
 
         Result rules = BusinessRules.run(isExistName(createCategoryRequest.getName()));
+        if (!rules.isSuccess())
+            return rules;
 
         Category category = mapperService.getModelMapper().map(createCategoryRequest, Category.class);
         categoryRepository.save(category);
@@ -56,6 +58,8 @@ public class CategoryManager implements CategoryService {
     public Result delete(DeleteCategoryRequest deleteCategoryRequest) {
 
         Result rules = BusinessRules.run(isExistId(deleteCategoryRequest.getId()));
+        if (!rules.isSuccess())
+            return rules;
 
         Category category = mapperService.getModelMapper().map(deleteCategoryRequest, Category.class);
         log.info(LogInfoMessages.CATEGORY_DELETED, getCategoryById(deleteCategoryRequest.getId()).getName());
@@ -67,6 +71,8 @@ public class CategoryManager implements CategoryService {
     public Result update(UpdateCategoryRequest updateCategoryRequest, Long id) {
 
         Result rules = BusinessRules.run(isExistName(updateCategoryRequest.getName()), isExistId(id));
+        if (!rules.isSuccess())
+            return rules;
 
         var inDbCategory = categoryRepository.findById(id)
                 .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));

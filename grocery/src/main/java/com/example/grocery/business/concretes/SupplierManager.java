@@ -46,6 +46,8 @@ public class SupplierManager implements SupplierService {
         Result rules = BusinessRules.run(isExistEmail(createSupplierRequest.getEmail()),
                 isExistName(createSupplierRequest.getName()),
                 isExistPhoneNumber(createSupplierRequest.getPhoneNumber()));
+        if (!rules.isSuccess())
+            return rules;
 
         Supplier supplier = mapperService.getModelMapper().map(createSupplierRequest, Supplier.class);
         supplierRepository.save(supplier);
@@ -60,6 +62,8 @@ public class SupplierManager implements SupplierService {
                 isExistName(updateSupplierRequest.getName()),
                 isExistPhoneNumber(updateSupplierRequest.getPhoneNumber()),
                 isExistId(id));
+        if (!rules.isSuccess())
+            return rules;
 
         var inDbSupplier = supplierRepository.findById(id)
                 .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
@@ -74,6 +78,8 @@ public class SupplierManager implements SupplierService {
     public Result delete(DeleteSupplierRequest deleteSupplierRequest) {
 
         Result rules = BusinessRules.run(isExistId(deleteSupplierRequest.getId()));
+        if (!rules.isSuccess())
+            return rules;
 
         Supplier supplier = mapperService.getModelMapper().map(deleteSupplierRequest, Supplier.class);
         log.info(LogInfoMessages.SUPPLIER_DELETED, getSupplierById(deleteSupplierRequest.getId()).getName());

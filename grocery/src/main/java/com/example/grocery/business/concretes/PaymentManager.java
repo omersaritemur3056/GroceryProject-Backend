@@ -50,6 +50,8 @@ public class PaymentManager implements PaymentService {
                 .run(isValidCard(createPaymentRequest.getCardNumber(), createPaymentRequest.getFullName(),
                         createPaymentRequest.getCardExpirationYear(), createPaymentRequest.getCardExpirationMonth(),
                         createPaymentRequest.getCardCvv()));
+        if (!rules.isSuccess())
+            return rules;
 
         Payment payment = mapperService.getModelMapper().map(createPaymentRequest, Payment.class);
         payment.setFullName(createPaymentRequest.getFullName().toUpperCase());
@@ -65,6 +67,8 @@ public class PaymentManager implements PaymentService {
     public Result delete(DeletePaymentRequest deletePaymentRequest) {
 
         Result rules = BusinessRules.run(isExistId(deletePaymentRequest.getId()));
+        if (!rules.isSuccess())
+            return rules;
 
         Payment payment = mapperService.getModelMapper().map(deletePaymentRequest, Payment.class);
         log.info(LogInfoMessages.PAYMENT_DELETED, deletePaymentRequest.getId());
@@ -81,6 +85,8 @@ public class PaymentManager implements PaymentService {
         Result rules = BusinessRules.run(isValidCard(updatePaymentRequest.getCardNumber(),
                 updatePaymentRequest.getFullName(), updatePaymentRequest.getCardExpirationYear(),
                 updatePaymentRequest.getCardExpirationMonth(), updatePaymentRequest.getCardCvv()), isExistId(id));
+        if (!rules.isSuccess())
+            return rules;
 
         Payment payment = mapperService.getModelMapper().map(updatePaymentRequest, Payment.class);
         payment.setId(inDbPayment.getId());

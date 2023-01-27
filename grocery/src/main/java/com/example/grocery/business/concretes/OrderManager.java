@@ -56,6 +56,8 @@ public class OrderManager implements OrderService {
 
         Result rules = BusinessRules.run(isExistCustomerId(createOrderRequest.getCustomerId()),
                 isExistPaymentId(createOrderRequest.getPaymentId()));
+        if (!rules.isSuccess())
+            return rules;
 
         Order order = mapperService.getModelMapper().map(createOrderRequest, Order.class);
         order.setCustomer(customerService.getCustomerById(createOrderRequest.getCustomerId()));
@@ -72,6 +74,8 @@ public class OrderManager implements OrderService {
     public Result delete(DeleteOrderRequest deleteOrderRequest) {
 
         Result rules = BusinessRules.run(isExistId(deleteOrderRequest.getId()));
+        if (!rules.isSuccess())
+            return rules;
 
         Order orderForLogging = orderRepository.findById(deleteOrderRequest.getId())
                 .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
@@ -89,6 +93,8 @@ public class OrderManager implements OrderService {
 
         Result rules = BusinessRules.run(isExistId(id), isExistCustomerId(updateOrderRequest.getCustomerId()),
                 isExistPaymentId(updateOrderRequest.getPaymentId()));
+        if (!rules.isSuccess())
+            return rules;
 
         Order order = mapperService.getModelMapper().map(updateOrderRequest, Order.class);
         order.setCustomer(customerService.getCustomerById(updateOrderRequest.getCustomerId()));
@@ -159,11 +165,4 @@ public class OrderManager implements OrderService {
         }
         return new SuccessResult();
     }
-
-    // private Result isExistProductsId(int... productId) {
-    // if (productService.getProductsById(productId) == null) {
-    // throw new BusinessException(ErrorMessages.PRODUCT_ID_NOT_FOUND);
-    // }
-    // return new SuccessResult();
-    // }
 }

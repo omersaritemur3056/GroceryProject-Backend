@@ -2,6 +2,7 @@ package com.example.grocery.business.concretes;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -49,6 +50,8 @@ public class PhotoManager implements PhotoService {
     @Transactional
     public DataResult<?> upload(MultipartFile file) {
         Result rules = BusinessRules.run(isFormatValid(file));
+        if (rules.isSuccess())
+            return null;
 
         var result = imageService.save(file);
         Image image = mapperService.getModelMapper().map(result.getData(), Image.class);
@@ -72,6 +75,8 @@ public class PhotoManager implements PhotoService {
     @Transactional
     public DataResult<?> update(Long id, MultipartFile file) {
         Result rules = BusinessRules.run(isFormatValid(file));
+        if (rules.isSuccess())
+            return null;
 
         Image inDbImage = imageRepository.findById(id)
                 .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
@@ -116,9 +121,9 @@ public class PhotoManager implements PhotoService {
     }
 
     @Override
-    public List<Image> getImagesByIds(Long[] imageId) {
+    public List<Image> getImagesByIds(Long[] imageIds) {
         List<Image> resultList = new ArrayList<>();
-        for (Long forEachId : imageId) {
+        for (Long forEachId : imageIds) {
             Image findImageById = imageRepository.findById(forEachId)
                     .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
             resultList.add(findImageById);
@@ -132,14 +137,14 @@ public class PhotoManager implements PhotoService {
         formats.add("jpg");
         formats.add("jpeg");
 
-        String format = file.getOriginalFilename();
-        if (format == null) {
+        String imageName = file.getOriginalFilename().toLowerCase(Locale.ENGLISH);
+        if (imageName == null) {
             log.error(LogErrorMessages.FILE_IS_NULL);
             throw new BusinessException(ErrorMessages.FILE_IS_NULL);
         }
 
-        for (String x : formats) {
-            if (format.contains(x)) {
+        for (String format : formats) {
+            if (imageName.contains(format)) {
                 return new SuccessResult();
             }
         }

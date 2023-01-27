@@ -44,6 +44,8 @@ public class ProducerManager implements ProducerService {
     public Result add(CreateProducerRequest createProducerRequest) {
 
         Result rules = BusinessRules.run(isExistName(createProducerRequest.getName()));
+        if (!rules.isSuccess())
+            return rules;
 
         Producer producer = mapperService.getModelMapper().map(createProducerRequest, Producer.class);
         producerRepository.save(producer);
@@ -55,6 +57,8 @@ public class ProducerManager implements ProducerService {
     public Result update(UpdateProducerRequest updateProducerRequest, Long id) {
 
         Result rules = BusinessRules.run(isExistId(id), isExistName(updateProducerRequest.getName()));
+        if (!rules.isSuccess())
+            return rules;
 
         var inDbProducer = producerRepository.findById(id)
                 .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
@@ -69,6 +73,8 @@ public class ProducerManager implements ProducerService {
     public Result delete(DeleteProducerRequest deleteProducerRequest) {
 
         Result rules = BusinessRules.run(isExistId(deleteProducerRequest.getId()));
+        if (!rules.isSuccess())
+            return rules;
 
         Producer producer = mapperService.getModelMapper().map(deleteProducerRequest, Producer.class);
         log.info(LogInfoMessages.PRODUCER_DELETED, getProducerById(deleteProducerRequest.getId()).getName());

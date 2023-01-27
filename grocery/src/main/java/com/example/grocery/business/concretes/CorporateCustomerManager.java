@@ -51,6 +51,8 @@ public class CorporateCustomerManager implements CorporateCustomerService {
         public Result add(CreateCorporateCustomerRequest createCorporateCustomerRequest) {
 
                 Result rules = BusinessRules.run(isExistTaxNumber(createCorporateCustomerRequest.getTaxNumber()));
+                if (!rules.isSuccess())
+                        return rules;
 
                 CorporateCustomer corporateCustomer = mapperService.getModelMapper().map(
                                 createCorporateCustomerRequest,
@@ -67,6 +69,8 @@ public class CorporateCustomerManager implements CorporateCustomerService {
         public Result delete(DeleteCorporateCustomerRequest deleteCorporateCustomerRequest) {
 
                 Result rules = BusinessRules.run(isExistId(deleteCorporateCustomerRequest.getId()));
+                if (!rules.isSuccess())
+                        return rules;
 
                 CorporateCustomer corporateCustomer = mapperService.getModelMapper().map(
                                 deleteCorporateCustomerRequest,
@@ -83,6 +87,8 @@ public class CorporateCustomerManager implements CorporateCustomerService {
         public Result update(UpdateCorporateCustomerRequest updateCorporateCustomerRequest, Long id) {
 
                 Result rules = BusinessRules.run(isExistTaxNumber(updateCorporateCustomerRequest.getTaxNumber()));
+                if (!rules.isSuccess())
+                        return rules;
 
                 CorporateCustomer inDbCorporateCustomer = corporateCustomerRepository.findById(id)
                                 .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));

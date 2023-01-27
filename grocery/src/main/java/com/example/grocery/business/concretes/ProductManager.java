@@ -60,6 +60,8 @@ public class ProductManager implements ProductService {
 
         Result rules = BusinessRules.run(isExistName(createProductRequest.getName()),
                 isExistCategoryId(createProductRequest.getCategoryId()));
+        if (!rules.isSuccess())
+            return rules;
 
         Product addProduct = mapperService.getModelMapper().map(createProductRequest, Product.class);
         addProduct.setCategory(categoryService.getCategoryById(createProductRequest.getCategoryId()));
@@ -81,6 +83,8 @@ public class ProductManager implements ProductService {
                 isExistCategoryId(updateProductRequest.getCategoryId()),
                 isExistProducerId(updateProductRequest.getProducerId()),
                 isExistSupplierId(updateProductRequest.getSupplierId()));
+        if (!rules.isSuccess())
+            return rules;
 
         Product product = mapperService.getModelMapper().map(updateProductRequest, Product.class);
         product.setId(inDbProduct.getId());
@@ -98,6 +102,9 @@ public class ProductManager implements ProductService {
     public Result delete(DeleteProductRequest deleteProductRequest) {
 
         Result rules = BusinessRules.run(isExistId(deleteProductRequest.getId()));
+        if (!rules.isSuccess())
+            return rules;
+
         removeExpiratedProduct();
 
         Product product = mapperService.getModelMapper().map(deleteProductRequest, Product.class);
@@ -157,9 +164,9 @@ public class ProductManager implements ProductService {
     }
 
     @Override
-    public List<Product> getProductsByIds(Long[] productId) {
+    public List<Product> getProductsByIds(Long[] productsId) {
         List<Product> resultList = new ArrayList<>();
-        for (Long forEachId : productId) {
+        for (Long forEachId : productsId) {
             Product findProductById = productRepository.findById(forEachId)
                     .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
             resultList.add(findProductById);

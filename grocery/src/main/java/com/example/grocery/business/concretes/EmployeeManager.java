@@ -53,6 +53,8 @@ public class EmployeeManager implements EmployeeService {
         // asgari ücretin altında salary olamaz eklenebilir...
         Result rules = BusinessRules.run(isExistNationalId(createEmployeeRequest.getNationalIdentity()),
                 isPermissibleAge(createEmployeeRequest.getYearOfBirth()));
+        if (!rules.isSuccess())
+            return rules;
 
         Employee employee = mapperService.getModelMapper().map(createEmployeeRequest, Employee.class);
         employee.setUser(userService.getUserById(createEmployeeRequest.getUserId()));
@@ -67,6 +69,8 @@ public class EmployeeManager implements EmployeeService {
     public Result delete(DeleteEmployeeRequest deleteEmployeeRequest) {
 
         Result rules = BusinessRules.run(isExistId(deleteEmployeeRequest.getId()));
+        if (!rules.isSuccess())
+            return rules;
 
         Employee employee = mapperService.getModelMapper().map(deleteEmployeeRequest, Employee.class);
         Employee employeeForLog = employeeRepository.findById(deleteEmployeeRequest.getId())
@@ -82,6 +86,8 @@ public class EmployeeManager implements EmployeeService {
 
         Result rules = BusinessRules.run(isExistNationalId(updateEmployeeRequest.getNationalIdentity()),
                 isPermissibleAge(updateEmployeeRequest.getYearOfBirth()));
+        if (!rules.isSuccess())
+            return rules;
 
         Employee inDbEmployee = employeeRepository.findById(id)
                 .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));

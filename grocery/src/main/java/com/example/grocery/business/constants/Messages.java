@@ -3,6 +3,10 @@ package com.example.grocery.business.constants;
 public class Messages {
 
     public class ErrorMessages {
+
+        private ErrorMessages() {
+        }
+
         public static final String ID_NOT_FOUND = "Entered id not found in DB!";
         public static final String CATEGORY_ID_NOT_FOUND = "Entered category id not found in DB";
         public static final String PRODUCER_ID_NOT_FOUND = "Entered producer id not found in DB";
@@ -36,6 +40,10 @@ public class Messages {
     }
 
     public class GetListMessages {
+
+        private GetListMessages() {
+        }
+
         public static final String USERS_LISTED = "Users listed!";
         public static final String SUPPLIERS_LISTED = "Suppliers listed!";
         public static final String PRODUCTS_LISTED = "Products listed!";
@@ -51,6 +59,10 @@ public class Messages {
     }
 
     public class GetByIdMessages {
+
+        private GetByIdMessages() {
+        }
+
         public static final String USER_LISTED = "User listed by entered id!";
         public static final String SUPPLIER_LISTED = "Supplier listed by entered id!";
         public static final String PRODUCT_LISTED = "Product listed by entered id!";
@@ -66,6 +78,10 @@ public class Messages {
     }
 
     public class CreateMessages {
+
+        private CreateMessages() {
+        }
+
         public static final String PRODUCT_CREATED = "Product saved to DB!";
         public static final String PRODUCER_CREATED = "Producer saved to DB!";
         public static final String SUPPLIER_CREATED = "Supplier saved to DB!";
@@ -80,6 +96,10 @@ public class Messages {
     }
 
     public class DeleteMessages {
+
+        private DeleteMessages() {
+        }
+
         public static final String PRODUCT_DELETED = "Product removed from DB!";
         public static final String PRODUCER_DELETED = "Producer removed from DB!";
         public static final String SUPPLIER_DELETED = "Supplier removed from DB!";
@@ -95,6 +115,10 @@ public class Messages {
     }
 
     public class UpdateMessages {
+
+        private UpdateMessages() {
+        }
+
         public static final String PRODUCT_MODIFIED = "Product updated!";
         public static final String PRODUCER_MODIFIED = "Producer updated!";
         public static final String SUPPLIER_MODIFIED = "Supplier updated!";
@@ -110,6 +134,9 @@ public class Messages {
 
     public class GetByUrlMessages {
 
+        private GetByUrlMessages() {
+        }
+
         public static final String IMAGE_LISTED = "Image listed by entered url!";
 
     }
@@ -117,6 +144,9 @@ public class Messages {
     public class LogMessages {
 
         public class LogInfoMessages {
+
+            private LogInfoMessages() {
+            }
 
             public static final String SAVED_IMAGE_URL = "saved image url: {}";
             public static final String DELETED_IMAGE_URL = "deleted image url: {}";
@@ -155,6 +185,9 @@ public class Messages {
 
         public class LogWarnMessages {
 
+            private LogWarnMessages() {
+            }
+
             public static final String CATEGORY_NAME_REPEATED = "Category name: {} already exists!";
             public static final String PRODUCT_NAME_REPEATED = "Product name: {} already exists!";
             public static final String PRODUCER_NAME_REPEATED = "Producer name: {} already exists!";
@@ -173,6 +206,9 @@ public class Messages {
         }
 
         public class LogErrorMessages {
+
+            private LogErrorMessages() {
+            }
 
             public static final String UNAUTHORIZED_ERROR = "Unauthorized error: {}";
             public static final String CANNOT_SET_USER_AUTHENTICATION = "Cannot set user authentication: {}";

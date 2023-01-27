@@ -52,6 +52,8 @@ public class IndividualCustomerManager implements IndividualCustomerService {
 
                 Result rules = BusinessRules.run(
                                 isExistNationalId(createIndividualCustomerRequest.getNationalIdentity()));
+                if (!rules.isSuccess())
+                        return rules;
 
                 IndividualCustomer individualCustomer = mapperService.getModelMapper().map(
                                 createIndividualCustomerRequest,
@@ -69,6 +71,8 @@ public class IndividualCustomerManager implements IndividualCustomerService {
         public Result delete(DeleteIndividualCustomerRequest deleteIndividualCustomerRequest) {
 
                 Result rules = BusinessRules.run(isExistId(deleteIndividualCustomerRequest.getId()));
+                if (!rules.isSuccess())
+                        return rules;
 
                 IndividualCustomer individualCustomer = mapperService.getModelMapper().map(
                                 deleteIndividualCustomerRequest,
@@ -87,6 +91,8 @@ public class IndividualCustomerManager implements IndividualCustomerService {
 
                 Result rules = BusinessRules.run(
                                 isExistNationalId(updateIndividualCustomerRequest.getNationalIdentity()));
+                if (!rules.isSuccess())
+                        return rules;
 
                 IndividualCustomer inDbIndividualCustomer = individualCustomerRepository.findById(id)
                                 .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));

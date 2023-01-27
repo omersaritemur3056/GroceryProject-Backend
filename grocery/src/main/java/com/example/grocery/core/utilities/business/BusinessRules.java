@@ -4,6 +4,9 @@ import com.example.grocery.core.utilities.results.Result;
 
 public class BusinessRules {
 
+    private BusinessRules() {
+    }
+
     public static Result run(Result... logics) {
         for (Result logic : logics) {
             if (!logic.isSuccess()) {

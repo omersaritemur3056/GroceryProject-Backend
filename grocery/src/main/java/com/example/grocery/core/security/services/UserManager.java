@@ -1,6 +1,5 @@
 package com.example.grocery.core.security.services;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -15,7 +14,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.grocery.business.constants.Messages.CreateMessages;
-import com.example.grocery.business.constants.Messages.DeleteMessages;
 import com.example.grocery.business.constants.Messages.ErrorMessages;
 import com.example.grocery.business.constants.Messages.GetByIdMessages;
 import com.example.grocery.business.constants.Messages.GetListMessages;
@@ -70,6 +68,8 @@ public class UserManager implements UserService {
         Result rules = BusinessRules.run(isEmailExist(userForRegisterDto.getEmail()),
                 isUsernameExist(userForRegisterDto.getUsername()),
                 isValidPassword(userForRegisterDto.getPassword(), userForRegisterDto.getUsername()));
+        if (!rules.isSuccess())
+            return rules;
 
         User user = mapperService.getModelMapper().map(userForRegisterDto, User.class);
         user.setPassword(passwordEncoder.encode(userForRegisterDto.getPassword()));
@@ -134,16 +134,18 @@ public class UserManager implements UserService {
                 userDetails.getUsername(), userDetails.getEmail(), roles));
     }
 
-    // @Override
-    // public Result signout() {
-    // UserDetailsImpl userDetails = (UserDetailsImpl)
-    // SecurityContextHolder.getContext().getAuthentication()
-    // .getPrincipal();
-    // Long userId = userDetails.getId();
-    // refreshTokenService.deleteByUserId(userId);
-    // log.info("User: {} signout", userDetails.getUsername());
-    // return new SuccessResult(DeleteMessages.SIGN_OUT);
-    // }
+    /*
+     * @Override
+     * public Result signout() {
+     * UserDetailsImpl userDetails = (UserDetailsImpl)
+     * SecurityContextHolder.getContext().getAuthentication()
+     * .getPrincipal();
+     * Long userId = userDetails.getId();
+     * refreshTokenService.deleteByUserId(userId);
+     * log.info("User: {} signout", userDetails.getUsername());
+     * return new SuccessResult(DeleteMessages.SIGN_OUT);
+     * }
+     */
 
     @Override
     public DataResult<TokenRefreshResponse> refreshtoken(TokenRefreshRequest tokenRefreshRequest) {
