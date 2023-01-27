@@ -18,7 +18,6 @@ import com.example.grocery.business.constants.Messages.UpdateMessages;
 import com.example.grocery.business.constants.Messages.LogMessages.LogErrorMessages;
 import com.example.grocery.business.constants.Messages.LogMessages.LogInfoMessages;
 import com.example.grocery.business.constants.Messages.LogMessages.LogWarnMessages;
-import com.example.grocery.core.utilities.business.BusinessRules;
 import com.example.grocery.core.utilities.exceptions.BusinessException;
 import com.example.grocery.core.utilities.image.ImageService;
 import com.example.grocery.core.utilities.mapper.MapperService;
@@ -49,9 +48,8 @@ public class PhotoManager implements PhotoService {
     @Override
     @Transactional
     public DataResult<?> upload(MultipartFile file) {
-        Result rules = BusinessRules.run(isFormatValid(file));
-        if (rules.isSuccess())
-            return null;
+
+        isFormatValid(file);
 
         var result = imageService.save(file);
         Image image = mapperService.getModelMapper().map(result.getData(), Image.class);
@@ -74,9 +72,8 @@ public class PhotoManager implements PhotoService {
     @Override
     @Transactional
     public DataResult<?> update(Long id, MultipartFile file) {
-        Result rules = BusinessRules.run(isFormatValid(file));
-        if (rules.isSuccess())
-            return null;
+
+        isFormatValid(file);
 
         Image inDbImage = imageRepository.findById(id)
                 .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
@@ -131,7 +128,7 @@ public class PhotoManager implements PhotoService {
         return resultList;
     }
 
-    private Result isFormatValid(MultipartFile file) {
+    private void isFormatValid(MultipartFile file) {
         ArrayList<String> formats = new ArrayList<>();
         formats.add("png");
         formats.add("jpg");
@@ -145,7 +142,7 @@ public class PhotoManager implements PhotoService {
 
         for (String format : formats) {
             if (imageName.contains(format)) {
-                return new SuccessResult();
+                return;
             }
         }
         log.warn(LogWarnMessages.UNSUPPORTED_FORMAT);
