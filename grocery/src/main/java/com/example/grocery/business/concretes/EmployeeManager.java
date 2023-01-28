@@ -1,20 +1,8 @@
 package com.example.grocery.business.concretes;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.example.grocery.business.abstracts.EmployeeService;
 import com.example.grocery.business.abstracts.PhotoService;
-import com.example.grocery.business.constants.Messages.CreateMessages;
-import com.example.grocery.business.constants.Messages.DeleteMessages;
-import com.example.grocery.business.constants.Messages.ErrorMessages;
-import com.example.grocery.business.constants.Messages.GetByIdMessages;
-import com.example.grocery.business.constants.Messages.GetListMessages;
-import com.example.grocery.business.constants.Messages.UpdateMessages;
+import com.example.grocery.business.constants.Messages.*;
 import com.example.grocery.business.constants.Messages.LogMessages.LogInfoMessages;
 import com.example.grocery.business.constants.Messages.LogMessages.LogWarnMessages;
 import com.example.grocery.core.security.services.UserService;
@@ -25,15 +13,22 @@ import com.example.grocery.core.utilities.results.DataResult;
 import com.example.grocery.core.utilities.results.Result;
 import com.example.grocery.core.utilities.results.SuccessDataResult;
 import com.example.grocery.core.utilities.results.SuccessResult;
+import com.example.grocery.core.validation.mernisValidation.MernisValidationService;
 import com.example.grocery.dataAccess.abstracts.EmployeeRepository;
 import com.example.grocery.entity.concretes.Employee;
+import com.example.grocery.entity.enums.Nationality;
 import com.example.grocery.webApi.requests.employee.CreateEmployeeRequest;
 import com.example.grocery.webApi.requests.employee.DeleteEmployeeRequest;
 import com.example.grocery.webApi.requests.employee.UpdateEmployeeRequest;
 import com.example.grocery.webApi.responses.employee.GetAllEmployeeResponse;
 import com.example.grocery.webApi.responses.employee.GetByIdEmployeeResponse;
-
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Slf4j
@@ -47,6 +42,8 @@ public class EmployeeManager implements EmployeeService {
     private UserService userService;
     @Autowired
     private PhotoService photoService;
+    @Autowired
+    private MernisValidationService mernisValidationService;
 
     @Override
     public Result add(CreateEmployeeRequest createEmployeeRequest) {
@@ -59,6 +56,9 @@ public class EmployeeManager implements EmployeeService {
         Employee employee = mapperService.getModelMapper().map(createEmployeeRequest, Employee.class);
         employee.setUser(userService.getUserById(createEmployeeRequest.getUserId()));
         employee.setImage(photoService.getImageById(createEmployeeRequest.getImageId()));
+
+        isTurkishCitizen(employee);
+
         employeeRepository.save(employee);
         log.info(LogInfoMessages.EMPLOYEE_ADDED, createEmployeeRequest.getFirstName(),
                 createEmployeeRequest.getLastName());
@@ -96,6 +96,9 @@ public class EmployeeManager implements EmployeeService {
         employee.setId(inDbEmployee.getId());
         employee.setUser(userService.getUserById(updateEmployeeRequest.getUserId()));
         employee.setImage(photoService.getImageById(updateEmployeeRequest.getImageId()));
+
+        isTurkishCitizen(employee);
+
         employeeRepository.save(employee);
         log.info(LogInfoMessages.EMPLOYEE_UPDATED, updateEmployeeRequest.getFirstName(),
                 updateEmployeeRequest.getLastName());
@@ -146,6 +149,14 @@ public class EmployeeManager implements EmployeeService {
         if (LocalDate.now().getYear() - birthYear.getYear() < 18) {
             log.warn(LogWarnMessages.AGE_NOT_PERMISSIBLE, birthYear);
             throw new BusinessException(ErrorMessages.AGE_NOT_PERMISSIBLE);
+        }
+        return new SuccessResult();
+    }
+
+    private Result isTurkishCitizen(Employee employee) {
+        if (mernisValidationService.validate(employee).isSuccess()) {
+            employee.setNationality(Nationality.TURKISH);
+            return new SuccessResult();
         }
         return new SuccessResult();
     }

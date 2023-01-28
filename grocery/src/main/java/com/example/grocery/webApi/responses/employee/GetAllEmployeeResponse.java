@@ -1,6 +1,8 @@
 package com.example.grocery.webApi.responses.employee;
 
 import java.time.LocalDate;
+
+import com.example.grocery.entity.enums.Nationality;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,6 +25,8 @@ public class GetAllEmployeeResponse {
     private String lastName;
 
     private String nationalIdentity;
+
+    private Nationality nationality;
 
     private LocalDate yearOfBirth;
 

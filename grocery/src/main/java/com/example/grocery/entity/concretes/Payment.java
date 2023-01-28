@@ -1,18 +1,12 @@
 package com.example.grocery.entity.concretes;
 
-import java.util.List;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Entity
 @Getter
@@ -26,19 +20,19 @@ public class Payment {
     @Column(name = "payment_id")
     private Long id;
 
-    @Column(name = "card_number")
+    @Column(name = "card_number", nullable = false)
     private String cardNumber;
 
-    @Column(name = "full_name")
+    @Column(name = "full_name", nullable = false)
     private String fullName;
 
-    @Column(name = "card_expiration_year")
+    @Column(name = "card_expiration_year", nullable = false)
     private int cardExpirationYear;
 
-    @Column(name = "card_expiration_month")
+    @Column(name = "card_expiration_month", nullable = false)
     private int cardExpirationMonth;
 
-    @Column(name = "card_cvv")
+    @Column(name = "card_cvv", nullable = false)
     private String cardCvv;
 
     @Column(name = "balance")

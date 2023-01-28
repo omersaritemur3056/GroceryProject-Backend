@@ -21,7 +21,7 @@ import lombok.Setter;
 @PrimaryKeyJoinColumn(name = "corporate_customer_id", referencedColumnName = "customer_id")
 public class CorporateCustomer extends Customer {
 
-    @Column(name = "company_name")
+    @Column(name = "company_name", nullable = false)
     private String companyName;
 
     @Column(name = "tax_number", unique = true)

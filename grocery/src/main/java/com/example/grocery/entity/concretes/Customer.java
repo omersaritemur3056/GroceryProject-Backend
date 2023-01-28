@@ -38,11 +38,11 @@ public class Customer {
     @Column(name = "address")
     private String address;
 
-    @Column(name = "phone_number")
+    @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
 
     @OneToOne
-    @JoinColumn(name = "user_fk_id", referencedColumnName = "user_id")
+    @JoinColumn(name = "user_fk_id", referencedColumnName = "user_id", nullable = false)
     private User user;
 
     @ManyToOne

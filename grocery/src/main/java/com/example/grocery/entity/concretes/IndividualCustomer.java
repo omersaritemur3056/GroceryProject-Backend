@@ -21,10 +21,10 @@ import lombok.Setter;
 @PrimaryKeyJoinColumn(name = "individual_customer_id", referencedColumnName = "customer_id")
 public class IndividualCustomer extends Customer {
 
-    @Column(name = "first_name")
+    @Column(name = "first_name", nullable = false)
     private String firstName;
 
-    @Column(name = "last_name")
+    @Column(name = "last_name", nullable = false)
     private String lastName;
 
     @Column(name = "national_identity", unique = true)

@@ -1,6 +1,7 @@
 package com.example.grocery.core.utilities.business;
 
 import com.example.grocery.core.utilities.results.Result;
+import com.example.grocery.core.utilities.results.SuccessResult;
 
 public class BusinessRules {
 
@@ -13,6 +14,6 @@ public class BusinessRules {
                 return logic;
             }
         }
-        return null;
+        return new SuccessResult();
     }
 }
