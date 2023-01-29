@@ -95,7 +95,7 @@ public class WebSecurityConfig {
                         "/v2/api-docs/**",
                         "/swagger-resources/**")
                 .permitAll()
-                // .requestMatchers("/api/order/**") //test succeed
+                // .requestMatchers("/api/order/**") // test succeed
                 // .hasAnyAuthority(Authority.ADMIN.name(), Authority.USER.name())
                 .anyRequest()
                 .authenticated();

@@ -1,6 +1,7 @@
 package com.example.grocery.core.security.DTOs.request;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 import jakarta.persistence.Transient;
 import jakarta.validation.constraints.Email;
@@ -29,6 +30,8 @@ public class UpdateUserRequestDto {
     @NotNull
     @Email
     private String email;
+
+    private Set<String> role;
 
     @NotNull
     @NotBlank

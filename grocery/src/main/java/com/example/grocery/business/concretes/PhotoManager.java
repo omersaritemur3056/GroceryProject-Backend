@@ -134,11 +134,12 @@ public class PhotoManager implements PhotoService {
         formats.add("jpg");
         formats.add("jpeg");
 
-        String imageName = file.getOriginalFilename().toLowerCase(Locale.ENGLISH);
-        if (imageName == null) {
+        if (file.isEmpty() || file.getOriginalFilename() == null) {
             log.error(LogErrorMessages.FILE_IS_NULL);
             throw new BusinessException(ErrorMessages.FILE_IS_NULL);
         }
+
+        String imageName = file.getOriginalFilename().toLowerCase(Locale.ENGLISH);
 
         for (String format : formats) {
             if (imageName.contains(format)) {

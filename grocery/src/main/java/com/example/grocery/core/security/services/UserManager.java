@@ -14,12 +14,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.grocery.business.constants.Messages.CreateMessages;
+import com.example.grocery.business.constants.Messages.DeleteMessages;
 import com.example.grocery.business.constants.Messages.ErrorMessages;
 import com.example.grocery.business.constants.Messages.GetByIdMessages;
 import com.example.grocery.business.constants.Messages.GetListMessages;
+import com.example.grocery.business.constants.Messages.UpdateMessages;
 import com.example.grocery.business.constants.Messages.LogMessages.LogInfoMessages;
 import com.example.grocery.business.constants.Messages.LogMessages.LogWarnMessages;
 import com.example.grocery.core.security.DTOs.request.TokenRefreshRequest;
+import com.example.grocery.core.security.DTOs.request.UpdateUserRequestDto;
 import com.example.grocery.core.security.DTOs.request.UserForLoginDto;
 import com.example.grocery.core.security.DTOs.request.UserForRegisterDto;
 import com.example.grocery.core.security.DTOs.response.GetAllUserResponseDto;
@@ -134,18 +137,69 @@ public class UserManager implements UserService {
                 userDetails.getUsername(), userDetails.getEmail(), roles));
     }
 
-    /*
-     * @Override
-     * public Result signout() {
-     * UserDetailsImpl userDetails = (UserDetailsImpl)
-     * SecurityContextHolder.getContext().getAuthentication()
-     * .getPrincipal();
-     * Long userId = userDetails.getId();
-     * refreshTokenService.deleteByUserId(userId);
-     * log.info("User: {} signout", userDetails.getUsername());
-     * return new SuccessResult(DeleteMessages.SIGN_OUT);
-     * }
-     */
+    @Override
+    public Result update(Long id, UpdateUserRequestDto updateUserRequestDto) {
+        User inDbUser = getUserById(id);
+
+        Result rules = BusinessRules.run(isEmailExist(updateUserRequestDto.getEmail()),
+                isUsernameExist(updateUserRequestDto.getUsername()),
+                isValidPassword(updateUserRequestDto.getPassword(), updateUserRequestDto.getUsername()));
+        if (!rules.isSuccess())
+            return rules;
+
+        User user = mapperService.getModelMapper().map(updateUserRequestDto, User.class);
+        user.setId(inDbUser.getId());
+        user.setPassword(passwordEncoder.encode(updateUserRequestDto.getPassword()));
+
+        Set<String> strRoles = updateUserRequestDto.getRole();
+        Set<Role> roles = new HashSet<>();
+
+        if (strRoles == null) {
+            Role userRole = roleRepository.findByName(Authority.USER)
+                    .orElseThrow(() -> new BusinessException(ErrorMessages.ROLE_NOT_FOUND));
+            roles.add(userRole);
+        } else {
+            strRoles.forEach(role -> {
+                switch (role) {
+                    case "ADMIN":
+                        Role adminRole = roleRepository.findByName(Authority.ADMIN)
+                                .orElseThrow(() -> new BusinessException(ErrorMessages.ROLE_NOT_FOUND));
+                        roles.add(adminRole);
+
+                        break;
+                    case "MODERATOR":
+                        Role moderatorRole = roleRepository.findByName(Authority.MODERATOR)
+                                .orElseThrow(() -> new BusinessException(ErrorMessages.ROLE_NOT_FOUND));
+                        roles.add(moderatorRole);
+
+                        break;
+                    case "EDITOR":
+                        Role editorRole = roleRepository.findByName(Authority.EDITOR)
+                                .orElseThrow(() -> new BusinessException(ErrorMessages.ROLE_NOT_FOUND));
+                        roles.add(editorRole);
+
+                        break;
+                    default:
+                        Role userRole = roleRepository.findByName(Authority.USER)
+                                .orElseThrow(() -> new BusinessException(ErrorMessages.ROLE_NOT_FOUND));
+                        roles.add(userRole);
+                }
+            });
+        }
+
+        user.setRoles(roles);
+        userRepository.save(user);
+        log.info(LogInfoMessages.USER_UPDATED, user.getUsername());
+        return new SuccessResult(UpdateMessages.USER_UPDATED);
+    }
+
+    @Override
+    public Result delete(Long id) {
+        User user = getUserById(id);
+        log.info(LogInfoMessages.USER_DELETED, user.getUsername(), user.getEmail());
+        userRepository.delete(user);
+        return new SuccessResult(DeleteMessages.USER_DELETED);
+    }
 
     @Override
     public DataResult<TokenRefreshResponse> refreshtoken(TokenRefreshRequest tokenRefreshRequest) {
@@ -227,5 +281,7 @@ public class UserManager implements UserService {
         }
         return new SuccessResult();
     }
+
+    // signout tasarlanacak...
 
 }

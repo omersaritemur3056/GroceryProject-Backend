@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.grocery.core.security.DTOs.request.TokenRefreshRequest;
+import com.example.grocery.core.security.DTOs.request.UpdateUserRequestDto;
 import com.example.grocery.core.security.DTOs.request.UserForLoginDto;
 import com.example.grocery.core.security.DTOs.request.UserForRegisterDto;
 import com.example.grocery.core.security.DTOs.response.GetAllUserResponseDto;
@@ -24,6 +26,8 @@ import com.example.grocery.core.utilities.results.DataResult;
 import com.example.grocery.core.utilities.results.Result;
 
 import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
 @RequestMapping("/api/user")
@@ -59,8 +63,15 @@ public class UsersController {
         return ResponseEntity.ok(userService.refreshtoken(tokenRefreshRequest));
     }
 
-    // @PostMapping("/signout")
-    // public ResponseEntity<Result> signout() {
-    // return ResponseEntity.ok(userService.signout());
-    // }
+    @PutMapping(value = "update/{id}")
+    public ResponseEntity<Result> update(@Valid @PathVariable Long id,
+            @RequestBody UpdateUserRequestDto updateUserRequestDto) {
+        return ResponseEntity.ok(userService.update(id, updateUserRequestDto));
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Result> delete(@Valid @PathVariable Long id) {
+        return ResponseEntity.ok(userService.delete(id));
+    }
+
 }

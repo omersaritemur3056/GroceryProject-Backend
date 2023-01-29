@@ -3,6 +3,7 @@ package com.example.grocery.core.security.services;
 import java.util.List;
 
 import com.example.grocery.core.security.DTOs.request.TokenRefreshRequest;
+import com.example.grocery.core.security.DTOs.request.UpdateUserRequestDto;
 import com.example.grocery.core.security.DTOs.request.UserForLoginDto;
 import com.example.grocery.core.security.DTOs.request.UserForRegisterDto;
 import com.example.grocery.core.security.DTOs.response.GetAllUserResponseDto;
@@ -19,7 +20,9 @@ public interface UserService {
 
     DataResult<JwtResponse> login(UserForLoginDto userForLoginDto);
 
-    // Result signout();
+    Result update(Long id, UpdateUserRequestDto updateUserRequestDto);
+
+    Result delete(Long id);
 
     DataResult<TokenRefreshResponse> refreshtoken(TokenRefreshRequest tokenRefreshRequest);
 

@@ -130,6 +130,7 @@ public class Messages {
         public static final String PAYMENT_UPDATED = "Debit card updated!";
         public static final String ORDER_UPDATED = "Order updated!";
         public static final String IMAGE_UPDATED_AND_ADDED = "Image updated and saved to DB!";
+        public static final String USER_UPDATED = "User: {} updated!";
     }
 
     public class GetByUrlMessages {
@@ -180,6 +181,8 @@ public class Messages {
             public static final String PAYMENT_UPDATED = "Card information id: {} -> Card number: {}, Fullname: {}, Card expiration year: {}, Card expiration month: {}, Card cvv: {} has been successfully updated";
             public static final String USER_CREATED = "User: {} saved in DB!";
             public static final String USER_LOGINED = "User: {} logined!";
+            public static final String USER_DELETED = "User: {}, {} deleted!";
+            public static final String USER_UPDATED = "User: {} updated!";
 
         }
 
