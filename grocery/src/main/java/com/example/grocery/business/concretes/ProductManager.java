@@ -36,6 +36,7 @@ import com.example.grocery.webApi.requests.product.UpdateProductRequest;
 import com.example.grocery.webApi.responses.product.GetAllProductResponse;
 import com.example.grocery.webApi.responses.product.GetByIdProductResponse;
 
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
@@ -56,6 +57,7 @@ public class ProductManager implements ProductService {
     private PhotoService photoService;
 
     @Override
+    @Transactional
     public Result add(CreateProductRequest createProductRequest) {
 
         Result rules = BusinessRules.run(isExistName(createProductRequest.getName()),
@@ -74,6 +76,7 @@ public class ProductManager implements ProductService {
     }
 
     @Override
+    @Transactional
     public Result update(UpdateProductRequest updateProductRequest, Long id) {
 
         Product inDbProduct = productRepository.findById(id)
@@ -99,6 +102,7 @@ public class ProductManager implements ProductService {
     }
 
     @Override
+    @Transactional
     public Result delete(DeleteProductRequest deleteProductRequest) {
 
         Result rules = BusinessRules.run(isExistId(deleteProductRequest.getId()));

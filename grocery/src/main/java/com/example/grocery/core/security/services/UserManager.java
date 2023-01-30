@@ -45,6 +45,7 @@ import com.example.grocery.core.utilities.results.Result;
 import com.example.grocery.core.utilities.results.SuccessDataResult;
 import com.example.grocery.core.utilities.results.SuccessResult;
 
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
@@ -67,6 +68,7 @@ public class UserManager implements UserService {
     private MapperService mapperService;
 
     @Override
+    @Transactional
     public Result register(UserForRegisterDto userForRegisterDto) {
         Result rules = BusinessRules.run(isEmailExist(userForRegisterDto.getEmail()),
                 isUsernameExist(userForRegisterDto.getUsername()),
@@ -138,6 +140,7 @@ public class UserManager implements UserService {
     }
 
     @Override
+    @Transactional
     public Result update(Long id, UpdateUserRequestDto updateUserRequestDto) {
         User inDbUser = getUserById(id);
 
@@ -194,6 +197,7 @@ public class UserManager implements UserService {
     }
 
     @Override
+    @Transactional
     public Result delete(Long id) {
         User user = getUserById(id);
         log.info(LogInfoMessages.USER_DELETED, user.getUsername(), user.getEmail());

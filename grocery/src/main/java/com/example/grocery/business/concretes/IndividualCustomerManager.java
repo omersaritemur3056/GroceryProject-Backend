@@ -32,6 +32,7 @@ import com.example.grocery.webApi.requests.individualCustomer.UpdateIndividualCu
 import com.example.grocery.webApi.responses.individualCustomer.GetAllIndividualCustomerResponse;
 import com.example.grocery.webApi.responses.individualCustomer.GetByIdIndividualCustomerResponse;
 
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
@@ -48,6 +49,7 @@ public class IndividualCustomerManager implements IndividualCustomerService {
         private PhotoService photoService;
 
         @Override
+        @Transactional
         public Result add(CreateIndividualCustomerRequest createIndividualCustomerRequest) {
 
                 Result rules = BusinessRules.run(
@@ -68,6 +70,7 @@ public class IndividualCustomerManager implements IndividualCustomerService {
         }
 
         @Override
+        @Transactional
         public Result delete(DeleteIndividualCustomerRequest deleteIndividualCustomerRequest) {
 
                 Result rules = BusinessRules.run(isExistId(deleteIndividualCustomerRequest.getId()));
@@ -87,6 +90,7 @@ public class IndividualCustomerManager implements IndividualCustomerService {
         }
 
         @Override
+        @Transactional
         public Result update(UpdateIndividualCustomerRequest updateIndividualCustomerRequest, Long id) {
 
                 Result rules = BusinessRules.run(

@@ -52,6 +52,7 @@ public class OrderManager implements OrderService {
     private ProductService productService;
 
     @Override
+    @Transactional
     public Result add(CreateOrderRequest createOrderRequest) {
 
         Result rules = BusinessRules.run(isExistCustomerId(createOrderRequest.getCustomerId()),
@@ -87,6 +88,7 @@ public class OrderManager implements OrderService {
     }
 
     @Override
+    @Transactional
     public Result update(UpdateOrderRequest updateOrderRequest, Long id) {
         Order inDbOrder = orderRepository.findById(id)
                 .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));

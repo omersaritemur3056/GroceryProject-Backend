@@ -11,7 +11,7 @@ import com.example.grocery.core.utilities.exceptions.TokenRefreshException;
 import com.example.grocery.core.utilities.results.ErrorResult;
 
 @RestControllerAdvice
-public class HandleExceptionsController {
+public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = { BusinessException.class })
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)

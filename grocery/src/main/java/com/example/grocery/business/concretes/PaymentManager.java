@@ -44,6 +44,7 @@ public class PaymentManager implements PaymentService {
     private DebitCardValidationService debitCardValidationService;
 
     @Override
+    @Transactional
     public Result add(CreatePaymentRequest createPaymentRequest) {
         // Card number ve Cvv numaralarını formatlacak kodlar yazılacak...
         Result rules = BusinessRules
@@ -77,6 +78,7 @@ public class PaymentManager implements PaymentService {
     }
 
     @Override
+    @Transactional
     public Result update(UpdatePaymentRequest updatePaymentRequest, Long id) {
         // Card number, Cvv numaralarını formatlacak kodlar yazılacak...
         Payment inDbPayment = paymentRepository.findById(id)

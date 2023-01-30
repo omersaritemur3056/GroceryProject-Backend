@@ -22,6 +22,8 @@ import com.example.grocery.webApi.requests.employee.DeleteEmployeeRequest;
 import com.example.grocery.webApi.requests.employee.UpdateEmployeeRequest;
 import com.example.grocery.webApi.responses.employee.GetAllEmployeeResponse;
 import com.example.grocery.webApi.responses.employee.GetByIdEmployeeResponse;
+
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,6 +48,7 @@ public class EmployeeManager implements EmployeeService {
     private MernisValidationService mernisValidationService;
 
     @Override
+    @Transactional
     public Result add(CreateEmployeeRequest createEmployeeRequest) {
         // asgari ücretin altında salary olamaz eklenebilir...
         Result rules = BusinessRules.run(isExistNationalId(createEmployeeRequest.getNationalIdentity()),
@@ -66,6 +69,7 @@ public class EmployeeManager implements EmployeeService {
     }
 
     @Override
+    @Transactional
     public Result delete(DeleteEmployeeRequest deleteEmployeeRequest) {
 
         Result rules = BusinessRules.run(isExistId(deleteEmployeeRequest.getId()));
@@ -82,6 +86,7 @@ public class EmployeeManager implements EmployeeService {
     }
 
     @Override
+    @Transactional
     public Result update(UpdateEmployeeRequest updateEmployeeRequest, Long id) {
 
         Result rules = BusinessRules.run(isExistNationalId(updateEmployeeRequest.getNationalIdentity()),

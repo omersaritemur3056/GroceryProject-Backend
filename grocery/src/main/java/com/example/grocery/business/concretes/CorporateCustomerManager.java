@@ -32,6 +32,7 @@ import com.example.grocery.webApi.requests.corporateCustomer.UpdateCorporateCust
 import com.example.grocery.webApi.responses.corporateCustomer.GetAllCorporateCustomerResponse;
 import com.example.grocery.webApi.responses.corporateCustomer.GetByIdCorporateCustomerResponse;
 
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
@@ -48,6 +49,7 @@ public class CorporateCustomerManager implements CorporateCustomerService {
         private PhotoService photoService;
 
         @Override
+        @Transactional
         public Result add(CreateCorporateCustomerRequest createCorporateCustomerRequest) {
 
                 Result rules = BusinessRules.run(isExistTaxNumber(createCorporateCustomerRequest.getTaxNumber()));
@@ -66,6 +68,7 @@ public class CorporateCustomerManager implements CorporateCustomerService {
         }
 
         @Override
+        @Transactional
         public Result delete(DeleteCorporateCustomerRequest deleteCorporateCustomerRequest) {
 
                 Result rules = BusinessRules.run(isExistId(deleteCorporateCustomerRequest.getId()));
@@ -84,6 +87,7 @@ public class CorporateCustomerManager implements CorporateCustomerService {
         }
 
         @Override
+        @Transactional
         public Result update(UpdateCorporateCustomerRequest updateCorporateCustomerRequest, Long id) {
 
                 Result rules = BusinessRules.run(isExistTaxNumber(updateCorporateCustomerRequest.getTaxNumber()));
