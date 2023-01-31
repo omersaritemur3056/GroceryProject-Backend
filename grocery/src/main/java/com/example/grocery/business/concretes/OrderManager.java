@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.example.grocery.business.abstracts.CustomerService;
@@ -17,6 +19,7 @@ import com.example.grocery.business.constants.Messages.GetByIdMessages;
 import com.example.grocery.business.constants.Messages.GetListMessages;
 import com.example.grocery.business.constants.Messages.UpdateMessages;
 import com.example.grocery.business.constants.Messages.LogMessages.LogInfoMessages;
+import com.example.grocery.business.constants.Messages.LogMessages.LogWarnMessages;
 import com.example.grocery.core.utilities.business.BusinessRules;
 import com.example.grocery.core.utilities.exceptions.BusinessException;
 import com.example.grocery.core.utilities.mapper.MapperService;
@@ -147,6 +150,80 @@ public class OrderManager implements OrderService {
         return new SuccessDataResult<>(getByIdOrderResponse, GetByIdMessages.ORDER_LISTED);
     }
 
+    @Override
+    public DataResult<List<GetAllOrderResponse>> getListBySorting(String sortBy) {
+        isValidSortParameter(sortBy);
+
+        List<GetAllOrderResponse> returnList = new ArrayList<>();
+        List<Order> orderList = orderRepository.findAll(Sort.by(Sort.Direction.ASC, sortBy));
+        for (Order order : orderList) {
+            Order order1 = orderRepository.findById(order.getId())
+                    .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
+            GetAllOrderResponse addFields = mapperService.getModelMapper().map(order,
+                    GetAllOrderResponse.class);
+            addFields.setCustomerId(order1.getCustomer().getId());
+            addFields.setPaymentId(order1.getPayment().getId());
+            List<Long> ids = new ArrayList<>();
+            for (Product x : order.getProducts()) {
+                ids.add(x.getId());
+            }
+            addFields.setProductIds(ids);
+            returnList.add(addFields);
+        }
+        return new SuccessDataResult<>(returnList, GetListMessages.ORDERS_SORTED + sortBy);
+    }
+
+    @Override
+    public DataResult<List<GetAllOrderResponse>> getListByPagination(int pageNo, int pageSize) {
+        isPageNumberValid(pageNo);
+        isPageSizeValid(pageSize);
+
+        List<GetAllOrderResponse> returnList = new ArrayList<>();
+        List<Order> orderList = orderRepository.findAll(PageRequest.of(pageNo, pageSize)).toList();
+        for (Order order : orderList) {
+            Order order1 = orderRepository.findById(order.getId())
+                    .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
+            GetAllOrderResponse addFields = mapperService.getModelMapper().map(order,
+                    GetAllOrderResponse.class);
+            addFields.setCustomerId(order1.getCustomer().getId());
+            addFields.setPaymentId(order1.getPayment().getId());
+            List<Long> ids = new ArrayList<>();
+            for (Product x : order.getProducts()) {
+                ids.add(x.getId());
+            }
+            addFields.setProductIds(ids);
+            returnList.add(addFields);
+        }
+        return new SuccessDataResult<>(returnList, GetListMessages.ORDERS_PAGINATED);
+    }
+
+    @Override
+    public DataResult<List<GetAllOrderResponse>> getListByPaginationAndSorting(int pageNo, int pageSize,
+            String sortBy) {
+        isPageNumberValid(pageNo);
+        isPageSizeValid(pageSize);
+        isValidSortParameter(sortBy);
+
+        List<GetAllOrderResponse> returnList = new ArrayList<>();
+        List<Order> orderList = orderRepository.findAll(PageRequest.of(pageNo, pageSize).withSort(Sort.by(sortBy)))
+                .toList();
+        for (Order order : orderList) {
+            Order order1 = orderRepository.findById(order.getId())
+                    .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
+            GetAllOrderResponse addFields = mapperService.getModelMapper().map(order,
+                    GetAllOrderResponse.class);
+            addFields.setCustomerId(order1.getCustomer().getId());
+            addFields.setPaymentId(order1.getPayment().getId());
+            List<Long> ids = new ArrayList<>();
+            for (Product x : order.getProducts()) {
+                ids.add(x.getId());
+            }
+            addFields.setProductIds(ids);
+            returnList.add(addFields);
+        }
+        return new SuccessDataResult<>(returnList, GetListMessages.ORDERS_PAGINATED_AND_SORTED + sortBy);
+    }
+
     private Result isExistId(Long id) {
         if (!orderRepository.existsById(id)) {
             throw new BusinessException(ErrorMessages.ID_NOT_FOUND);
@@ -167,4 +244,27 @@ public class OrderManager implements OrderService {
         }
         return new SuccessResult();
     }
+
+    private void isPageNumberValid(int pageNo) {
+        if (pageNo < 0) {
+            log.warn(LogWarnMessages.PAGE_NUMBER_NEGATIVE);
+            throw new BusinessException(ErrorMessages.PAGE_NUMBER_NEGATIVE);
+        }
+    }
+
+    private void isPageSizeValid(int pageSize) {
+        if (pageSize < 1) {
+            log.warn(LogWarnMessages.PAGE_SIZE_NEGATIVE);
+            throw new BusinessException(ErrorMessages.PAGE_SIZE_NEGATIVE);
+        }
+    }
+
+    private void isValidSortParameter(String sortBy) {
+        Order checkField = new Order();
+        if (!checkField.toString().contains(sortBy)) {
+            log.warn(LogWarnMessages.SORT_PARAMETER_NOT_VALID);
+            throw new BusinessException(ErrorMessages.SORT_PARAMETER_NOT_VALID);
+        }
+    }
+
 }

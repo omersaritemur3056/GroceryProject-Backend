@@ -3,6 +3,8 @@ package com.example.grocery.business.concretes;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.example.grocery.business.abstracts.SupplierService;
@@ -104,6 +106,41 @@ public class SupplierManager implements SupplierService {
         return new SuccessDataResult<>(getByIdSupplierResponse, GetByIdMessages.SUPPLIER_LISTED);
     }
 
+    @Override
+    public DataResult<List<GetAllSupplierResponse>> getListBySorting(String sortBy) {
+        isValidSortParameter(sortBy);
+
+        List<Supplier> suppliers = supplierRepository.findAll(Sort.by(Sort.Direction.ASC, sortBy));
+        List<GetAllSupplierResponse> returnList = suppliers.stream()
+                .map(s -> mapperService.getModelMapper().map(s, GetAllSupplierResponse.class)).toList();
+        return new SuccessDataResult<>(returnList, GetListMessages.SUPPLIERS_SORTED + sortBy);
+    }
+
+    @Override
+    public DataResult<List<GetAllSupplierResponse>> getListByPagination(int pageNo, int pageSize) {
+        isPageNumberValid(pageNo);
+        isPageSizeValid(pageSize);
+
+        List<Supplier> suppliers = supplierRepository.findAll(PageRequest.of(pageNo, pageSize)).toList();
+        List<GetAllSupplierResponse> returnList = suppliers.stream()
+                .map(s -> mapperService.getModelMapper().map(s, GetAllSupplierResponse.class)).toList();
+        return new SuccessDataResult<>(returnList, GetListMessages.SUPPLIERS_PAGINATED);
+    }
+
+    @Override
+    public DataResult<List<GetAllSupplierResponse>> getListByPaginationAndSorting(int pageNo, int pageSize,
+            String sortBy) {
+        isPageNumberValid(pageNo);
+        isPageSizeValid(pageSize);
+        isValidSortParameter(sortBy);
+
+        List<Supplier> suppliers = supplierRepository
+                .findAll(PageRequest.of(pageNo, pageSize).withSort(Sort.by(sortBy))).toList();
+        List<GetAllSupplierResponse> returnList = suppliers.stream()
+                .map(s -> mapperService.getModelMapper().map(s, GetAllSupplierResponse.class)).toList();
+        return new SuccessDataResult<>(returnList, GetListMessages.SUPPLIERS_PAGINATED_AND_SORTED + sortBy);
+    }
+
     // ProductManager sınıfımızda bağımlılığı kontrol altına alma adına kullanılmak
     // üzere tasarlandı.
     @Override
@@ -141,6 +178,28 @@ public class SupplierManager implements SupplierService {
             throw new BusinessException(ErrorMessages.PHONE_NUMBER_REPEATED);
         }
         return new SuccessResult();
+    }
+
+    private void isPageNumberValid(int pageNo) {
+        if (pageNo < 0) {
+            log.warn(LogWarnMessages.PAGE_NUMBER_NEGATIVE);
+            throw new BusinessException(ErrorMessages.PAGE_NUMBER_NEGATIVE);
+        }
+    }
+
+    private void isPageSizeValid(int pageSize) {
+        if (pageSize < 1) {
+            log.warn(LogWarnMessages.PAGE_SIZE_NEGATIVE);
+            throw new BusinessException(ErrorMessages.PAGE_SIZE_NEGATIVE);
+        }
+    }
+
+    private void isValidSortParameter(String sortBy) {
+        Supplier checkField = new Supplier();
+        if (!checkField.toString().contains(sortBy)) {
+            log.warn(LogWarnMessages.SORT_PARAMETER_NOT_VALID);
+            throw new BusinessException(ErrorMessages.SORT_PARAMETER_NOT_VALID);
+        }
     }
 
 }

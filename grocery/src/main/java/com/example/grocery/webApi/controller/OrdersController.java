@@ -56,4 +56,23 @@ public class OrdersController {
     public ResponseEntity<DataResult<GetByIdOrderResponse>> getById(@RequestParam Long id) {
         return new ResponseEntity<>(orderService.getById(id), HttpStatus.OK);
     }
+
+    @GetMapping("/getlistbysorting")
+    public ResponseEntity<DataResult<List<GetAllOrderResponse>>> getListBySorting(
+            @RequestParam(defaultValue = "id") String sortBy) {
+        return ResponseEntity.ok(orderService.getListBySorting(sortBy));
+    }
+
+    @GetMapping("/getlistbypagination")
+    public ResponseEntity<DataResult<List<GetAllOrderResponse>>> getListByPagination(
+            @RequestParam(defaultValue = "0") int pageNo, @RequestParam(defaultValue = "10") int pageSize) {
+        return ResponseEntity.ok(orderService.getListByPagination(pageNo, pageSize));
+    }
+
+    @GetMapping("/getlistbypaginationandsorting")
+    public ResponseEntity<DataResult<List<GetAllOrderResponse>>> getListByPaginationAndSorting(
+            @RequestParam(defaultValue = "0") int pageNo, @RequestParam(defaultValue = "10") int pageSize,
+            @RequestParam(defaultValue = "id") String sortBy) {
+        return ResponseEntity.ok(orderService.getListByPaginationAndSorting(pageNo, pageSize, sortBy));
+    }
 }

@@ -21,4 +21,11 @@ public interface CorporateCustomerService {
     DataResult<List<GetAllCorporateCustomerResponse>> getAll();
 
     DataResult<GetByIdCorporateCustomerResponse> getById(Long id);
+
+    DataResult<List<GetAllCorporateCustomerResponse>> getListBySorting(String sortBy);
+
+    DataResult<List<GetAllCorporateCustomerResponse>> getListByPagination(int pageNo, int pageSize);
+
+    DataResult<List<GetAllCorporateCustomerResponse>> getListByPaginationAndSorting(int pageNo, int pageSize,
+            String sortBy);
 }

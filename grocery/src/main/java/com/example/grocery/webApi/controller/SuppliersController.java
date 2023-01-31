@@ -56,4 +56,23 @@ public class SuppliersController {
     public ResponseEntity<DataResult<GetByIdSupplierResponse>> getById(@RequestParam Long id) {
         return ResponseEntity.ok().body(supplierService.getById(id));
     }
+
+    @GetMapping("/getlistbysorting")
+    public ResponseEntity<DataResult<List<GetAllSupplierResponse>>> getListBySorting(
+            @RequestParam(defaultValue = "id") String sortBy) {
+        return ResponseEntity.ok(supplierService.getListBySorting(sortBy));
+    }
+
+    @GetMapping("/getlistbypagination")
+    public ResponseEntity<DataResult<List<GetAllSupplierResponse>>> getListByPagination(
+            @RequestParam(defaultValue = "0") int pageNo, @RequestParam(defaultValue = "10") int pageSize) {
+        return ResponseEntity.ok(supplierService.getListByPagination(pageNo, pageSize));
+    }
+
+    @GetMapping("/getlistbypaginationandsorting")
+    public ResponseEntity<DataResult<List<GetAllSupplierResponse>>> getListByPaginationAndSorting(
+            @RequestParam(defaultValue = "0") int pageNo, @RequestParam(defaultValue = "10") int pageSize,
+            @RequestParam(defaultValue = "id") String sortBy) {
+        return ResponseEntity.ok(supplierService.getListByPaginationAndSorting(pageNo, pageSize, sortBy));
+    }
 }

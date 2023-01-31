@@ -14,6 +14,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Getter
 @Setter
+@ToString
 public class Employee {
 
     @Id

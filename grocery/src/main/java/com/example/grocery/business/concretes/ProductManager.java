@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.example.grocery.business.abstracts.CategoryService;
@@ -160,6 +162,83 @@ public class ProductManager implements ProductService {
         return new SuccessDataResult<>(getByIdProductResponse, GetByIdMessages.PRODUCT_LISTED);
     }
 
+    @Override
+    public DataResult<List<GetAllProductResponse>> getListBySorting(String sortBy) {
+        isValidSortParameter(sortBy);
+
+        List<GetAllProductResponse> returnList = new ArrayList<>();
+        List<Product> productList = productRepository.findAll(Sort.by(Sort.Direction.ASC, sortBy));
+        for (Product product : productList) {
+            Product product1 = productRepository.findById(product.getId())
+                    .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
+            GetAllProductResponse addFields = mapperService.getModelMapper().map(product,
+                    GetAllProductResponse.class);
+            addFields.setCategoryId(product1.getCategory().getId());
+            addFields.setProducerId(product1.getProducer().getId());
+            addFields.setSupplierId(product1.getSupplier().getId());
+            List<Long> ids = new ArrayList<>();
+            for (Image x : product.getImages()) {
+                ids.add(x.getId());
+            }
+            addFields.setImageIds(ids);
+            returnList.add(addFields);
+        }
+        return new SuccessDataResult<>(returnList, GetListMessages.PRODUCTS_SORTED + sortBy);
+    }
+
+    @Override
+    public DataResult<List<GetAllProductResponse>> getListByPagination(int pageNo, int pageSize) {
+        isPageNumberValid(pageNo);
+        isPageSizeValid(pageSize);
+
+        List<GetAllProductResponse> returnList = new ArrayList<>();
+        List<Product> productList = productRepository.findAll(PageRequest.of(pageNo, pageSize)).toList();
+        for (Product product : productList) {
+            Product product1 = productRepository.findById(product.getId())
+                    .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
+            GetAllProductResponse addFields = mapperService.getModelMapper().map(product,
+                    GetAllProductResponse.class);
+            addFields.setCategoryId(product1.getCategory().getId());
+            addFields.setProducerId(product1.getProducer().getId());
+            addFields.setSupplierId(product1.getSupplier().getId());
+            List<Long> ids = new ArrayList<>();
+            for (Image x : product.getImages()) {
+                ids.add(x.getId());
+            }
+            addFields.setImageIds(ids);
+            returnList.add(addFields);
+        }
+        return new SuccessDataResult<>(returnList, GetListMessages.PRODUCTS_PAGINATED);
+    }
+
+    @Override
+    public DataResult<List<GetAllProductResponse>> getListByPaginationAndSorting(int pageNo, int pageSize,
+            String sortBy) {
+        isPageNumberValid(pageNo);
+        isPageSizeValid(pageSize);
+        isValidSortParameter(sortBy);
+
+        List<GetAllProductResponse> returnList = new ArrayList<>();
+        List<Product> productList = productRepository
+                .findAll(PageRequest.of(pageNo, pageSize).withSort(Sort.by(sortBy))).toList();
+        for (Product product : productList) {
+            Product product1 = productRepository.findById(product.getId())
+                    .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
+            GetAllProductResponse addFields = mapperService.getModelMapper().map(product,
+                    GetAllProductResponse.class);
+            addFields.setCategoryId(product1.getCategory().getId());
+            addFields.setProducerId(product1.getProducer().getId());
+            addFields.setSupplierId(product1.getSupplier().getId());
+            List<Long> ids = new ArrayList<>();
+            for (Image x : product.getImages()) {
+                ids.add(x.getId());
+            }
+            addFields.setImageIds(ids);
+            returnList.add(addFields);
+        }
+        return new SuccessDataResult<>(returnList, GetListMessages.PRODUCTS_PAGINATED_AND_SORTED + sortBy);
+    }
+
     // bağımlılğı kontrol altına almak üzere tasarlandı
     @Override
     public Product getProductById(Long id) {
@@ -220,6 +299,28 @@ public class ProductManager implements ProductService {
             throw new BusinessException(ErrorMessages.PRODUCER_ID_NOT_FOUND);
         }
         return new SuccessResult();
+    }
+
+    private void isPageNumberValid(int pageNo) {
+        if (pageNo < 0) {
+            log.warn(LogWarnMessages.PAGE_NUMBER_NEGATIVE);
+            throw new BusinessException(ErrorMessages.PAGE_NUMBER_NEGATIVE);
+        }
+    }
+
+    private void isPageSizeValid(int pageSize) {
+        if (pageSize < 1) {
+            log.warn(LogWarnMessages.PAGE_SIZE_NEGATIVE);
+            throw new BusinessException(ErrorMessages.PAGE_SIZE_NEGATIVE);
+        }
+    }
+
+    private void isValidSortParameter(String sortBy) {
+        Product checkField = new Product();
+        if (!checkField.toString().contains(sortBy)) {
+            log.warn(LogWarnMessages.SORT_PARAMETER_NOT_VALID);
+            throw new BusinessException(ErrorMessages.SORT_PARAMETER_NOT_VALID);
+        }
     }
 
 }

@@ -36,6 +36,9 @@ public class Messages {
         public static final String IMAGE_URL_NOT_FOUND = "Entered image url not found in DB!";
         public static final String IMAGE_ID_NOT_FOUND = "Entered image id not found in DB!";
         public static final String FILE_IS_NULL = "Sending file is null!";
+        public static final String PAGE_NUMBER_NEGATIVE = "Page number value must be positive number or zero!";
+        public static final String PAGE_SIZE_NEGATIVE = "Page size number must be greater than 0!";
+        public static final String SORT_PARAMETER_NOT_VALID = "Entered sort parameter not valid!";
 
     }
 
@@ -59,6 +62,39 @@ public class Messages {
         public static final String CATEGORIES_SORTED = "Categories listed sorted by: ";
         public static final String CATEGORIED_PAGINATED = "Categories listed by pagination";
         public static final String CATEGORIES_PAGINATED_AND_SORTED = "Categories listed by pagination and sorted by: ";
+        public static final String PRODUCTS_SORTED = "Products listed sorted by: ";
+        public static final String PRODUCTS_PAGINATED = "Products listed by pagination";
+        public static final String PRODUCTS_PAGINATED_AND_SORTED = "Products listed by pagination and sorted by: ";
+        public static final String EMPLOYEES_SORTED = "Employees listed sorted by: ";
+        public static final String EMPLOYEES_PAGINATED = "Employees listed by pagination";
+        public static final String EMPLOYEES_PAGINATED_AND_SORTED = "Employees listed by pagination and sorted by: ";
+        public static final String CUSTOMERS_PAGINATED_AND_SORTED = "Customers listed by pagination and sorted by: ";
+        public static final String CUSTOMERS_PAGINATED = "Customers listed by pagination";
+        public static final String CUSTOMERS_SORTED = "Customers listed sorted by: ";
+        public static final String CORPORATE_CUSTOMERS_PAGINATED_AND_SORTED = "Corporate customers listed by pagination and sorted by: ";
+        public static final String CORPORATE_CUSTOMERS_PAGINATED = "Corporate customers listed by pagination";
+        public static final String CORPORATE_CUSTOMERS_SORTED = "Corporate customers listed sorted by: ";
+        public static final String INDIVIDUAL_CUSTOMERS_PAGINATED_AND_SORTED = "Individual customers listed by pagination and sorted by: ";
+        public static final String INDIVIDUAL_CUSTOMERS_PAGINATED = "Individual customers listed by pagination";
+        public static final String INDIVIDUAL_CUSTOMERS_SORTED = "Individual customers listed sorted by: ";
+        public static final String PRODUCERS_PAGINATED = "Producers listed by pagination";
+        public static final String PRODUCERS_PAGINATED_AND_SORTED = "Producers listed by pagination and sorted by: ";
+        public static final String PRODUCERS_SORTED = "Producers listed sorted by: ";
+        public static final String SUPPLIERS_SORTED = "Suppliers listed sorted by: ";
+        public static final String SUPPLIERS_PAGINATED = "Suppliers listed by pagination";
+        public static final String SUPPLIERS_PAGINATED_AND_SORTED = "Suppliers listed by pagination and sorted by: ";
+        public static final String PAYMENTS_SORTED = "Payments listed sorted by: ";
+        public static final String PAYMENTS_PAGINATED = "Payments listed by pagination";
+        public static final String PAYMENTS_PAGINATED_AND_SORTED = "Payments listed by pagination and sorted by: ";
+        public static final String ORDERS_SORTED = "Orders listed sorted by: ";
+        public static final String ORDERS_PAGINATED = "Orders listed by pagination";
+        public static final String ORDERS_PAGINATED_AND_SORTED = "Orders listed by pagination and sorted by: ";
+        public static final String IMAGES_SORTED = "Images listed sorted by: ";
+        public static final String IMAGES_PAGINATED = "Images listed by pagination";
+        public static final String IMAGES_PAGINATED_AND_SORTED = "Images listed by pagination and sorted by: ";
+        public static final String USERS_SORTED = "Users listed sorted by: ";
+        public static final String USERS_PAGINATED = "Users listed by pagination";
+        public static final String USERS_PAGINATED_AND_SORTED = "Users listed by pagination and sorted by: ";
     }
 
     public class GetByIdMessages {
@@ -208,6 +244,9 @@ public class Messages {
             public static final String USER_EMAIL_REPEATED = "Email: {} already exists!";
             public static final String USER_PASSWORD_NOT_VALID = "Invalid password! {} include {}";
             public static final String UNSUPPORTED_FORMAT = "Unsupported format!";
+            public static final String PAGE_NUMBER_NEGATIVE = "Page number must be positive or zero!";
+            public static final String PAGE_SIZE_NEGATIVE = "Page size number must be greater than 0!";
+            public static final String SORT_PARAMETER_NOT_VALID = "Entered sort parameter not valid!";
 
         }
 

@@ -56,4 +56,23 @@ public class EmployeesController {
     public ResponseEntity<DataResult<GetByIdEmployeeResponse>> getById(@RequestParam Long id) {
         return ResponseEntity.ok().body(employeeService.getById(id));
     }
+
+    @GetMapping("/getlistbysorting")
+    public ResponseEntity<DataResult<List<GetAllEmployeeResponse>>> getListBySorting(
+            @RequestParam(defaultValue = "id") String sortBy) {
+        return ResponseEntity.ok(employeeService.getListBySorting(sortBy));
+    }
+
+    @GetMapping("/getlistbypagination")
+    public ResponseEntity<DataResult<List<GetAllEmployeeResponse>>> getListByPagination(
+            @RequestParam(defaultValue = "0") int pageNo, @RequestParam(defaultValue = "10") int pageSize) {
+        return ResponseEntity.ok(employeeService.getListByPagination(pageNo, pageSize));
+    }
+
+    @GetMapping("/getlistbypaginationandsorting")
+    public ResponseEntity<DataResult<List<GetAllEmployeeResponse>>> getListByPaginationAndSorting(
+            @RequestParam(defaultValue = "0") int pageNo, @RequestParam(defaultValue = "10") int pageSize,
+            @RequestParam(defaultValue = "id") String sortBy) {
+        return ResponseEntity.ok(employeeService.getListByPaginationAndSorting(pageNo, pageSize, sortBy));
+    }
 }

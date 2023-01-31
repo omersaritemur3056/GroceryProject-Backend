@@ -23,5 +23,11 @@ public interface PaymentService {
 
     DataResult<GetByIdPaymentResponse> getById(Long id);
 
+    DataResult<List<GetAllPaymentResponse>> getListBySorting(String sortBy);
+
+    DataResult<List<GetAllPaymentResponse>> getListByPagination(int pageNo, int pageSize);
+
+    DataResult<List<GetAllPaymentResponse>> getListByPaginationAndSorting(int pageNo, int pageSize, String sortBy);
+
     Payment getPaymentById(Long id);
 }

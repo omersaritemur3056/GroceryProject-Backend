@@ -59,4 +59,23 @@ public class IndividualCustomersController {
     public ResponseEntity<DataResult<GetByIdIndividualCustomerResponse>> getById(@RequestParam Long id) {
         return ResponseEntity.ok().body(individualCustomerService.getById(id));
     }
+
+    @GetMapping("/getlistbysorting")
+    public ResponseEntity<DataResult<List<GetAllIndividualCustomerResponse>>> getListBySorting(
+            @RequestParam(defaultValue = "id") String sortBy) {
+        return ResponseEntity.ok(individualCustomerService.getListBySorting(sortBy));
+    }
+
+    @GetMapping("/getlistbypagination")
+    public ResponseEntity<DataResult<List<GetAllIndividualCustomerResponse>>> getListByPagination(
+            @RequestParam(defaultValue = "0") int pageNo, @RequestParam(defaultValue = "10") int pageSize) {
+        return ResponseEntity.ok(individualCustomerService.getListByPagination(pageNo, pageSize));
+    }
+
+    @GetMapping("/getlistbypaginationandsorting")
+    public ResponseEntity<DataResult<List<GetAllIndividualCustomerResponse>>> getListByPaginationAndSorting(
+            @RequestParam(defaultValue = "0") int pageNo, @RequestParam(defaultValue = "10") int pageSize,
+            @RequestParam(defaultValue = "id") String sortBy) {
+        return ResponseEntity.ok(individualCustomerService.getListByPaginationAndSorting(pageNo, pageSize, sortBy));
+    }
 }

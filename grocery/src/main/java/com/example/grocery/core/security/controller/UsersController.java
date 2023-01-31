@@ -74,4 +74,23 @@ public class UsersController {
         return ResponseEntity.ok(userService.delete(id));
     }
 
+    @GetMapping("/getlistbysorting")
+    public ResponseEntity<DataResult<List<GetAllUserResponseDto>>> getListBySorting(
+            @RequestParam(defaultValue = "id") String sortBy) {
+        return ResponseEntity.ok(userService.getListBySorting(sortBy));
+    }
+
+    @GetMapping("/getlistbypagination")
+    public ResponseEntity<DataResult<List<GetAllUserResponseDto>>> getListByPagination(
+            @RequestParam(defaultValue = "0") int pageNo, @RequestParam(defaultValue = "10") int pageSize) {
+        return ResponseEntity.ok(userService.getListByPagination(pageNo, pageSize));
+    }
+
+    @GetMapping("/getlistbypaginationandsorting")
+    public ResponseEntity<DataResult<List<GetAllUserResponseDto>>> getListByPaginationAndSorting(
+            @RequestParam(defaultValue = "0") int pageNo, @RequestParam(defaultValue = "10") int pageSize,
+            @RequestParam(defaultValue = "id") String sortBy) {
+        return ResponseEntity.ok(userService.getListByPaginationAndSorting(pageNo, pageSize, sortBy));
+    }
+
 }

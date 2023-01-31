@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -238,6 +240,44 @@ public class UserManager implements UserService {
         return new SuccessDataResult<>(returnObj, GetByIdMessages.USER_LISTED);
     }
 
+    @Override
+    public DataResult<List<GetAllUserResponseDto>> getListBySorting(String sortBy) {
+        isValidSortParameter(sortBy);
+
+        List<User> userList = userRepository.findAll(Sort.by(Sort.Direction.ASC, sortBy));
+        List<GetAllUserResponseDto> returnList = userList.stream()
+                .map(u -> mapperService.getModelMapper().map(u, GetAllUserResponseDto.class)).toList();
+
+        return new SuccessDataResult<>(returnList, GetListMessages.USERS_SORTED + sortBy);
+    }
+
+    @Override
+    public DataResult<List<GetAllUserResponseDto>> getListByPagination(int pageNo, int pageSize) {
+        isPageNumberValid(pageNo);
+        isPageSizeValid(pageSize);
+
+        List<User> userList = userRepository.findAll(PageRequest.of(pageNo, pageSize)).toList();
+        List<GetAllUserResponseDto> returnList = userList.stream()
+                .map(u -> mapperService.getModelMapper().map(u, GetAllUserResponseDto.class)).toList();
+
+        return new SuccessDataResult<>(returnList, GetListMessages.USERS_PAGINATED);
+    }
+
+    @Override
+    public DataResult<List<GetAllUserResponseDto>> getListByPaginationAndSorting(int pageNo, int pageSize,
+            String sortBy) {
+        isValidSortParameter(sortBy);
+        isPageNumberValid(pageNo);
+        isPageSizeValid(pageSize);
+
+        List<User> userList = userRepository.findAll(PageRequest.of(pageNo, pageSize).withSort(Sort.by(sortBy)))
+                .toList();
+        List<GetAllUserResponseDto> returnList = userList.stream()
+                .map(u -> mapperService.getModelMapper().map(u, GetAllUserResponseDto.class)).toList();
+
+        return new SuccessDataResult<>(returnList, GetListMessages.USERS_PAGINATED_AND_SORTED + sortBy);
+    }
+
     // Bağımlılığı kontrol altına almak üzere tasarlandılar
     @Override
     public User getUserById(Long userId) {
@@ -284,6 +324,28 @@ public class UserManager implements UserService {
             throw new BusinessException(ErrorMessages.PASSWORD_NOT_VALID);
         }
         return new SuccessResult();
+    }
+
+    private void isPageNumberValid(int pageNo) {
+        if (pageNo < 0) {
+            log.warn(LogWarnMessages.PAGE_NUMBER_NEGATIVE);
+            throw new BusinessException(ErrorMessages.PAGE_NUMBER_NEGATIVE);
+        }
+    }
+
+    private void isPageSizeValid(int pageSize) {
+        if (pageSize < 1) {
+            log.warn(LogWarnMessages.PAGE_SIZE_NEGATIVE);
+            throw new BusinessException(ErrorMessages.PAGE_SIZE_NEGATIVE);
+        }
+    }
+
+    private void isValidSortParameter(String sortBy) {
+        User checkField = new User();
+        if (!checkField.toString().contains(sortBy)) {
+            log.warn(LogWarnMessages.SORT_PARAMETER_NOT_VALID);
+            throw new BusinessException(ErrorMessages.SORT_PARAMETER_NOT_VALID);
+        }
     }
 
     // signout tasarlanacak...

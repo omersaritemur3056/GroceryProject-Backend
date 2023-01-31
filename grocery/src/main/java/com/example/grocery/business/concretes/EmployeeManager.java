@@ -26,6 +26,8 @@ import com.example.grocery.webApi.responses.employee.GetByIdEmployeeResponse;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -135,6 +137,59 @@ public class EmployeeManager implements EmployeeService {
         return new SuccessDataResult<>(returnObj, GetByIdMessages.EMPLOYEE_LISTED);
     }
 
+    @Override
+    public DataResult<List<GetAllEmployeeResponse>> getListBySorting(String sortBy) {
+        isValidSortParameter(sortBy);
+
+        List<Employee> employeeList = employeeRepository.findAll(Sort.by(Sort.Direction.ASC, sortBy));
+        List<GetAllEmployeeResponse> returnList = new ArrayList<>();
+        for (Employee forEachEmployee : employeeList) {
+            GetAllEmployeeResponse obj = mapperService.getModelMapper().map(forEachEmployee,
+                    GetAllEmployeeResponse.class);
+            obj.setUserId(forEachEmployee.getUser().getId());
+            obj.setImageId(forEachEmployee.getImage().getId());
+            returnList.add(obj);
+        }
+        return new SuccessDataResult<>(returnList, GetListMessages.EMPLOYEES_SORTED + sortBy);
+    }
+
+    @Override
+    public DataResult<List<GetAllEmployeeResponse>> getListByPagination(int pageNo, int pageSize) {
+        isPageNumberValid(pageNo);
+        isPageSizeValid(pageSize);
+
+        List<Employee> employeeList = employeeRepository.findAll(PageRequest.of(pageNo, pageSize)).toList();
+        List<GetAllEmployeeResponse> returnList = new ArrayList<>();
+        for (Employee forEachEmployee : employeeList) {
+            GetAllEmployeeResponse obj = mapperService.getModelMapper().map(forEachEmployee,
+                    GetAllEmployeeResponse.class);
+            obj.setUserId(forEachEmployee.getUser().getId());
+            obj.setImageId(forEachEmployee.getImage().getId());
+            returnList.add(obj);
+        }
+        return new SuccessDataResult<>(returnList, GetListMessages.EMPLOYEES_PAGINATED);
+    }
+
+    @Override
+    public DataResult<List<GetAllEmployeeResponse>> getListByPaginationAndSorting(int pageNo, int pageSize,
+            String sortBy) {
+        isPageNumberValid(pageNo);
+        isPageSizeValid(pageSize);
+        isValidSortParameter(sortBy);
+
+        List<Employee> employeeList = employeeRepository
+                .findAll(PageRequest.of(pageNo, pageSize).withSort(Sort.by(sortBy))).toList();
+        List<GetAllEmployeeResponse> returnList = new ArrayList<>();
+        for (Employee forEachEmployee : employeeList) {
+            GetAllEmployeeResponse obj = mapperService.getModelMapper().map(forEachEmployee,
+                    GetAllEmployeeResponse.class);
+            obj.setUserId(forEachEmployee.getUser().getId());
+            obj.setImageId(forEachEmployee.getImage().getId());
+            returnList.add(obj);
+        }
+        return new SuccessDataResult<>(returnList, GetListMessages.EMPLOYEES_PAGINATED_AND_SORTED + sortBy);
+    }
+
     private Result isExistId(Long id) {
         if (!employeeRepository.existsById(id)) {
             throw new BusinessException(ErrorMessages.ID_NOT_FOUND);
@@ -164,6 +219,28 @@ public class EmployeeManager implements EmployeeService {
             return new SuccessResult();
         }
         return new SuccessResult();
+    }
+
+    private void isPageNumberValid(int pageNo) {
+        if (pageNo < 0) {
+            log.warn(LogWarnMessages.PAGE_NUMBER_NEGATIVE);
+            throw new BusinessException(ErrorMessages.PAGE_NUMBER_NEGATIVE);
+        }
+    }
+
+    private void isPageSizeValid(int pageSize) {
+        if (pageSize < 1) {
+            log.warn(LogWarnMessages.PAGE_SIZE_NEGATIVE);
+            throw new BusinessException(ErrorMessages.PAGE_SIZE_NEGATIVE);
+        }
+    }
+
+    private void isValidSortParameter(String sortBy) {
+        Employee checkField = new Employee();
+        if (!checkField.toString().contains(sortBy)) {
+            log.warn(LogWarnMessages.SORT_PARAMETER_NOT_VALID);
+            throw new BusinessException(ErrorMessages.SORT_PARAMETER_NOT_VALID);
+        }
     }
 
 }

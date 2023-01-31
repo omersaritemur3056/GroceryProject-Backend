@@ -2,6 +2,8 @@ package com.example.grocery.business.concretes;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.example.grocery.business.abstracts.PaymentService;
@@ -118,6 +120,44 @@ public class PaymentManager implements PaymentService {
         return new SuccessDataResult<>(getByIdPaymentResponse, GetByIdMessages.PAYMENT_LISTED);
     }
 
+    @Override
+    public DataResult<List<GetAllPaymentResponse>> getListBySorting(String sortBy) {
+        isValidSortParameter(sortBy);
+
+        List<Payment> payments = paymentRepository.findAll(Sort.by(Sort.Direction.ASC, sortBy));
+        List<GetAllPaymentResponse> returnList = payments.stream()
+                .map(c -> mapperService.getModelMapper().map(c, GetAllPaymentResponse.class)).toList();
+
+        return new SuccessDataResult<>(returnList, GetListMessages.PAYMENTS_SORTED + sortBy);
+    }
+
+    @Override
+    public DataResult<List<GetAllPaymentResponse>> getListByPagination(int pageNo, int pageSize) {
+        isPageNumberValid(pageNo);
+        isPageSizeValid(pageSize);
+
+        List<Payment> payments = paymentRepository.findAll(PageRequest.of(pageNo, pageSize)).toList();
+        List<GetAllPaymentResponse> returnList = payments.stream()
+                .map(c -> mapperService.getModelMapper().map(c, GetAllPaymentResponse.class)).toList();
+
+        return new SuccessDataResult<>(returnList, GetListMessages.PAYMENTS_PAGINATED);
+    }
+
+    @Override
+    public DataResult<List<GetAllPaymentResponse>> getListByPaginationAndSorting(int pageNo, int pageSize,
+            String sortBy) {
+        isPageNumberValid(pageNo);
+        isPageSizeValid(pageSize);
+        isValidSortParameter(sortBy);
+
+        List<Payment> payments = paymentRepository.findAll(PageRequest.of(pageNo, pageSize).withSort(Sort.by(sortBy)))
+                .toList();
+        List<GetAllPaymentResponse> returnList = payments.stream()
+                .map(c -> mapperService.getModelMapper().map(c, GetAllPaymentResponse.class)).toList();
+
+        return new SuccessDataResult<>(returnList, GetListMessages.PAYMENTS_PAGINATED_AND_SORTED + sortBy);
+    }
+
     // Bağımlılığın kontrol altına alınması için tasarlandı
     @Override
     public Payment getPaymentById(Long id) {
@@ -142,6 +182,28 @@ public class PaymentManager implements PaymentService {
             throw new BusinessException(ErrorMessages.ID_NOT_FOUND);
         }
         return new SuccessResult();
+    }
+
+    private void isPageNumberValid(int pageNo) {
+        if (pageNo < 0) {
+            log.warn(LogWarnMessages.PAGE_NUMBER_NEGATIVE);
+            throw new BusinessException(ErrorMessages.PAGE_NUMBER_NEGATIVE);
+        }
+    }
+
+    private void isPageSizeValid(int pageSize) {
+        if (pageSize < 1) {
+            log.warn(LogWarnMessages.PAGE_SIZE_NEGATIVE);
+            throw new BusinessException(ErrorMessages.PAGE_SIZE_NEGATIVE);
+        }
+    }
+
+    private void isValidSortParameter(String sortBy) {
+        Payment checkField = new Payment();
+        if (!checkField.toString().contains(sortBy)) {
+            log.warn(LogWarnMessages.SORT_PARAMETER_NOT_VALID);
+            throw new BusinessException(ErrorMessages.SORT_PARAMETER_NOT_VALID);
+        }
     }
 
 }

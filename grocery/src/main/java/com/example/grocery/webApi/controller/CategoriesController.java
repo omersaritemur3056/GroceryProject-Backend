@@ -63,7 +63,8 @@ public class CategoriesController {
 
     @GetMapping("/getlistbypagination")
     public ResponseEntity<DataResult<List<GetAllCategoryResponse>>> getListByPagination(
-            @RequestParam(defaultValue = "0") int pageNo, @RequestParam(defaultValue = "10") int pageSize) {
+            @RequestParam(defaultValue = "0") int pageNo,
+            @RequestParam(defaultValue = "10") int pageSize) {
         return ResponseEntity.ok(categoryService.getListByPagination(pageNo, pageSize));
     }
 

@@ -23,6 +23,12 @@ public interface ProducerService {
 
     DataResult<GetByIdProducerResponse> getById(Long id);
 
+    DataResult<List<GetAllProducerResponse>> getListBySorting(String sortBy);
+
+    DataResult<List<GetAllProducerResponse>> getListByPagination(int pageNo, int pageSize);
+
+    DataResult<List<GetAllProducerResponse>> getListByPaginationAndSorting(int pageNo, int pageSize, String sortBy);
+
     default Producer getProducerById(Long id) {
         return null;
     }

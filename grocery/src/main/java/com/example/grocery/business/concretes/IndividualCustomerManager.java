@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.example.grocery.business.abstracts.IndividualCustomerService;
@@ -142,6 +144,64 @@ public class IndividualCustomerManager implements IndividualCustomerService {
                                 GetByIdMessages.INDIVIDUAL_CUSTOMER_LISTED);
         }
 
+        @Override
+        public DataResult<List<GetAllIndividualCustomerResponse>> getListBySorting(String sortBy) {
+                isValidSortParameter(sortBy);
+
+                List<IndividualCustomer> individualCustomers = individualCustomerRepository
+                                .findAll(Sort.by(Sort.Direction.ASC, sortBy));
+                List<GetAllIndividualCustomerResponse> returnList = new ArrayList<>();
+                for (var forEachCustomer : individualCustomers) {
+                        GetAllIndividualCustomerResponse obj = mapperService.getModelMapper().map(forEachCustomer,
+                                        GetAllIndividualCustomerResponse.class);
+                        obj.setUserId(forEachCustomer.getUser().getId());
+                        obj.setImageId(forEachCustomer.getImage().getId());
+                        returnList.add(obj);
+                }
+                return new SuccessDataResult<>(returnList,
+                                GetListMessages.INDIVIDUAL_CUSTOMERS_SORTED + sortBy);
+        }
+
+        @Override
+        public DataResult<List<GetAllIndividualCustomerResponse>> getListByPagination(int pageNo, int pageSize) {
+                isPageNumberValid(pageNo);
+                isPageSizeValid(pageSize);
+
+                List<IndividualCustomer> individualCustomers = individualCustomerRepository
+                                .findAll(PageRequest.of(pageNo, pageSize)).toList();
+                List<GetAllIndividualCustomerResponse> returnList = new ArrayList<>();
+                for (var forEachCustomer : individualCustomers) {
+                        GetAllIndividualCustomerResponse obj = mapperService.getModelMapper().map(forEachCustomer,
+                                        GetAllIndividualCustomerResponse.class);
+                        obj.setUserId(forEachCustomer.getUser().getId());
+                        obj.setImageId(forEachCustomer.getImage().getId());
+                        returnList.add(obj);
+                }
+                return new SuccessDataResult<>(returnList,
+                                GetListMessages.INDIVIDUAL_CUSTOMERS_PAGINATED);
+        }
+
+        @Override
+        public DataResult<List<GetAllIndividualCustomerResponse>> getListByPaginationAndSorting(int pageNo,
+                        int pageSize, String sortBy) {
+                isPageNumberValid(pageNo);
+                isPageSizeValid(pageSize);
+                isValidSortParameter(sortBy);
+
+                List<IndividualCustomer> individualCustomers = individualCustomerRepository
+                                .findAll(PageRequest.of(pageNo, pageSize).withSort(Sort.by(sortBy))).toList();
+                List<GetAllIndividualCustomerResponse> returnList = new ArrayList<>();
+                for (var forEachCustomer : individualCustomers) {
+                        GetAllIndividualCustomerResponse obj = mapperService.getModelMapper().map(forEachCustomer,
+                                        GetAllIndividualCustomerResponse.class);
+                        obj.setUserId(forEachCustomer.getUser().getId());
+                        obj.setImageId(forEachCustomer.getImage().getId());
+                        returnList.add(obj);
+                }
+                return new SuccessDataResult<>(returnList,
+                                GetListMessages.INDIVIDUAL_CUSTOMERS_PAGINATED_AND_SORTED + sortBy);
+        }
+
         private Result isExistId(Long id) {
                 if (!userService.existById(id)) {
                         throw new BusinessException(ErrorMessages.ID_NOT_FOUND);
@@ -156,4 +216,27 @@ public class IndividualCustomerManager implements IndividualCustomerService {
                 }
                 return new SuccessResult();
         }
+
+        private void isPageNumberValid(int pageNo) {
+                if (pageNo < 0) {
+                        log.warn(LogWarnMessages.PAGE_NUMBER_NEGATIVE);
+                        throw new BusinessException(ErrorMessages.PAGE_NUMBER_NEGATIVE);
+                }
+        }
+
+        private void isPageSizeValid(int pageSize) {
+                if (pageSize < 1) {
+                        log.warn(LogWarnMessages.PAGE_SIZE_NEGATIVE);
+                        throw new BusinessException(ErrorMessages.PAGE_SIZE_NEGATIVE);
+                }
+        }
+
+        private void isValidSortParameter(String sortBy) {
+                IndividualCustomer checkField = new IndividualCustomer();
+                if (!checkField.toString().contains(sortBy)) {
+                        log.warn(LogWarnMessages.SORT_PARAMETER_NOT_VALID);
+                        throw new BusinessException(ErrorMessages.SORT_PARAMETER_NOT_VALID);
+                }
+        }
+
 }

@@ -21,4 +21,10 @@ public interface OrderService {
     DataResult<List<GetAllOrderResponse>> getAll();
 
     DataResult<GetByIdOrderResponse> getById(Long id);
+
+    DataResult<List<GetAllOrderResponse>> getListBySorting(String sortBy);
+
+    DataResult<List<GetAllOrderResponse>> getListByPagination(int pageNo, int pageSize);
+
+    DataResult<List<GetAllOrderResponse>> getListByPaginationAndSorting(int pageNo, int pageSize, String sortBy);
 }

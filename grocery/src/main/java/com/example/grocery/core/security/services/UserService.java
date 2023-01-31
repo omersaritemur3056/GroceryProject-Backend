@@ -30,6 +30,12 @@ public interface UserService {
 
     DataResult<GetByIdUserResponseDto> getById(Long id);
 
+    DataResult<List<GetAllUserResponseDto>> getListBySorting(String sortBy);
+
+    DataResult<List<GetAllUserResponseDto>> getListByPagination(int pageNo, int pageSize);
+
+    DataResult<List<GetAllUserResponseDto>> getListByPaginationAndSorting(int pageNo, int pageSize, String sortBy);
+
     User getByEmail(String email);
 
     boolean existByEmail(String email);

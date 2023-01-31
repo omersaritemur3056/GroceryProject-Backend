@@ -23,6 +23,12 @@ public interface SupplierService {
 
     DataResult<GetByIdSupplierResponse> getById(Long id);
 
+    DataResult<List<GetAllSupplierResponse>> getListBySorting(String sortBy);
+
+    DataResult<List<GetAllSupplierResponse>> getListByPagination(int pageNo, int pageSize);
+
+    DataResult<List<GetAllSupplierResponse>> getListByPaginationAndSorting(int pageNo, int pageSize, String sortBy);
+
     default Supplier getSupplierById(Long id) {
         return null;
     }

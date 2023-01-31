@@ -10,6 +10,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Table(name = "individual_customers")
 @Entity
@@ -17,6 +18,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 @EqualsAndHashCode(callSuper = false)
 @PrimaryKeyJoinColumn(name = "individual_customer_id", referencedColumnName = "customer_id")
 public class IndividualCustomer extends Customer {

@@ -23,6 +23,12 @@ public interface ProductService {
 
     DataResult<GetByIdProductResponse> getById(Long id);
 
+    DataResult<List<GetAllProductResponse>> getListBySorting(String sortBy);
+
+    DataResult<List<GetAllProductResponse>> getListByPagination(int pageNo, int pageSize);
+
+    DataResult<List<GetAllProductResponse>> getListByPaginationAndSorting(int pageNo, int pageSize, String sortBy);
+
     Product getProductById(Long id);
 
     List<Product> getProductsByIds(Long[] productId);

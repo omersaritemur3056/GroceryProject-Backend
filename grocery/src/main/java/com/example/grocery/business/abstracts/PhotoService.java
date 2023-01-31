@@ -13,17 +13,23 @@ import com.example.grocery.webApi.responses.image.GetByUrlImageResponse;
 
 public interface PhotoService {
 
-    DataResult<?> upload(MultipartFile file);
+    DataResult<Object> upload(MultipartFile file);
 
     Result delete(String imageUrl);
 
-    DataResult<?> update(Long id, MultipartFile file);
+    DataResult<Object> update(Long id, MultipartFile file);
 
     DataResult<List<GetAllImageResponse>> getAll();
 
     DataResult<GetByIdImageResponse> getById(Long id);
 
     DataResult<GetByUrlImageResponse> getByUrl(String imageUrl);
+
+    DataResult<List<GetAllImageResponse>> getListBySorting(String sortBy);
+
+    DataResult<List<GetAllImageResponse>> getListByPagination(int pageNo, int pageSize);
+
+    DataResult<List<GetAllImageResponse>> getListByPaginationAndSorting(int pageNo, int pageSize, String sortBy);
 
     Image getImageById(Long id);
 

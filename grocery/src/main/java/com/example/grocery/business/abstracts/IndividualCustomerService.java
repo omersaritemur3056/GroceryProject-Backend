@@ -21,4 +21,11 @@ public interface IndividualCustomerService {
     DataResult<List<GetAllIndividualCustomerResponse>> getAll();
 
     DataResult<GetByIdIndividualCustomerResponse> getById(Long id);
+
+    DataResult<List<GetAllIndividualCustomerResponse>> getListBySorting(String sortBy);
+
+    DataResult<List<GetAllIndividualCustomerResponse>> getListByPagination(int pageNo, int pageSize);
+
+    DataResult<List<GetAllIndividualCustomerResponse>> getListByPaginationAndSorting(int pageNo, int pageSize,
+            String sortBy);
 }

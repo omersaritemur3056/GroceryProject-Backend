@@ -21,4 +21,10 @@ public interface EmployeeService {
     DataResult<List<GetAllEmployeeResponse>> getAll();
 
     DataResult<GetByIdEmployeeResponse> getById(Long id);
+
+    DataResult<List<GetAllEmployeeResponse>> getListBySorting(String sortBy);
+
+    DataResult<List<GetAllEmployeeResponse>> getListByPagination(int pageNo, int pageSize);
+
+    DataResult<List<GetAllEmployeeResponse>> getListByPaginationAndSorting(int pageNo, int pageSize, String sortBy);
 }

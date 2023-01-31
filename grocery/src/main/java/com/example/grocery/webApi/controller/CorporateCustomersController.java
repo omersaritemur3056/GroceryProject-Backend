@@ -59,4 +59,23 @@ public class CorporateCustomersController {
     public ResponseEntity<DataResult<GetByIdCorporateCustomerResponse>> getById(@RequestParam Long id) {
         return ResponseEntity.ok().body(corporateCustomerService.getById(id));
     }
+
+    @GetMapping("/getlistbysorting")
+    public ResponseEntity<DataResult<List<GetAllCorporateCustomerResponse>>> getListBySorting(
+            @RequestParam(defaultValue = "id") String sortBy) {
+        return ResponseEntity.ok(corporateCustomerService.getListBySorting(sortBy));
+    }
+
+    @GetMapping("/getlistbypagination")
+    public ResponseEntity<DataResult<List<GetAllCorporateCustomerResponse>>> getListByPagination(
+            @RequestParam(defaultValue = "0") int pageNo, @RequestParam(defaultValue = "10") int pageSize) {
+        return ResponseEntity.ok(corporateCustomerService.getListByPagination(pageNo, pageSize));
+    }
+
+    @GetMapping("/getlistbypaginationandsorting")
+    public ResponseEntity<DataResult<List<GetAllCorporateCustomerResponse>>> getListByPaginationAndSorting(
+            @RequestParam(defaultValue = "0") int pageNo, @RequestParam(defaultValue = "10") int pageSize,
+            @RequestParam(defaultValue = "id") String sortBy) {
+        return ResponseEntity.ok(corporateCustomerService.getListByPaginationAndSorting(pageNo, pageSize, sortBy));
+    }
 }

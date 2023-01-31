@@ -14,4 +14,10 @@ public interface CustomerService {
     DataResult<GetByIdCustomerResponse> getById(Long id);
 
     Customer getCustomerById(Long id);
+
+    DataResult<List<GetAllCustomerResponse>> getListBySorting(String sortBy);
+
+    DataResult<List<GetAllCustomerResponse>> getListByPagination(int pageNo, int pageSize);
+
+    DataResult<List<GetAllCustomerResponse>> getListByPaginationAndSorting(int pageNo, int pageSize, String sortBy);
 }

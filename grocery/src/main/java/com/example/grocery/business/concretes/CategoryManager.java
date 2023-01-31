@@ -18,6 +18,7 @@ import com.example.grocery.webApi.requests.category.DeleteCategoryRequest;
 import com.example.grocery.webApi.requests.category.UpdateCategoryRequest;
 import com.example.grocery.webApi.responses.category.GetAllCategoryResponse;
 import com.example.grocery.webApi.responses.category.GetByIdCategoryResponse;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -98,6 +99,8 @@ public class CategoryManager implements CategoryService {
 
     @Override
     public DataResult<List<GetAllCategoryResponse>> getListBySorting(String sortBy) {
+        isValidSortParameter(sortBy);
+
         List<Category> categories = categoryRepository.findAll(Sort.by(Sort.Direction.ASC, sortBy));
         List<GetAllCategoryResponse> returnList = categories.stream()
                 .map(c -> mapperService.getModelMapper().map(c, GetAllCategoryResponse.class)).toList();
@@ -106,6 +109,9 @@ public class CategoryManager implements CategoryService {
 
     @Override
     public DataResult<List<GetAllCategoryResponse>> getListByPagination(int pageNo, int pageSize) {
+        isPageNumberValid(pageNo);
+        isPageSizeValid(pageSize);
+
         List<Category> categories = categoryRepository.findAll(PageRequest.of(pageNo, pageSize)).toList();
         List<GetAllCategoryResponse> returnList = categories.stream()
                 .map(c -> mapperService.getModelMapper().map(c, GetAllCategoryResponse.class))
@@ -116,6 +122,10 @@ public class CategoryManager implements CategoryService {
     @Override
     public DataResult<List<GetAllCategoryResponse>> getListByPaginationAndSorting(int pageNo, int pageSize,
             String sortBy) {
+        isPageNumberValid(pageNo);
+        isPageSizeValid(pageSize);
+        isValidSortParameter(sortBy);
+
         List<Category> categories = categoryRepository
                 .findAll(PageRequest.of(pageNo, pageSize).withSort(Sort.by(sortBy))).toList();
         List<GetAllCategoryResponse> returnList = categories.stream()
@@ -146,6 +156,28 @@ public class CategoryManager implements CategoryService {
             throw new BusinessException(ErrorMessages.CATEGORY_NAME_REPEATED);
         }
         return new SuccessResult();
+    }
+
+    private void isPageNumberValid(int pageNo) {
+        if (pageNo < 0) {
+            log.warn(LogWarnMessages.PAGE_NUMBER_NEGATIVE);
+            throw new BusinessException(ErrorMessages.PAGE_NUMBER_NEGATIVE);
+        }
+    }
+
+    private void isPageSizeValid(int pageSize) {
+        if (pageSize < 1) {
+            log.warn(LogWarnMessages.PAGE_SIZE_NEGATIVE);
+            throw new BusinessException(ErrorMessages.PAGE_SIZE_NEGATIVE);
+        }
+    }
+
+    private void isValidSortParameter(String sortBy) {
+        Category checkField = new Category();
+        if (!checkField.toString().contains(sortBy)) {
+            log.warn(LogWarnMessages.SORT_PARAMETER_NOT_VALID);
+            throw new BusinessException(ErrorMessages.SORT_PARAMETER_NOT_VALID);
+        }
     }
 
 }
