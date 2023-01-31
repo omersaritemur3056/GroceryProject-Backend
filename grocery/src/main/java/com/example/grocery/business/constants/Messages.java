@@ -56,6 +56,9 @@ public class Messages {
         public static final String PAYMENTS_LISTED = "Debit cards listed!";
         public static final String ORDERS_LISTED = "Orders listed!";
         public static final String IMAGES_LISTED = "Images listed!";
+        public static final String CATEGORIES_SORTED = "Categories listed sorted by: ";
+        public static final String CATEGORIED_PAGINATED = "Categories listed by pagination";
+        public static final String CATEGORIES_PAGINATED_AND_SORTED = "Categories listed by pagination and sorted by: ";
     }
 
     public class GetByIdMessages {

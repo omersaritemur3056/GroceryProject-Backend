@@ -23,6 +23,12 @@ public interface CategoryService {
 
     DataResult<GetByIdCategoryResponse> getById(Long id);
 
+    DataResult<List<GetAllCategoryResponse>> getListBySorting(String sortBy);
+
+    DataResult<List<GetAllCategoryResponse>> getListByPagination(int pageNo, int pageSize);
+
+    DataResult<List<GetAllCategoryResponse>> getListByPaginationAndSorting(int pageNo, int pageSize, String sortBy);
+
     default Category getCategoryById(Long id) {
         return null;
     }

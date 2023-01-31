@@ -20,9 +20,12 @@ import com.example.grocery.webApi.responses.category.GetAllCategoryResponse;
 import com.example.grocery.webApi.responses.category.GetByIdCategoryResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -91,6 +94,34 @@ public class CategoryManager implements CategoryService {
         GetByIdCategoryResponse getByIdCategoryResponse = mapperService.getModelMapper().map(category,
                 GetByIdCategoryResponse.class);
         return new SuccessDataResult<>(getByIdCategoryResponse, GetByIdMessages.CATEGORY_LISTED);
+    }
+
+    @Override
+    public DataResult<List<GetAllCategoryResponse>> getListBySorting(String sortBy) {
+        List<Category> categories = categoryRepository.findAll(Sort.by(Sort.Direction.ASC, sortBy));
+        List<GetAllCategoryResponse> returnList = categories.stream()
+                .map(c -> mapperService.getModelMapper().map(c, GetAllCategoryResponse.class)).toList();
+        return new SuccessDataResult<>(returnList, GetListMessages.CATEGORIES_SORTED + sortBy);
+    }
+
+    @Override
+    public DataResult<List<GetAllCategoryResponse>> getListByPagination(int pageNo, int pageSize) {
+        List<Category> categories = categoryRepository.findAll(PageRequest.of(pageNo, pageSize)).toList();
+        List<GetAllCategoryResponse> returnList = categories.stream()
+                .map(c -> mapperService.getModelMapper().map(c, GetAllCategoryResponse.class))
+                .collect(Collectors.toList());
+        return new SuccessDataResult<>(returnList, GetListMessages.CATEGORIED_PAGINATED);
+    }
+
+    @Override
+    public DataResult<List<GetAllCategoryResponse>> getListByPaginationAndSorting(int pageNo, int pageSize,
+            String sortBy) {
+        List<Category> categories = categoryRepository
+                .findAll(PageRequest.of(pageNo, pageSize).withSort(Sort.by(sortBy))).toList();
+        List<GetAllCategoryResponse> returnList = categories.stream()
+                .map(c -> mapperService.getModelMapper().map(c, GetAllCategoryResponse.class))
+                .collect(Collectors.toList());
+        return new SuccessDataResult<>(returnList, GetListMessages.CATEGORIES_PAGINATED_AND_SORTED + sortBy);
     }
 
     // ProductManager sınıfımızda bağımlılığı kontrol altına alma adına kullanılmak

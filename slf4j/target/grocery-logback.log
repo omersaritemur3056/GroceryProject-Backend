@@ -35174,3 +35174,732 @@ java.lang.ClassCastException: class java.lang.String cannot be cast to class com
 2023-01-29 19:48:48 INFO Init duration for springdoc-openapi is: 1714 ms
 2023-01-29 19:55:53 INFO User: string updated!
 2023-01-29 19:57:12 INFO User: string, string@string.com deleted!
+2023-01-31 15:19:15 INFO HV000001: Hibernate Validator 8.0.0.Final
+2023-01-31 15:19:15 INFO Starting GroceryApplication using Java 17.0.5 with PID 11636 (C:\GroceryProject-Backend\grocery\target\classes started by palao in C:\GroceryProject-Backend)
+2023-01-31 15:19:15 INFO No active profile set, falling back to 1 default profile: "default"
+2023-01-31 15:19:15 INFO Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-01-31 15:19:15 INFO For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-01-31 15:19:16 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-01-31 15:19:16 INFO Finished Spring Data repository scanning in 119 ms. Found 14 JPA repository interfaces.
+2023-01-31 15:19:17 INFO Tomcat initialized with port(s): 8080 (http)
+2023-01-31 15:19:17 INFO Initializing ProtocolHandler ["http-nio-8080"]
+2023-01-31 15:19:17 INFO Starting service [Tomcat]
+2023-01-31 15:19:17 INFO Starting Servlet engine: [Apache Tomcat/10.1.5]
+2023-01-31 15:19:17 INFO Initializing Spring embedded WebApplicationContext
+2023-01-31 15:19:17 INFO Root WebApplicationContext: initialization completed in 1932 ms
+2023-01-31 15:19:17 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-01-31 15:19:17 INFO HHH000412: Hibernate ORM core version 6.1.6.Final
+2023-01-31 15:19:17 WARN HHH90000021: Encountered deprecated setting [javax.persistence.validation.mode], use [jakarta.persistence.validation.mode] instead
+2023-01-31 15:19:17 WARN HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-01-31 15:19:17 INFO HikariPool-1 - Starting...
+2023-01-31 15:19:18 INFO HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@260f6b48
+2023-01-31 15:19:18 INFO HikariPool-1 - Start completed.
+2023-01-31 15:19:18 INFO HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2023-01-31 15:19:19 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-01-31 15:19:19 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-01-31 15:19:20 WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-01-31 15:19:20 WARN Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration': Unsatisfied dependency expressed through method 'setFilterChains' parameter 0: Error creating bean with name 'filterChain' defined in class path resource [com/example/grocery/core/security/WebSecurityConfig.class]: Failed to instantiate [org.springframework.security.web.SecurityFilterChain]: Factory method 'filterChain' threw exception with message: Error creating bean with name 'mvcHandlerMappingIntrospector' defined in class path resource [org/springframework/web/servlet/config/annotation/DelegatingWebMvcConfiguration.class]: Error creating bean with name 'requestMappingHandlerMapping' defined in class path resource [org/springframework/web/servlet/config/annotation/DelegatingWebMvcConfiguration.class]: Ambiguous mapping. Cannot map 'categoriesController' method 
+com.example.grocery.webApi.controller.CategoriesController#getAllPageable(Integer, Integer, String)
+to {GET [/api/category/getall]}: There is already 'categoriesController' bean method
+com.example.grocery.webApi.controller.CategoriesController#getAll() mapped.
+2023-01-31 15:19:20 INFO Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-01-31 15:19:20 INFO HikariPool-1 - Shutdown initiated...
+2023-01-31 15:19:20 INFO HikariPool-1 - Shutdown completed.
+2023-01-31 15:19:20 INFO Stopping service [Tomcat]
+2023-01-31 15:19:20 INFO 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2023-01-31 15:19:20 ERROR Application run failed
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration': Unsatisfied dependency expressed through method 'setFilterChains' parameter 0: Error creating bean with name 'filterChain' defined in class path resource [com/example/grocery/core/security/WebSecurityConfig.class]: Failed to instantiate [org.springframework.security.web.SecurityFilterChain]: Factory method 'filterChain' threw exception with message: Error creating bean with name 'mvcHandlerMappingIntrospector' defined in class path resource [org/springframework/web/servlet/config/annotation/DelegatingWebMvcConfiguration.class]: Error creating bean with name 'requestMappingHandlerMapping' defined in class path resource [org/springframework/web/servlet/config/annotation/DelegatingWebMvcConfiguration.class]: Ambiguous mapping. Cannot map 'categoriesController' method 
+com.example.grocery.webApi.controller.CategoriesController#getAllPageable(Integer, Integer, String)
+to {GET [/api/category/getall]}: There is already 'categoriesController' bean method
+com.example.grocery.webApi.controller.CategoriesController#getAll() mapped.
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.resolveMethodArguments(AutowiredAnnotationBeanPostProcessor.java:817)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:769)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:133)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:481)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1397)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:598)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:521)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:326)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:324)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:961)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:915)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:584)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:730)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:432)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:308)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1302)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1291)
+	at com.example.grocery.GroceryApplication.main(GroceryApplication.java:10)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'filterChain' defined in class path resource [com/example/grocery/core/security/WebSecurityConfig.class]: Failed to instantiate [org.springframework.security.web.SecurityFilterChain]: Factory method 'filterChain' threw exception with message: Error creating bean with name 'mvcHandlerMappingIntrospector' defined in class path resource [org/springframework/web/servlet/config/annotation/DelegatingWebMvcConfiguration.class]: Error creating bean with name 'requestMappingHandlerMapping' defined in class path resource [org/springframework/web/servlet/config/annotation/DelegatingWebMvcConfiguration.class]: Ambiguous mapping. Cannot map 'categoriesController' method 
+com.example.grocery.webApi.controller.CategoriesController#getAllPageable(Integer, Integer, String)
+to {GET [/api/category/getall]}: There is already 'categoriesController' bean method
+com.example.grocery.webApi.controller.CategoriesController#getAll() mapped.
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:657)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:645)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1324)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1161)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:561)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:521)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:326)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:324)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.addCandidateEntry(DefaultListableBeanFactory.java:1621)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.findAutowireCandidates(DefaultListableBeanFactory.java:1585)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveMultipleBeans(DefaultListableBeanFactory.java:1476)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1363)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1325)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.resolveMethodArguments(AutowiredAnnotationBeanPostProcessor.java:809)
+	... 25 common frames omitted
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.security.web.SecurityFilterChain]: Factory method 'filterChain' threw exception with message: Error creating bean with name 'mvcHandlerMappingIntrospector' defined in class path resource [org/springframework/web/servlet/config/annotation/DelegatingWebMvcConfiguration.class]: Error creating bean with name 'requestMappingHandlerMapping' defined in class path resource [org/springframework/web/servlet/config/annotation/DelegatingWebMvcConfiguration.class]: Ambiguous mapping. Cannot map 'categoriesController' method 
+com.example.grocery.webApi.controller.CategoriesController#getAllPageable(Integer, Integer, String)
+to {GET [/api/category/getall]}: There is already 'categoriesController' bean method
+com.example.grocery.webApi.controller.CategoriesController#getAll() mapped.
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:171)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:653)
+	... 41 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'mvcHandlerMappingIntrospector' defined in class path resource [org/springframework/web/servlet/config/annotation/DelegatingWebMvcConfiguration.class]: Error creating bean with name 'requestMappingHandlerMapping' defined in class path resource [org/springframework/web/servlet/config/annotation/DelegatingWebMvcConfiguration.class]: Ambiguous mapping. Cannot map 'categoriesController' method 
+com.example.grocery.webApi.controller.CategoriesController#getAllPageable(Integer, Integer, String)
+to {GET [/api/category/getall]}: There is already 'categoriesController' bean method
+com.example.grocery.webApi.controller.CategoriesController#getAll() mapped.
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1751)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:599)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:521)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:326)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:324)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:205)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1136)
+	at org.springframework.security.config.annotation.web.AbstractRequestMatcherRegistry.createMvcMatchers(AbstractRequestMatcherRegistry.java:106)
+	at org.springframework.security.config.annotation.web.AbstractRequestMatcherRegistry.requestMatchers(AbstractRequestMatcherRegistry.java:184)
+	at org.springframework.security.config.annotation.web.AbstractRequestMatcherRegistry.requestMatchers(AbstractRequestMatcherRegistry.java:211)
+	at com.example.grocery.core.security.WebSecurityConfig.filterChain(WebSecurityConfig.java:90)
+	at com.example.grocery.core.security.WebSecurityConfig$$SpringCGLIB$$0.CGLIB$filterChain$2(<generated>)
+	at com.example.grocery.core.security.WebSecurityConfig$$SpringCGLIB$$2.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invokeSuper(MethodProxy.java:258)
+	at org.springframework.context.annotation.ConfigurationClassEnhancer$BeanMethodInterceptor.intercept(ConfigurationClassEnhancer.java:331)
+	at com.example.grocery.core.security.WebSecurityConfig$$SpringCGLIB$$0.filterChain(<generated>)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:139)
+	... 42 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'requestMappingHandlerMapping' defined in class path resource [org/springframework/web/servlet/config/annotation/DelegatingWebMvcConfiguration.class]: Ambiguous mapping. Cannot map 'categoriesController' method 
+com.example.grocery.webApi.controller.CategoriesController#getAllPageable(Integer, Integer, String)
+to {GET [/api/category/getall]}: There is already 'categoriesController' bean method
+com.example.grocery.webApi.controller.CategoriesController#getAll() mapped.
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1751)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:599)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:521)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:326)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:324)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.getBeansOfType(DefaultListableBeanFactory.java:662)
+	at org.springframework.context.support.AbstractApplicationContext.getBeansOfType(AbstractApplicationContext.java:1284)
+	at org.springframework.beans.factory.BeanFactoryUtils.beansOfTypeIncludingAncestors(BeanFactoryUtils.java:368)
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.initHandlerMappings(HandlerMappingIntrospector.java:208)
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.afterPropertiesSet(HandlerMappingIntrospector.java:97)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1797)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1747)
+	... 63 common frames omitted
+Caused by: java.lang.IllegalStateException: Ambiguous mapping. Cannot map 'categoriesController' method 
+com.example.grocery.webApi.controller.CategoriesController#getAllPageable(Integer, Integer, String)
+to {GET [/api/category/getall]}: There is already 'categoriesController' bean method
+com.example.grocery.webApi.controller.CategoriesController#getAll() mapped.
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping$MappingRegistry.validateMethodMapping(AbstractHandlerMethodMapping.java:667)
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping$MappingRegistry.register(AbstractHandlerMethodMapping.java:633)
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.registerHandlerMethod(AbstractHandlerMethodMapping.java:331)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping.registerHandlerMethod(RequestMappingHandlerMapping.java:438)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping.registerHandlerMethod(RequestMappingHandlerMapping.java:76)
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.lambda$detectHandlerMethods$2(AbstractHandlerMethodMapping.java:298)
+	at java.base/java.util.LinkedHashMap.forEach(LinkedHashMap.java:721)
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.detectHandlerMethods(AbstractHandlerMethodMapping.java:296)
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.processCandidateBean(AbstractHandlerMethodMapping.java:265)
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.initHandlerMethods(AbstractHandlerMethodMapping.java:224)
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.afterPropertiesSet(AbstractHandlerMethodMapping.java:212)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping.afterPropertiesSet(RequestMappingHandlerMapping.java:225)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1797)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1747)
+	... 76 common frames omitted
+2023-01-31 15:22:55 INFO HV000001: Hibernate Validator 8.0.0.Final
+2023-01-31 15:22:55 INFO Starting GroceryApplication using Java 17.0.5 with PID 13316 (C:\GroceryProject-Backend\grocery\target\classes started by palao in C:\GroceryProject-Backend)
+2023-01-31 15:22:55 INFO No active profile set, falling back to 1 default profile: "default"
+2023-01-31 15:22:55 INFO Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-01-31 15:22:55 INFO For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-01-31 15:22:56 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-01-31 15:22:57 INFO Finished Spring Data repository scanning in 283 ms. Found 14 JPA repository interfaces.
+2023-01-31 15:22:57 INFO Tomcat initialized with port(s): 8080 (http)
+2023-01-31 15:22:57 INFO Initializing ProtocolHandler ["http-nio-8080"]
+2023-01-31 15:22:57 INFO Starting service [Tomcat]
+2023-01-31 15:22:57 INFO Starting Servlet engine: [Apache Tomcat/10.1.5]
+2023-01-31 15:22:58 INFO Initializing Spring embedded WebApplicationContext
+2023-01-31 15:22:58 INFO Root WebApplicationContext: initialization completed in 2282 ms
+2023-01-31 15:22:58 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-01-31 15:22:58 INFO HHH000412: Hibernate ORM core version 6.1.6.Final
+2023-01-31 15:22:58 WARN HHH90000021: Encountered deprecated setting [javax.persistence.validation.mode], use [jakarta.persistence.validation.mode] instead
+2023-01-31 15:22:58 WARN HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-01-31 15:22:58 INFO HikariPool-1 - Starting...
+2023-01-31 15:22:58 INFO HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@768be5f7
+2023-01-31 15:22:58 INFO HikariPool-1 - Start completed.
+2023-01-31 15:22:58 INFO HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2023-01-31 15:22:59 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-01-31 15:22:59 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-01-31 15:23:00 WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-01-31 15:23:00 WARN Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration': Unsatisfied dependency expressed through method 'setFilterChains' parameter 0: Error creating bean with name 'filterChain' defined in class path resource [com/example/grocery/core/security/WebSecurityConfig.class]: Failed to instantiate [org.springframework.security.web.SecurityFilterChain]: Factory method 'filterChain' threw exception with message: Error creating bean with name 'mvcHandlerMappingIntrospector' defined in class path resource [org/springframework/web/servlet/config/annotation/DelegatingWebMvcConfiguration.class]: Error creating bean with name 'requestMappingHandlerMapping' defined in class path resource [org/springframework/web/servlet/config/annotation/DelegatingWebMvcConfiguration.class]: Ambiguous mapping. Cannot map 'categoriesController' method 
+com.example.grocery.webApi.controller.CategoriesController#getAllPageable(Integer, Integer)
+to {GET [/api/category/getall]}: There is already 'categoriesController' bean method
+com.example.grocery.webApi.controller.CategoriesController#getAll() mapped.
+2023-01-31 15:23:00 INFO Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-01-31 15:23:00 INFO HikariPool-1 - Shutdown initiated...
+2023-01-31 15:23:00 INFO HikariPool-1 - Shutdown completed.
+2023-01-31 15:23:00 INFO Stopping service [Tomcat]
+2023-01-31 15:23:00 INFO 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2023-01-31 15:23:00 ERROR Application run failed
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration': Unsatisfied dependency expressed through method 'setFilterChains' parameter 0: Error creating bean with name 'filterChain' defined in class path resource [com/example/grocery/core/security/WebSecurityConfig.class]: Failed to instantiate [org.springframework.security.web.SecurityFilterChain]: Factory method 'filterChain' threw exception with message: Error creating bean with name 'mvcHandlerMappingIntrospector' defined in class path resource [org/springframework/web/servlet/config/annotation/DelegatingWebMvcConfiguration.class]: Error creating bean with name 'requestMappingHandlerMapping' defined in class path resource [org/springframework/web/servlet/config/annotation/DelegatingWebMvcConfiguration.class]: Ambiguous mapping. Cannot map 'categoriesController' method 
+com.example.grocery.webApi.controller.CategoriesController#getAllPageable(Integer, Integer)
+to {GET [/api/category/getall]}: There is already 'categoriesController' bean method
+com.example.grocery.webApi.controller.CategoriesController#getAll() mapped.
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.resolveMethodArguments(AutowiredAnnotationBeanPostProcessor.java:817)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:769)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:133)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:481)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1397)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:598)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:521)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:326)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:324)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:961)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:915)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:584)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:730)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:432)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:308)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1302)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1291)
+	at com.example.grocery.GroceryApplication.main(GroceryApplication.java:10)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'filterChain' defined in class path resource [com/example/grocery/core/security/WebSecurityConfig.class]: Failed to instantiate [org.springframework.security.web.SecurityFilterChain]: Factory method 'filterChain' threw exception with message: Error creating bean with name 'mvcHandlerMappingIntrospector' defined in class path resource [org/springframework/web/servlet/config/annotation/DelegatingWebMvcConfiguration.class]: Error creating bean with name 'requestMappingHandlerMapping' defined in class path resource [org/springframework/web/servlet/config/annotation/DelegatingWebMvcConfiguration.class]: Ambiguous mapping. Cannot map 'categoriesController' method 
+com.example.grocery.webApi.controller.CategoriesController#getAllPageable(Integer, Integer)
+to {GET [/api/category/getall]}: There is already 'categoriesController' bean method
+com.example.grocery.webApi.controller.CategoriesController#getAll() mapped.
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:657)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:645)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1324)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1161)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:561)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:521)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:326)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:324)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.addCandidateEntry(DefaultListableBeanFactory.java:1621)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.findAutowireCandidates(DefaultListableBeanFactory.java:1585)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveMultipleBeans(DefaultListableBeanFactory.java:1476)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1363)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1325)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.resolveMethodArguments(AutowiredAnnotationBeanPostProcessor.java:809)
+	... 25 common frames omitted
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.security.web.SecurityFilterChain]: Factory method 'filterChain' threw exception with message: Error creating bean with name 'mvcHandlerMappingIntrospector' defined in class path resource [org/springframework/web/servlet/config/annotation/DelegatingWebMvcConfiguration.class]: Error creating bean with name 'requestMappingHandlerMapping' defined in class path resource [org/springframework/web/servlet/config/annotation/DelegatingWebMvcConfiguration.class]: Ambiguous mapping. Cannot map 'categoriesController' method 
+com.example.grocery.webApi.controller.CategoriesController#getAllPageable(Integer, Integer)
+to {GET [/api/category/getall]}: There is already 'categoriesController' bean method
+com.example.grocery.webApi.controller.CategoriesController#getAll() mapped.
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:171)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:653)
+	... 41 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'mvcHandlerMappingIntrospector' defined in class path resource [org/springframework/web/servlet/config/annotation/DelegatingWebMvcConfiguration.class]: Error creating bean with name 'requestMappingHandlerMapping' defined in class path resource [org/springframework/web/servlet/config/annotation/DelegatingWebMvcConfiguration.class]: Ambiguous mapping. Cannot map 'categoriesController' method 
+com.example.grocery.webApi.controller.CategoriesController#getAllPageable(Integer, Integer)
+to {GET [/api/category/getall]}: There is already 'categoriesController' bean method
+com.example.grocery.webApi.controller.CategoriesController#getAll() mapped.
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1751)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:599)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:521)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:326)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:324)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:205)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1136)
+	at org.springframework.security.config.annotation.web.AbstractRequestMatcherRegistry.createMvcMatchers(AbstractRequestMatcherRegistry.java:106)
+	at org.springframework.security.config.annotation.web.AbstractRequestMatcherRegistry.requestMatchers(AbstractRequestMatcherRegistry.java:184)
+	at org.springframework.security.config.annotation.web.AbstractRequestMatcherRegistry.requestMatchers(AbstractRequestMatcherRegistry.java:211)
+	at com.example.grocery.core.security.WebSecurityConfig.filterChain(WebSecurityConfig.java:90)
+	at com.example.grocery.core.security.WebSecurityConfig$$SpringCGLIB$$0.CGLIB$filterChain$5(<generated>)
+	at com.example.grocery.core.security.WebSecurityConfig$$SpringCGLIB$$2.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invokeSuper(MethodProxy.java:258)
+	at org.springframework.context.annotation.ConfigurationClassEnhancer$BeanMethodInterceptor.intercept(ConfigurationClassEnhancer.java:331)
+	at com.example.grocery.core.security.WebSecurityConfig$$SpringCGLIB$$0.filterChain(<generated>)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:139)
+	... 42 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'requestMappingHandlerMapping' defined in class path resource [org/springframework/web/servlet/config/annotation/DelegatingWebMvcConfiguration.class]: Ambiguous mapping. Cannot map 'categoriesController' method 
+com.example.grocery.webApi.controller.CategoriesController#getAllPageable(Integer, Integer)
+to {GET [/api/category/getall]}: There is already 'categoriesController' bean method
+com.example.grocery.webApi.controller.CategoriesController#getAll() mapped.
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1751)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:599)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:521)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:326)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:324)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.getBeansOfType(DefaultListableBeanFactory.java:662)
+	at org.springframework.context.support.AbstractApplicationContext.getBeansOfType(AbstractApplicationContext.java:1284)
+	at org.springframework.beans.factory.BeanFactoryUtils.beansOfTypeIncludingAncestors(BeanFactoryUtils.java:368)
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.initHandlerMappings(HandlerMappingIntrospector.java:208)
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.afterPropertiesSet(HandlerMappingIntrospector.java:97)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1797)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1747)
+	... 63 common frames omitted
+Caused by: java.lang.IllegalStateException: Ambiguous mapping. Cannot map 'categoriesController' method 
+com.example.grocery.webApi.controller.CategoriesController#getAllPageable(Integer, Integer)
+to {GET [/api/category/getall]}: There is already 'categoriesController' bean method
+com.example.grocery.webApi.controller.CategoriesController#getAll() mapped.
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping$MappingRegistry.validateMethodMapping(AbstractHandlerMethodMapping.java:667)
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping$MappingRegistry.register(AbstractHandlerMethodMapping.java:633)
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.registerHandlerMethod(AbstractHandlerMethodMapping.java:331)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping.registerHandlerMethod(RequestMappingHandlerMapping.java:438)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping.registerHandlerMethod(RequestMappingHandlerMapping.java:76)
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.lambda$detectHandlerMethods$2(AbstractHandlerMethodMapping.java:298)
+	at java.base/java.util.LinkedHashMap.forEach(LinkedHashMap.java:721)
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.detectHandlerMethods(AbstractHandlerMethodMapping.java:296)
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.processCandidateBean(AbstractHandlerMethodMapping.java:265)
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.initHandlerMethods(AbstractHandlerMethodMapping.java:224)
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.afterPropertiesSet(AbstractHandlerMethodMapping.java:212)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping.afterPropertiesSet(RequestMappingHandlerMapping.java:225)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1797)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1747)
+	... 76 common frames omitted
+2023-01-31 15:32:56 INFO HV000001: Hibernate Validator 8.0.0.Final
+2023-01-31 15:32:56 INFO Starting GroceryApplication using Java 17.0.5 with PID 8780 (C:\GroceryProject-Backend\grocery\target\classes started by palao in C:\GroceryProject-Backend)
+2023-01-31 15:32:56 INFO No active profile set, falling back to 1 default profile: "default"
+2023-01-31 15:32:56 INFO Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-01-31 15:32:56 INFO For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-01-31 15:32:57 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-01-31 15:32:57 INFO Finished Spring Data repository scanning in 124 ms. Found 14 JPA repository interfaces.
+2023-01-31 15:32:58 INFO Tomcat initialized with port(s): 8080 (http)
+2023-01-31 15:32:58 INFO Initializing ProtocolHandler ["http-nio-8080"]
+2023-01-31 15:32:58 INFO Starting service [Tomcat]
+2023-01-31 15:32:58 INFO Starting Servlet engine: [Apache Tomcat/10.1.5]
+2023-01-31 15:32:58 INFO Initializing Spring embedded WebApplicationContext
+2023-01-31 15:32:58 INFO Root WebApplicationContext: initialization completed in 1772 ms
+2023-01-31 15:32:58 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-01-31 15:32:58 INFO HHH000412: Hibernate ORM core version 6.1.6.Final
+2023-01-31 15:32:58 WARN HHH90000021: Encountered deprecated setting [javax.persistence.validation.mode], use [jakarta.persistence.validation.mode] instead
+2023-01-31 15:32:59 WARN HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-01-31 15:32:59 INFO HikariPool-1 - Starting...
+2023-01-31 15:32:59 INFO HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@239d3542
+2023-01-31 15:32:59 INFO HikariPool-1 - Start completed.
+2023-01-31 15:32:59 INFO HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2023-01-31 15:33:00 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-01-31 15:33:00 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-01-31 15:33:01 WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-01-31 15:33:01 INFO Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@13dbb05f, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@51e2e453, org.springframework.security.web.context.SecurityContextHolderFilter@2b6d7132, org.springframework.security.web.header.HeaderWriterFilter@21081aac, org.springframework.web.filter.CorsFilter@6254b12b, org.springframework.security.web.authentication.logout.LogoutFilter@39e348c1, com.example.grocery.core.security.jwt.AuthTokenFilter@2a94f66d, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@46285cbe, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@a5b2e09, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@516e1f70, org.springframework.security.web.session.SessionManagementFilter@5942ce1f, org.springframework.security.web.access.ExceptionTranslationFilter@1d454de1, org.springframework.security.web.access.intercept.AuthorizationFilter@49116d4a]
+2023-01-31 15:33:02 INFO LiveReload server is running on port 35729
+2023-01-31 15:33:02 INFO Starting ProtocolHandler ["http-nio-8080"]
+2023-01-31 15:33:02 INFO Tomcat started on port(s): 8080 (http) with context path ''
+2023-01-31 15:33:02 INFO Started GroceryApplication in 5.734 seconds (process running for 6.26)
+2023-01-31 15:33:23 INFO Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-01-31 15:33:23 INFO Initializing Servlet 'dispatcherServlet'
+2023-01-31 15:33:23 INFO Completed initialization in 1 ms
+2023-01-31 15:33:23 WARN No mapping for GET /favicon.ico
+2023-01-31 15:33:27 INFO Init duration for springdoc-openapi is: 1858 ms
+2023-01-31 15:33:42 WARN Category name: string already exists!
+2023-01-31 15:33:50 INFO Category: xyz added!
+2023-01-31 15:33:57 INFO Category: bac added!
+2023-01-31 15:33:58 WARN Category name: bac already exists!
+2023-01-31 15:34:04 INFO Category: abc added!
+2023-01-31 15:34:10 INFO Category: kjhsýdkhalsdhal added!
+2023-01-31 15:34:15 INFO Category: ljhsýdkhalsdhal added!
+2023-01-31 15:34:20 INFO Category: dlksjolahdlsajhd added!
+2023-01-31 15:34:24 INFO Category: dlksjolahdljhd added!
+2023-01-31 15:36:53 INFO Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2023-01-31 15:36:53 INFO Pausing ProtocolHandler ["http-nio-8080"]
+2023-01-31 15:36:53 INFO Stopping service [Tomcat]
+2023-01-31 15:36:53 INFO Destroying Spring FrameworkServlet 'dispatcherServlet'
+2023-01-31 15:36:53 WARN The web application [ROOT] appears to have started a thread named [HikariPool-1 housekeeper] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@17.0.5/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@17.0.5/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+ java.base@17.0.5/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1672)
+ java.base@17.0.5/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+ java.base@17.0.5/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base@17.0.5/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+ java.base@17.0.5/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+ java.base@17.0.5/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+ java.base@17.0.5/java.lang.Thread.run(Thread.java:833)
+2023-01-31 15:36:53 INFO Stopping ProtocolHandler ["http-nio-8080"]
+2023-01-31 15:36:53 INFO Destroying ProtocolHandler ["http-nio-8080"]
+2023-01-31 15:36:53 INFO Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-01-31 15:36:53 INFO HikariPool-1 - Shutdown initiated...
+2023-01-31 15:36:53 INFO HikariPool-1 - Shutdown completed.
+2023-01-31 15:36:54 INFO Starting GroceryApplication using Java 17.0.5 with PID 8780 (C:\GroceryProject-Backend\grocery\target\classes started by palao in C:\GroceryProject-Backend)
+2023-01-31 15:36:54 INFO No active profile set, falling back to 1 default profile: "default"
+2023-01-31 15:36:54 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-01-31 15:36:54 INFO Finished Spring Data repository scanning in 68 ms. Found 14 JPA repository interfaces.
+2023-01-31 15:36:54 INFO Tomcat initialized with port(s): 8080 (http)
+2023-01-31 15:36:54 INFO Initializing ProtocolHandler ["http-nio-8080"]
+2023-01-31 15:36:54 INFO Starting service [Tomcat]
+2023-01-31 15:36:54 INFO Starting Servlet engine: [Apache Tomcat/10.1.5]
+2023-01-31 15:36:54 INFO Initializing Spring embedded WebApplicationContext
+2023-01-31 15:36:54 INFO Root WebApplicationContext: initialization completed in 549 ms
+2023-01-31 15:36:54 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-01-31 15:36:54 WARN HHH90000021: Encountered deprecated setting [javax.persistence.validation.mode], use [jakarta.persistence.validation.mode] instead
+2023-01-31 15:36:54 WARN HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-01-31 15:36:54 INFO HikariPool-2 - Starting...
+2023-01-31 15:36:54 INFO HikariPool-2 - Added connection org.postgresql.jdbc.PgConnection@4e8fa3b4
+2023-01-31 15:36:54 INFO HikariPool-2 - Start completed.
+2023-01-31 15:36:54 INFO HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2023-01-31 15:36:54 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-01-31 15:36:54 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-01-31 15:36:55 WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-01-31 15:36:55 INFO Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@506287e4, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@624004bd, org.springframework.security.web.context.SecurityContextHolderFilter@21000547, org.springframework.security.web.header.HeaderWriterFilter@2ace78e2, org.springframework.web.filter.CorsFilter@67af6700, org.springframework.security.web.authentication.logout.LogoutFilter@415e69dc, com.example.grocery.core.security.jwt.AuthTokenFilter@77295bb, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@316bb384, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@683bd423, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@36a2d9ac, org.springframework.security.web.session.SessionManagementFilter@4fc8e5d5, org.springframework.security.web.access.ExceptionTranslationFilter@24b689ba, org.springframework.security.web.access.intercept.AuthorizationFilter@1be956b7]
+2023-01-31 15:36:55 INFO LiveReload server is running on port 35729
+2023-01-31 15:36:55 INFO Starting ProtocolHandler ["http-nio-8080"]
+2023-01-31 15:36:55 INFO Tomcat started on port(s): 8080 (http) with context path ''
+2023-01-31 15:36:55 INFO Started GroceryApplication in 1.797 seconds (process running for 239.781)
+2023-01-31 15:36:55 INFO Condition evaluation unchanged
+2023-01-31 15:47:40 INFO HV000001: Hibernate Validator 8.0.0.Final
+2023-01-31 15:47:40 INFO Starting GroceryApplication using Java 17.0.5 with PID 13304 (C:\GroceryProject-Backend\grocery\target\classes started by palao in C:\GroceryProject-Backend)
+2023-01-31 15:47:40 INFO No active profile set, falling back to 1 default profile: "default"
+2023-01-31 15:47:40 INFO Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-01-31 15:47:40 INFO For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-01-31 15:47:41 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-01-31 15:47:41 INFO Finished Spring Data repository scanning in 114 ms. Found 14 JPA repository interfaces.
+2023-01-31 15:47:42 INFO Tomcat initialized with port(s): 8080 (http)
+2023-01-31 15:47:42 INFO Initializing ProtocolHandler ["http-nio-8080"]
+2023-01-31 15:47:42 INFO Starting service [Tomcat]
+2023-01-31 15:47:42 INFO Starting Servlet engine: [Apache Tomcat/10.1.5]
+2023-01-31 15:47:42 INFO Initializing Spring embedded WebApplicationContext
+2023-01-31 15:47:42 INFO Root WebApplicationContext: initialization completed in 1839 ms
+2023-01-31 15:47:42 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-01-31 15:47:42 INFO HHH000412: Hibernate ORM core version 6.1.6.Final
+2023-01-31 15:47:42 WARN HHH90000021: Encountered deprecated setting [javax.persistence.validation.mode], use [jakarta.persistence.validation.mode] instead
+2023-01-31 15:47:42 WARN HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-01-31 15:47:42 INFO HikariPool-1 - Starting...
+2023-01-31 15:47:42 INFO HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@5f381231
+2023-01-31 15:47:42 INFO HikariPool-1 - Start completed.
+2023-01-31 15:47:42 INFO HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2023-01-31 15:47:43 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-01-31 15:47:43 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-01-31 15:47:44 WARN Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'categoryManager': Unsatisfied dependency expressed through field 'categoryRepository': Error creating bean with name 'categoryRepository' defined in com.example.grocery.dataAccess.abstracts.CategoryRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Could not create query for public abstract java.util.List com.example.grocery.dataAccess.abstracts.CategoryRepository.findAll(java.lang.Integer,java.lang.Integer,java.lang.String); Reason: Failed to create query for method public abstract java.util.List com.example.grocery.dataAccess.abstracts.CategoryRepository.findAll(java.lang.Integer,java.lang.Integer,java.lang.String); No property 'findAll' found for type 'Category'
+2023-01-31 15:47:44 INFO Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-01-31 15:47:44 INFO HikariPool-1 - Shutdown initiated...
+2023-01-31 15:47:44 INFO HikariPool-1 - Shutdown completed.
+2023-01-31 15:47:44 INFO Stopping service [Tomcat]
+2023-01-31 15:47:44 INFO 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2023-01-31 15:47:44 ERROR Application run failed
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'categoryManager': Unsatisfied dependency expressed through field 'categoryRepository': Error creating bean with name 'categoryRepository' defined in com.example.grocery.dataAccess.abstracts.CategoryRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Could not create query for public abstract java.util.List com.example.grocery.dataAccess.abstracts.CategoryRepository.findAll(java.lang.Integer,java.lang.Integer,java.lang.String); Reason: Failed to create query for method public abstract java.util.List com.example.grocery.dataAccess.abstracts.CategoryRepository.findAll(java.lang.Integer,java.lang.Integer,java.lang.String); No property 'findAll' found for type 'Category'
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:712)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:692)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:133)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:481)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1397)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:598)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:521)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:326)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:324)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:961)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:915)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:584)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:730)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:432)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:308)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1302)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1291)
+	at com.example.grocery.GroceryApplication.main(GroceryApplication.java:10)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'categoryRepository' defined in com.example.grocery.dataAccess.abstracts.CategoryRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Could not create query for public abstract java.util.List com.example.grocery.dataAccess.abstracts.CategoryRepository.findAll(java.lang.Integer,java.lang.Integer,java.lang.String); Reason: Failed to create query for method public abstract java.util.List com.example.grocery.dataAccess.abstracts.CategoryRepository.findAll(java.lang.Integer,java.lang.Integer,java.lang.String); No property 'findAll' found for type 'Category'
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1751)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:599)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:521)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:326)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:324)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1405)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1325)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:709)
+	... 25 common frames omitted
+Caused by: org.springframework.data.repository.query.QueryCreationException: Could not create query for public abstract java.util.List com.example.grocery.dataAccess.abstracts.CategoryRepository.findAll(java.lang.Integer,java.lang.Integer,java.lang.String); Reason: Failed to create query for method public abstract java.util.List com.example.grocery.dataAccess.abstracts.CategoryRepository.findAll(java.lang.Integer,java.lang.Integer,java.lang.String); No property 'findAll' found for type 'Category'
+	at org.springframework.data.repository.query.QueryCreationException.create(QueryCreationException.java:101)
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.lookupQuery(QueryExecutorMethodInterceptor.java:115)
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.mapMethodsToQuery(QueryExecutorMethodInterceptor.java:99)
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.lambda$new$0(QueryExecutorMethodInterceptor.java:88)
+	at java.base/java.util.Optional.map(Optional.java:260)
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.<init>(QueryExecutorMethodInterceptor.java:88)
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport.getRepository(RepositoryFactorySupport.java:357)
+	at org.springframework.data.repository.core.support.RepositoryFactoryBeanSupport.lambda$afterPropertiesSet$5(RepositoryFactoryBeanSupport.java:279)
+	at org.springframework.data.util.Lazy.getNullable(Lazy.java:245)
+	at org.springframework.data.util.Lazy.get(Lazy.java:114)
+	at org.springframework.data.repository.core.support.RepositoryFactoryBeanSupport.afterPropertiesSet(RepositoryFactoryBeanSupport.java:285)
+	at org.springframework.data.jpa.repository.support.JpaRepositoryFactoryBean.afterPropertiesSet(JpaRepositoryFactoryBean.java:132)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1797)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1747)
+	... 35 common frames omitted
+Caused by: java.lang.IllegalArgumentException: Failed to create query for method public abstract java.util.List com.example.grocery.dataAccess.abstracts.CategoryRepository.findAll(java.lang.Integer,java.lang.Integer,java.lang.String); No property 'findAll' found for type 'Category'
+	at org.springframework.data.jpa.repository.query.PartTreeJpaQuery.<init>(PartTreeJpaQuery.java:96)
+	at org.springframework.data.jpa.repository.query.JpaQueryLookupStrategy$CreateQueryLookupStrategy.resolveQuery(JpaQueryLookupStrategy.java:124)
+	at org.springframework.data.jpa.repository.query.JpaQueryLookupStrategy$CreateIfNotFoundQueryLookupStrategy.resolveQuery(JpaQueryLookupStrategy.java:258)
+	at org.springframework.data.jpa.repository.query.JpaQueryLookupStrategy$AbstractQueryLookupStrategy.resolveQuery(JpaQueryLookupStrategy.java:95)
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.lookupQuery(QueryExecutorMethodInterceptor.java:111)
+	... 47 common frames omitted
+Caused by: org.springframework.data.mapping.PropertyReferenceException: No property 'findAll' found for type 'Category'
+	at org.springframework.data.mapping.PropertyPath.<init>(PropertyPath.java:90)
+	at org.springframework.data.mapping.PropertyPath.create(PropertyPath.java:423)
+	at org.springframework.data.mapping.PropertyPath.create(PropertyPath.java:399)
+	at org.springframework.data.mapping.PropertyPath.lambda$from$0(PropertyPath.java:352)
+	at java.base/java.util.concurrent.ConcurrentMap.computeIfAbsent(ConcurrentMap.java:330)
+	at org.springframework.data.mapping.PropertyPath.from(PropertyPath.java:334)
+	at org.springframework.data.mapping.PropertyPath.from(PropertyPath.java:317)
+	at org.springframework.data.repository.query.parser.Part.<init>(Part.java:81)
+	at org.springframework.data.repository.query.parser.PartTree$OrPart.lambda$new$0(PartTree.java:242)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:179)
+	at java.base/java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:992)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+	at java.base/java.util.stream.ReduceOps$ReduceOp.evaluateSequential(ReduceOps.java:921)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.base/java.util.stream.ReferencePipeline.collect(ReferencePipeline.java:682)
+	at org.springframework.data.repository.query.parser.PartTree$OrPart.<init>(PartTree.java:243)
+	at org.springframework.data.repository.query.parser.PartTree$Predicate.lambda$new$0(PartTree.java:372)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:179)
+	at java.base/java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:992)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+	at java.base/java.util.stream.ReduceOps$ReduceOp.evaluateSequential(ReduceOps.java:921)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.base/java.util.stream.ReferencePipeline.collect(ReferencePipeline.java:682)
+	at org.springframework.data.repository.query.parser.PartTree$Predicate.<init>(PartTree.java:373)
+	at org.springframework.data.repository.query.parser.PartTree.<init>(PartTree.java:93)
+	at org.springframework.data.jpa.repository.query.PartTreeJpaQuery.<init>(PartTreeJpaQuery.java:89)
+	... 51 common frames omitted
+2023-01-31 16:35:58 INFO HV000001: Hibernate Validator 8.0.0.Final
+2023-01-31 16:35:58 INFO Starting GroceryApplication using Java 17.0.5 with PID 22284 (C:\GroceryProject-Backend\grocery\target\classes started by palao in C:\GroceryProject-Backend)
+2023-01-31 16:35:58 INFO No active profile set, falling back to 1 default profile: "default"
+2023-01-31 16:35:58 INFO Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-01-31 16:35:58 INFO For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-01-31 16:35:59 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-01-31 16:35:59 INFO Finished Spring Data repository scanning in 115 ms. Found 14 JPA repository interfaces.
+2023-01-31 16:36:00 INFO Tomcat initialized with port(s): 8080 (http)
+2023-01-31 16:36:00 INFO Initializing ProtocolHandler ["http-nio-8080"]
+2023-01-31 16:36:00 INFO Starting service [Tomcat]
+2023-01-31 16:36:00 INFO Starting Servlet engine: [Apache Tomcat/10.1.5]
+2023-01-31 16:36:00 INFO Initializing Spring embedded WebApplicationContext
+2023-01-31 16:36:00 INFO Root WebApplicationContext: initialization completed in 1849 ms
+2023-01-31 16:36:00 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-01-31 16:36:00 INFO HHH000412: Hibernate ORM core version 6.1.6.Final
+2023-01-31 16:36:00 WARN HHH90000021: Encountered deprecated setting [javax.persistence.validation.mode], use [jakarta.persistence.validation.mode] instead
+2023-01-31 16:36:00 WARN HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-01-31 16:36:01 INFO HikariPool-1 - Starting...
+2023-01-31 16:36:01 INFO HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@239d3542
+2023-01-31 16:36:01 INFO HikariPool-1 - Start completed.
+2023-01-31 16:36:01 INFO HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2023-01-31 16:36:02 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-01-31 16:36:02 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-01-31 16:36:03 WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-01-31 16:36:03 INFO Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@852ec9a, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@52e325, org.springframework.security.web.context.SecurityContextHolderFilter@49116d4a, org.springframework.security.web.header.HeaderWriterFilter@7063e1a7, org.springframework.web.filter.CorsFilter@7f2a4a36, org.springframework.security.web.authentication.logout.LogoutFilter@6271c767, com.example.grocery.core.security.jwt.AuthTokenFilter@2a94f66d, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@30d06b2a, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@516e1f70, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@77c07c5c, org.springframework.security.web.session.SessionManagementFilter@f3f011f, org.springframework.security.web.access.ExceptionTranslationFilter@685e6a1f, org.springframework.security.web.access.intercept.AuthorizationFilter@607d0ea3]
+2023-01-31 16:36:03 INFO LiveReload server is running on port 35729
+2023-01-31 16:36:03 INFO Starting ProtocolHandler ["http-nio-8080"]
+2023-01-31 16:36:03 INFO Tomcat started on port(s): 8080 (http) with context path ''
+2023-01-31 16:36:03 INFO Started GroceryApplication in 5.681 seconds (process running for 6.204)
+2023-01-31 16:36:10 INFO Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-01-31 16:36:10 INFO Initializing Servlet 'dispatcherServlet'
+2023-01-31 16:36:10 INFO Completed initialization in 2 ms
+2023-01-31 16:36:15 INFO Init duration for springdoc-openapi is: 2088 ms
+2023-01-31 16:37:22 ERROR Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.ClassCastException: class java.util.ArrayList cannot be cast to class org.springframework.data.domain.Page (java.util.ArrayList is in module java.base of loader 'bootstrap'; org.springframework.data.domain.Page is in unnamed module of loader 'app')] with root cause
+java.lang.ClassCastException: class java.util.ArrayList cannot be cast to class org.springframework.data.domain.Page (java.util.ArrayList is in module java.base of loader 'bootstrap'; org.springframework.data.domain.Page is in unnamed module of loader 'app')
+	at com.example.grocery.business.concretes.CategoryManager.getListByPagination(CategoryManager.java:138)
+	at com.example.grocery.webApi.controller.CategoriesController.getByPagination(CategoriesController.java:68)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:207)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:152)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:884)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:797)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1080)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:973)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1011)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:705)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:814)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:223)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:110)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158)
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:365)
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:131)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:85)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at com.example.grocery.core.security.jwt.AuthTokenFilter.doFilterInternal(AuthTokenFilter.java:49)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:351)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:267)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:177)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:542)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:119)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:357)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:400)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:859)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1734)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+2023-01-31 16:44:45 INFO HV000001: Hibernate Validator 8.0.0.Final
+2023-01-31 16:44:45 INFO Starting GroceryApplication using Java 17.0.5 with PID 22176 (C:\GroceryProject-Backend\grocery\target\classes started by palao in C:\GroceryProject-Backend)
+2023-01-31 16:44:45 INFO No active profile set, falling back to 1 default profile: "default"
+2023-01-31 16:44:45 INFO Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-01-31 16:44:45 INFO For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-01-31 16:44:46 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-01-31 16:44:47 INFO Finished Spring Data repository scanning in 154 ms. Found 14 JPA repository interfaces.
+2023-01-31 16:44:47 INFO Tomcat initialized with port(s): 8080 (http)
+2023-01-31 16:44:47 INFO Initializing ProtocolHandler ["http-nio-8080"]
+2023-01-31 16:44:47 INFO Starting service [Tomcat]
+2023-01-31 16:44:47 INFO Starting Servlet engine: [Apache Tomcat/10.1.5]
+2023-01-31 16:44:47 INFO Initializing Spring embedded WebApplicationContext
+2023-01-31 16:44:47 INFO Root WebApplicationContext: initialization completed in 2179 ms
+2023-01-31 16:44:48 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-01-31 16:44:48 INFO HHH000412: Hibernate ORM core version 6.1.6.Final
+2023-01-31 16:44:48 WARN HHH90000021: Encountered deprecated setting [javax.persistence.validation.mode], use [jakarta.persistence.validation.mode] instead
+2023-01-31 16:44:48 WARN HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-01-31 16:44:48 INFO HikariPool-1 - Starting...
+2023-01-31 16:44:48 INFO HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@1788e736
+2023-01-31 16:44:48 INFO HikariPool-1 - Start completed.
+2023-01-31 16:44:48 INFO HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2023-01-31 16:44:49 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-01-31 16:44:49 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-01-31 16:44:50 WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-01-31 16:44:50 INFO Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@1fe22c77, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@49529e71, org.springframework.security.web.context.SecurityContextHolderFilter@3b0bfeea, org.springframework.security.web.header.HeaderWriterFilter@2a264d5e, org.springframework.web.filter.CorsFilter@3bfc7d12, org.springframework.security.web.authentication.logout.LogoutFilter@2fd2e5f8, com.example.grocery.core.security.jwt.AuthTokenFilter@288b5265, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@23967f61, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3e3443d5, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@141eb7c8, org.springframework.security.web.session.SessionManagementFilter@254d40d0, org.springframework.security.web.access.ExceptionTranslationFilter@203af842, org.springframework.security.web.access.intercept.AuthorizationFilter@2f1f2f3d]
+2023-01-31 16:44:51 INFO LiveReload server is running on port 35729
+2023-01-31 16:44:51 INFO Starting ProtocolHandler ["http-nio-8080"]
+2023-01-31 16:44:51 INFO Tomcat started on port(s): 8080 (http) with context path ''
+2023-01-31 16:44:51 INFO Started GroceryApplication in 6.085 seconds (process running for 6.612)
+2023-01-31 16:44:55 INFO Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-01-31 16:44:55 INFO Initializing Servlet 'dispatcherServlet'
+2023-01-31 16:44:55 INFO Completed initialization in 6 ms
+2023-01-31 16:54:50 INFO HV000001: Hibernate Validator 8.0.0.Final
+2023-01-31 16:54:51 INFO Starting GroceryApplication using Java 17.0.5 with PID 12608 (C:\GroceryProject-Backend\grocery\target\classes started by palao in C:\GroceryProject-Backend)
+2023-01-31 16:54:51 INFO No active profile set, falling back to 1 default profile: "default"
+2023-01-31 16:54:51 INFO Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-01-31 16:54:51 INFO For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-01-31 16:54:52 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-01-31 16:54:52 INFO Finished Spring Data repository scanning in 106 ms. Found 14 JPA repository interfaces.
+2023-01-31 16:54:53 INFO Tomcat initialized with port(s): 8080 (http)
+2023-01-31 16:54:53 INFO Initializing ProtocolHandler ["http-nio-8080"]
+2023-01-31 16:54:53 INFO Starting service [Tomcat]
+2023-01-31 16:54:53 INFO Starting Servlet engine: [Apache Tomcat/10.1.5]
+2023-01-31 16:54:53 INFO Initializing Spring embedded WebApplicationContext
+2023-01-31 16:54:53 INFO Root WebApplicationContext: initialization completed in 2233 ms
+2023-01-31 16:54:53 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-01-31 16:54:53 INFO HHH000412: Hibernate ORM core version 6.1.6.Final
+2023-01-31 16:54:53 WARN HHH90000021: Encountered deprecated setting [javax.persistence.validation.mode], use [jakarta.persistence.validation.mode] instead
+2023-01-31 16:54:53 WARN HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-01-31 16:54:53 INFO HikariPool-1 - Starting...
+2023-01-31 16:54:54 INFO HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@21411a06
+2023-01-31 16:54:54 INFO HikariPool-1 - Start completed.
+2023-01-31 16:54:54 INFO HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2023-01-31 16:54:55 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-01-31 16:54:55 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-01-31 16:54:57 WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-01-31 16:54:57 INFO Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@2a20bf4e, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@648c67f6, org.springframework.security.web.context.SecurityContextHolderFilter@12604132, org.springframework.security.web.header.HeaderWriterFilter@7c5b7ea1, org.springframework.web.filter.CorsFilter@7092ca6d, org.springframework.security.web.authentication.logout.LogoutFilter@e2e8339, com.example.grocery.core.security.jwt.AuthTokenFilter@794ec002, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@182b2282, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@29d9ed92, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@ea3aa1, org.springframework.security.web.session.SessionManagementFilter@173803cc, org.springframework.security.web.access.ExceptionTranslationFilter@19b1e15f, org.springframework.security.web.access.intercept.AuthorizationFilter@b58a743]
+2023-01-31 16:54:58 INFO LiveReload server is running on port 35729
+2023-01-31 16:54:58 INFO Starting ProtocolHandler ["http-nio-8080"]
+2023-01-31 16:54:58 INFO Tomcat started on port(s): 8080 (http) with context path ''
+2023-01-31 16:54:58 INFO Started GroceryApplication in 7.613 seconds (process running for 8.205)
+2023-01-31 16:55:10 INFO Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-01-31 16:55:10 INFO Initializing Servlet 'dispatcherServlet'
+2023-01-31 16:55:10 INFO Completed initialization in 4 ms
