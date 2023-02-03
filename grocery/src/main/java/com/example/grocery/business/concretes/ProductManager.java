@@ -1,25 +1,7 @@
 package com.example.grocery.business.concretes;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
-import org.springframework.stereotype.Service;
-
-import com.example.grocery.business.abstracts.CategoryService;
-import com.example.grocery.business.abstracts.PhotoService;
-import com.example.grocery.business.abstracts.ProducerService;
-import com.example.grocery.business.abstracts.ProductService;
-import com.example.grocery.business.abstracts.SupplierService;
-import com.example.grocery.business.constants.Messages.CreateMessages;
-import com.example.grocery.business.constants.Messages.DeleteMessages;
-import com.example.grocery.business.constants.Messages.ErrorMessages;
-import com.example.grocery.business.constants.Messages.GetByIdMessages;
-import com.example.grocery.business.constants.Messages.GetListMessages;
-import com.example.grocery.business.constants.Messages.UpdateMessages;
+import com.example.grocery.business.abstracts.*;
+import com.example.grocery.business.constants.Messages.*;
 import com.example.grocery.business.constants.Messages.LogMessages.LogInfoMessages;
 import com.example.grocery.business.constants.Messages.LogMessages.LogWarnMessages;
 import com.example.grocery.core.utilities.business.BusinessRules;
@@ -37,9 +19,19 @@ import com.example.grocery.webApi.requests.product.DeleteProductRequest;
 import com.example.grocery.webApi.requests.product.UpdateProductRequest;
 import com.example.grocery.webApi.responses.product.GetAllProductResponse;
 import com.example.grocery.webApi.responses.product.GetByIdProductResponse;
-
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Slf4j
@@ -60,6 +52,7 @@ public class ProductManager implements ProductService {
 
     @Override
     @Transactional
+    @CacheEvict(cacheNames = "product", allEntries = true)
     public Result add(CreateProductRequest createProductRequest) {
 
         Result rules = BusinessRules.run(isExistName(createProductRequest.getName()),
@@ -79,6 +72,7 @@ public class ProductManager implements ProductService {
 
     @Override
     @Transactional
+    @CachePut(cacheNames = "product", key = "#id")
     public Result update(UpdateProductRequest updateProductRequest, Long id) {
 
         Product inDbProduct = productRepository.findById(id)
@@ -105,6 +99,7 @@ public class ProductManager implements ProductService {
 
     @Override
     @Transactional
+    @CacheEvict(cacheNames = "product", key = "#deleteProductRequest.id")
     public Result delete(DeleteProductRequest deleteProductRequest) {
 
         Result rules = BusinessRules.run(isExistId(deleteProductRequest.getId()));
@@ -124,6 +119,7 @@ public class ProductManager implements ProductService {
     }
 
     @Override
+    @Cacheable(value = "product")
     public DataResult<List<GetAllProductResponse>> getAll() {
         List<GetAllProductResponse> returnList = new ArrayList<>();
         List<Product> productList = productRepository.findAll();
@@ -146,6 +142,7 @@ public class ProductManager implements ProductService {
     }
 
     @Override
+    @Cacheable(value = "product", key = "#id")
     public DataResult<GetByIdProductResponse> getById(Long id) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
@@ -163,6 +160,7 @@ public class ProductManager implements ProductService {
     }
 
     @Override
+    @Cacheable(value = "product", key = "#id")
     public DataResult<List<GetAllProductResponse>> getListBySorting(String sortBy) {
         isValidSortParameter(sortBy);
 

@@ -1,18 +1,7 @@
 package com.example.grocery.business.concretes;
 
-import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
-import org.springframework.stereotype.Service;
-
 import com.example.grocery.business.abstracts.PaymentService;
-import com.example.grocery.business.constants.Messages.CreateMessages;
-import com.example.grocery.business.constants.Messages.DeleteMessages;
-import com.example.grocery.business.constants.Messages.ErrorMessages;
-import com.example.grocery.business.constants.Messages.GetByIdMessages;
-import com.example.grocery.business.constants.Messages.GetListMessages;
-import com.example.grocery.business.constants.Messages.UpdateMessages;
+import com.example.grocery.business.constants.Messages.*;
 import com.example.grocery.business.constants.Messages.LogMessages.LogInfoMessages;
 import com.example.grocery.business.constants.Messages.LogMessages.LogWarnMessages;
 import com.example.grocery.core.utilities.business.BusinessRules;
@@ -30,9 +19,14 @@ import com.example.grocery.webApi.requests.payment.DeletePaymentRequest;
 import com.example.grocery.webApi.requests.payment.UpdatePaymentRequest;
 import com.example.grocery.webApi.responses.payment.GetAllPaymentResponse;
 import com.example.grocery.webApi.responses.payment.GetByIdPaymentResponse;
-
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Slf4j
 @Service
@@ -48,7 +42,6 @@ public class PaymentManager implements PaymentService {
     @Override
     @Transactional
     public Result add(CreatePaymentRequest createPaymentRequest) {
-        // Card number ve Cvv numaralarını formatlacak kodlar yazılacak...
         Result rules = BusinessRules
                 .run(isValidCard(createPaymentRequest.getCardNumber(), createPaymentRequest.getFullName(),
                         createPaymentRequest.getCardExpirationYear(), createPaymentRequest.getCardExpirationMonth(),
@@ -82,7 +75,6 @@ public class PaymentManager implements PaymentService {
     @Override
     @Transactional
     public Result update(UpdatePaymentRequest updatePaymentRequest, Long id) {
-        // Card number, Cvv numaralarını formatlacak kodlar yazılacak...
         Payment inDbPayment = paymentRepository.findById(id)
                 .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
 

@@ -1,5 +1,6 @@
 package com.example.grocery.webApi.requests.customer;
 
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -25,7 +26,9 @@ public class CreateCustomerRequest {
             + "|^(\\+\\d{1,3}( )?)?(\\d{3}[ ]?)(\\d{2}[ ]?){2}\\d{2}$")
     private String phoneNumber;
 
+    @Min(value = 1)
     private Long userId;
 
+    @Min(value = 1)
     private Long imageId;
 }

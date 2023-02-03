@@ -1,9 +1,6 @@
 package com.example.grocery.webApi.requests.payment;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,23 +14,26 @@ public class UpdatePaymentRequest {
 
     @NotBlank
     @NotNull
-    // pattern...
+    @Pattern(regexp = "^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14})$")
     private String cardNumber;
 
     @NotNull
     @NotBlank
     private String fullName;
 
-    // yıl ve ay kısmına uğraş...
+    @Min(value = 23)
     private int cardExpirationYear;
 
+    @Min(value = 1)
+    @Max(value = 12)
     private int cardExpirationMonth;
 
     @NotNull
     @NotBlank
     @Size(min = 3, max = 3)
+    @Pattern(regexp = "^[0-9]{3}$")
     private String cardCvv;
 
-    @Positive
+    @PositiveOrZero
     private double balance;
 }

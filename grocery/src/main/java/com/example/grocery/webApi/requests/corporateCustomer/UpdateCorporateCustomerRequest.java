@@ -1,9 +1,6 @@
 package com.example.grocery.webApi.requests.corporateCustomer;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -34,7 +31,9 @@ public class UpdateCorporateCustomerRequest {
     @Size(min = 10, max = 10)
     private String taxNumber;
 
+    @Min(value = 1)
     private Long userId;
 
+    @Min(value = 1)
     private Long imageId;
 }

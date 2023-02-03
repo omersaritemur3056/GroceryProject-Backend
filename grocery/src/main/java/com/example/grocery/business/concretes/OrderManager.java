@@ -1,23 +1,10 @@
 package com.example.grocery.business.concretes;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
-import org.springframework.stereotype.Service;
-
 import com.example.grocery.business.abstracts.CustomerService;
 import com.example.grocery.business.abstracts.OrderService;
 import com.example.grocery.business.abstracts.PaymentService;
 import com.example.grocery.business.abstracts.ProductService;
-import com.example.grocery.business.constants.Messages.CreateMessages;
-import com.example.grocery.business.constants.Messages.DeleteMessages;
-import com.example.grocery.business.constants.Messages.ErrorMessages;
-import com.example.grocery.business.constants.Messages.GetByIdMessages;
-import com.example.grocery.business.constants.Messages.GetListMessages;
-import com.example.grocery.business.constants.Messages.UpdateMessages;
+import com.example.grocery.business.constants.Messages.*;
 import com.example.grocery.business.constants.Messages.LogMessages.LogInfoMessages;
 import com.example.grocery.business.constants.Messages.LogMessages.LogWarnMessages;
 import com.example.grocery.core.utilities.business.BusinessRules;
@@ -35,9 +22,18 @@ import com.example.grocery.webApi.requests.order.DeleteOrderRequest;
 import com.example.grocery.webApi.requests.order.UpdateOrderRequest;
 import com.example.grocery.webApi.responses.order.GetAllOrderResponse;
 import com.example.grocery.webApi.responses.order.GetByIdOrderResponse;
-
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Slf4j
@@ -56,6 +52,7 @@ public class OrderManager implements OrderService {
 
     @Override
     @Transactional
+    @CacheEvict(cacheNames = "order", allEntries = true)
     public Result add(CreateOrderRequest createOrderRequest) {
 
         Result rules = BusinessRules.run(isExistCustomerId(createOrderRequest.getCustomerId()),
@@ -75,6 +72,7 @@ public class OrderManager implements OrderService {
 
     @Override
     @Transactional
+    @CacheEvict(cacheNames = "order", key = "#deleteOrderRequest.id")
     public Result delete(DeleteOrderRequest deleteOrderRequest) {
 
         Result rules = BusinessRules.run(isExistId(deleteOrderRequest.getId()));
@@ -92,6 +90,7 @@ public class OrderManager implements OrderService {
 
     @Override
     @Transactional
+    @CachePut(cacheNames = "order", key = "#id")
     public Result update(UpdateOrderRequest updateOrderRequest, Long id) {
         Order inDbOrder = orderRepository.findById(id)
                 .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
@@ -114,6 +113,7 @@ public class OrderManager implements OrderService {
     }
 
     @Override
+    @Cacheable(value = "order")
     public DataResult<List<GetAllOrderResponse>> getAll() {
         List<GetAllOrderResponse> returnList = new ArrayList<>();
         List<Order> orderList = orderRepository.findAll();
@@ -135,6 +135,7 @@ public class OrderManager implements OrderService {
     }
 
     @Override
+    @Cacheable(value = "order", key = "#id")
     public DataResult<GetByIdOrderResponse> getById(Long id) {
         Order order = orderRepository.findById(id)
                 .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
@@ -151,6 +152,7 @@ public class OrderManager implements OrderService {
     }
 
     @Override
+    @Cacheable(value = "order", key = "#sortBy")
     public DataResult<List<GetAllOrderResponse>> getListBySorting(String sortBy) {
         isValidSortParameter(sortBy);
 

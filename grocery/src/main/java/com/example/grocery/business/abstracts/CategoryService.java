@@ -11,8 +11,6 @@ import com.example.grocery.webApi.requests.category.UpdateCategoryRequest;
 import com.example.grocery.webApi.responses.category.GetAllCategoryResponse;
 import com.example.grocery.webApi.responses.category.GetByIdCategoryResponse;
 
-import jakarta.validation.constraints.PositiveOrZero;
-
 public interface CategoryService {
 
     Result add(CreateCategoryRequest createCategoryRequest);

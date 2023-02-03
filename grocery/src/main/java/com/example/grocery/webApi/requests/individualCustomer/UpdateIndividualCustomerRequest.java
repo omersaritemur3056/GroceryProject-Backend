@@ -1,9 +1,6 @@
 package com.example.grocery.webApi.requests.individualCustomer;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -35,10 +32,12 @@ public class UpdateIndividualCustomerRequest {
     @NotNull
     private String lastName;
 
-    @Size(min = 11, max = 11)
+    //@Size(min = 11, max = 11)
     private String nationalIdentity;
 
+    @Min(value = 1)
     private Long userId;
 
+    @Min(value = 1)
     private Long imageId;
 }

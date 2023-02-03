@@ -52,7 +52,6 @@ public class EmployeeManager implements EmployeeService {
     @Override
     @Transactional
     public Result add(CreateEmployeeRequest createEmployeeRequest) {
-        // asgari ücretin altında salary olamaz eklenebilir...
         Result rules = BusinessRules.run(isExistNationalId(createEmployeeRequest.getNationalIdentity()),
                 isPermissibleAge(createEmployeeRequest.getYearOfBirth()));
         if (!rules.isSuccess())

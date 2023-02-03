@@ -1,16 +1,15 @@
 package com.example.grocery.webApi.requests.order;
 
-import java.time.LocalDateTime;
-import org.springframework.format.annotation.DateTimeFormat;
-
 import com.example.grocery.entity.enums.OrderStatus;
-
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,16 +23,15 @@ public class CreateOrderRequest {
     @DateTimeFormat(pattern = "yyyy-MM-dd-HH-mm-ss:")
     private LocalDateTime deliveredDate;
 
-    // enumlardaki validation nasıldı... :)
+    @NotNull
     private OrderStatus orderStatus;
 
-    @Positive
+    @Min(value = 1)
     private Long paymentId;
 
-    @Positive
+    @Min(value = 1)
     private Long customerId;
 
     @NotNull
-    // referans tipte @Positive olmaz alternatif bul...
-    private Long[] productIds; // burayı Set ile yapılabilir...
+    private Long[] productIds;
 }

@@ -1,18 +1,13 @@
 package com.example.grocery.webApi.requests.product;
 
-import java.time.LocalDate;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import jakarta.validation.constraints.Future;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.PositiveOrZero;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -35,17 +30,16 @@ public class CreateProductRequest {
     @Future
     private LocalDate expirationDate;
 
-    // validasyon kuralları testten sonra eklenecek
     @PositiveOrZero
     private int stock;
 
-    @Positive
+    @Min(value = 1)
     private Long categoryId;
 
-    @Positive
+    @Min(value = 1)
     private Long supplierId;
 
-    @Positive
+    @Min(value = 1)
     private Long producerId;
 
     private Long[] imageIds;

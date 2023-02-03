@@ -24,9 +24,9 @@ public class CreateEmployeeRequest {
     @NotNull
     private String lastName;
 
-    @NotBlank
-    @NotNull
-    @Size(min = 11, max = 11)
+
+    //@Size(min = 11, max = 11)
+    //@Pattern(regexp = "^[1-9][0-9]{10}$")
     private String nationalIdentity;
 
     @NotNull
@@ -39,7 +39,9 @@ public class CreateEmployeeRequest {
     @PositiveOrZero
     private double salary;
 
+    @Min(value = 1)
     private Long userId;
 
+    @Min(value = 1)
     private Long imageId;
 }
