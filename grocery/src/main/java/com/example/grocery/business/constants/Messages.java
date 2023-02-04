@@ -39,6 +39,7 @@ public class Messages {
         public static final String PAGE_NUMBER_NEGATIVE = "Page number value must be positive number or zero!";
         public static final String PAGE_SIZE_NEGATIVE = "Page size number must be greater than 0!";
         public static final String SORT_PARAMETER_NOT_VALID = "Entered sort parameter not valid!";
+        public static final String EMAIL_NOT_VERIFIED = "Email could not verified!";
 
     }
 
@@ -247,6 +248,7 @@ public class Messages {
             public static final String PAGE_NUMBER_NEGATIVE = "Page number must be positive or zero!";
             public static final String PAGE_SIZE_NEGATIVE = "Page size number must be greater than 0!";
             public static final String SORT_PARAMETER_NOT_VALID = "Entered sort parameter not valid!";
+            public static final String EMAIL_NOT_VERIFIED = "Email: {} could not verified!";
 
         }
 

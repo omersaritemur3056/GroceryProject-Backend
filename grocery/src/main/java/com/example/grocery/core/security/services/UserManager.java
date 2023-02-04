@@ -23,6 +23,7 @@ import com.example.grocery.business.constants.Messages.GetListMessages;
 import com.example.grocery.business.constants.Messages.UpdateMessages;
 import com.example.grocery.business.constants.Messages.LogMessages.LogInfoMessages;
 import com.example.grocery.business.constants.Messages.LogMessages.LogWarnMessages;
+import com.example.grocery.core.mailing.service.EmailService;
 import com.example.grocery.core.security.DTOs.request.TokenRefreshRequest;
 import com.example.grocery.core.security.DTOs.request.UpdateUserRequestDto;
 import com.example.grocery.core.security.DTOs.request.UserForLoginDto;
@@ -68,6 +69,8 @@ public class UserManager implements UserService {
     private JwtUtils jwtUtils;
     @Autowired
     private MapperService mapperService;
+    @Autowired
+    private EmailService emailService;
 
     @Override
     @Transactional
@@ -118,6 +121,10 @@ public class UserManager implements UserService {
         }
 
         user.setRoles(roles);
+
+        // system(grocery) mail not created and activated
+        // isVerifiedEmail(userForRegisterDto.getEmail());
+
         userRepository.save(user);
         log.info(LogInfoMessages.USER_CREATED, user.getUsername());
         return new SuccessResult(CreateMessages.USER_CREATED);
@@ -345,6 +352,13 @@ public class UserManager implements UserService {
         if (!checkField.toString().contains(sortBy)) {
             log.warn(LogWarnMessages.SORT_PARAMETER_NOT_VALID);
             throw new BusinessException(ErrorMessages.SORT_PARAMETER_NOT_VALID);
+        }
+    }
+
+    private void isVerifiedEmail(String email) {
+        log.warn(LogWarnMessages.EMAIL_NOT_VERIFIED, email);
+        if (!emailService.sendActivationEmail(email).isSuccess()) {
+            throw new BusinessException(ErrorMessages.EMAIL_NOT_VERIFIED);
         }
     }
 
