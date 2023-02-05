@@ -24,9 +24,8 @@ public class CreateEmployeeRequest {
     @NotNull
     private String lastName;
 
-
-    //@Size(min = 11, max = 11)
-    //@Pattern(regexp = "^[1-9][0-9]{10}$")
+    @Size(min = 11, max = 11)
+    @Pattern(regexp = "^[1-9][0-9]{10}$")
     private String nationalIdentity;
 
     @NotNull
@@ -34,6 +33,7 @@ public class CreateEmployeeRequest {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate yearOfBirth;
 
+    @NotNull
     private Nationality nationality = Nationality.OTHER;
 
     @PositiveOrZero

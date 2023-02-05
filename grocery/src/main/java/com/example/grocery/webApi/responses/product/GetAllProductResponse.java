@@ -18,6 +18,7 @@ public class GetAllProductResponse {
     private String name;
     private double price;
     private String description;
+    private LocalDate productionDate;
     private LocalDate expirationDate;
     private int stock;
     private Long categoryId;

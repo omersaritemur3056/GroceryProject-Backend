@@ -2,6 +2,7 @@ package com.example.grocery.entity.concretes;
 
 import com.example.grocery.core.security.models.User;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -43,12 +44,12 @@ public class Customer {
     @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
 
-    @OneToOne
-    @JoinColumn(name = "user_fk_id", referencedColumnName = "user_id", nullable = false)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_fk_id", referencedColumnName = "user_id", nullable = false, unique = true)
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "image_fk_id")
+    @JoinColumn(name = "image_fk_id", unique = true)
     private Image image;
 
 }

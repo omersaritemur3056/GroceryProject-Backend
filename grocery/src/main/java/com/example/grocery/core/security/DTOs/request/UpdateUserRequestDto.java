@@ -3,7 +3,6 @@ package com.example.grocery.core.security.DTOs.request;
 import java.time.LocalDateTime;
 import java.util.Set;
 
-import jakarta.persistence.Transient;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -38,9 +37,6 @@ public class UpdateUserRequestDto {
     @Size(min = 6, max = 21)
     @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{6,21}$")
     private String password;
-
-    @Transient
-    private LocalDateTime createdDateTime;
 
     private LocalDateTime updatedDateTime = LocalDateTime.now();
 

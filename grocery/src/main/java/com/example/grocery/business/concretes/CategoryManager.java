@@ -70,7 +70,7 @@ public class CategoryManager implements CategoryService {
         if (!rules.isSuccess())
             return rules;
 
-        var inDbCategory = categoryRepository.findById(id)
+        Category inDbCategory = categoryRepository.findById(id)
                 .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
         Category category = mapperService.getModelMapper().map(updateCategoryRequest, Category.class);
         category.setId(inDbCategory.getId());

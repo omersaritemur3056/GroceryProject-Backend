@@ -55,7 +55,9 @@ public class IndividualCustomerManager implements IndividualCustomerService {
         public Result add(CreateIndividualCustomerRequest createIndividualCustomerRequest) {
 
                 Result rules = BusinessRules.run(
-                                isExistNationalId(createIndividualCustomerRequest.getNationalIdentity()));
+                                isExistNationalId(createIndividualCustomerRequest.getNationalIdentity()),
+                                isExistUserId(createIndividualCustomerRequest.getUserId()),
+                                isExistImageId(createIndividualCustomerRequest.getImageId()));
                 if (!rules.isSuccess())
                         return rules;
 
@@ -94,14 +96,14 @@ public class IndividualCustomerManager implements IndividualCustomerService {
         @Override
         @Transactional
         public Result update(UpdateIndividualCustomerRequest updateIndividualCustomerRequest, Long id) {
+                // image id ve user id için logic bul...
+                IndividualCustomer inDbIndividualCustomer = individualCustomerRepository.findById(id)
+                                .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
 
                 Result rules = BusinessRules.run(
                                 isExistNationalId(updateIndividualCustomerRequest.getNationalIdentity()));
                 if (!rules.isSuccess())
                         return rules;
-
-                IndividualCustomer inDbIndividualCustomer = individualCustomerRepository.findById(id)
-                                .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
 
                 IndividualCustomer individualCustomer = mapperService.getModelMapper().map(
                                 updateIndividualCustomerRequest,
@@ -213,6 +215,22 @@ public class IndividualCustomerManager implements IndividualCustomerService {
                 if (individualCustomerRepository.existsByNationalIdentity(nationalId)) {
                         log.warn(LogWarnMessages.NATIONAL_IDENTITY_REPEATED, nationalId);
                         throw new BusinessException(ErrorMessages.NATIONAL_IDENTITY_REPEATED);
+                }
+                return new SuccessResult();
+        }
+
+        private Result isExistUserId(Long userId) {
+                if (individualCustomerRepository.existsByUser_Id(userId)) {
+                        log.warn(LogWarnMessages.USER_ID_REPEATED, userId);
+                        throw new BusinessException(ErrorMessages.USER_ID_REPEATED);
+                }
+                return new SuccessResult();
+        }
+
+        private Result isExistImageId(Long imageId) {
+                if (individualCustomerRepository.existsByImage_Id(imageId)) {
+                        log.warn(LogWarnMessages.IMAGE_ID_REPEATED, imageId);
+                        throw new BusinessException(ErrorMessages.IMAGE_ID_REPEATED);
                 }
                 return new SuccessResult();
         }

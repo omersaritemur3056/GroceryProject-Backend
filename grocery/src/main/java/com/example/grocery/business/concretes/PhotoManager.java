@@ -20,7 +20,6 @@ import com.example.grocery.business.constants.Messages.UpdateMessages;
 import com.example.grocery.business.constants.Messages.LogMessages.LogErrorMessages;
 import com.example.grocery.business.constants.Messages.LogMessages.LogInfoMessages;
 import com.example.grocery.business.constants.Messages.LogMessages.LogWarnMessages;
-import com.example.grocery.core.utilities.business.BusinessRules;
 import com.example.grocery.core.utilities.exceptions.BusinessException;
 import com.example.grocery.core.utilities.image.ImageService;
 import com.example.grocery.core.utilities.mapper.MapperService;

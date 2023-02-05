@@ -31,6 +31,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,7 +54,8 @@ public class EmployeeManager implements EmployeeService {
     @Transactional
     public Result add(CreateEmployeeRequest createEmployeeRequest) {
         Result rules = BusinessRules.run(isExistNationalId(createEmployeeRequest.getNationalIdentity()),
-                isPermissibleAge(createEmployeeRequest.getYearOfBirth()));
+                isPermissibleAge(createEmployeeRequest.getYearOfBirth()),
+                isExistUserId(createEmployeeRequest.getUserId()), isExistImageId(createEmployeeRequest.getImageId()));
         if (!rules.isSuccess())
             return rules;
 
@@ -89,7 +91,7 @@ public class EmployeeManager implements EmployeeService {
     @Override
     @Transactional
     public Result update(UpdateEmployeeRequest updateEmployeeRequest, Long id) {
-
+        // user id ve image için doğru logici bul...
         Result rules = BusinessRules.run(isExistNationalId(updateEmployeeRequest.getNationalIdentity()),
                 isPermissibleAge(updateEmployeeRequest.getYearOfBirth()));
         if (!rules.isSuccess())
@@ -204,8 +206,27 @@ public class EmployeeManager implements EmployeeService {
         return new SuccessResult();
     }
 
+    private Result isExistUserId(Long userId) {
+        if (employeeRepository.existsByUser_Id(userId)) {
+            log.warn(LogWarnMessages.USER_ID_REPEATED, userId);
+            throw new BusinessException(ErrorMessages.USER_ID_REPEATED);
+        }
+        return new SuccessResult();
+    }
+
+    private Result isExistImageId(Long imageId) {
+        if (employeeRepository.existsByImage_Id(imageId)) {
+            log.warn(LogWarnMessages.IMAGE_ID_REPEATED, imageId);
+            throw new BusinessException(ErrorMessages.IMAGE_ID_REPEATED);
+        }
+        return new SuccessResult();
+    }
+
     private Result isPermissibleAge(LocalDate birthYear) {
-        if (LocalDate.now().getYear() - birthYear.getYear() < 18) {
+        LocalDate today = LocalDate.now();
+        Period period = Period.between(birthYear, today);
+        int years = period.getYears();
+        if (years < 18) {
             log.warn(LogWarnMessages.AGE_NOT_PERMISSIBLE, birthYear);
             throw new BusinessException(ErrorMessages.AGE_NOT_PERMISSIBLE);
         }
@@ -216,6 +237,8 @@ public class EmployeeManager implements EmployeeService {
         if (mernisValidationService.validate(employee).isSuccess()) {
             employee.setNationality(Nationality.TURKISH);
             return new SuccessResult();
+        } else {
+            employee.setNationality(Nationality.OTHER);
         }
         return new SuccessResult();
     }

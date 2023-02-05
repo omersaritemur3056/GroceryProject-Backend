@@ -29,6 +29,7 @@ public class UpdateCorporateCustomerRequest {
     private String companyName;
 
     @Size(min = 10, max = 10)
+    @Pattern(regexp = "^[1-9]\\d{9,10}$")
     private String taxNumber;
 
     @Min(value = 1)

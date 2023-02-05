@@ -49,5 +49,5 @@ public class Order {
     @ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST })
     @JoinTable(name = "orders_products", joinColumns = { @JoinColumn(name = "orders_order_id") }, inverseJoinColumns = {
             @JoinColumn(name = "products_product_id") })
-    private List<Product> products; // set ile yapılabilir...
+    private List<Product> products;
 }

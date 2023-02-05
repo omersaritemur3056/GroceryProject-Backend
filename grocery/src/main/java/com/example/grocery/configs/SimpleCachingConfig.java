@@ -8,12 +8,13 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @EnableCaching
-public class CachingConfig {
+public class SimpleCachingConfig {
 
     @Bean
     public CacheManager cacheManager() {
         ConcurrentMapCacheManager cacheManager = new ConcurrentMapCacheManager();
         cacheManager.setCacheNames(java.util.List.of("order", "product"));
+        cacheManager.setAllowNullValues(false);
         return cacheManager;
     }
 }

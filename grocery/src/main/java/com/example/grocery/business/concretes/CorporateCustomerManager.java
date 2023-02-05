@@ -54,7 +54,9 @@ public class CorporateCustomerManager implements CorporateCustomerService {
         @Transactional
         public Result add(CreateCorporateCustomerRequest createCorporateCustomerRequest) {
 
-                Result rules = BusinessRules.run(isExistTaxNumber(createCorporateCustomerRequest.getTaxNumber()));
+                Result rules = BusinessRules.run(isExistTaxNumber(createCorporateCustomerRequest.getTaxNumber()),
+                                isExistImageId(createCorporateCustomerRequest.getImageId()),
+                                isExistUserId(createCorporateCustomerRequest.getUserId()));
                 if (!rules.isSuccess())
                         return rules;
 
@@ -91,13 +93,13 @@ public class CorporateCustomerManager implements CorporateCustomerService {
         @Override
         @Transactional
         public Result update(UpdateCorporateCustomerRequest updateCorporateCustomerRequest, Long id) {
+                // user id ve image id için logic bul...
+                CorporateCustomer inDbCorporateCustomer = corporateCustomerRepository.findById(id)
+                                .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
 
                 Result rules = BusinessRules.run(isExistTaxNumber(updateCorporateCustomerRequest.getTaxNumber()));
                 if (!rules.isSuccess())
                         return rules;
-
-                CorporateCustomer inDbCorporateCustomer = corporateCustomerRepository.findById(id)
-                                .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
 
                 CorporateCustomer corporateCustomer = mapperService.getModelMapper()
                                 .map(updateCorporateCustomerRequest, CorporateCustomer.class);
@@ -206,6 +208,22 @@ public class CorporateCustomerManager implements CorporateCustomerService {
         private Result isExistId(Long id) {
                 if (!userService.existById(id)) {
                         throw new BusinessException(ErrorMessages.ID_NOT_FOUND);
+                }
+                return new SuccessResult();
+        }
+
+        private Result isExistUserId(Long userId) {
+                if (corporateCustomerRepository.existsByUser_Id(userId)) {
+                        log.warn(LogWarnMessages.USER_ID_REPEATED, userId);
+                        throw new BusinessException(ErrorMessages.USER_ID_REPEATED);
+                }
+                return new SuccessResult();
+        }
+
+        private Result isExistImageId(Long imageId) {
+                if (corporateCustomerRepository.existsByImage_Id(imageId)) {
+                        log.warn(LogWarnMessages.IMAGE_ID_REPEATED, imageId);
+                        throw new BusinessException(ErrorMessages.IMAGE_ID_REPEATED);
                 }
                 return new SuccessResult();
         }

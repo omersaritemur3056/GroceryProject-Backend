@@ -27,6 +27,11 @@ public class UpdateProductRequest {
 
     @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @PastOrPresent
+    private LocalDate productionDate;
+
+    @NotNull
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Future
     private LocalDate expirationDate;
 

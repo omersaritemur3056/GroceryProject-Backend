@@ -40,6 +40,8 @@ public class Messages {
         public static final String PAGE_SIZE_NEGATIVE = "Page size number must be greater than 0!";
         public static final String SORT_PARAMETER_NOT_VALID = "Entered sort parameter not valid!";
         public static final String EMAIL_NOT_VERIFIED = "Email could not verified!";
+        public static final String USER_ID_REPEATED = "User id can not be repeat!";
+        public static final String IMAGE_ID_REPEATED = "Image id can not be repeat!";
 
     }
 
@@ -249,6 +251,8 @@ public class Messages {
             public static final String PAGE_SIZE_NEGATIVE = "Page size number must be greater than 0!";
             public static final String SORT_PARAMETER_NOT_VALID = "Entered sort parameter not valid!";
             public static final String EMAIL_NOT_VERIFIED = "Email: {} could not verified!";
+            public static final String USER_ID_REPEATED = "User id: {} can not be repeat!";
+            public static final String IMAGE_ID_REPEATED = "Image id: {} can not be repeat!";
 
         }
 

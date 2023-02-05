@@ -1,5 +1,7 @@
 package com.example.grocery.webApi.requests.payment;
 
+import org.hibernate.validator.constraints.CreditCardNumber;
+
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,7 +16,7 @@ public class UpdatePaymentRequest {
 
     @NotBlank
     @NotNull
-    @Pattern(regexp = "^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14})$")
+    @CreditCardNumber
     private String cardNumber;
 
     @NotNull

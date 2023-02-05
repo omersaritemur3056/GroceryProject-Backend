@@ -31,7 +31,6 @@ import lombok.ToString;
 @ToString
 public class Product {
 
-    // üretim tarihi eklenecek
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_id")
@@ -45,6 +44,9 @@ public class Product {
 
     @Column(name = "product_description")
     private String description;
+
+    @Column(name = "product_production_date", nullable = false)
+    private LocalDate productionDate;
 
     @Column(name = "product_expiration_date", nullable = false)
     private LocalDate expirationDate;

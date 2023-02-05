@@ -162,6 +162,7 @@ public class UserManager implements UserService {
         User user = mapperService.getModelMapper().map(updateUserRequestDto, User.class);
         user.setId(inDbUser.getId());
         user.setPassword(passwordEncoder.encode(updateUserRequestDto.getPassword()));
+        user.setCreatedDateTime(inDbUser.getCreatedDateTime());
 
         Set<String> strRoles = updateUserRequestDto.getRole();
         Set<Role> roles = new HashSet<>();

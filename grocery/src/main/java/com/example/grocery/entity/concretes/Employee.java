@@ -41,12 +41,12 @@ public class Employee {
     @Column(name = "salary")
     private double salary;
 
-    @OneToOne
-    @JoinColumn(name = "user_fk_id", referencedColumnName = "user_id", nullable = false)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_fk_id", referencedColumnName = "user_id", nullable = false, unique = true)
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "image_fk_id")
+    @JoinColumn(name = "image_fk_id", unique = true)
     private Image image;
 
 }

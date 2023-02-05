@@ -28,7 +28,8 @@ public class CreateCorporateCustomerRequest {
     @NotNull
     private String companyName;
 
-    @Size(min = 10, max = 10)
+    @Size(min = 10, max = 11)
+    @Pattern(regexp = "^[1-9]\\d{9,10}$")
     private String taxNumber;
 
     @Min(value = 1)
