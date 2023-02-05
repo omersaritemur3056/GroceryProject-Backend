@@ -1,5 +1,6 @@
 package com.example.grocery.webApi.requests.employee;
 
+import com.example.grocery.entity.enums.Gender;
 import com.example.grocery.entity.enums.Nationality;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -23,6 +24,9 @@ public class UpdateEmployeeRequest {
     @NotBlank
     @NotNull
     private String lastName;
+
+    @NotNull
+    private Gender gender;
 
     @Size(min = 11, max = 11)
     @Pattern(regexp = "^[1-9][0-9]{10}$")

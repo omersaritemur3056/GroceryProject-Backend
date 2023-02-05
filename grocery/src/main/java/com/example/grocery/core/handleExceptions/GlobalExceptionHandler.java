@@ -3,6 +3,7 @@ package com.example.grocery.core.handleExceptions;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -42,5 +43,15 @@ public class GlobalExceptionHandler {
         }
 
         return new ErrorDataResult<>(validationErrors, "Validation errors!");
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    public ErrorDataResult<Object> handleDataIntegrityViolationException(DataIntegrityViolationException exception) {
+        Map<String, String> dataIntegrityErrors = new HashMap<>();
+
+        dataIntegrityErrors.put(exception.fillInStackTrace().toString(), exception.getMostSpecificCause().toString());
+
+        return new ErrorDataResult<>(dataIntegrityErrors, "DataIntegrity errors!");
     }
 }

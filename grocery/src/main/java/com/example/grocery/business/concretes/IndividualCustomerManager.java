@@ -96,14 +96,8 @@ public class IndividualCustomerManager implements IndividualCustomerService {
         @Override
         @Transactional
         public Result update(UpdateIndividualCustomerRequest updateIndividualCustomerRequest, Long id) {
-                // image id ve user id için logic bul...
                 IndividualCustomer inDbIndividualCustomer = individualCustomerRepository.findById(id)
                                 .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
-
-                Result rules = BusinessRules.run(
-                                isExistNationalId(updateIndividualCustomerRequest.getNationalIdentity()));
-                if (!rules.isSuccess())
-                        return rules;
 
                 IndividualCustomer individualCustomer = mapperService.getModelMapper().map(
                                 updateIndividualCustomerRequest,

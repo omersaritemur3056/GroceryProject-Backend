@@ -53,7 +53,6 @@ public class CorporateCustomerManager implements CorporateCustomerService {
         @Override
         @Transactional
         public Result add(CreateCorporateCustomerRequest createCorporateCustomerRequest) {
-
                 Result rules = BusinessRules.run(isExistTaxNumber(createCorporateCustomerRequest.getTaxNumber()),
                                 isExistImageId(createCorporateCustomerRequest.getImageId()),
                                 isExistUserId(createCorporateCustomerRequest.getUserId()));
@@ -74,7 +73,6 @@ public class CorporateCustomerManager implements CorporateCustomerService {
         @Override
         @Transactional
         public Result delete(DeleteCorporateCustomerRequest deleteCorporateCustomerRequest) {
-
                 Result rules = BusinessRules.run(isExistId(deleteCorporateCustomerRequest.getId()));
                 if (!rules.isSuccess())
                         return rules;
@@ -93,13 +91,8 @@ public class CorporateCustomerManager implements CorporateCustomerService {
         @Override
         @Transactional
         public Result update(UpdateCorporateCustomerRequest updateCorporateCustomerRequest, Long id) {
-                // user id ve image id için logic bul...
                 CorporateCustomer inDbCorporateCustomer = corporateCustomerRepository.findById(id)
                                 .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
-
-                Result rules = BusinessRules.run(isExistTaxNumber(updateCorporateCustomerRequest.getTaxNumber()));
-                if (!rules.isSuccess())
-                        return rules;
 
                 CorporateCustomer corporateCustomer = mapperService.getModelMapper()
                                 .map(updateCorporateCustomerRequest, CorporateCustomer.class);

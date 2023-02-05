@@ -2,6 +2,7 @@ package com.example.grocery.webApi.responses.employee;
 
 import java.time.LocalDate;
 
+import com.example.grocery.entity.enums.Gender;
 import com.example.grocery.entity.enums.Nationality;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,9 +21,11 @@ public class GetAllEmployeeResponse {
 
     private Long imageId;
 
-    private String firstName; // challenge= full name yapıp ikisini de almaya çalış...
+    private String firstName;
 
     private String lastName;
+
+    private Gender gender;
 
     private String nationalIdentity;
 

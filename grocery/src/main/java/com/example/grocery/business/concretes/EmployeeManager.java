@@ -91,9 +91,7 @@ public class EmployeeManager implements EmployeeService {
     @Override
     @Transactional
     public Result update(UpdateEmployeeRequest updateEmployeeRequest, Long id) {
-        // user id ve image için doğru logici bul...
-        Result rules = BusinessRules.run(isExistNationalId(updateEmployeeRequest.getNationalIdentity()),
-                isPermissibleAge(updateEmployeeRequest.getYearOfBirth()));
+        Result rules = BusinessRules.run(isPermissibleAge(updateEmployeeRequest.getYearOfBirth()));
         if (!rules.isSuccess())
             return rules;
 

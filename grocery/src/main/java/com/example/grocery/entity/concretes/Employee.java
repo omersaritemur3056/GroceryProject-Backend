@@ -1,6 +1,7 @@
 package com.example.grocery.entity.concretes;
 
 import com.example.grocery.core.security.models.User;
+import com.example.grocery.entity.enums.Gender;
 import com.example.grocery.entity.enums.Nationality;
 import jakarta.persistence.*;
 import lombok.*;
@@ -37,6 +38,10 @@ public class Employee {
     @Enumerated(EnumType.STRING)
     @Column(name = "nationality", nullable = false)
     private Nationality nationality;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "gender", nullable = false)
+    private Gender gender;
 
     @Column(name = "salary")
     private double salary;

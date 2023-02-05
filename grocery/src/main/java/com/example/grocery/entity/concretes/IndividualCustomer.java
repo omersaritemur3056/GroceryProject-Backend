@@ -1,7 +1,11 @@
 package com.example.grocery.entity.concretes;
 
+import com.example.grocery.entity.enums.Gender;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 
@@ -31,4 +35,8 @@ public class IndividualCustomer extends Customer {
 
     @Column(name = "national_identity", unique = true)
     private String nationalIdentity;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "gender", nullable = false)
+    private Gender gender;
 }

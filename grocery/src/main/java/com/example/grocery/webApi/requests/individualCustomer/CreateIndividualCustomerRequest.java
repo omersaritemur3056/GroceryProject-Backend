@@ -1,5 +1,7 @@
 package com.example.grocery.webApi.requests.individualCustomer;
 
+import com.example.grocery.entity.enums.Gender;
+
 import jakarta.validation.constraints.*;
 
 import lombok.AllArgsConstructor;
@@ -31,6 +33,9 @@ public class CreateIndividualCustomerRequest {
     @NotBlank
     @NotNull
     private String lastName;
+
+    @NotNull
+    private Gender gender;
 
     @Size(min = 11, max = 11)
     @Pattern(regexp = "^[1-9][0-9]{10}$")
