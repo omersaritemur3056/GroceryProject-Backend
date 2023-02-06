@@ -95,10 +95,12 @@ public class WebSecurityConfig {
                         "/v2/api-docs/**",
                         "/swagger-resources/**")
                 .permitAll()
-                // .requestMatchers("/api/order/**") // test succeed
+                // .requestMatchers("/api/order/**")
                 // .hasAnyAuthority(Authority.ADMIN.name(), Authority.USER.name())
                 .anyRequest()
-                .authenticated();
+                .authenticated()
+                .and()
+                .formLogin();
 
         http.authenticationProvider(authenticationProvider());
 
