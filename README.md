@@ -21,7 +21,7 @@ ORM(Object Relation Mapping) olarak JPA(Jakarta Persistence Api)'dan yararlandı
 Güvenlik kısmında JWT(Json Web Token) ile kullanıcı bilgilerini daha efektif işledik.
 Lombok teknolojisinin sağladığı avantajlardan yararlandık.
 Objeler arasındaki mapleme işlemini gerçekleştirmek amacıyla mapper olarak ModelMapper'a karar kıldık.
-Geliştirme sırasında konsola ve veri olarak takip edebilmek için kullandığımız loglama
+Geliştirme sırasında konsola ve dosyaya, veri akışını takip edebilmek için kullandığımız loglama
 teknolojisi olarak SLF4J(Simple Logging Facade for Java)'i tercih ettik.
 SMPT(Simple Mail Transfer Protocol) protokolü ile mail servisini oluşturduk.
 Geliştirme sırasında pratikliğinden dolayı Swagger(Open UI)'dan yararlandık.
