@@ -38,7 +38,7 @@ public class CreateEmployeeRequest {
     private LocalDate yearOfBirth;
 
     @NotNull
-    private Nationality nationality = Nationality.OTHER;
+    private Nationality nationality;
 
     @PositiveOrZero
     private double salary;

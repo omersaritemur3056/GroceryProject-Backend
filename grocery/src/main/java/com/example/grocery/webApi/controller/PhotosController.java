@@ -5,13 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.grocery.business.abstracts.PhotoService;
@@ -29,6 +24,7 @@ public class PhotosController {
     private PhotoService photoService;
 
     @PostMapping("/add")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     public ResponseEntity<Result> add(MultipartFile file) {
         return ResponseEntity.ok(photoService.upload(file));
     }
@@ -39,22 +35,24 @@ public class PhotosController {
     }
 
     @PutMapping("/update")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Result> update(Long id, MultipartFile file) {
         return ResponseEntity.ok(photoService.update(id, file));
     }
 
     @GetMapping("/getall")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<DataResult<List<GetAllImageResponse>>> getAll() {
         return new ResponseEntity<>(this.photoService.getAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/getbyid")
-    public ResponseEntity<DataResult<GetByIdImageResponse>> getById(@RequestParam Long id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<DataResult<GetByIdImageResponse>> getById(@PathVariable Long id) {
         return new ResponseEntity<>(this.photoService.getById(id), HttpStatus.OK);
     }
 
-    @GetMapping("/getbyurl")
-    public ResponseEntity<DataResult<GetByUrlImageResponse>> getById(@RequestParam String imageUrl) {
+    @GetMapping("/{imageUrl}")
+    public ResponseEntity<DataResult<GetByUrlImageResponse>> getByUrl(@PathVariable String imageUrl) {
         return new ResponseEntity<>(this.photoService.getByUrl(imageUrl), HttpStatus.OK);
     }
 

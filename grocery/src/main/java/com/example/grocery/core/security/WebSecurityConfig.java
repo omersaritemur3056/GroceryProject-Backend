@@ -88,6 +88,9 @@ public class WebSecurityConfig {
                 .and()
                 .authorizeHttpRequests()
                 .requestMatchers("/*",
+                        "configuration/ui",
+                        "configuration/security",
+                        "/webjars/**",
                         "/api/**",
                         "/swagger-ui/index.html",
                         "/v3/api-docs/**",
@@ -95,8 +98,10 @@ public class WebSecurityConfig {
                         "/v2/api-docs/**",
                         "/swagger-resources/**")
                 .permitAll()
-                // .requestMatchers("/api/order/**")
-                // .hasAnyAuthority(Authority.ADMIN.name(), Authority.USER.name())
+                // this config unit testing... test was succeed but diasble all security
+                // otherwise cloudinary upload operation throw 403 Error to testing
+                // .requestMatchers("/api/image/getall")
+                // .hasAnyAuthority("ADMIN")
                 .anyRequest()
                 .authenticated()
                 .and()
