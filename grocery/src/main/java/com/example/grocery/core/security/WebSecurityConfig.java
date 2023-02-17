@@ -91,12 +91,14 @@ public class WebSecurityConfig {
                         "configuration/ui",
                         "configuration/security",
                         "/webjars/**",
-                        "/api/**",
+                        //"/api/**", it allow every end points
                         "/swagger-ui/index.html",
                         "/v3/api-docs/**",
                         "/swagger-ui/**",
                         "/v2/api-docs/**",
-                        "/swagger-resources/**")
+                        "/swagger-resources/**",
+                        "/api/product/**",
+                        "/api/category/**")
                 .permitAll()
                 // this config unit testing... test was succeed but diasble all security
                 // otherwise cloudinary upload operation throw 403 Error to testing
