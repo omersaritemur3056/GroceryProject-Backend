@@ -23,7 +23,7 @@ public class MernisValidationServiceImpl implements MernisValidationService {
             result = client.TCKimlikNoDogrula(Long.parseLong(employee.getNationalIdentity()),
                     employee.getFirstName().toUpperCase(new Locale("tr", "TR")),
                     employee.getLastName().toUpperCase(new Locale("tr", "TR")),
-                    employee.getYearOfBirth().getYear());
+                    employee.getBirthYear().getYear());
         } catch (Exception e) {
             throw new BusinessException(e.getMessage());
         }

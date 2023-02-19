@@ -32,8 +32,8 @@ public class Employee {
     @Column(name = "national_identity", nullable = true, unique = true)
     private String nationalIdentity;
 
-    @Column(name = "year_of_birth", nullable = false)
-    private LocalDate yearOfBirth;
+    @Column(name = "birth_year", nullable = false)
+    private LocalDate birthYear;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "nationality", nullable = false)

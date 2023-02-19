@@ -35,7 +35,7 @@ public class CreateEmployeeRequest {
     @NotNull
     @Past
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate yearOfBirth;
+    private LocalDate birthYear;
 
     @NotNull
     private Nationality nationality;

@@ -54,7 +54,7 @@ public class EmployeeManager implements EmployeeService {
     @Transactional
     public Result add(CreateEmployeeRequest createEmployeeRequest) {
         Result rules = BusinessRules.run(isExistNationalId(createEmployeeRequest.getNationalIdentity()),
-                isPermissibleAge(createEmployeeRequest.getYearOfBirth()),
+                isPermissibleAge(createEmployeeRequest.getBirthYear()),
                 isExistUserId(createEmployeeRequest.getUserId()), isExistImageId(createEmployeeRequest.getImageId()));
         if (!rules.isSuccess())
             return rules;
@@ -91,7 +91,7 @@ public class EmployeeManager implements EmployeeService {
     @Override
     @Transactional
     public Result update(UpdateEmployeeRequest updateEmployeeRequest, Long id) {
-        Result rules = BusinessRules.run(isPermissibleAge(updateEmployeeRequest.getYearOfBirth()));
+        Result rules = BusinessRules.run(isPermissibleAge(updateEmployeeRequest.getBirthYear()));
         if (!rules.isSuccess())
             return rules;
 

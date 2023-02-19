@@ -31,7 +31,7 @@ public class GetAllEmployeeResponse {
 
     private Nationality nationality;
 
-    private LocalDate yearOfBirth;
+    private LocalDate birthYear;
 
     private double salary;
 }
