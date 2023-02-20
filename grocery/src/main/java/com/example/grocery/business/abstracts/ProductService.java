@@ -32,4 +32,6 @@ public interface ProductService {
     Product getProductById(Long id);
 
     List<Product> getProductsByIds(Long[] productId);
+
+    DataResult<List<GetAllProductResponse>> getAllByCategoryId(Long categoryId);
 }

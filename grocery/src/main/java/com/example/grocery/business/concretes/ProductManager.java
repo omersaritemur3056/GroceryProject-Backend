@@ -237,6 +237,30 @@ public class ProductManager implements ProductService {
         return new SuccessDataResult<>(returnList, GetListMessages.PRODUCTS_PAGINATED_AND_SORTED + sortBy);
     }
 
+    @Override
+    @Cacheable(value = "product", key = "#categoryId")
+    public DataResult<List<GetAllProductResponse>> getAllByCategoryId(Long categoryId) {
+        List<GetAllProductResponse> returnList = new ArrayList<>();
+        List<Product> productList = productRepository.findAllByCategory_Id(categoryId)
+                .orElseThrow(() -> new BusinessException(ErrorMessages.CATEGORY_ID_NOT_FOUND));
+        for (Product product : productList) {
+            Product product1 = productRepository.findById(product.getId())
+                    .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
+            GetAllProductResponse addFields = mapperService.getModelMapper().map(product,
+                    GetAllProductResponse.class);
+            addFields.setCategoryId(product1.getCategory().getId());
+            addFields.setProducerId(product1.getProducer().getId());
+            addFields.setSupplierId(product1.getSupplier().getId());
+            List<Long> ids = new ArrayList<>();
+            for (Image x : product.getImages()) {
+                ids.add(x.getId());
+            }
+            addFields.setImageIds(ids);
+            returnList.add(addFields);
+        }
+        return new SuccessDataResult<>(returnList, GetListMessages.PRODUCTS_LISTED);
+    }
+
     // bağımlılğı kontrol altına almak üzere tasarlandı
     @Override
     public Product getProductById(Long id) {

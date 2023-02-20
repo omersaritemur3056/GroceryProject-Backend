@@ -71,4 +71,9 @@ public class ProductsController {
             @RequestParam(defaultValue = "id") String sortBy) {
         return ResponseEntity.ok(productService.getListByPaginationAndSorting(pageNo, pageSize, sortBy));
     }
+
+    @GetMapping("/getallbycategory")
+    public ResponseEntity<DataResult<List<GetAllProductResponse>>> getAllByCategoryId(@RequestParam Long categoryId) {
+        return new ResponseEntity<>(productService.getAllByCategoryId(categoryId), HttpStatus.OK);
+    }
 }
