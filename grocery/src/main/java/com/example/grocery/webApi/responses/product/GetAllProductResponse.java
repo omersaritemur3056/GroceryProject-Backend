@@ -23,7 +23,11 @@ public class GetAllProductResponse {
     private LocalDate expirationDate;
     private int stock;
     private Long categoryId;
+    private String categoryName;
     private Long supplierId;
+    private String supplierName;
     private Long producerId;
+    private String producerName;
     private List<Long> imageIds;
+    private List<String> urls;
 }

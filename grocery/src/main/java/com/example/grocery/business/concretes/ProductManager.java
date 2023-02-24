@@ -129,13 +129,19 @@ public class ProductManager implements ProductService {
             GetAllProductResponse addFields = mapperService.getModelMapper().map(product,
                     GetAllProductResponse.class);
             addFields.setCategoryId(product1.getCategory().getId());
+            addFields.setCategoryName(product1.getCategory().getName());
             addFields.setProducerId(product1.getProducer().getId());
+            addFields.setProducerName(product1.getProducer().getName());
             addFields.setSupplierId(product1.getSupplier().getId());
+            addFields.setSupplierName(product1.getSupplier().getName());
             List<Long> ids = new ArrayList<>();
+            List<String> urls = new ArrayList<>();
             for (Image x : product.getImages()) {
                 ids.add(x.getId());
+                urls.add(x.getUrl());
             }
             addFields.setImageIds(ids);
+            addFields.setUrls(urls);
             returnList.add(addFields);
         }
         return new SuccessDataResult<>(returnList, GetListMessages.PRODUCTS_LISTED);
@@ -249,13 +255,19 @@ public class ProductManager implements ProductService {
             GetAllProductResponse addFields = mapperService.getModelMapper().map(product,
                     GetAllProductResponse.class);
             addFields.setCategoryId(product1.getCategory().getId());
+            addFields.setCategoryName(product1.getCategory().getName());
             addFields.setProducerId(product1.getProducer().getId());
+            addFields.setProducerName(product1.getProducer().getName());
             addFields.setSupplierId(product1.getSupplier().getId());
+            addFields.setSupplierName(product1.getSupplier().getName());
             List<Long> ids = new ArrayList<>();
+            List<String> urls = new ArrayList<>();
             for (Image x : product.getImages()) {
                 ids.add(x.getId());
+                urls.add(x.getUrl());
             }
             addFields.setImageIds(ids);
+            addFields.setUrls(urls);
             returnList.add(addFields);
         }
         return new SuccessDataResult<>(returnList, GetListMessages.PRODUCTS_LISTED);
