@@ -55,7 +55,8 @@ public class ProductsController {
 
     @GetMapping("/getlistbysorting")
     public ResponseEntity<DataResult<List<GetAllProductResponse>>> getListBySorting(
-            @RequestParam(defaultValue = "id") String sortBy) {
+            @RequestParam(defaultValue = "name") String sortBy) throws InterruptedException {
+        Thread.sleep(2000);
         return ResponseEntity.ok(productService.getListBySorting(sortBy));
     }
 

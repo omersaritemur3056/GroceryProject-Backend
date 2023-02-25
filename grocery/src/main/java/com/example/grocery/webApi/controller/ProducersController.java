@@ -60,7 +60,7 @@ public class ProducersController {
 
     @GetMapping("/getlistbysorting")
     public ResponseEntity<DataResult<List<GetAllProducerResponse>>> getListBySorting(
-            @RequestParam(defaultValue = "id") String sortBy) {
+            @RequestParam(defaultValue = "name") String sortBy) {
         return ResponseEntity.ok(producerService.getListBySorting(sortBy));
     }
 

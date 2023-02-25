@@ -56,7 +56,7 @@ public class IndividualCustomersController {
 
     @GetMapping("/getlistbysorting")
     public ResponseEntity<DataResult<List<GetAllIndividualCustomerResponse>>> getListBySorting(
-            @RequestParam(defaultValue = "id") String sortBy) {
+            @RequestParam(defaultValue = "firstName") String sortBy) {
         return ResponseEntity.ok(individualCustomerService.getListBySorting(sortBy));
     }
 

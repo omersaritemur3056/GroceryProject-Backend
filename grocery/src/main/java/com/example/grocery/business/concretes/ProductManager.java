@@ -166,7 +166,7 @@ public class ProductManager implements ProductService {
     }
 
     @Override
-    @Cacheable(value = "product", key = "#id")
+    @Cacheable(value = "product")
     public DataResult<List<GetAllProductResponse>> getListBySorting(String sortBy) {
         isValidSortParameter(sortBy);
 

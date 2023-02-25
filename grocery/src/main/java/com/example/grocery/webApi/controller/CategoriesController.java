@@ -51,7 +51,7 @@ public class CategoriesController {
 
     @GetMapping("/getlistbysorting")
     public ResponseEntity<DataResult<List<GetAllCategoryResponse>>> getListBySorting(
-            @RequestParam(defaultValue = "id") String sortBy) {
+            @RequestParam(defaultValue = "name") String sortBy) {
         return ResponseEntity.ok(categoryService.getListBySorting(sortBy));
     }
 

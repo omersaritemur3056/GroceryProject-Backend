@@ -59,7 +59,7 @@ public class SuppliersController {
 
     @GetMapping("/getlistbysorting")
     public ResponseEntity<DataResult<List<GetAllSupplierResponse>>> getListBySorting(
-            @RequestParam(defaultValue = "id") String sortBy) {
+            @RequestParam(defaultValue = "name") String sortBy) {
         return ResponseEntity.ok(supplierService.getListBySorting(sortBy));
     }
 

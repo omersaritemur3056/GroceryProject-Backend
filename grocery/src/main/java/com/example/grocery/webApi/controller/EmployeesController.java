@@ -53,7 +53,7 @@ public class EmployeesController {
 
     @GetMapping("/getlistbysorting")
     public ResponseEntity<DataResult<List<GetAllEmployeeResponse>>> getListBySorting(
-            @RequestParam(defaultValue = "id") String sortBy) {
+            @RequestParam(defaultValue = "firstName") String sortBy) {
         return ResponseEntity.ok(employeeService.getListBySorting(sortBy));
     }
 

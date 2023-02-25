@@ -56,7 +56,7 @@ public class CorporateCustomersController {
 
     @GetMapping("/getlistbysorting")
     public ResponseEntity<DataResult<List<GetAllCorporateCustomerResponse>>> getListBySorting(
-            @RequestParam(defaultValue = "id") String sortBy) {
+            @RequestParam(defaultValue = "companyName") String sortBy) {
         return ResponseEntity.ok(corporateCustomerService.getListBySorting(sortBy));
     }
 
