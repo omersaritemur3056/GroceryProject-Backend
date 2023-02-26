@@ -62,14 +62,17 @@ public class ProductsController {
 
     @GetMapping("/getlistbypagination")
     public ResponseEntity<DataResult<List<GetAllProductResponse>>> getListByPagination(
-            @RequestParam(defaultValue = "0") int pageNo, @RequestParam(defaultValue = "10") int pageSize) {
+            @RequestParam(defaultValue = "0") int pageNo, @RequestParam(defaultValue = "10") int pageSize)
+            throws InterruptedException{
+        Thread.sleep(2000);
         return ResponseEntity.ok(productService.getListByPagination(pageNo, pageSize));
     }
 
     @GetMapping("/getlistbypaginationandsorting")
     public ResponseEntity<DataResult<List<GetAllProductResponse>>> getListByPaginationAndSorting(
             @RequestParam(defaultValue = "0") int pageNo, @RequestParam(defaultValue = "10") int pageSize,
-            @RequestParam(defaultValue = "id") String sortBy) {
+            @RequestParam(defaultValue = "name") String sortBy) throws InterruptedException {
+        Thread.sleep(2000);
         return ResponseEntity.ok(productService.getListByPaginationAndSorting(pageNo, pageSize, sortBy));
     }
 
