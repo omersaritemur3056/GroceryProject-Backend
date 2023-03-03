@@ -64,7 +64,7 @@ public class ProductManager implements ProductService {
         addProduct.setCategory(categoryService.getCategoryById(createProductRequest.getCategoryId()));
         addProduct.setProducer(producerService.getProducerById(createProductRequest.getProducerId()));
         addProduct.setSupplier(supplierService.getSupplierById(createProductRequest.getSupplierId()));
-        addProduct.setImages(photoService.getImagesByIds(createProductRequest.getImageIds()));
+        addProduct.setImages(photoService.getImagesByUrls(createProductRequest.getImageUrls()));
         productRepository.save((addProduct));
         log.info(LogInfoMessages.PRODUCT_ADDED, createProductRequest.getName());
         return new SuccessResult(CreateMessages.PRODUCT_CREATED);
@@ -90,7 +90,7 @@ public class ProductManager implements ProductService {
         product.setCategory(categoryService.getCategoryById(updateProductRequest.getCategoryId()));
         product.setProducer(producerService.getProducerById(updateProductRequest.getProducerId()));
         product.setSupplier(supplierService.getSupplierById(updateProductRequest.getSupplierId()));
-        product.setImages(photoService.getImagesByIds(updateProductRequest.getImageIds()));
+        product.setImages(photoService.getImagesByUrls(updateProductRequest.getImageUrls()));
         log.info(LogInfoMessages.PRODUCT_UPDATED, updateProductRequest.getName());
         productRepository.save(product);
 
@@ -301,6 +301,7 @@ public class ProductManager implements ProductService {
     @Override
     public List<Product> getProductsByIds(Long[] productsId) {
         List<Product> resultList = new ArrayList<>();
+        if(productsId == null){return resultList;}
         for (Long forEachId : productsId) {
             Product findProductById = productRepository.findById(forEachId)
                     .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
@@ -327,7 +328,7 @@ public class ProductManager implements ProductService {
     private Result isExistName(String name) {
         if (productRepository.existsByNameIgnoreCase(name)) {
             log.warn(LogWarnMessages.PRODUCT_NAME_REPEATED, name);
-            throw new BusinessException(ErrorMessages.PRODUCER_NAME_REPEATED);
+            throw new BusinessException(ErrorMessages.PRODUCT_NAME_REPEATED);
         }
         return new SuccessResult();
     }

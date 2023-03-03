@@ -35,4 +35,6 @@ public interface PhotoService {
 
     List<Image> getImagesByIds(Long[] imageId);
 
+    List<Image> getImagesByUrls(String[] imageUrls);
+
 }

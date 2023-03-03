@@ -38,14 +38,14 @@ public class CreateProductRequest {
     @PositiveOrZero
     private int stock;
 
-    @Min(value = 1)
+    @Positive
     private Long categoryId;
 
-    @Min(value = 1)
+    @Positive
     private Long supplierId;
 
-    @Min(value = 1)
+    @Positive
     private Long producerId;
 
-    private Long[] imageIds;
+    private String[] imageUrls;
 }

@@ -157,10 +157,24 @@ public class PhotoManager implements PhotoService {
     @Override
     public List<Image> getImagesByIds(Long[] imageIds) {
         List<Image> resultList = new ArrayList<>();
+        if(imageIds == null){return resultList;}
         for (Long forEachId : imageIds) {
             Image findImageById = imageRepository.findById(forEachId)
                     .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
             resultList.add(findImageById);
+        }
+        return resultList;
+    }
+
+    @Override
+    public List<Image> getImagesByUrls(String[] imageUrls){
+        List<Image> resultList = new ArrayList<>();
+        String x = imageUrls.toString();
+        if(imageUrls == null || x.contains("")){return resultList;}
+        for(String forEachUrl : imageUrls){
+            Image findImageByUrl = imageRepository.findByUrl(forEachUrl)
+                    .orElseThrow(() -> new BusinessException(ErrorMessages.IMAGE_URL_NOT_FOUND));
+            resultList.add(findImageByUrl);
         }
         return resultList;
     }

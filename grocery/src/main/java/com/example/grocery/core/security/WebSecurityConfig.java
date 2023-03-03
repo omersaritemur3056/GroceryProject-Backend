@@ -102,7 +102,8 @@ public class WebSecurityConfig {
                         "/api/user/**",
                         "/api/employee/**",
                         "/api/individualcustomer/**",
-                        "/api/corporatecustomer/**")
+                        "/api/corporatecustomer/**",
+                        "/api/image/**")
                 .permitAll()
                 // this config unit testing... test was succeed but diasble all security
                 // otherwise cloudinary upload operation throw 403 Error to testing

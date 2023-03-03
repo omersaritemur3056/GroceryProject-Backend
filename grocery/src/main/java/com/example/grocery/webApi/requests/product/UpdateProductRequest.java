@@ -47,5 +47,5 @@ public class UpdateProductRequest {
     @Min(value = 1)
     private Long producerId;
 
-    private Long[] imageIds;
+    private String[] imageUrls;
 }
