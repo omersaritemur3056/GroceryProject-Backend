@@ -83,6 +83,6 @@ public class PhotoManagerTest {
 
     @Test
     public void anyServiceMissOut() {
-        assertThat(mapperService.getModelMapper()).isNull();
+        assertThat(mapperService.forRequest()).isNull();
     }
 }

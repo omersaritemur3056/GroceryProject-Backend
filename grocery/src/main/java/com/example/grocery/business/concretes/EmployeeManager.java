@@ -4,7 +4,7 @@ import com.example.grocery.business.abstracts.EmployeeService;
 import com.example.grocery.business.abstracts.PhotoService;
 import com.example.grocery.business.constants.Messages.*;
 import com.example.grocery.business.constants.Messages.LogMessages.LogInfoMessages;
-import com.example.grocery.business.constants.Messages.LogMessages.LogWarnMessages;
+import com.example.grocery.business.rules.EmployeeBusinessRules;
 import com.example.grocery.core.security.services.UserService;
 import com.example.grocery.core.utilities.business.BusinessRules;
 import com.example.grocery.core.utilities.exceptions.BusinessException;
@@ -13,10 +13,8 @@ import com.example.grocery.core.utilities.results.DataResult;
 import com.example.grocery.core.utilities.results.Result;
 import com.example.grocery.core.utilities.results.SuccessDataResult;
 import com.example.grocery.core.utilities.results.SuccessResult;
-import com.example.grocery.core.validation.mernisValidation.MernisValidationService;
 import com.example.grocery.dataAccess.abstracts.EmployeeRepository;
 import com.example.grocery.entity.concretes.Employee;
-import com.example.grocery.entity.enums.Nationality;
 import com.example.grocery.webApi.requests.employee.CreateEmployeeRequest;
 import com.example.grocery.webApi.requests.employee.DeleteEmployeeRequest;
 import com.example.grocery.webApi.requests.employee.UpdateEmployeeRequest;
@@ -30,8 +28,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,22 +44,24 @@ public class EmployeeManager implements EmployeeService {
     @Autowired
     private PhotoService photoService;
     @Autowired
-    private MernisValidationService mernisValidationService;
+    private EmployeeBusinessRules employeeBusinessRules;
 
     @Override
     @Transactional
     public Result add(CreateEmployeeRequest createEmployeeRequest) {
-        Result rules = BusinessRules.run(isExistNationalId(createEmployeeRequest.getNationalIdentity()),
-                isPermissibleAge(createEmployeeRequest.getBirthYear()),
-                isExistUserId(createEmployeeRequest.getUserId()), isExistImageId(createEmployeeRequest.getImageId()));
+        Result rules = BusinessRules.run(
+                employeeBusinessRules.isExistNationalId(createEmployeeRequest.getNationalIdentity()),
+                employeeBusinessRules.isPermissibleAge(createEmployeeRequest.getBirthYear()),
+                employeeBusinessRules.isExistUserId(createEmployeeRequest.getUserId()),
+                employeeBusinessRules.isExistImageId(createEmployeeRequest.getImageId()));
         if (!rules.isSuccess())
             return rules;
 
-        Employee employee = mapperService.getModelMapper().map(createEmployeeRequest, Employee.class);
+        Employee employee = mapperService.forRequest().map(createEmployeeRequest, Employee.class);
         employee.setUser(userService.getUserById(createEmployeeRequest.getUserId()));
         employee.setImage(photoService.getImageById(createEmployeeRequest.getImageId()));
 
-        isTurkishCitizen(employee);
+        employeeBusinessRules.isTurkishCitizen(employee);
 
         employeeRepository.save(employee);
         log.info(LogInfoMessages.EMPLOYEE_ADDED, createEmployeeRequest.getFirstName(),
@@ -75,11 +73,11 @@ public class EmployeeManager implements EmployeeService {
     @Transactional
     public Result delete(DeleteEmployeeRequest deleteEmployeeRequest) {
 
-        Result rules = BusinessRules.run(isExistId(deleteEmployeeRequest.getId()));
+        Result rules = BusinessRules.run(employeeBusinessRules.isExistId(deleteEmployeeRequest.getId()));
         if (!rules.isSuccess())
             return rules;
 
-        Employee employee = mapperService.getModelMapper().map(deleteEmployeeRequest, Employee.class);
+        Employee employee = mapperService.forRequest().map(deleteEmployeeRequest, Employee.class);
         Employee employeeForLog = employeeRepository.findById(deleteEmployeeRequest.getId())
                 .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
         log.info(LogInfoMessages.EMPLOYEE_DELETED, employeeForLog.getFirstName(),
@@ -91,19 +89,19 @@ public class EmployeeManager implements EmployeeService {
     @Override
     @Transactional
     public Result update(UpdateEmployeeRequest updateEmployeeRequest, Long id) {
-        Result rules = BusinessRules.run(isPermissibleAge(updateEmployeeRequest.getBirthYear()));
+        Result rules = BusinessRules.run(employeeBusinessRules.isPermissibleAge(updateEmployeeRequest.getBirthYear()));
         if (!rules.isSuccess())
             return rules;
 
         Employee inDbEmployee = employeeRepository.findById(id)
                 .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
 
-        Employee employee = mapperService.getModelMapper().map(updateEmployeeRequest, Employee.class);
+        Employee employee = mapperService.forRequest().map(updateEmployeeRequest, Employee.class);
         employee.setId(inDbEmployee.getId());
         employee.setUser(userService.getUserById(updateEmployeeRequest.getUserId()));
         employee.setImage(photoService.getImageById(updateEmployeeRequest.getImageId()));
 
-        isTurkishCitizen(employee);
+        employeeBusinessRules.isTurkishCitizen(employee);
 
         employeeRepository.save(employee);
         log.info(LogInfoMessages.EMPLOYEE_UPDATED, updateEmployeeRequest.getFirstName(),
@@ -116,10 +114,8 @@ public class EmployeeManager implements EmployeeService {
         List<Employee> employeeList = employeeRepository.findAll();
         List<GetAllEmployeeResponse> returnList = new ArrayList<>();
         for (Employee forEachEmployee : employeeList) {
-            GetAllEmployeeResponse obj = mapperService.getModelMapper().map(forEachEmployee,
+            GetAllEmployeeResponse obj = mapperService.forResponse().map(forEachEmployee,
                     GetAllEmployeeResponse.class);
-            obj.setUserId(forEachEmployee.getUser().getId());
-            obj.setImageId(forEachEmployee.getImage().getId());
             returnList.add(obj);
         }
         return new SuccessDataResult<>(returnList, GetListMessages.EMPLOYEES_LISTED);
@@ -129,24 +125,20 @@ public class EmployeeManager implements EmployeeService {
     public DataResult<GetByIdEmployeeResponse> getById(Long id) {
         Employee inDbEmployee = employeeRepository.findById(id)
                 .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
-        GetByIdEmployeeResponse returnObj = mapperService.getModelMapper().map(inDbEmployee,
+        GetByIdEmployeeResponse returnObj = mapperService.forResponse().map(inDbEmployee,
                 GetByIdEmployeeResponse.class);
-        returnObj.setUserId(inDbEmployee.getUser().getId());
-        returnObj.setImageId(inDbEmployee.getImage().getId());
         return new SuccessDataResult<>(returnObj, GetByIdMessages.EMPLOYEE_LISTED);
     }
 
     @Override
     public DataResult<List<GetAllEmployeeResponse>> getListBySorting(String sortBy) {
-        isValidSortParameter(sortBy);
+        employeeBusinessRules.isValidSortParameter(sortBy);
 
         List<Employee> employeeList = employeeRepository.findAll(Sort.by(Sort.Direction.ASC, sortBy));
         List<GetAllEmployeeResponse> returnList = new ArrayList<>();
         for (Employee forEachEmployee : employeeList) {
-            GetAllEmployeeResponse obj = mapperService.getModelMapper().map(forEachEmployee,
+            GetAllEmployeeResponse obj = mapperService.forResponse().map(forEachEmployee,
                     GetAllEmployeeResponse.class);
-            obj.setUserId(forEachEmployee.getUser().getId());
-            obj.setImageId(forEachEmployee.getImage().getId());
             returnList.add(obj);
         }
         return new SuccessDataResult<>(returnList, GetListMessages.EMPLOYEES_SORTED + sortBy);
@@ -154,16 +146,14 @@ public class EmployeeManager implements EmployeeService {
 
     @Override
     public DataResult<List<GetAllEmployeeResponse>> getListByPagination(int pageNo, int pageSize) {
-        isPageNumberValid(pageNo);
-        isPageSizeValid(pageSize);
+        employeeBusinessRules.isPageNumberValid(pageNo);
+        employeeBusinessRules.isPageSizeValid(pageSize);
 
         List<Employee> employeeList = employeeRepository.findAll(PageRequest.of(pageNo, pageSize)).toList();
         List<GetAllEmployeeResponse> returnList = new ArrayList<>();
         for (Employee forEachEmployee : employeeList) {
-            GetAllEmployeeResponse obj = mapperService.getModelMapper().map(forEachEmployee,
+            GetAllEmployeeResponse obj = mapperService.forResponse().map(forEachEmployee,
                     GetAllEmployeeResponse.class);
-            obj.setUserId(forEachEmployee.getUser().getId());
-            obj.setImageId(forEachEmployee.getImage().getId());
             returnList.add(obj);
         }
         return new SuccessDataResult<>(returnList, GetListMessages.EMPLOYEES_PAGINATED);
@@ -172,95 +162,19 @@ public class EmployeeManager implements EmployeeService {
     @Override
     public DataResult<List<GetAllEmployeeResponse>> getListByPaginationAndSorting(int pageNo, int pageSize,
             String sortBy) {
-        isPageNumberValid(pageNo);
-        isPageSizeValid(pageSize);
-        isValidSortParameter(sortBy);
+        employeeBusinessRules.isPageNumberValid(pageNo);
+        employeeBusinessRules.isPageSizeValid(pageSize);
+        employeeBusinessRules.isValidSortParameter(sortBy);
 
         List<Employee> employeeList = employeeRepository
                 .findAll(PageRequest.of(pageNo, pageSize).withSort(Sort.by(sortBy))).toList();
         List<GetAllEmployeeResponse> returnList = new ArrayList<>();
         for (Employee forEachEmployee : employeeList) {
-            GetAllEmployeeResponse obj = mapperService.getModelMapper().map(forEachEmployee,
+            GetAllEmployeeResponse obj = mapperService.forResponse().map(forEachEmployee,
                     GetAllEmployeeResponse.class);
-            obj.setUserId(forEachEmployee.getUser().getId());
-            obj.setImageId(forEachEmployee.getImage().getId());
             returnList.add(obj);
         }
         return new SuccessDataResult<>(returnList, GetListMessages.EMPLOYEES_PAGINATED_AND_SORTED + sortBy);
-    }
-
-    private Result isExistId(Long id) {
-        if (!employeeRepository.existsById(id)) {
-            throw new BusinessException(ErrorMessages.ID_NOT_FOUND);
-        }
-        return new SuccessResult();
-    }
-
-    private Result isExistNationalId(String nationalId) {
-        if (employeeRepository.existsByNationalIdentity(nationalId)) {
-            log.warn(LogWarnMessages.NATIONAL_IDENTITY_REPEATED, nationalId);
-            throw new BusinessException(ErrorMessages.NATIONAL_IDENTITY_REPEATED);
-        }
-        return new SuccessResult();
-    }
-
-    private Result isExistUserId(Long userId) {
-        if (employeeRepository.existsByUser_Id(userId)) {
-            log.warn(LogWarnMessages.USER_ID_REPEATED, userId);
-            throw new BusinessException(ErrorMessages.USER_ID_REPEATED);
-        }
-        return new SuccessResult();
-    }
-
-    private Result isExistImageId(Long imageId) {
-        if (employeeRepository.existsByImage_Id(imageId)) {
-            log.warn(LogWarnMessages.IMAGE_ID_REPEATED, imageId);
-            throw new BusinessException(ErrorMessages.IMAGE_ID_REPEATED);
-        }
-        return new SuccessResult();
-    }
-
-    private Result isPermissibleAge(LocalDate birthYear) {
-        LocalDate today = LocalDate.now();
-        Period period = Period.between(birthYear, today);
-        int years = period.getYears();
-        if (years < 18) {
-            log.warn(LogWarnMessages.AGE_NOT_PERMISSIBLE, birthYear);
-            throw new BusinessException(ErrorMessages.AGE_NOT_PERMISSIBLE);
-        }
-        return new SuccessResult();
-    }
-
-    private Result isTurkishCitizen(Employee employee) {
-        if (mernisValidationService.validate(employee).isSuccess()) {
-            employee.setNationality(Nationality.TURKISH);
-            return new SuccessResult();
-        } else {
-            employee.setNationality(Nationality.OTHER);
-        }
-        return new SuccessResult();
-    }
-
-    private void isPageNumberValid(int pageNo) {
-        if (pageNo < 0) {
-            log.warn(LogWarnMessages.PAGE_NUMBER_NEGATIVE);
-            throw new BusinessException(ErrorMessages.PAGE_NUMBER_NEGATIVE);
-        }
-    }
-
-    private void isPageSizeValid(int pageSize) {
-        if (pageSize < 1) {
-            log.warn(LogWarnMessages.PAGE_SIZE_NEGATIVE);
-            throw new BusinessException(ErrorMessages.PAGE_SIZE_NEGATIVE);
-        }
-    }
-
-    private void isValidSortParameter(String sortBy) {
-        Employee checkField = new Employee();
-        if (!checkField.toString().contains(sortBy)) {
-            log.warn(LogWarnMessages.SORT_PARAMETER_NOT_VALID);
-            throw new BusinessException(ErrorMessages.SORT_PARAMETER_NOT_VALID);
-        }
     }
 
 }

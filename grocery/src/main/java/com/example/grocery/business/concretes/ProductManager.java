@@ -3,7 +3,7 @@ package com.example.grocery.business.concretes;
 import com.example.grocery.business.abstracts.*;
 import com.example.grocery.business.constants.Messages.*;
 import com.example.grocery.business.constants.Messages.LogMessages.LogInfoMessages;
-import com.example.grocery.business.constants.Messages.LogMessages.LogWarnMessages;
+import com.example.grocery.business.rules.ProductBusinessRules;
 import com.example.grocery.core.utilities.business.BusinessRules;
 import com.example.grocery.core.utilities.exceptions.BusinessException;
 import com.example.grocery.core.utilities.mapper.MapperService;
@@ -29,7 +29,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,18 +48,20 @@ public class ProductManager implements ProductService {
     private MapperService mapperService;
     @Autowired
     private PhotoService photoService;
+    @Autowired
+    private ProductBusinessRules productBusinessRules;
 
     @Override
     @Transactional
     @CacheEvict(cacheNames = "product", allEntries = true)
     public Result add(CreateProductRequest createProductRequest) {
 
-        Result rules = BusinessRules.run(isExistName(createProductRequest.getName()),
-                isExistCategoryId(createProductRequest.getCategoryId()));
+        Result rules = BusinessRules.run(productBusinessRules.isExistName(createProductRequest.getName()),
+                productBusinessRules.isExistCategoryId(createProductRequest.getCategoryId()));
         if (!rules.isSuccess())
             return rules;
 
-        Product addProduct = mapperService.getModelMapper().map(createProductRequest, Product.class);
+        Product addProduct = mapperService.forRequest().map(createProductRequest, Product.class);
         addProduct.setCategory(categoryService.getCategoryById(createProductRequest.getCategoryId()));
         addProduct.setProducer(producerService.getProducerById(createProductRequest.getProducerId()));
         addProduct.setSupplier(supplierService.getSupplierById(createProductRequest.getSupplierId()));
@@ -78,14 +79,15 @@ public class ProductManager implements ProductService {
         Product inDbProduct = productRepository.findById(id)
                 .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
 
-        Result rules = BusinessRules.run(isExistName(updateProductRequest.getName()), isExistId(id),
-                isExistCategoryId(updateProductRequest.getCategoryId()),
-                isExistProducerId(updateProductRequest.getProducerId()),
-                isExistSupplierId(updateProductRequest.getSupplierId()));
+        Result rules = BusinessRules.run(productBusinessRules.isExistName(updateProductRequest.getName()),
+                productBusinessRules.isExistId(id),
+                productBusinessRules.isExistCategoryId(updateProductRequest.getCategoryId()),
+                productBusinessRules.isExistProducerId(updateProductRequest.getProducerId()),
+                productBusinessRules.isExistSupplierId(updateProductRequest.getSupplierId()));
         if (!rules.isSuccess())
             return rules;
 
-        Product product = mapperService.getModelMapper().map(updateProductRequest, Product.class);
+        Product product = mapperService.forRequest().map(updateProductRequest, Product.class);
         product.setId(inDbProduct.getId());
         product.setCategory(categoryService.getCategoryById(updateProductRequest.getCategoryId()));
         product.setProducer(producerService.getProducerById(updateProductRequest.getProducerId()));
@@ -102,13 +104,12 @@ public class ProductManager implements ProductService {
     @CacheEvict(cacheNames = "product", key = "#deleteProductRequest.id")
     public Result delete(DeleteProductRequest deleteProductRequest) {
 
-        Result rules = BusinessRules.run(isExistId(deleteProductRequest.getId()));
+        Result rules = BusinessRules.run(productBusinessRules.isExistId(deleteProductRequest.getId()));
         if (!rules.isSuccess())
             return rules;
+        productBusinessRules.removeExpiratedProduct();
 
-        removeExpiratedProduct();
-
-        Product product = mapperService.getModelMapper().map(deleteProductRequest, Product.class);
+        Product product = mapperService.forRequest().map(deleteProductRequest, Product.class);
 
         Product productForLog = productRepository.findById(deleteProductRequest.getId())
                 .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
@@ -124,16 +125,8 @@ public class ProductManager implements ProductService {
         List<GetAllProductResponse> returnList = new ArrayList<>();
         List<Product> productList = productRepository.findAll();
         for (Product product : productList) {
-            Product product1 = productRepository.findById(product.getId())
-                    .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
-            GetAllProductResponse addFields = mapperService.getModelMapper().map(product,
+            GetAllProductResponse addFields = mapperService.forResponse().map(product,
                     GetAllProductResponse.class);
-            addFields.setCategoryId(product1.getCategory().getId());
-            addFields.setCategoryName(product1.getCategory().getName());
-            addFields.setProducerId(product1.getProducer().getId());
-            addFields.setProducerName(product1.getProducer().getName());
-            addFields.setSupplierId(product1.getSupplier().getId());
-            addFields.setSupplierName(product1.getSupplier().getName());
             List<Long> ids = new ArrayList<>();
             List<String> urls = new ArrayList<>();
             for (Image x : product.getImages()) {
@@ -152,11 +145,8 @@ public class ProductManager implements ProductService {
     public DataResult<GetByIdProductResponse> getById(Long id) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
-        GetByIdProductResponse getByIdProductResponse = mapperService.getModelMapper().map(product,
+        GetByIdProductResponse getByIdProductResponse = mapperService.forResponse().map(product,
                 GetByIdProductResponse.class);
-        getByIdProductResponse.setCategoryId(product.getCategory().getId());
-        getByIdProductResponse.setProducerId(product.getProducer().getId());
-        getByIdProductResponse.setSupplierId(product.getSupplier().getId());
         List<Long> ids = new ArrayList<>();
         for (Image x : product.getImages()) {
             ids.add(x.getId());
@@ -168,21 +158,13 @@ public class ProductManager implements ProductService {
     @Override
     @Cacheable(value = "product")
     public DataResult<List<GetAllProductResponse>> getListBySorting(String sortBy) {
-        isValidSortParameter(sortBy);
+        productBusinessRules.isValidSortParameter(sortBy);
 
         List<GetAllProductResponse> returnList = new ArrayList<>();
         List<Product> productList = productRepository.findAll(Sort.by(Sort.Direction.ASC, sortBy));
         for (Product product : productList) {
-            Product product1 = productRepository.findById(product.getId())
-                    .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
-            GetAllProductResponse addFields = mapperService.getModelMapper().map(product,
+            GetAllProductResponse addFields = mapperService.forResponse().map(product,
                     GetAllProductResponse.class);
-            addFields.setCategoryId(product1.getCategory().getId());
-            addFields.setCategoryName(product1.getCategory().getName());
-            addFields.setProducerId(product1.getProducer().getId());
-            addFields.setProducerName(product1.getProducer().getName());
-            addFields.setSupplierId(product1.getSupplier().getId());
-            addFields.setSupplierName(product1.getSupplier().getName());
             List<Long> ids = new ArrayList<>();
             List<String> urls = new ArrayList<>();
             for (Image x : product.getImages()) {
@@ -198,22 +180,14 @@ public class ProductManager implements ProductService {
 
     @Override
     public DataResult<List<GetAllProductResponse>> getListByPagination(int pageNo, int pageSize) {
-        isPageNumberValid(pageNo);
-        isPageSizeValid(pageSize);
+        productBusinessRules.isPageNumberValid(pageNo);
+        productBusinessRules.isPageSizeValid(pageSize);
 
         List<GetAllProductResponse> returnList = new ArrayList<>();
         List<Product> productList = productRepository.findAll(PageRequest.of(pageNo, pageSize)).toList();
         for (Product product : productList) {
-            Product product1 = productRepository.findById(product.getId())
-                    .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
-            GetAllProductResponse addFields = mapperService.getModelMapper().map(product,
+            GetAllProductResponse addFields = mapperService.forResponse().map(product,
                     GetAllProductResponse.class);
-            addFields.setCategoryId(product1.getCategory().getId());
-            addFields.setCategoryName(product1.getCategory().getName());
-            addFields.setProducerId(product1.getProducer().getId());
-            addFields.setProducerName(product1.getProducer().getName());
-            addFields.setSupplierId(product1.getSupplier().getId());
-            addFields.setSupplierName(product1.getSupplier().getName());
             List<Long> ids = new ArrayList<>();
             List<String> urls = new ArrayList<>();
             for (Image x : product.getImages()) {
@@ -230,24 +204,16 @@ public class ProductManager implements ProductService {
     @Override
     public DataResult<List<GetAllProductResponse>> getListByPaginationAndSorting(int pageNo, int pageSize,
             String sortBy) {
-        isPageNumberValid(pageNo);
-        isPageSizeValid(pageSize);
-        isValidSortParameter(sortBy);
+        productBusinessRules.isPageNumberValid(pageNo);
+        productBusinessRules.isPageSizeValid(pageSize);
+        productBusinessRules.isValidSortParameter(sortBy);
 
         List<GetAllProductResponse> returnList = new ArrayList<>();
         List<Product> productList = productRepository
                 .findAll(PageRequest.of(pageNo, pageSize).withSort(Sort.by(sortBy))).toList();
         for (Product product : productList) {
-            Product product1 = productRepository.findById(product.getId())
-                    .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
-            GetAllProductResponse addFields = mapperService.getModelMapper().map(product,
+            GetAllProductResponse addFields = mapperService.forResponse().map(product,
                     GetAllProductResponse.class);
-            addFields.setCategoryId(product1.getCategory().getId());
-            addFields.setCategoryName(product1.getCategory().getName());
-            addFields.setProducerId(product1.getProducer().getId());
-            addFields.setProducerName(product1.getProducer().getName());
-            addFields.setSupplierId(product1.getSupplier().getId());
-            addFields.setSupplierName(product1.getSupplier().getName());
             List<Long> ids = new ArrayList<>();
             List<String> urls = new ArrayList<>();
             for (Image x : product.getImages()) {
@@ -268,16 +234,8 @@ public class ProductManager implements ProductService {
         List<Product> productList = productRepository.findAllByCategory_Id(categoryId)
                 .orElseThrow(() -> new BusinessException(ErrorMessages.CATEGORY_ID_NOT_FOUND));
         for (Product product : productList) {
-            Product product1 = productRepository.findById(product.getId())
-                    .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
-            GetAllProductResponse addFields = mapperService.getModelMapper().map(product,
+            GetAllProductResponse addFields = mapperService.forResponse().map(product,
                     GetAllProductResponse.class);
-            addFields.setCategoryId(product1.getCategory().getId());
-            addFields.setCategoryName(product1.getCategory().getName());
-            addFields.setProducerId(product1.getProducer().getId());
-            addFields.setProducerName(product1.getProducer().getName());
-            addFields.setSupplierId(product1.getSupplier().getId());
-            addFields.setSupplierName(product1.getSupplier().getName());
             List<Long> ids = new ArrayList<>();
             List<String> urls = new ArrayList<>();
             for (Image x : product.getImages()) {
@@ -301,79 +259,15 @@ public class ProductManager implements ProductService {
     @Override
     public List<Product> getProductsByIds(Long[] productsId) {
         List<Product> resultList = new ArrayList<>();
-        if(productsId == null){return resultList;}
+        if (productsId == null) {
+            return resultList;
+        }
         for (Long forEachId : productsId) {
             Product findProductById = productRepository.findById(forEachId)
                     .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
             resultList.add(findProductById);
         }
         return resultList;
-    }
-
-    private void removeExpiratedProduct() {
-        for (Product product : productRepository.findAll()) {
-            if (product.getExpirationDate().isBefore(LocalDate.now())) {
-                productRepository.delete(product);
-            }
-        }
-    }
-
-    private Result isExistId(Long id) {
-        if (!productRepository.existsById(id)) {
-            throw new BusinessException(ErrorMessages.ID_NOT_FOUND);
-        }
-        return new SuccessResult();
-    }
-
-    private Result isExistName(String name) {
-        if (productRepository.existsByNameIgnoreCase(name)) {
-            log.warn(LogWarnMessages.PRODUCT_NAME_REPEATED, name);
-            throw new BusinessException(ErrorMessages.PRODUCT_NAME_REPEATED);
-        }
-        return new SuccessResult();
-    }
-
-    private Result isExistCategoryId(Long categoryId) {
-        if (categoryService.getCategoryById(categoryId) == null) {
-            throw new BusinessException(ErrorMessages.CATEGORY_ID_NOT_FOUND);
-        }
-        return new SuccessResult();
-    }
-
-    private Result isExistSupplierId(Long supplierId) {
-        if (supplierService.getSupplierById(supplierId) == null) {
-            throw new BusinessException(ErrorMessages.SUPPLIER_ID_NOT_FOUND);
-        }
-        return new SuccessResult();
-    }
-
-    private Result isExistProducerId(Long producerId) {
-        if (producerService.getProducerById(producerId) == null) {
-            throw new BusinessException(ErrorMessages.PRODUCER_ID_NOT_FOUND);
-        }
-        return new SuccessResult();
-    }
-
-    private void isPageNumberValid(int pageNo) {
-        if (pageNo < 0) {
-            log.warn(LogWarnMessages.PAGE_NUMBER_NEGATIVE);
-            throw new BusinessException(ErrorMessages.PAGE_NUMBER_NEGATIVE);
-        }
-    }
-
-    private void isPageSizeValid(int pageSize) {
-        if (pageSize < 1) {
-            log.warn(LogWarnMessages.PAGE_SIZE_NEGATIVE);
-            throw new BusinessException(ErrorMessages.PAGE_SIZE_NEGATIVE);
-        }
-    }
-
-    private void isValidSortParameter(String sortBy) {
-        Product checkField = new Product();
-        if (!checkField.toString().contains(sortBy)) {
-            log.warn(LogWarnMessages.SORT_PARAMETER_NOT_VALID);
-            throw new BusinessException(ErrorMessages.SORT_PARAMETER_NOT_VALID);
-        }
     }
 
 }

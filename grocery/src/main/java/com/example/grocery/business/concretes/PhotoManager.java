@@ -2,7 +2,7 @@ package com.example.grocery.business.concretes;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
+import com.example.grocery.business.rules.PhotoBusinessRules;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -17,9 +17,7 @@ import com.example.grocery.business.constants.Messages.GetByIdMessages;
 import com.example.grocery.business.constants.Messages.GetByUrlMessages;
 import com.example.grocery.business.constants.Messages.GetListMessages;
 import com.example.grocery.business.constants.Messages.UpdateMessages;
-import com.example.grocery.business.constants.Messages.LogMessages.LogErrorMessages;
 import com.example.grocery.business.constants.Messages.LogMessages.LogInfoMessages;
-import com.example.grocery.business.constants.Messages.LogMessages.LogWarnMessages;
 import com.example.grocery.core.utilities.exceptions.BusinessException;
 import com.example.grocery.core.utilities.image.ImageService;
 import com.example.grocery.core.utilities.mapper.MapperService;
@@ -46,15 +44,16 @@ public class PhotoManager implements PhotoService {
     private ImageService imageService;
     @Autowired
     private MapperService mapperService;
+    @Autowired
+    private PhotoBusinessRules photoBusinessRules;
 
     @Override
     @Transactional
     public DataResult<Object> upload(MultipartFile file) {
-
-        isFormatValid(file);
+        photoBusinessRules.isFormatValid(file);
 
         var result = imageService.save(file);
-        Image image = mapperService.getModelMapper().map(result.getData(), Image.class);
+        Image image = mapperService.forRequest().map(result.getData(), Image.class);
         imageRepository.save(image);
         log.info(LogInfoMessages.SAVED_IMAGE_URL, image.getUrl());
         return new SuccessDataResult<>(image.getUrl(), CreateMessages.IMAGE_UPLOADED_AND_ADDED);
@@ -74,8 +73,7 @@ public class PhotoManager implements PhotoService {
     @Override
     @Transactional
     public DataResult<Object> update(Long id, MultipartFile file) {
-
-        isFormatValid(file);
+        photoBusinessRules.isFormatValid(file);
 
         Image inDbImage = imageRepository.findById(id)
                 .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
@@ -83,7 +81,7 @@ public class PhotoManager implements PhotoService {
         delete(inDbImage.getUrl());
 
         var result = imageService.save(file);
-        Image image = mapperService.getModelMapper().map(result.getData(), Image.class);
+        Image image = mapperService.forRequest().map(result.getData(), Image.class);
         image.setId(inDbImage.getId());
         imageRepository.save(image);
         log.info(LogInfoMessages.UPDATED_IMAGE_URL, image.getUrl());
@@ -94,14 +92,14 @@ public class PhotoManager implements PhotoService {
     public DataResult<List<GetAllImageResponse>> getAll() {
         List<Image> images = imageRepository.findAll();
         List<GetAllImageResponse> responseList = images.stream()
-                .map(i -> mapperService.getModelMapper().map(i, GetAllImageResponse.class)).toList();
+                .map(i -> mapperService.forResponse().map(i, GetAllImageResponse.class)).toList();
         return new SuccessDataResult<>(responseList, GetListMessages.IMAGES_LISTED);
     }
 
     @Override
     public DataResult<GetByIdImageResponse> getById(Long id) {
         Image image = imageRepository.findById(id).orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
-        GetByIdImageResponse response = mapperService.getModelMapper().map(image, GetByIdImageResponse.class);
+        GetByIdImageResponse response = mapperService.forResponse().map(image, GetByIdImageResponse.class);
         return new SuccessDataResult<>(response, GetByIdMessages.IMAGE_LISTED);
     }
 
@@ -109,42 +107,42 @@ public class PhotoManager implements PhotoService {
     public DataResult<GetByUrlImageResponse> getByUrl(String imageUrl) {
         Image image = imageRepository.findByUrl(imageUrl)
                 .orElseThrow(() -> new BusinessException(ErrorMessages.IMAGE_URL_NOT_FOUND));
-        GetByUrlImageResponse response = mapperService.getModelMapper().map(image, GetByUrlImageResponse.class);
+        GetByUrlImageResponse response = mapperService.forResponse().map(image, GetByUrlImageResponse.class);
         return new SuccessDataResult<>(response, GetByUrlMessages.IMAGE_LISTED);
     }
 
     @Override
     public DataResult<List<GetAllImageResponse>> getListBySorting(String sortBy) {
-        isValidSortParameter(sortBy);
+        photoBusinessRules.isValidSortParameter(sortBy);
 
         List<Image> images = imageRepository.findAll(Sort.by(Sort.Direction.ASC, sortBy));
         List<GetAllImageResponse> responseList = images.stream()
-                .map(i -> mapperService.getModelMapper().map(i, GetAllImageResponse.class)).toList();
+                .map(i -> mapperService.forResponse().map(i, GetAllImageResponse.class)).toList();
         return new SuccessDataResult<>(responseList, GetListMessages.IMAGES_SORTED + sortBy);
     }
 
     @Override
     public DataResult<List<GetAllImageResponse>> getListByPagination(int pageNo, int pageSize) {
-        isPageNumberValid(pageNo);
-        isPageSizeValid(pageSize);
+        photoBusinessRules.isPageNumberValid(pageNo);
+        photoBusinessRules.isPageSizeValid(pageSize);
 
         List<Image> images = imageRepository.findAll(PageRequest.of(pageNo, pageSize)).toList();
         List<GetAllImageResponse> responseList = images.stream()
-                .map(i -> mapperService.getModelMapper().map(i, GetAllImageResponse.class)).toList();
+                .map(i -> mapperService.forResponse().map(i, GetAllImageResponse.class)).toList();
         return new SuccessDataResult<>(responseList, GetListMessages.IMAGES_PAGINATED);
     }
 
     @Override
     public DataResult<List<GetAllImageResponse>> getListByPaginationAndSorting(int pageNo, int pageSize,
             String sortBy) {
-        isPageNumberValid(pageNo);
-        isPageSizeValid(pageSize);
-        isValidSortParameter(sortBy);
+        photoBusinessRules.isPageNumberValid(pageNo);
+        photoBusinessRules.isPageSizeValid(pageSize);
+        photoBusinessRules.isValidSortParameter(sortBy);
 
         List<Image> images = imageRepository.findAll(PageRequest.of(pageNo, pageSize).withSort(Sort.by(sortBy)))
                 .toList();
         List<GetAllImageResponse> responseList = images.stream()
-                .map(i -> mapperService.getModelMapper().map(i, GetAllImageResponse.class)).toList();
+                .map(i -> mapperService.forResponse().map(i, GetAllImageResponse.class)).toList();
         return new SuccessDataResult<>(responseList, GetListMessages.IMAGES_PAGINATED_AND_SORTED + sortBy);
     }
 
@@ -157,7 +155,9 @@ public class PhotoManager implements PhotoService {
     @Override
     public List<Image> getImagesByIds(Long[] imageIds) {
         List<Image> resultList = new ArrayList<>();
-        if(imageIds == null){return resultList;}
+        if (imageIds == null) {
+            return resultList;
+        }
         for (Long forEachId : imageIds) {
             Image findImageById = imageRepository.findById(forEachId)
                     .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
@@ -167,60 +167,18 @@ public class PhotoManager implements PhotoService {
     }
 
     @Override
-    public List<Image> getImagesByUrls(String[] imageUrls){
+    public List<Image> getImagesByUrls(String[] imageUrls) {
         List<Image> resultList = new ArrayList<>();
         String x = imageUrls.toString();
-        if(imageUrls == null || x.contains("")){return resultList;}
-        for(String forEachUrl : imageUrls){
+        if (imageUrls == null || x.contains("")) {
+            return resultList;
+        }
+        for (String forEachUrl : imageUrls) {
             Image findImageByUrl = imageRepository.findByUrl(forEachUrl)
                     .orElseThrow(() -> new BusinessException(ErrorMessages.IMAGE_URL_NOT_FOUND));
             resultList.add(findImageByUrl);
         }
         return resultList;
-    }
-
-    private void isFormatValid(MultipartFile file) {
-        ArrayList<String> formats = new ArrayList<>();
-        formats.add("png");
-        formats.add("jpg");
-        formats.add("jpeg");
-
-        if (file.isEmpty() || file.getOriginalFilename() == null) {
-            log.error(LogErrorMessages.FILE_IS_NULL);
-            throw new BusinessException(ErrorMessages.FILE_IS_NULL);
-        }
-
-        String imageName = file.getOriginalFilename().toLowerCase(Locale.ENGLISH);
-
-        for (String format : formats) {
-            if (imageName.contains(format)) {
-                return;
-            }
-        }
-        log.warn(LogWarnMessages.UNSUPPORTED_FORMAT);
-        throw new BusinessException(ErrorMessages.UNSUPPORTED_FORMAT);
-    }
-
-    private void isPageNumberValid(int pageNo) {
-        if (pageNo < 0) {
-            log.warn(LogWarnMessages.PAGE_NUMBER_NEGATIVE);
-            throw new BusinessException(ErrorMessages.PAGE_NUMBER_NEGATIVE);
-        }
-    }
-
-    private void isPageSizeValid(int pageSize) {
-        if (pageSize < 1) {
-            log.warn(LogWarnMessages.PAGE_SIZE_NEGATIVE);
-            throw new BusinessException(ErrorMessages.PAGE_SIZE_NEGATIVE);
-        }
-    }
-
-    private void isValidSortParameter(String sortBy) {
-        Image checkField = new Image();
-        if (!checkField.toString().contains(sortBy)) {
-            log.warn(LogWarnMessages.SORT_PARAMETER_NOT_VALID);
-            throw new BusinessException(ErrorMessages.SORT_PARAMETER_NOT_VALID);
-        }
     }
 
 }

@@ -3,6 +3,7 @@ package com.example.grocery.business.concretes;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.grocery.business.rules.CorporateCustomerBusinessRules;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -17,7 +18,6 @@ import com.example.grocery.business.constants.Messages.GetByIdMessages;
 import com.example.grocery.business.constants.Messages.GetListMessages;
 import com.example.grocery.business.constants.Messages.UpdateMessages;
 import com.example.grocery.business.constants.Messages.LogMessages.LogInfoMessages;
-import com.example.grocery.business.constants.Messages.LogMessages.LogWarnMessages;
 import com.example.grocery.core.security.services.UserService;
 import com.example.grocery.core.utilities.business.BusinessRules;
 import com.example.grocery.core.utilities.exceptions.BusinessException;
@@ -49,17 +49,23 @@ public class CorporateCustomerManager implements CorporateCustomerService {
         private UserService userService;
         @Autowired
         private PhotoService photoService;
+        @Autowired
+        private CorporateCustomerBusinessRules corporateCustomerBusinessRules;
 
         @Override
         @Transactional
         public Result add(CreateCorporateCustomerRequest createCorporateCustomerRequest) {
-                Result rules = BusinessRules.run(isExistTaxNumber(createCorporateCustomerRequest.getTaxNumber()),
-                                isExistImageId(createCorporateCustomerRequest.getImageId()),
-                                isExistUserId(createCorporateCustomerRequest.getUserId()));
+                Result rules = BusinessRules.run(
+                                corporateCustomerBusinessRules
+                                                .isExistTaxNumber(createCorporateCustomerRequest.getTaxNumber()),
+                                corporateCustomerBusinessRules
+                                                .isExistImageId(createCorporateCustomerRequest.getImageId()),
+                                corporateCustomerBusinessRules
+                                                .isExistUserId(createCorporateCustomerRequest.getUserId()));
                 if (!rules.isSuccess())
                         return rules;
 
-                CorporateCustomer corporateCustomer = mapperService.getModelMapper().map(
+                CorporateCustomer corporateCustomer = mapperService.forRequest().map(
                                 createCorporateCustomerRequest,
                                 CorporateCustomer.class);
                 corporateCustomer.setUser(userService.getUserById(createCorporateCustomerRequest.getUserId()));
@@ -73,11 +79,12 @@ public class CorporateCustomerManager implements CorporateCustomerService {
         @Override
         @Transactional
         public Result delete(DeleteCorporateCustomerRequest deleteCorporateCustomerRequest) {
-                Result rules = BusinessRules.run(isExistId(deleteCorporateCustomerRequest.getId()));
+                Result rules = BusinessRules
+                                .run(corporateCustomerBusinessRules.isExistId(deleteCorporateCustomerRequest.getId()));
                 if (!rules.isSuccess())
                         return rules;
 
-                CorporateCustomer corporateCustomer = mapperService.getModelMapper().map(
+                CorporateCustomer corporateCustomer = mapperService.forRequest().map(
                                 deleteCorporateCustomerRequest,
                                 CorporateCustomer.class);
                 CorporateCustomer logForCorporate = corporateCustomerRepository
@@ -94,7 +101,7 @@ public class CorporateCustomerManager implements CorporateCustomerService {
                 CorporateCustomer inDbCorporateCustomer = corporateCustomerRepository.findById(id)
                                 .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
 
-                CorporateCustomer corporateCustomer = mapperService.getModelMapper()
+                CorporateCustomer corporateCustomer = mapperService.forRequest()
                                 .map(updateCorporateCustomerRequest, CorporateCustomer.class);
                 corporateCustomer.setId(inDbCorporateCustomer.getId());
                 corporateCustomer.setUser(userService.getUserById(updateCorporateCustomerRequest.getUserId()));
@@ -110,10 +117,8 @@ public class CorporateCustomerManager implements CorporateCustomerService {
                 List<CorporateCustomer> corporateCustomers = corporateCustomerRepository.findAll();
                 List<GetAllCorporateCustomerResponse> returnList = new ArrayList<>();
                 for (CorporateCustomer forEachCustomer : corporateCustomers) {
-                        GetAllCorporateCustomerResponse obj = mapperService.getModelMapper().map(forEachCustomer,
+                        GetAllCorporateCustomerResponse obj = mapperService.forResponse().map(forEachCustomer,
                                         GetAllCorporateCustomerResponse.class);
-                        obj.setUserId(forEachCustomer.getUser().getId());
-                        obj.setImageId(forEachCustomer.getImage().getId());
                         returnList.add(obj);
                 }
                 return new SuccessDataResult<>(returnList,
@@ -124,26 +129,22 @@ public class CorporateCustomerManager implements CorporateCustomerService {
         public DataResult<GetByIdCorporateCustomerResponse> getById(Long id) {
                 CorporateCustomer inDbCorporateCustomer = corporateCustomerRepository.findById(id)
                                 .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
-                GetByIdCorporateCustomerResponse returnObj = mapperService.getModelMapper()
+                GetByIdCorporateCustomerResponse returnObj = mapperService.forResponse()
                                 .map(inDbCorporateCustomer, GetByIdCorporateCustomerResponse.class);
-                returnObj.setUserId(inDbCorporateCustomer.getUser().getId());
-                returnObj.setImageId(inDbCorporateCustomer.getImage().getId());
                 return new SuccessDataResult<>(returnObj,
                                 GetByIdMessages.CORPORATE_CUSTOMER_LISTED);
         }
 
         @Override
         public DataResult<List<GetAllCorporateCustomerResponse>> getListBySorting(String sortBy) {
-                isValidSortParameter(sortBy);
+                corporateCustomerBusinessRules.isValidSortParameter(sortBy);
 
                 List<CorporateCustomer> corporateCustomers = corporateCustomerRepository
                                 .findAll(Sort.by(Sort.Direction.ASC, sortBy));
                 List<GetAllCorporateCustomerResponse> returnList = new ArrayList<>();
                 for (CorporateCustomer forEachCustomer : corporateCustomers) {
-                        GetAllCorporateCustomerResponse obj = mapperService.getModelMapper().map(forEachCustomer,
+                        GetAllCorporateCustomerResponse obj = mapperService.forResponse().map(forEachCustomer,
                                         GetAllCorporateCustomerResponse.class);
-                        obj.setUserId(forEachCustomer.getUser().getId());
-                        obj.setImageId(forEachCustomer.getImage().getId());
                         returnList.add(obj);
                 }
                 return new SuccessDataResult<>(returnList,
@@ -152,17 +153,15 @@ public class CorporateCustomerManager implements CorporateCustomerService {
 
         @Override
         public DataResult<List<GetAllCorporateCustomerResponse>> getListByPagination(int pageNo, int pageSize) {
-                isPageNumberValid(pageNo);
-                isPageSizeValid(pageSize);
+                corporateCustomerBusinessRules.isPageNumberValid(pageNo);
+                corporateCustomerBusinessRules.isPageSizeValid(pageSize);
 
                 List<CorporateCustomer> corporateCustomers = corporateCustomerRepository
                                 .findAll(PageRequest.of(pageNo, pageSize)).toList();
                 List<GetAllCorporateCustomerResponse> returnList = new ArrayList<>();
                 for (CorporateCustomer forEachCustomer : corporateCustomers) {
-                        GetAllCorporateCustomerResponse obj = mapperService.getModelMapper().map(forEachCustomer,
+                        GetAllCorporateCustomerResponse obj = mapperService.forResponse().map(forEachCustomer,
                                         GetAllCorporateCustomerResponse.class);
-                        obj.setUserId(forEachCustomer.getUser().getId());
-                        obj.setImageId(forEachCustomer.getImage().getId());
                         returnList.add(obj);
                 }
                 return new SuccessDataResult<>(returnList,
@@ -172,75 +171,20 @@ public class CorporateCustomerManager implements CorporateCustomerService {
         @Override
         public DataResult<List<GetAllCorporateCustomerResponse>> getListByPaginationAndSorting(int pageNo, int pageSize,
                         String sortBy) {
-                isPageNumberValid(pageNo);
-                isPageSizeValid(pageSize);
-                isValidSortParameter(sortBy);
+                corporateCustomerBusinessRules.isPageNumberValid(pageNo);
+                corporateCustomerBusinessRules.isPageSizeValid(pageSize);
+                corporateCustomerBusinessRules.isValidSortParameter(sortBy);
 
                 List<CorporateCustomer> corporateCustomers = corporateCustomerRepository
                                 .findAll(PageRequest.of(pageNo, pageSize).withSort(Sort.by(sortBy))).toList();
                 List<GetAllCorporateCustomerResponse> returnList = new ArrayList<>();
                 for (CorporateCustomer forEachCustomer : corporateCustomers) {
-                        GetAllCorporateCustomerResponse obj = mapperService.getModelMapper().map(forEachCustomer,
+                        GetAllCorporateCustomerResponse obj = mapperService.forResponse().map(forEachCustomer,
                                         GetAllCorporateCustomerResponse.class);
-                        obj.setUserId(forEachCustomer.getUser().getId());
-                        obj.setImageId(forEachCustomer.getImage().getId());
                         returnList.add(obj);
                 }
                 return new SuccessDataResult<>(returnList,
                                 GetListMessages.CORPORATE_CUSTOMERS_PAGINATED_AND_SORTED + sortBy);
-        }
-
-        private Result isExistTaxNumber(String taxNumber) {
-                if (corporateCustomerRepository.existsByTaxNumber(taxNumber)) {
-                        log.warn(LogWarnMessages.TAX_NUMBER_REPEATED, taxNumber);
-                        throw new BusinessException(ErrorMessages.TAX_NUMBER_REPEATED);
-                }
-                return new SuccessResult();
-        }
-
-        private Result isExistId(Long id) {
-                if (!userService.existById(id)) {
-                        throw new BusinessException(ErrorMessages.ID_NOT_FOUND);
-                }
-                return new SuccessResult();
-        }
-
-        private Result isExistUserId(Long userId) {
-                if (corporateCustomerRepository.existsByUser_Id(userId)) {
-                        log.warn(LogWarnMessages.USER_ID_REPEATED, userId);
-                        throw new BusinessException(ErrorMessages.USER_ID_REPEATED);
-                }
-                return new SuccessResult();
-        }
-
-        private Result isExistImageId(Long imageId) {
-                if (corporateCustomerRepository.existsByImage_Id(imageId)) {
-                        log.warn(LogWarnMessages.IMAGE_ID_REPEATED, imageId);
-                        throw new BusinessException(ErrorMessages.IMAGE_ID_REPEATED);
-                }
-                return new SuccessResult();
-        }
-
-        private void isPageNumberValid(int pageNo) {
-                if (pageNo < 0) {
-                        log.warn(LogWarnMessages.PAGE_NUMBER_NEGATIVE);
-                        throw new BusinessException(ErrorMessages.PAGE_NUMBER_NEGATIVE);
-                }
-        }
-
-        private void isPageSizeValid(int pageSize) {
-                if (pageSize < 1) {
-                        log.warn(LogWarnMessages.PAGE_SIZE_NEGATIVE);
-                        throw new BusinessException(ErrorMessages.PAGE_SIZE_NEGATIVE);
-                }
-        }
-
-        private void isValidSortParameter(String sortBy) {
-                CorporateCustomer checkField = new CorporateCustomer();
-                if (!checkField.toString().contains(sortBy)) {
-                        log.warn(LogWarnMessages.SORT_PARAMETER_NOT_VALID);
-                        throw new BusinessException(ErrorMessages.SORT_PARAMETER_NOT_VALID);
-                }
         }
 
 }

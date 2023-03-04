@@ -6,7 +6,7 @@ import com.example.grocery.business.abstracts.PaymentService;
 import com.example.grocery.business.abstracts.ProductService;
 import com.example.grocery.business.constants.Messages.*;
 import com.example.grocery.business.constants.Messages.LogMessages.LogInfoMessages;
-import com.example.grocery.business.constants.Messages.LogMessages.LogWarnMessages;
+import com.example.grocery.business.rules.OrderBusinessRules;
 import com.example.grocery.core.utilities.business.BusinessRules;
 import com.example.grocery.core.utilities.exceptions.BusinessException;
 import com.example.grocery.core.utilities.mapper.MapperService;
@@ -49,18 +49,20 @@ public class OrderManager implements OrderService {
     private PaymentService paymentService;
     @Autowired
     private ProductService productService;
+    @Autowired
+    private OrderBusinessRules orderBusinessRules;
 
     @Override
     @Transactional
     @CacheEvict(cacheNames = "order", allEntries = true)
     public Result add(CreateOrderRequest createOrderRequest) {
 
-        Result rules = BusinessRules.run(isExistCustomerId(createOrderRequest.getCustomerId()),
-                isExistPaymentId(createOrderRequest.getPaymentId()));
+        Result rules = BusinessRules.run(orderBusinessRules.isExistCustomerId(createOrderRequest.getCustomerId()),
+                orderBusinessRules.isExistPaymentId(createOrderRequest.getPaymentId()));
         if (!rules.isSuccess())
             return rules;
 
-        Order order = mapperService.getModelMapper().map(createOrderRequest, Order.class);
+        Order order = mapperService.forRequest().map(createOrderRequest, Order.class);
         order.setCustomer(customerService.getCustomerById(createOrderRequest.getCustomerId()));
         order.setPayment(paymentService.getPaymentById(createOrderRequest.getPaymentId()));
         order.setProducts(productService.getProductsByIds(createOrderRequest.getProductIds()));
@@ -75,14 +77,14 @@ public class OrderManager implements OrderService {
     @CacheEvict(cacheNames = "order", key = "#deleteOrderRequest.id")
     public Result delete(DeleteOrderRequest deleteOrderRequest) {
 
-        Result rules = BusinessRules.run(isExistId(deleteOrderRequest.getId()));
+        Result rules = BusinessRules.run(orderBusinessRules.isExistId(deleteOrderRequest.getId()));
         if (!rules.isSuccess())
             return rules;
 
         Order orderForLogging = orderRepository.findById(deleteOrderRequest.getId())
                 .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
 
-        Order order = mapperService.getModelMapper().map(deleteOrderRequest, Order.class);
+        Order order = mapperService.forRequest().map(deleteOrderRequest, Order.class);
         log.info(LogInfoMessages.ORDER_DELETED, orderForLogging.getId());
         orderRepository.delete(order);
         return new SuccessResult(DeleteMessages.ORDER_DELETED);
@@ -95,12 +97,13 @@ public class OrderManager implements OrderService {
         Order inDbOrder = orderRepository.findById(id)
                 .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
 
-        Result rules = BusinessRules.run(isExistId(id), isExistCustomerId(updateOrderRequest.getCustomerId()),
-                isExistPaymentId(updateOrderRequest.getPaymentId()));
+        Result rules = BusinessRules.run(orderBusinessRules.isExistCustomerId(updateOrderRequest.getCustomerId()),
+                orderBusinessRules.isExistPaymentId(updateOrderRequest.getPaymentId()),
+                orderBusinessRules.isExistId(id));
         if (!rules.isSuccess())
             return rules;
 
-        Order order = mapperService.getModelMapper().map(updateOrderRequest, Order.class);
+        Order order = mapperService.forRequest().map(updateOrderRequest, Order.class);
         order.setCustomer(customerService.getCustomerById(updateOrderRequest.getCustomerId()));
         order.setPayment(paymentService.getPaymentById(updateOrderRequest.getPaymentId()));
         order.setProducts(productService.getProductsByIds(updateOrderRequest.getProductIds()));
@@ -118,12 +121,8 @@ public class OrderManager implements OrderService {
         List<GetAllOrderResponse> returnList = new ArrayList<>();
         List<Order> orderList = orderRepository.findAll();
         for (Order order : orderList) {
-            Order order1 = orderRepository.findById(order.getId())
-                    .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
-            GetAllOrderResponse addFields = mapperService.getModelMapper().map(order,
+            GetAllOrderResponse addFields = mapperService.forResponse().map(order,
                     GetAllOrderResponse.class);
-            addFields.setCustomerId(order1.getCustomer().getId());
-            addFields.setPaymentId(order1.getPayment().getId());
             List<Long> ids = new ArrayList<>();
             for (Product x : order.getProducts()) {
                 ids.add(x.getId());
@@ -139,10 +138,8 @@ public class OrderManager implements OrderService {
     public DataResult<GetByIdOrderResponse> getById(Long id) {
         Order order = orderRepository.findById(id)
                 .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
-        GetByIdOrderResponse getByIdOrderResponse = mapperService.getModelMapper().map(order,
+        GetByIdOrderResponse getByIdOrderResponse = mapperService.forResponse().map(order,
                 GetByIdOrderResponse.class);
-        getByIdOrderResponse.setCustomerId(order.getCustomer().getId());
-        getByIdOrderResponse.setPaymentId(order.getPayment().getId());
         List<Long> ids = new ArrayList<>();
         for (Product x : order.getProducts()) {
             ids.add(x.getId());
@@ -154,17 +151,13 @@ public class OrderManager implements OrderService {
     @Override
     @Cacheable(value = "order", key = "#sortBy")
     public DataResult<List<GetAllOrderResponse>> getListBySorting(String sortBy) {
-        isValidSortParameter(sortBy);
+        orderBusinessRules.isValidSortParameter(sortBy);
 
         List<GetAllOrderResponse> returnList = new ArrayList<>();
         List<Order> orderList = orderRepository.findAll(Sort.by(Sort.Direction.ASC, sortBy));
         for (Order order : orderList) {
-            Order order1 = orderRepository.findById(order.getId())
-                    .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
-            GetAllOrderResponse addFields = mapperService.getModelMapper().map(order,
+            GetAllOrderResponse addFields = mapperService.forResponse().map(order,
                     GetAllOrderResponse.class);
-            addFields.setCustomerId(order1.getCustomer().getId());
-            addFields.setPaymentId(order1.getPayment().getId());
             List<Long> ids = new ArrayList<>();
             for (Product x : order.getProducts()) {
                 ids.add(x.getId());
@@ -177,18 +170,14 @@ public class OrderManager implements OrderService {
 
     @Override
     public DataResult<List<GetAllOrderResponse>> getListByPagination(int pageNo, int pageSize) {
-        isPageNumberValid(pageNo);
-        isPageSizeValid(pageSize);
+        orderBusinessRules.isPageNumberValid(pageNo);
+        orderBusinessRules.isPageSizeValid(pageSize);
 
         List<GetAllOrderResponse> returnList = new ArrayList<>();
         List<Order> orderList = orderRepository.findAll(PageRequest.of(pageNo, pageSize)).toList();
         for (Order order : orderList) {
-            Order order1 = orderRepository.findById(order.getId())
-                    .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
-            GetAllOrderResponse addFields = mapperService.getModelMapper().map(order,
+            GetAllOrderResponse addFields = mapperService.forResponse().map(order,
                     GetAllOrderResponse.class);
-            addFields.setCustomerId(order1.getCustomer().getId());
-            addFields.setPaymentId(order1.getPayment().getId());
             List<Long> ids = new ArrayList<>();
             for (Product x : order.getProducts()) {
                 ids.add(x.getId());
@@ -202,20 +191,16 @@ public class OrderManager implements OrderService {
     @Override
     public DataResult<List<GetAllOrderResponse>> getListByPaginationAndSorting(int pageNo, int pageSize,
             String sortBy) {
-        isPageNumberValid(pageNo);
-        isPageSizeValid(pageSize);
-        isValidSortParameter(sortBy);
+        orderBusinessRules.isPageNumberValid(pageNo);
+        orderBusinessRules.isPageSizeValid(pageSize);
+        orderBusinessRules.isValidSortParameter(sortBy);
 
         List<GetAllOrderResponse> returnList = new ArrayList<>();
         List<Order> orderList = orderRepository.findAll(PageRequest.of(pageNo, pageSize).withSort(Sort.by(sortBy)))
                 .toList();
         for (Order order : orderList) {
-            Order order1 = orderRepository.findById(order.getId())
-                    .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
-            GetAllOrderResponse addFields = mapperService.getModelMapper().map(order,
+            GetAllOrderResponse addFields = mapperService.forResponse().map(order,
                     GetAllOrderResponse.class);
-            addFields.setCustomerId(order1.getCustomer().getId());
-            addFields.setPaymentId(order1.getPayment().getId());
             List<Long> ids = new ArrayList<>();
             for (Product x : order.getProducts()) {
                 ids.add(x.getId());
@@ -224,49 +209,6 @@ public class OrderManager implements OrderService {
             returnList.add(addFields);
         }
         return new SuccessDataResult<>(returnList, GetListMessages.ORDERS_PAGINATED_AND_SORTED + sortBy);
-    }
-
-    private Result isExistId(Long id) {
-        if (!orderRepository.existsById(id)) {
-            throw new BusinessException(ErrorMessages.ID_NOT_FOUND);
-        }
-        return new SuccessResult();
-    }
-
-    private Result isExistCustomerId(Long customerId) {
-        if (customerService.getCustomerById(customerId) == null) {
-            throw new BusinessException(ErrorMessages.CUSTOMER_ID_NOT_FOUND);
-        }
-        return new SuccessResult();
-    }
-
-    private Result isExistPaymentId(Long paymentId) {
-        if (paymentService.getPaymentById(paymentId) == null) {
-            throw new BusinessException(ErrorMessages.PAYMENT_ID_NOT_FOUND);
-        }
-        return new SuccessResult();
-    }
-
-    private void isPageNumberValid(int pageNo) {
-        if (pageNo < 0) {
-            log.warn(LogWarnMessages.PAGE_NUMBER_NEGATIVE);
-            throw new BusinessException(ErrorMessages.PAGE_NUMBER_NEGATIVE);
-        }
-    }
-
-    private void isPageSizeValid(int pageSize) {
-        if (pageSize < 1) {
-            log.warn(LogWarnMessages.PAGE_SIZE_NEGATIVE);
-            throw new BusinessException(ErrorMessages.PAGE_SIZE_NEGATIVE);
-        }
-    }
-
-    private void isValidSortParameter(String sortBy) {
-        Order checkField = new Order();
-        if (!checkField.toString().contains(sortBy)) {
-            log.warn(LogWarnMessages.SORT_PARAMETER_NOT_VALID);
-            throw new BusinessException(ErrorMessages.SORT_PARAMETER_NOT_VALID);
-        }
     }
 
 }

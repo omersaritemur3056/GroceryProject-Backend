@@ -1,9 +1,5 @@
 package com.example.grocery.webApi.responses.payment;
 
-import java.util.List;
-
-import com.example.grocery.entity.concretes.Order;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,6 +24,4 @@ public class GetAllPaymentResponse {
     private String cardCvv;
 
     private double balance;
-
-    private List<Order> orders;
 }

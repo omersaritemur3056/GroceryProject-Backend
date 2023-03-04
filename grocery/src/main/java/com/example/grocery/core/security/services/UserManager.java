@@ -22,8 +22,6 @@ import com.example.grocery.business.constants.Messages.GetByIdMessages;
 import com.example.grocery.business.constants.Messages.GetListMessages;
 import com.example.grocery.business.constants.Messages.UpdateMessages;
 import com.example.grocery.business.constants.Messages.LogMessages.LogInfoMessages;
-import com.example.grocery.business.constants.Messages.LogMessages.LogWarnMessages;
-import com.example.grocery.core.mailing.service.EmailService;
 import com.example.grocery.core.security.DTOs.request.TokenRefreshRequest;
 import com.example.grocery.core.security.DTOs.request.UpdateUserRequestDto;
 import com.example.grocery.core.security.DTOs.request.UserForLoginDto;
@@ -70,18 +68,18 @@ public class UserManager implements UserService {
     @Autowired
     private MapperService mapperService;
     @Autowired
-    private EmailService emailService;
+    private UserBusinessRules userBusinessRules;
 
     @Override
     @Transactional
     public Result register(UserForRegisterDto userForRegisterDto) {
-        Result rules = BusinessRules.run(isEmailExist(userForRegisterDto.getEmail()),
-                isUsernameExist(userForRegisterDto.getUsername()),
-                isValidPassword(userForRegisterDto.getPassword(), userForRegisterDto.getUsername()));
+        Result rules = BusinessRules.run(userBusinessRules.isEmailExist(userForRegisterDto.getEmail()),
+                userBusinessRules.isUsernameExist(userForRegisterDto.getUsername()),
+                userBusinessRules.isValidPassword(userForRegisterDto.getPassword(), userForRegisterDto.getUsername()));
         if (!rules.isSuccess())
             return rules;
 
-        User user = mapperService.getModelMapper().map(userForRegisterDto, User.class);
+        User user = mapperService.forRequest().map(userForRegisterDto, User.class);
         user.setPassword(passwordEncoder.encode(userForRegisterDto.getPassword()));
 
         Set<String> strRoles = userForRegisterDto.getRole();
@@ -153,13 +151,14 @@ public class UserManager implements UserService {
     public Result update(Long id, UpdateUserRequestDto updateUserRequestDto) {
         User inDbUser = getUserById(id);
 
-        Result rules = BusinessRules.run(isEmailExist(updateUserRequestDto.getEmail()),
-                isUsernameExist(updateUserRequestDto.getUsername()),
-                isValidPassword(updateUserRequestDto.getPassword(), updateUserRequestDto.getUsername()));
+        Result rules = BusinessRules.run(userBusinessRules.isEmailExist(updateUserRequestDto.getEmail()),
+                userBusinessRules.isUsernameExist(updateUserRequestDto.getUsername()),
+                userBusinessRules.isValidPassword(updateUserRequestDto.getPassword(),
+                        updateUserRequestDto.getUsername()));
         if (!rules.isSuccess())
             return rules;
 
-        User user = mapperService.getModelMapper().map(updateUserRequestDto, User.class);
+        User user = mapperService.forRequest().map(updateUserRequestDto, User.class);
         user.setId(inDbUser.getId());
         user.setPassword(passwordEncoder.encode(updateUserRequestDto.getPassword()));
         user.setCreatedDateTime(inDbUser.getCreatedDateTime());
@@ -234,7 +233,7 @@ public class UserManager implements UserService {
     public DataResult<List<GetAllUserResponseDto>> getAll() {
         List<User> userList = userRepository.findAll();
         List<GetAllUserResponseDto> returnList = userList.stream()
-                .map(u -> mapperService.getModelMapper().map(u, GetAllUserResponseDto.class)).toList();
+                .map(u -> mapperService.forResponse().map(u, GetAllUserResponseDto.class)).toList();
 
         return new SuccessDataResult<>(returnList, GetListMessages.USERS_LISTED);
     }
@@ -243,30 +242,30 @@ public class UserManager implements UserService {
     public DataResult<GetByIdUserResponseDto> getById(Long id) {
         User inDbUser = userRepository.findById(id)
                 .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
-        GetByIdUserResponseDto returnObj = mapperService.getModelMapper().map(inDbUser, GetByIdUserResponseDto.class);
+        GetByIdUserResponseDto returnObj = mapperService.forResponse().map(inDbUser, GetByIdUserResponseDto.class);
         returnObj.setRoles(inDbUser.getRoles());
         return new SuccessDataResult<>(returnObj, GetByIdMessages.USER_LISTED);
     }
 
     @Override
     public DataResult<List<GetAllUserResponseDto>> getListBySorting(String sortBy) {
-        isValidSortParameter(sortBy);
+        userBusinessRules.isValidSortParameter(sortBy);
 
         List<User> userList = userRepository.findAll(Sort.by(Sort.Direction.ASC, sortBy));
         List<GetAllUserResponseDto> returnList = userList.stream()
-                .map(u -> mapperService.getModelMapper().map(u, GetAllUserResponseDto.class)).toList();
+                .map(u -> mapperService.forResponse().map(u, GetAllUserResponseDto.class)).toList();
 
         return new SuccessDataResult<>(returnList, GetListMessages.USERS_SORTED + sortBy);
     }
 
     @Override
     public DataResult<List<GetAllUserResponseDto>> getListByPagination(int pageNo, int pageSize) {
-        isPageNumberValid(pageNo);
-        isPageSizeValid(pageSize);
+        userBusinessRules.isPageNumberValid(pageNo);
+        userBusinessRules.isPageSizeValid(pageSize);
 
         List<User> userList = userRepository.findAll(PageRequest.of(pageNo, pageSize)).toList();
         List<GetAllUserResponseDto> returnList = userList.stream()
-                .map(u -> mapperService.getModelMapper().map(u, GetAllUserResponseDto.class)).toList();
+                .map(u -> mapperService.forResponse().map(u, GetAllUserResponseDto.class)).toList();
 
         return new SuccessDataResult<>(returnList, GetListMessages.USERS_PAGINATED);
     }
@@ -274,14 +273,14 @@ public class UserManager implements UserService {
     @Override
     public DataResult<List<GetAllUserResponseDto>> getListByPaginationAndSorting(int pageNo, int pageSize,
             String sortBy) {
-        isValidSortParameter(sortBy);
-        isPageNumberValid(pageNo);
-        isPageSizeValid(pageSize);
+        userBusinessRules.isValidSortParameter(sortBy);
+        userBusinessRules.isPageNumberValid(pageNo);
+        userBusinessRules.isPageSizeValid(pageSize);
 
         List<User> userList = userRepository.findAll(PageRequest.of(pageNo, pageSize).withSort(Sort.by(sortBy)))
                 .toList();
         List<GetAllUserResponseDto> returnList = userList.stream()
-                .map(u -> mapperService.getModelMapper().map(u, GetAllUserResponseDto.class)).toList();
+                .map(u -> mapperService.forResponse().map(u, GetAllUserResponseDto.class)).toList();
 
         return new SuccessDataResult<>(returnList, GetListMessages.USERS_PAGINATED_AND_SORTED + sortBy);
     }
@@ -308,59 +307,6 @@ public class UserManager implements UserService {
     @Override
     public boolean existById(Long id) {
         return userRepository.existsById(id);
-    }
-
-    private Result isUsernameExist(String username) {
-        if (userRepository.existsByUsername(username)) {
-            log.warn(LogWarnMessages.USERNAME_EXIST, username);
-            throw new BusinessException(ErrorMessages.USERNAME_EXIST);
-        }
-        return new SuccessResult();
-    }
-
-    private Result isEmailExist(String email) {
-        if (userRepository.existsByEmail(email)) {
-            log.warn(LogWarnMessages.USER_EMAIL_REPEATED, email);
-            throw new BusinessException(ErrorMessages.EMAIL_REPEATED);
-        }
-        return new SuccessResult();
-    }
-
-    private Result isValidPassword(String password, String username) {
-        if (password.contains(username)) {
-            log.warn(LogWarnMessages.USER_PASSWORD_NOT_VALID, password, username);
-            throw new BusinessException(ErrorMessages.PASSWORD_NOT_VALID);
-        }
-        return new SuccessResult();
-    }
-
-    private void isPageNumberValid(int pageNo) {
-        if (pageNo < 0) {
-            log.warn(LogWarnMessages.PAGE_NUMBER_NEGATIVE);
-            throw new BusinessException(ErrorMessages.PAGE_NUMBER_NEGATIVE);
-        }
-    }
-
-    private void isPageSizeValid(int pageSize) {
-        if (pageSize < 1) {
-            log.warn(LogWarnMessages.PAGE_SIZE_NEGATIVE);
-            throw new BusinessException(ErrorMessages.PAGE_SIZE_NEGATIVE);
-        }
-    }
-
-    private void isValidSortParameter(String sortBy) {
-        User checkField = new User();
-        if (!checkField.toString().contains(sortBy)) {
-            log.warn(LogWarnMessages.SORT_PARAMETER_NOT_VALID);
-            throw new BusinessException(ErrorMessages.SORT_PARAMETER_NOT_VALID);
-        }
-    }
-
-    private void isVerifiedEmail(String email) {
-        log.warn(LogWarnMessages.EMAIL_NOT_VERIFIED, email);
-        if (!emailService.sendActivationEmail(email).isSuccess()) {
-            throw new BusinessException(ErrorMessages.EMAIL_NOT_VERIFIED);
-        }
     }
 
     // signout tasarlanacak...

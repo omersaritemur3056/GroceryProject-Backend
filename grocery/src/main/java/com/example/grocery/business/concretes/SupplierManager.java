@@ -2,6 +2,7 @@ package com.example.grocery.business.concretes;
 
 import java.util.List;
 
+import com.example.grocery.business.rules.SupplierBusinessRules;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -15,7 +16,6 @@ import com.example.grocery.business.constants.Messages.GetByIdMessages;
 import com.example.grocery.business.constants.Messages.GetListMessages;
 import com.example.grocery.business.constants.Messages.UpdateMessages;
 import com.example.grocery.business.constants.Messages.LogMessages.LogInfoMessages;
-import com.example.grocery.business.constants.Messages.LogMessages.LogWarnMessages;
 import com.example.grocery.core.utilities.business.BusinessRules;
 import com.example.grocery.core.utilities.exceptions.BusinessException;
 import com.example.grocery.core.utilities.mapper.MapperService;
@@ -41,17 +41,19 @@ public class SupplierManager implements SupplierService {
     private SupplierRepository supplierRepository;
     @Autowired
     private MapperService mapperService;
+    @Autowired
+    private SupplierBusinessRules supplierBusinessRules;
 
     @Override
     public Result add(CreateSupplierRequest createSupplierRequest) {
 
-        Result rules = BusinessRules.run(isExistEmail(createSupplierRequest.getEmail()),
-                isExistName(createSupplierRequest.getName()),
-                isExistPhoneNumber(createSupplierRequest.getPhoneNumber()));
+        Result rules = BusinessRules.run(supplierBusinessRules.isExistEmail(createSupplierRequest.getEmail()),
+                supplierBusinessRules.isExistName(createSupplierRequest.getName()),
+                supplierBusinessRules.isExistPhoneNumber(createSupplierRequest.getPhoneNumber()));
         if (!rules.isSuccess())
             return rules;
 
-        Supplier supplier = mapperService.getModelMapper().map(createSupplierRequest, Supplier.class);
+        Supplier supplier = mapperService.forRequest().map(createSupplierRequest, Supplier.class);
         supplierRepository.save(supplier);
         log.info(LogInfoMessages.SUPPLIER_ADDED, createSupplierRequest.getName());
         return new SuccessResult(CreateMessages.SUPPLIER_CREATED);
@@ -60,16 +62,16 @@ public class SupplierManager implements SupplierService {
     @Override
     public Result update(UpdateSupplierRequest updateSupplierRequest, Long id) {
 
-        Result rules = BusinessRules.run(isExistEmail(updateSupplierRequest.getEmail()),
-                isExistName(updateSupplierRequest.getName()),
-                isExistPhoneNumber(updateSupplierRequest.getPhoneNumber()),
-                isExistId(id));
+        Result rules = BusinessRules.run(supplierBusinessRules.isExistEmail(updateSupplierRequest.getEmail()),
+                supplierBusinessRules.isExistName(updateSupplierRequest.getName()),
+                supplierBusinessRules.isExistPhoneNumber(updateSupplierRequest.getPhoneNumber()),
+                supplierBusinessRules.isExistId(id));
         if (!rules.isSuccess())
             return rules;
 
         var inDbSupplier = supplierRepository.findById(id)
                 .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
-        Supplier supplier = mapperService.getModelMapper().map(updateSupplierRequest, Supplier.class);
+        Supplier supplier = mapperService.forRequest().map(updateSupplierRequest, Supplier.class);
         supplier.setId(inDbSupplier.getId());
         supplierRepository.save(supplier);
         log.info(LogInfoMessages.SUPPLIER_UPDATED, updateSupplierRequest.getName());
@@ -79,11 +81,11 @@ public class SupplierManager implements SupplierService {
     @Override
     public Result delete(DeleteSupplierRequest deleteSupplierRequest) {
 
-        Result rules = BusinessRules.run(isExistId(deleteSupplierRequest.getId()));
+        Result rules = BusinessRules.run(supplierBusinessRules.isExistId(deleteSupplierRequest.getId()));
         if (!rules.isSuccess())
             return rules;
 
-        Supplier supplier = mapperService.getModelMapper().map(deleteSupplierRequest, Supplier.class);
+        Supplier supplier = mapperService.forRequest().map(deleteSupplierRequest, Supplier.class);
         log.info(LogInfoMessages.SUPPLIER_DELETED, getSupplierById(deleteSupplierRequest.getId()).getName());
         supplierRepository.delete(supplier);
         return new SuccessResult(DeleteMessages.SUPPLIER_DELETED);
@@ -93,7 +95,7 @@ public class SupplierManager implements SupplierService {
     public DataResult<List<GetAllSupplierResponse>> getAll() {
         List<Supplier> suppliers = supplierRepository.findAll();
         List<GetAllSupplierResponse> returnList = suppliers.stream()
-                .map(s -> mapperService.getModelMapper().map(s, GetAllSupplierResponse.class)).toList();
+                .map(s -> mapperService.forResponse().map(s, GetAllSupplierResponse.class)).toList();
         return new SuccessDataResult<>(returnList, GetListMessages.SUPPLIERS_LISTED);
     }
 
@@ -101,43 +103,43 @@ public class SupplierManager implements SupplierService {
     public DataResult<GetByIdSupplierResponse> getById(Long id) {
         Supplier supplier = supplierRepository.findById(id)
                 .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
-        GetByIdSupplierResponse getByIdSupplierResponse = mapperService.getModelMapper().map(supplier,
+        GetByIdSupplierResponse getByIdSupplierResponse = mapperService.forResponse().map(supplier,
                 GetByIdSupplierResponse.class);
         return new SuccessDataResult<>(getByIdSupplierResponse, GetByIdMessages.SUPPLIER_LISTED);
     }
 
     @Override
     public DataResult<List<GetAllSupplierResponse>> getListBySorting(String sortBy) {
-        isValidSortParameter(sortBy);
+        supplierBusinessRules.isValidSortParameter(sortBy);
 
         List<Supplier> suppliers = supplierRepository.findAll(Sort.by(Sort.Direction.ASC, sortBy));
         List<GetAllSupplierResponse> returnList = suppliers.stream()
-                .map(s -> mapperService.getModelMapper().map(s, GetAllSupplierResponse.class)).toList();
+                .map(s -> mapperService.forResponse().map(s, GetAllSupplierResponse.class)).toList();
         return new SuccessDataResult<>(returnList, GetListMessages.SUPPLIERS_SORTED + sortBy);
     }
 
     @Override
     public DataResult<List<GetAllSupplierResponse>> getListByPagination(int pageNo, int pageSize) {
-        isPageNumberValid(pageNo);
-        isPageSizeValid(pageSize);
+        supplierBusinessRules.isPageNumberValid(pageNo);
+        supplierBusinessRules.isPageSizeValid(pageSize);
 
         List<Supplier> suppliers = supplierRepository.findAll(PageRequest.of(pageNo, pageSize)).toList();
         List<GetAllSupplierResponse> returnList = suppliers.stream()
-                .map(s -> mapperService.getModelMapper().map(s, GetAllSupplierResponse.class)).toList();
+                .map(s -> mapperService.forResponse().map(s, GetAllSupplierResponse.class)).toList();
         return new SuccessDataResult<>(returnList, GetListMessages.SUPPLIERS_PAGINATED);
     }
 
     @Override
     public DataResult<List<GetAllSupplierResponse>> getListByPaginationAndSorting(int pageNo, int pageSize,
             String sortBy) {
-        isPageNumberValid(pageNo);
-        isPageSizeValid(pageSize);
-        isValidSortParameter(sortBy);
+        supplierBusinessRules.isPageNumberValid(pageNo);
+        supplierBusinessRules.isPageSizeValid(pageSize);
+        supplierBusinessRules.isValidSortParameter(sortBy);
 
         List<Supplier> suppliers = supplierRepository
                 .findAll(PageRequest.of(pageNo, pageSize).withSort(Sort.by(sortBy))).toList();
         List<GetAllSupplierResponse> returnList = suppliers.stream()
-                .map(s -> mapperService.getModelMapper().map(s, GetAllSupplierResponse.class)).toList();
+                .map(s -> mapperService.forResponse().map(s, GetAllSupplierResponse.class)).toList();
         return new SuccessDataResult<>(returnList, GetListMessages.SUPPLIERS_PAGINATED_AND_SORTED + sortBy);
     }
 
@@ -147,59 +149,6 @@ public class SupplierManager implements SupplierService {
     public Supplier getSupplierById(Long id) {
         return supplierRepository.findById(id)
                 .orElseThrow(() -> new BusinessException(ErrorMessages.SUPPLIER_ID_NOT_FOUND));
-    }
-
-    private Result isExistId(Long id) {
-        if (!supplierRepository.existsById(id)) {
-            throw new BusinessException(ErrorMessages.ID_NOT_FOUND);
-        }
-        return new SuccessResult();
-    }
-
-    private Result isExistName(String name) {
-        if (supplierRepository.existsByName(name)) {
-            log.warn(LogWarnMessages.SUPPLIER_NAME_REPEATED, name);
-            throw new BusinessException(ErrorMessages.SUPPLIER_NAME_REPEATED);
-        }
-        return new SuccessResult();
-    }
-
-    private Result isExistEmail(String email) {
-        if (supplierRepository.existsByEmail(email)) {
-            log.warn(LogWarnMessages.SUPPLIER_EMAIL_REPEATED, email);
-            throw new BusinessException(ErrorMessages.EMAIL_REPEATED);
-        }
-        return new SuccessResult();
-    }
-
-    private Result isExistPhoneNumber(String phoneNumber) {
-        if (supplierRepository.existsByPhoneNumber(phoneNumber)) {
-            log.warn(LogWarnMessages.SUPPLIER_PHONE_NUMBER_REPEATED, phoneNumber);
-            throw new BusinessException(ErrorMessages.PHONE_NUMBER_REPEATED);
-        }
-        return new SuccessResult();
-    }
-
-    private void isPageNumberValid(int pageNo) {
-        if (pageNo < 0) {
-            log.warn(LogWarnMessages.PAGE_NUMBER_NEGATIVE);
-            throw new BusinessException(ErrorMessages.PAGE_NUMBER_NEGATIVE);
-        }
-    }
-
-    private void isPageSizeValid(int pageSize) {
-        if (pageSize < 1) {
-            log.warn(LogWarnMessages.PAGE_SIZE_NEGATIVE);
-            throw new BusinessException(ErrorMessages.PAGE_SIZE_NEGATIVE);
-        }
-    }
-
-    private void isValidSortParameter(String sortBy) {
-        Supplier checkField = new Supplier();
-        if (!checkField.toString().contains(sortBy)) {
-            log.warn(LogWarnMessages.SORT_PARAMETER_NOT_VALID);
-            throw new BusinessException(ErrorMessages.SORT_PARAMETER_NOT_VALID);
-        }
     }
 
 }
