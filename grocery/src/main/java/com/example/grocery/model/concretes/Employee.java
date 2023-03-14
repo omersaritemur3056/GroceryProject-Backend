@@ -1,8 +1,8 @@
-package com.example.grocery.entity.concretes;
+package com.example.grocery.model.concretes;
 
 import com.example.grocery.core.security.models.User;
-import com.example.grocery.entity.enums.Gender;
-import com.example.grocery.entity.enums.Nationality;
+import com.example.grocery.model.enums.Gender;
+import com.example.grocery.model.enums.Nationality;
 import jakarta.persistence.*;
 import lombok.*;
 

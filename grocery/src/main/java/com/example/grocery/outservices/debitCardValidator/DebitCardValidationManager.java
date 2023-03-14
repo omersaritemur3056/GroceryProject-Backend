@@ -2,8 +2,8 @@ package com.example.grocery.outservices.debitCardValidator;
 
 import org.springframework.stereotype.Service;
 
-import com.example.grocery.business.constants.Messages.ErrorMessages;
-import com.example.grocery.business.constants.Messages.LogMessages.LogWarnMessages;
+import com.example.grocery.service.constants.Messages.ErrorMessages;
+import com.example.grocery.service.constants.Messages.LogMessages.LogWarnMessages;
 import com.example.grocery.core.utilities.exceptions.BusinessException;
 import com.example.grocery.core.utilities.results.Result;
 import com.example.grocery.core.utilities.results.SuccessResult;

@@ -1,4 +1,4 @@
-package com.example.grocery.webApi.controller;
+package com.example.grocery.api.controller;
 
 import java.util.List;
 
@@ -7,14 +7,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.example.grocery.business.abstracts.PaymentService;
+import com.example.grocery.service.interfaces.PaymentService;
 import com.example.grocery.core.utilities.results.DataResult;
 import com.example.grocery.core.utilities.results.Result;
-import com.example.grocery.webApi.requests.payment.CreatePaymentRequest;
-import com.example.grocery.webApi.requests.payment.DeletePaymentRequest;
-import com.example.grocery.webApi.requests.payment.UpdatePaymentRequest;
-import com.example.grocery.webApi.responses.payment.GetAllPaymentResponse;
-import com.example.grocery.webApi.responses.payment.GetByIdPaymentResponse;
+import com.example.grocery.api.requests.payment.CreatePaymentRequest;
+import com.example.grocery.api.requests.payment.DeletePaymentRequest;
+import com.example.grocery.api.requests.payment.UpdatePaymentRequest;
+import com.example.grocery.api.responses.payment.GetAllPaymentResponse;
+import com.example.grocery.api.responses.payment.GetByIdPaymentResponse;
 
 import jakarta.validation.Valid;
 

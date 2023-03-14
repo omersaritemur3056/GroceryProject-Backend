@@ -5,7 +5,7 @@ import com.example.grocery.core.utilities.results.ErrorResult;
 import com.example.grocery.core.utilities.results.Result;
 import com.example.grocery.core.utilities.results.SuccessResult;
 import com.example.grocery.core.validation.mernisValidation.MernisValidationService;
-import com.example.grocery.entity.concretes.Employee;
+import com.example.grocery.model.concretes.Employee;
 import com.example.grocery.outservices.mernisValidator.mernis.FLAKPSPublicSoap;
 import org.springframework.stereotype.Service;
 

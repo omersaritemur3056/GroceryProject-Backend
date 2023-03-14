@@ -1,4 +1,4 @@
-package com.example.grocery.entity.concretes;
+package com.example.grocery.model.concretes;
 
 import com.example.grocery.core.security.models.User;
 

@@ -1,8 +1,8 @@
 package com.example.grocery.layeredTest.controller;
 
-import com.example.grocery.business.abstracts.PhotoService;
-import com.example.grocery.dataAccess.abstracts.ImageRepository;
-import com.example.grocery.entity.concretes.Image;
+import com.example.grocery.service.interfaces.PhotoService;
+import com.example.grocery.repository.ImageRepository;
+import com.example.grocery.model.concretes.Image;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -13,7 +13,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.example.grocery.webApi.controller.PhotosController;
+import com.example.grocery.api.controller.PhotosController;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;

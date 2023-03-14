@@ -1,4 +1,4 @@
-package com.example.grocery.webApi.controller;
+package com.example.grocery.api.controller;
 
 import java.util.List;
 
@@ -6,10 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.example.grocery.business.abstracts.CustomerService;
+import com.example.grocery.service.interfaces.CustomerService;
 import com.example.grocery.core.utilities.results.DataResult;
-import com.example.grocery.webApi.responses.customer.GetAllCustomerResponse;
-import com.example.grocery.webApi.responses.customer.GetByIdCustomerResponse;
+import com.example.grocery.api.responses.customer.GetAllCustomerResponse;
+import com.example.grocery.api.responses.customer.GetByIdCustomerResponse;
 
 @RestController
 @RequestMapping("/api/customer")

@@ -1,6 +1,6 @@
-package com.example.grocery.entity.concretes;
+package com.example.grocery.model.concretes;
 
-import com.example.grocery.entity.enums.Gender;
+import com.example.grocery.model.enums.Gender;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

@@ -1,4 +1,4 @@
-package com.example.grocery.webApi.responses.product;
+package com.example.grocery.api.responses.product;
 
 import java.time.LocalDate;
 import java.util.List;

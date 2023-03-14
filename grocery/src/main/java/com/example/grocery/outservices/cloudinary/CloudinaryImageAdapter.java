@@ -9,7 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
-import com.example.grocery.business.constants.Messages.LogMessages.LogErrorMessages;
+import com.example.grocery.service.constants.Messages.LogMessages.LogErrorMessages;
 import com.example.grocery.core.utilities.image.ImageModel;
 import com.example.grocery.core.utilities.image.ImageService;
 import com.example.grocery.core.utilities.results.DataResult;

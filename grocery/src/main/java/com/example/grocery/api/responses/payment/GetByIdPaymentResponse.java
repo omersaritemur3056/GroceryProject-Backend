@@ -1,4 +1,4 @@
-package com.example.grocery.webApi.responses.payment;
+package com.example.grocery.api.responses.payment;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

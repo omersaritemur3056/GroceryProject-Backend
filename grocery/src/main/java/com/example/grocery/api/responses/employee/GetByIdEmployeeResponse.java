@@ -1,9 +1,9 @@
-package com.example.grocery.webApi.responses.employee;
+package com.example.grocery.api.responses.employee;
 
 import java.time.LocalDate;
 
-import com.example.grocery.entity.enums.Gender;
-import com.example.grocery.entity.enums.Nationality;
+import com.example.grocery.model.enums.Gender;
+import com.example.grocery.model.enums.Nationality;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

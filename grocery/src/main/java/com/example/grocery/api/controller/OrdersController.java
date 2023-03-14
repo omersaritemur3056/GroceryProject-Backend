@@ -1,13 +1,13 @@
-package com.example.grocery.webApi.controller;
+package com.example.grocery.api.controller;
 
-import com.example.grocery.business.abstracts.OrderService;
+import com.example.grocery.service.interfaces.OrderService;
 import com.example.grocery.core.utilities.results.DataResult;
 import com.example.grocery.core.utilities.results.Result;
-import com.example.grocery.webApi.requests.order.CreateOrderRequest;
-import com.example.grocery.webApi.requests.order.DeleteOrderRequest;
-import com.example.grocery.webApi.requests.order.UpdateOrderRequest;
-import com.example.grocery.webApi.responses.order.GetAllOrderResponse;
-import com.example.grocery.webApi.responses.order.GetByIdOrderResponse;
+import com.example.grocery.api.requests.order.CreateOrderRequest;
+import com.example.grocery.api.requests.order.DeleteOrderRequest;
+import com.example.grocery.api.requests.order.UpdateOrderRequest;
+import com.example.grocery.api.responses.order.GetAllOrderResponse;
+import com.example.grocery.api.responses.order.GetByIdOrderResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

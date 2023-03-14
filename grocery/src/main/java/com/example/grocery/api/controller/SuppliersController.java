@@ -1,4 +1,4 @@
-package com.example.grocery.webApi.controller;
+package com.example.grocery.api.controller;
 
 import java.util.List;
 
@@ -6,14 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.example.grocery.business.abstracts.SupplierService;
+import com.example.grocery.service.interfaces.SupplierService;
 import com.example.grocery.core.utilities.results.DataResult;
 import com.example.grocery.core.utilities.results.Result;
-import com.example.grocery.webApi.requests.supplier.CreateSupplierRequest;
-import com.example.grocery.webApi.requests.supplier.DeleteSupplierRequest;
-import com.example.grocery.webApi.requests.supplier.UpdateSupplierRequest;
-import com.example.grocery.webApi.responses.supplier.GetAllSupplierResponse;
-import com.example.grocery.webApi.responses.supplier.GetByIdSupplierResponse;
+import com.example.grocery.api.requests.supplier.CreateSupplierRequest;
+import com.example.grocery.api.requests.supplier.DeleteSupplierRequest;
+import com.example.grocery.api.requests.supplier.UpdateSupplierRequest;
+import com.example.grocery.api.responses.supplier.GetAllSupplierResponse;
+import com.example.grocery.api.responses.supplier.GetByIdSupplierResponse;
 
 import jakarta.validation.Valid;
 

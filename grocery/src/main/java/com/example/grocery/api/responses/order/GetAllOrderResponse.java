@@ -1,9 +1,9 @@
-package com.example.grocery.webApi.responses.order;
+package com.example.grocery.api.responses.order;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-import com.example.grocery.entity.enums.OrderStatus;
+import com.example.grocery.model.enums.OrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

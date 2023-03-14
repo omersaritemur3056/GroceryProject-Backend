@@ -1,6 +1,6 @@
-package com.example.grocery.webApi.requests.order;
+package com.example.grocery.api.requests.order;
 
-import com.example.grocery.entity.enums.OrderStatus;
+import com.example.grocery.model.enums.OrderStatus;
 import jakarta.persistence.Transient;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;

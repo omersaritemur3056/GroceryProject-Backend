@@ -1,7 +1,7 @@
-package com.example.grocery.webApi.requests.employee;
+package com.example.grocery.api.requests.employee;
 
-import com.example.grocery.entity.enums.Gender;
-import com.example.grocery.entity.enums.Nationality;
+import com.example.grocery.model.enums.Gender;
+import com.example.grocery.model.enums.Nationality;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

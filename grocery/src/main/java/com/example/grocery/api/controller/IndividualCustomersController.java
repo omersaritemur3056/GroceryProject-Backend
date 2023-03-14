@@ -1,4 +1,4 @@
-package com.example.grocery.webApi.controller;
+package com.example.grocery.api.controller;
 
 import java.util.List;
 
@@ -6,14 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.example.grocery.business.abstracts.IndividualCustomerService;
+import com.example.grocery.service.interfaces.IndividualCustomerService;
 import com.example.grocery.core.utilities.results.DataResult;
 import com.example.grocery.core.utilities.results.Result;
-import com.example.grocery.webApi.requests.individualCustomer.CreateIndividualCustomerRequest;
-import com.example.grocery.webApi.requests.individualCustomer.DeleteIndividualCustomerRequest;
-import com.example.grocery.webApi.requests.individualCustomer.UpdateIndividualCustomerRequest;
-import com.example.grocery.webApi.responses.individualCustomer.GetAllIndividualCustomerResponse;
-import com.example.grocery.webApi.responses.individualCustomer.GetByIdIndividualCustomerResponse;
+import com.example.grocery.api.requests.individualCustomer.CreateIndividualCustomerRequest;
+import com.example.grocery.api.requests.individualCustomer.DeleteIndividualCustomerRequest;
+import com.example.grocery.api.requests.individualCustomer.UpdateIndividualCustomerRequest;
+import com.example.grocery.api.responses.individualCustomer.GetAllIndividualCustomerResponse;
+import com.example.grocery.api.responses.individualCustomer.GetByIdIndividualCustomerResponse;
 
 import jakarta.validation.Valid;
 

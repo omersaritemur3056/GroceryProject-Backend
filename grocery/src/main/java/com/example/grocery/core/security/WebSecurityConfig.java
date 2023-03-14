@@ -98,11 +98,11 @@ public class WebSecurityConfig {
                         "/v2/api-docs/**",
                         "/swagger-resources/**",
                         "/api/product/**",
-                        "/api/category/**",
+                        "/api/category/getall",
                         "/api/user/**",
-                        "/api/employee/**",
-                        "/api/individualcustomer/**",
-                        "/api/corporatecustomer/**",
+                        "/api/employee/getall",
+                        "/api/individualcustomer/getall",
+                        "/api/corporatecustomer/getall",
                         "/api/image/**")
                 .permitAll()
                 // this config unit testing... test was succeed but diasble all security

@@ -1,16 +1,16 @@
-package com.example.grocery.service.concretes;
+package com.example.grocery.service.implement;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.grocery.service.interfaces.PhotoService;
 import com.example.grocery.service.rules.CorporateCustomerBusinessRules;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import com.example.grocery.service.abstracts.CorporateCustomerService;
-import com.example.grocery.service.abstracts.PhotoService;
+import com.example.grocery.service.interfaces.CorporateCustomerService;
 import com.example.grocery.service.constants.Messages.CreateMessages;
 import com.example.grocery.service.constants.Messages.DeleteMessages;
 import com.example.grocery.service.constants.Messages.ErrorMessages;
@@ -26,8 +26,8 @@ import com.example.grocery.core.utilities.results.DataResult;
 import com.example.grocery.core.utilities.results.Result;
 import com.example.grocery.core.utilities.results.SuccessDataResult;
 import com.example.grocery.core.utilities.results.SuccessResult;
-import com.example.grocery.dataAccess.abstracts.CorporateCustomerRepository;
-import com.example.grocery.entity.concretes.CorporateCustomer;
+import com.example.grocery.repository.CorporateCustomerRepository;
+import com.example.grocery.model.concretes.CorporateCustomer;
 import com.example.grocery.api.requests.corporateCustomer.CreateCorporateCustomerRequest;
 import com.example.grocery.api.requests.corporateCustomer.DeleteCorporateCustomerRequest;
 import com.example.grocery.api.requests.corporateCustomer.UpdateCorporateCustomerRequest;
@@ -39,18 +39,14 @@ import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
-public class CorporateCustomerManager implements CorporateCustomerService {
+@AllArgsConstructor
+public class CorporateCustomerServiceImpl implements CorporateCustomerService {
 
-        @Autowired
-        private CorporateCustomerRepository corporateCustomerRepository;
-        @Autowired
-        private MapperService mapperService;
-        @Autowired
-        private UserService userService;
-        @Autowired
-        private PhotoService photoService;
-        @Autowired
-        private CorporateCustomerBusinessRules corporateCustomerBusinessRules;
+        private final CorporateCustomerRepository corporateCustomerRepository;
+        private final MapperService mapperService;
+        private final UserService userService;
+        private final PhotoService photoService;
+        private final CorporateCustomerBusinessRules corporateCustomerBusinessRules;
 
         @Override
         @Transactional

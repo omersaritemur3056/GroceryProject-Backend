@@ -1,17 +1,17 @@
-package com.example.grocery.webApi.controller;
+package com.example.grocery.api.controller;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.example.grocery.business.abstracts.CategoryService;
+import com.example.grocery.service.interfaces.CategoryService;
 import com.example.grocery.core.utilities.results.DataResult;
 import com.example.grocery.core.utilities.results.Result;
-import com.example.grocery.webApi.requests.category.CreateCategoryRequest;
-import com.example.grocery.webApi.requests.category.DeleteCategoryRequest;
-import com.example.grocery.webApi.requests.category.UpdateCategoryRequest;
-import com.example.grocery.webApi.responses.category.GetAllCategoryResponse;
-import com.example.grocery.webApi.responses.category.GetByIdCategoryResponse;
+import com.example.grocery.api.requests.category.CreateCategoryRequest;
+import com.example.grocery.api.requests.category.DeleteCategoryRequest;
+import com.example.grocery.api.requests.category.UpdateCategoryRequest;
+import com.example.grocery.api.responses.category.GetAllCategoryResponse;
+import com.example.grocery.api.responses.category.GetByIdCategoryResponse;
 
 import jakarta.validation.Valid;
 

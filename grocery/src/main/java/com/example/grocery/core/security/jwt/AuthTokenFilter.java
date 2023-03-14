@@ -11,7 +11,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.example.grocery.business.constants.Messages.LogMessages.LogErrorMessages;
+import com.example.grocery.service.constants.Messages.LogMessages.LogErrorMessages;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

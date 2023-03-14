@@ -1,21 +1,15 @@
-package com.example.grocery.service.concretes;
+package com.example.grocery.service.implement;
 
 import java.util.List;
 
+import com.example.grocery.service.constants.Messages;
 import com.example.grocery.service.rules.SupplierBusinessRules;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import com.example.grocery.service.abstracts.SupplierService;
-import com.example.grocery.service.constants.Messages.CreateMessages;
-import com.example.grocery.service.constants.Messages.DeleteMessages;
-import com.example.grocery.service.constants.Messages.ErrorMessages;
-import com.example.grocery.service.constants.Messages.GetByIdMessages;
-import com.example.grocery.service.constants.Messages.GetListMessages;
-import com.example.grocery.service.constants.Messages.UpdateMessages;
-import com.example.grocery.service.constants.Messages.LogMessages.LogInfoMessages;
+import com.example.grocery.service.interfaces.SupplierService;
 import com.example.grocery.core.utilities.business.BusinessRules;
 import com.example.grocery.core.utilities.exceptions.BusinessException;
 import com.example.grocery.core.utilities.mapper.MapperService;
@@ -23,8 +17,8 @@ import com.example.grocery.core.utilities.results.DataResult;
 import com.example.grocery.core.utilities.results.Result;
 import com.example.grocery.core.utilities.results.SuccessDataResult;
 import com.example.grocery.core.utilities.results.SuccessResult;
-import com.example.grocery.dataAccess.abstracts.SupplierRepository;
-import com.example.grocery.entity.concretes.Supplier;
+import com.example.grocery.repository.SupplierRepository;
+import com.example.grocery.model.concretes.Supplier;
 import com.example.grocery.api.requests.supplier.CreateSupplierRequest;
 import com.example.grocery.api.requests.supplier.DeleteSupplierRequest;
 import com.example.grocery.api.requests.supplier.UpdateSupplierRequest;
@@ -35,14 +29,12 @@ import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
-public class SupplierManager implements SupplierService {
+@AllArgsConstructor
+public class SupplierServiceImpl implements SupplierService {
 
-    @Autowired
-    private SupplierRepository supplierRepository;
-    @Autowired
-    private MapperService mapperService;
-    @Autowired
-    private SupplierBusinessRules supplierBusinessRules;
+    private final SupplierRepository supplierRepository;
+    private final MapperService mapperService;
+    private final SupplierBusinessRules supplierBusinessRules;
 
     @Override
     public Result add(CreateSupplierRequest createSupplierRequest) {
@@ -55,8 +47,8 @@ public class SupplierManager implements SupplierService {
 
         Supplier supplier = mapperService.forRequest().map(createSupplierRequest, Supplier.class);
         supplierRepository.save(supplier);
-        log.info(LogInfoMessages.SUPPLIER_ADDED, createSupplierRequest.getName());
-        return new SuccessResult(CreateMessages.SUPPLIER_CREATED);
+        log.info(Messages.LogMessages.LogInfoMessages.SUPPLIER_ADDED, createSupplierRequest.getName());
+        return new SuccessResult(Messages.CreateMessages.SUPPLIER_CREATED);
     }
 
     @Override
@@ -70,12 +62,12 @@ public class SupplierManager implements SupplierService {
             return rules;
 
         var inDbSupplier = supplierRepository.findById(id)
-                .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
+                .orElseThrow(() -> new BusinessException(Messages.ErrorMessages.ID_NOT_FOUND));
         Supplier supplier = mapperService.forRequest().map(updateSupplierRequest, Supplier.class);
         supplier.setId(inDbSupplier.getId());
         supplierRepository.save(supplier);
-        log.info(LogInfoMessages.SUPPLIER_UPDATED, updateSupplierRequest.getName());
-        return new SuccessResult(UpdateMessages.SUPPLIER_MODIFIED);
+        log.info(Messages.LogMessages.LogInfoMessages.SUPPLIER_UPDATED, updateSupplierRequest.getName());
+        return new SuccessResult(Messages.UpdateMessages.SUPPLIER_MODIFIED);
     }
 
     @Override
@@ -86,9 +78,9 @@ public class SupplierManager implements SupplierService {
             return rules;
 
         Supplier supplier = mapperService.forRequest().map(deleteSupplierRequest, Supplier.class);
-        log.info(LogInfoMessages.SUPPLIER_DELETED, getSupplierById(deleteSupplierRequest.getId()).getName());
+        log.info(Messages.LogMessages.LogInfoMessages.SUPPLIER_DELETED, getSupplierById(deleteSupplierRequest.getId()).getName());
         supplierRepository.delete(supplier);
-        return new SuccessResult(DeleteMessages.SUPPLIER_DELETED);
+        return new SuccessResult(Messages.DeleteMessages.SUPPLIER_DELETED);
     }
 
     @Override
@@ -96,16 +88,16 @@ public class SupplierManager implements SupplierService {
         List<Supplier> suppliers = supplierRepository.findAll();
         List<GetAllSupplierResponse> returnList = suppliers.stream()
                 .map(s -> mapperService.forResponse().map(s, GetAllSupplierResponse.class)).toList();
-        return new SuccessDataResult<>(returnList, GetListMessages.SUPPLIERS_LISTED);
+        return new SuccessDataResult<>(returnList, Messages.GetListMessages.SUPPLIERS_LISTED);
     }
 
     @Override
     public DataResult<GetByIdSupplierResponse> getById(Long id) {
         Supplier supplier = supplierRepository.findById(id)
-                .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
+                .orElseThrow(() -> new BusinessException(Messages.ErrorMessages.ID_NOT_FOUND));
         GetByIdSupplierResponse getByIdSupplierResponse = mapperService.forResponse().map(supplier,
                 GetByIdSupplierResponse.class);
-        return new SuccessDataResult<>(getByIdSupplierResponse, GetByIdMessages.SUPPLIER_LISTED);
+        return new SuccessDataResult<>(getByIdSupplierResponse, Messages.GetByIdMessages.SUPPLIER_LISTED);
     }
 
     @Override
@@ -115,7 +107,7 @@ public class SupplierManager implements SupplierService {
         List<Supplier> suppliers = supplierRepository.findAll(Sort.by(Sort.Direction.ASC, sortBy));
         List<GetAllSupplierResponse> returnList = suppliers.stream()
                 .map(s -> mapperService.forResponse().map(s, GetAllSupplierResponse.class)).toList();
-        return new SuccessDataResult<>(returnList, GetListMessages.SUPPLIERS_SORTED + sortBy);
+        return new SuccessDataResult<>(returnList, Messages.GetListMessages.SUPPLIERS_SORTED + sortBy);
     }
 
     @Override
@@ -126,7 +118,7 @@ public class SupplierManager implements SupplierService {
         List<Supplier> suppliers = supplierRepository.findAll(PageRequest.of(pageNo, pageSize)).toList();
         List<GetAllSupplierResponse> returnList = suppliers.stream()
                 .map(s -> mapperService.forResponse().map(s, GetAllSupplierResponse.class)).toList();
-        return new SuccessDataResult<>(returnList, GetListMessages.SUPPLIERS_PAGINATED);
+        return new SuccessDataResult<>(returnList, Messages.GetListMessages.SUPPLIERS_PAGINATED);
     }
 
     @Override
@@ -140,7 +132,7 @@ public class SupplierManager implements SupplierService {
                 .findAll(PageRequest.of(pageNo, pageSize).withSort(Sort.by(sortBy))).toList();
         List<GetAllSupplierResponse> returnList = suppliers.stream()
                 .map(s -> mapperService.forResponse().map(s, GetAllSupplierResponse.class)).toList();
-        return new SuccessDataResult<>(returnList, GetListMessages.SUPPLIERS_PAGINATED_AND_SORTED + sortBy);
+        return new SuccessDataResult<>(returnList, Messages.GetListMessages.SUPPLIERS_PAGINATED_AND_SORTED + sortBy);
     }
 
     // ProductManager sınıfımızda bağımlılığı kontrol altına alma adına kullanılmak
@@ -148,7 +140,7 @@ public class SupplierManager implements SupplierService {
     @Override
     public Supplier getSupplierById(Long id) {
         return supplierRepository.findById(id)
-                .orElseThrow(() -> new BusinessException(ErrorMessages.SUPPLIER_ID_NOT_FOUND));
+                .orElseThrow(() -> new BusinessException(Messages.ErrorMessages.SUPPLIER_ID_NOT_FOUND));
     }
 
 }

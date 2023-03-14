@@ -1,23 +1,17 @@
-package com.example.grocery.service.concretes;
+package com.example.grocery.service.implement;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.grocery.service.constants.Messages;
+import com.example.grocery.service.interfaces.PhotoService;
 import com.example.grocery.service.rules.IndividualCustomerBusinessRules;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import com.example.grocery.service.abstracts.IndividualCustomerService;
-import com.example.grocery.service.abstracts.PhotoService;
-import com.example.grocery.service.constants.Messages.CreateMessages;
-import com.example.grocery.service.constants.Messages.DeleteMessages;
-import com.example.grocery.service.constants.Messages.ErrorMessages;
-import com.example.grocery.service.constants.Messages.GetByIdMessages;
-import com.example.grocery.service.constants.Messages.GetListMessages;
-import com.example.grocery.service.constants.Messages.UpdateMessages;
-import com.example.grocery.service.constants.Messages.LogMessages.LogInfoMessages;
+import com.example.grocery.service.interfaces.IndividualCustomerService;
 import com.example.grocery.core.security.services.UserService;
 import com.example.grocery.core.utilities.business.BusinessRules;
 import com.example.grocery.core.utilities.exceptions.BusinessException;
@@ -26,8 +20,8 @@ import com.example.grocery.core.utilities.results.DataResult;
 import com.example.grocery.core.utilities.results.Result;
 import com.example.grocery.core.utilities.results.SuccessDataResult;
 import com.example.grocery.core.utilities.results.SuccessResult;
-import com.example.grocery.dataAccess.abstracts.IndividualCustomerRepository;
-import com.example.grocery.entity.concretes.IndividualCustomer;
+import com.example.grocery.repository.IndividualCustomerRepository;
+import com.example.grocery.model.concretes.IndividualCustomer;
 import com.example.grocery.api.requests.individualCustomer.CreateIndividualCustomerRequest;
 import com.example.grocery.api.requests.individualCustomer.DeleteIndividualCustomerRequest;
 import com.example.grocery.api.requests.individualCustomer.UpdateIndividualCustomerRequest;
@@ -39,18 +33,14 @@ import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
-public class IndividualCustomerManager implements IndividualCustomerService {
+@AllArgsConstructor
+public class IndividualCustomerServiceImpl implements IndividualCustomerService {
 
-        @Autowired
-        private IndividualCustomerRepository individualCustomerRepository;
-        @Autowired
-        private MapperService mapperService;
-        @Autowired
-        private UserService userService;
-        @Autowired
-        private PhotoService photoService;
-        @Autowired
-        private IndividualCustomerBusinessRules individualCustomerBusinessRules;
+        private final IndividualCustomerRepository individualCustomerRepository;
+        private final MapperService mapperService;
+        private final UserService userService;
+        private final PhotoService photoService;
+        private final IndividualCustomerBusinessRules individualCustomerBusinessRules;
 
         @Override
         @Transactional
@@ -72,10 +62,10 @@ public class IndividualCustomerManager implements IndividualCustomerService {
                 individualCustomer.setUser(userService.getUserById(createIndividualCustomerRequest.getUserId()));
                 individualCustomer.setImage(photoService.getImageById(createIndividualCustomerRequest.getImageId()));
                 individualCustomerRepository.save(individualCustomer);
-                log.info(LogInfoMessages.INDIVIDUAL_CUSTOMER_ADDED,
+                log.info(Messages.LogMessages.LogInfoMessages.INDIVIDUAL_CUSTOMER_ADDED,
                                 createIndividualCustomerRequest.getFirstName(),
                                 createIndividualCustomerRequest.getLastName());
-                return new SuccessResult(CreateMessages.INDIVIDUAL_CUSTOMER_CREATED);
+                return new SuccessResult(Messages.CreateMessages.INDIVIDUAL_CUSTOMER_CREATED);
         }
 
         @Override
@@ -92,18 +82,18 @@ public class IndividualCustomerManager implements IndividualCustomerService {
                                 IndividualCustomer.class);
                 IndividualCustomer logForIndividual = individualCustomerRepository
                                 .findById(deleteIndividualCustomerRequest.getId())
-                                .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
-                log.info(LogInfoMessages.INDIVIDUAL_CUSTOMER_DELETED, logForIndividual.getFirstName(),
+                                .orElseThrow(() -> new BusinessException(Messages.ErrorMessages.ID_NOT_FOUND));
+                log.info(Messages.LogMessages.LogInfoMessages.INDIVIDUAL_CUSTOMER_DELETED, logForIndividual.getFirstName(),
                                 logForIndividual.getLastName());
                 individualCustomerRepository.delete(individualCustomer);
-                return new SuccessResult(DeleteMessages.INDIVIDUAL_CUSTOMER_DELETED);
+                return new SuccessResult(Messages.DeleteMessages.INDIVIDUAL_CUSTOMER_DELETED);
         }
 
         @Override
         @Transactional
         public Result update(UpdateIndividualCustomerRequest updateIndividualCustomerRequest, Long id) {
                 IndividualCustomer inDbIndividualCustomer = individualCustomerRepository.findById(id)
-                                .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
+                                .orElseThrow(() -> new BusinessException(Messages.ErrorMessages.ID_NOT_FOUND));
 
                 IndividualCustomer individualCustomer = mapperService.forRequest().map(
                                 updateIndividualCustomerRequest,
@@ -112,10 +102,10 @@ public class IndividualCustomerManager implements IndividualCustomerService {
                 individualCustomer.setUser(userService.getUserById(updateIndividualCustomerRequest.getUserId()));
                 individualCustomer.setImage(photoService.getImageById(updateIndividualCustomerRequest.getImageId()));
                 individualCustomerRepository.save(individualCustomer);
-                log.info(LogInfoMessages.INDIVIDUAL_CUSTOMER_UPDATED,
+                log.info(Messages.LogMessages.LogInfoMessages.INDIVIDUAL_CUSTOMER_UPDATED,
                                 updateIndividualCustomerRequest.getFirstName(),
                                 updateIndividualCustomerRequest.getLastName());
-                return new SuccessResult(UpdateMessages.INDIVIDUAL_CUSTOMER_MODIFIED);
+                return new SuccessResult(Messages.UpdateMessages.INDIVIDUAL_CUSTOMER_MODIFIED);
         }
 
         @Override
@@ -128,18 +118,18 @@ public class IndividualCustomerManager implements IndividualCustomerService {
                         returnList.add(obj);
                 }
                 return new SuccessDataResult<>(returnList,
-                                GetListMessages.INDIVIDUAL_CUSTOMERS_LISTED);
+                                Messages.GetListMessages.INDIVIDUAL_CUSTOMERS_LISTED);
         }
 
         @Override
         public DataResult<GetByIdIndividualCustomerResponse> getById(Long id) {
                 IndividualCustomer inDbIndividualCustomer = individualCustomerRepository.findById(id)
-                                .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
+                                .orElseThrow(() -> new BusinessException(Messages.ErrorMessages.ID_NOT_FOUND));
                 GetByIdIndividualCustomerResponse returnObj = mapperService.forResponse().map(
                                 inDbIndividualCustomer,
                                 GetByIdIndividualCustomerResponse.class);
                 return new SuccessDataResult<>(returnObj,
-                                GetByIdMessages.INDIVIDUAL_CUSTOMER_LISTED);
+                                Messages.GetByIdMessages.INDIVIDUAL_CUSTOMER_LISTED);
         }
 
         @Override
@@ -155,7 +145,7 @@ public class IndividualCustomerManager implements IndividualCustomerService {
                         returnList.add(obj);
                 }
                 return new SuccessDataResult<>(returnList,
-                                GetListMessages.INDIVIDUAL_CUSTOMERS_SORTED + sortBy);
+                                Messages.GetListMessages.INDIVIDUAL_CUSTOMERS_SORTED + sortBy);
         }
 
         @Override
@@ -172,7 +162,7 @@ public class IndividualCustomerManager implements IndividualCustomerService {
                         returnList.add(obj);
                 }
                 return new SuccessDataResult<>(returnList,
-                                GetListMessages.INDIVIDUAL_CUSTOMERS_PAGINATED);
+                                Messages.GetListMessages.INDIVIDUAL_CUSTOMERS_PAGINATED);
         }
 
         @Override
@@ -191,7 +181,7 @@ public class IndividualCustomerManager implements IndividualCustomerService {
                         returnList.add(obj);
                 }
                 return new SuccessDataResult<>(returnList,
-                                GetListMessages.INDIVIDUAL_CUSTOMERS_PAGINATED_AND_SORTED + sortBy);
+                                Messages.GetListMessages.INDIVIDUAL_CUSTOMERS_PAGINATED_AND_SORTED + sortBy);
         }
 
 }

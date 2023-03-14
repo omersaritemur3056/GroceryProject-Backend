@@ -1,12 +1,11 @@
-package com.example.grocery.service.concretes;
+package com.example.grocery.service.implement;
 
-import com.example.grocery.service.abstracts.CustomerService;
-import com.example.grocery.service.abstracts.OrderService;
-import com.example.grocery.service.abstracts.PaymentService;
-import com.example.grocery.service.abstracts.ProductService;
-import com.example.grocery.service.constants.Messages.*;
-import com.example.grocery.service.constants.Messages.LogMessages.LogInfoMessages;
+import com.example.grocery.service.constants.Messages;
+import com.example.grocery.service.interfaces.PaymentService;
 import com.example.grocery.service.rules.OrderBusinessRules;
+import com.example.grocery.service.interfaces.CustomerService;
+import com.example.grocery.service.interfaces.OrderService;
+import com.example.grocery.service.interfaces.ProductService;
 import com.example.grocery.core.utilities.business.BusinessRules;
 import com.example.grocery.core.utilities.exceptions.BusinessException;
 import com.example.grocery.core.utilities.mapper.MapperService;
@@ -14,17 +13,17 @@ import com.example.grocery.core.utilities.results.DataResult;
 import com.example.grocery.core.utilities.results.Result;
 import com.example.grocery.core.utilities.results.SuccessDataResult;
 import com.example.grocery.core.utilities.results.SuccessResult;
-import com.example.grocery.dataAccess.abstracts.OrderRepository;
-import com.example.grocery.entity.concretes.Order;
-import com.example.grocery.entity.concretes.Product;
+import com.example.grocery.repository.OrderRepository;
+import com.example.grocery.model.concretes.Order;
+import com.example.grocery.model.concretes.Product;
 import com.example.grocery.api.requests.order.CreateOrderRequest;
 import com.example.grocery.api.requests.order.DeleteOrderRequest;
 import com.example.grocery.api.requests.order.UpdateOrderRequest;
 import com.example.grocery.api.responses.order.GetAllOrderResponse;
 import com.example.grocery.api.responses.order.GetByIdOrderResponse;
 import jakarta.transaction.Transactional;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -37,20 +36,15 @@ import java.util.List;
 
 @Service
 @Slf4j
-public class OrderManager implements OrderService {
+@AllArgsConstructor
+public class OrderServiceImpl implements OrderService {
 
-    @Autowired
-    private OrderRepository orderRepository;
-    @Autowired
-    private MapperService mapperService;
-    @Autowired
-    private CustomerService customerService;
-    @Autowired
-    private PaymentService paymentService;
-    @Autowired
-    private ProductService productService;
-    @Autowired
-    private OrderBusinessRules orderBusinessRules;
+    private final OrderRepository orderRepository;
+    private final MapperService mapperService;
+    private final CustomerService customerService;
+    private final PaymentService paymentService;
+    private final ProductService productService;
+    private final OrderBusinessRules orderBusinessRules;
 
     @Override
     @Transactional
@@ -67,9 +61,9 @@ public class OrderManager implements OrderService {
         order.setPayment(paymentService.getPaymentById(createOrderRequest.getPaymentId()));
         order.setProducts(productService.getProductsByIds(createOrderRequest.getProductIds()));
         orderRepository.save(order);
-        log.info(LogInfoMessages.ORDER_CREATED, createOrderRequest.getCustomerId(), createOrderRequest.getPaymentId(),
+        log.info(Messages.LogMessages.LogInfoMessages.ORDER_CREATED, createOrderRequest.getCustomerId(), createOrderRequest.getPaymentId(),
                 createOrderRequest.getProductIds());
-        return new SuccessResult(CreateMessages.ORDER_CREATED);
+        return new SuccessResult(Messages.CreateMessages.ORDER_CREATED);
     }
 
     @Override
@@ -82,12 +76,12 @@ public class OrderManager implements OrderService {
             return rules;
 
         Order orderForLogging = orderRepository.findById(deleteOrderRequest.getId())
-                .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
+                .orElseThrow(() -> new BusinessException(Messages.ErrorMessages.ID_NOT_FOUND));
 
         Order order = mapperService.forRequest().map(deleteOrderRequest, Order.class);
-        log.info(LogInfoMessages.ORDER_DELETED, orderForLogging.getId());
+        log.info(Messages.LogMessages.LogInfoMessages.ORDER_DELETED, orderForLogging.getId());
         orderRepository.delete(order);
-        return new SuccessResult(DeleteMessages.ORDER_DELETED);
+        return new SuccessResult(Messages.DeleteMessages.ORDER_DELETED);
     }
 
     @Override
@@ -95,7 +89,7 @@ public class OrderManager implements OrderService {
     @CachePut(cacheNames = "order", key = "#id")
     public Result update(UpdateOrderRequest updateOrderRequest, Long id) {
         Order inDbOrder = orderRepository.findById(id)
-                .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
+                .orElseThrow(() -> new BusinessException(Messages.ErrorMessages.ID_NOT_FOUND));
 
         Result rules = BusinessRules.run(orderBusinessRules.isExistCustomerId(updateOrderRequest.getCustomerId()),
                 orderBusinessRules.isExistPaymentId(updateOrderRequest.getPaymentId()),
@@ -109,10 +103,10 @@ public class OrderManager implements OrderService {
         order.setProducts(productService.getProductsByIds(updateOrderRequest.getProductIds()));
         order.setId(inDbOrder.getId());
         orderRepository.save(order);
-        log.info(LogInfoMessages.ORDER_UPDATED, id, updateOrderRequest.getCustomerId(),
+        log.info(Messages.LogMessages.LogInfoMessages.ORDER_UPDATED, id, updateOrderRequest.getCustomerId(),
                 updateOrderRequest.getPaymentId(),
                 updateOrderRequest.getProductIds());
-        return new SuccessResult(UpdateMessages.ORDER_UPDATED);
+        return new SuccessResult(Messages.UpdateMessages.ORDER_UPDATED);
     }
 
     @Override
@@ -130,14 +124,14 @@ public class OrderManager implements OrderService {
             addFields.setProductIds(ids);
             returnList.add(addFields);
         }
-        return new SuccessDataResult<>(returnList, GetListMessages.ORDERS_LISTED);
+        return new SuccessDataResult<>(returnList, Messages.GetListMessages.ORDERS_LISTED);
     }
 
     @Override
     @Cacheable(value = "order", key = "#id")
     public DataResult<GetByIdOrderResponse> getById(Long id) {
         Order order = orderRepository.findById(id)
-                .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
+                .orElseThrow(() -> new BusinessException(Messages.ErrorMessages.ID_NOT_FOUND));
         GetByIdOrderResponse getByIdOrderResponse = mapperService.forResponse().map(order,
                 GetByIdOrderResponse.class);
         List<Long> ids = new ArrayList<>();
@@ -145,7 +139,7 @@ public class OrderManager implements OrderService {
             ids.add(x.getId());
         }
         getByIdOrderResponse.setProductIds(ids);
-        return new SuccessDataResult<>(getByIdOrderResponse, GetByIdMessages.ORDER_LISTED);
+        return new SuccessDataResult<>(getByIdOrderResponse, Messages.GetByIdMessages.ORDER_LISTED);
     }
 
     @Override
@@ -165,7 +159,7 @@ public class OrderManager implements OrderService {
             addFields.setProductIds(ids);
             returnList.add(addFields);
         }
-        return new SuccessDataResult<>(returnList, GetListMessages.ORDERS_SORTED + sortBy);
+        return new SuccessDataResult<>(returnList, Messages.GetListMessages.ORDERS_SORTED + sortBy);
     }
 
     @Override
@@ -185,7 +179,7 @@ public class OrderManager implements OrderService {
             addFields.setProductIds(ids);
             returnList.add(addFields);
         }
-        return new SuccessDataResult<>(returnList, GetListMessages.ORDERS_PAGINATED);
+        return new SuccessDataResult<>(returnList, Messages.GetListMessages.ORDERS_PAGINATED);
     }
 
     @Override
@@ -208,7 +202,7 @@ public class OrderManager implements OrderService {
             addFields.setProductIds(ids);
             returnList.add(addFields);
         }
-        return new SuccessDataResult<>(returnList, GetListMessages.ORDERS_PAGINATED_AND_SORTED + sortBy);
+        return new SuccessDataResult<>(returnList, Messages.GetListMessages.ORDERS_PAGINATED_AND_SORTED + sortBy);
     }
 
 }

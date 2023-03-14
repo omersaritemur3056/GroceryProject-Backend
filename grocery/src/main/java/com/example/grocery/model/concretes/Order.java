@@ -1,6 +1,6 @@
-package com.example.grocery.entity.concretes;
+package com.example.grocery.model.concretes;
 
-import com.example.grocery.entity.enums.OrderStatus;
+import com.example.grocery.model.enums.OrderStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

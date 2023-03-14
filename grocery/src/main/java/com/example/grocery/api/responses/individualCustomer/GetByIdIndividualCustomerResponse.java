@@ -1,6 +1,6 @@
-package com.example.grocery.webApi.responses.individualCustomer;
+package com.example.grocery.api.responses.individualCustomer;
 
-import com.example.grocery.entity.enums.Gender;
+import com.example.grocery.model.enums.Gender;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

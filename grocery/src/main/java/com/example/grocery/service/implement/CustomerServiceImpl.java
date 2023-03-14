@@ -1,36 +1,32 @@
-package com.example.grocery.service.concretes;
+package com.example.grocery.service.implement;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.grocery.service.constants.Messages;
 import com.example.grocery.service.rules.CustomerBusinessRules;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import com.example.grocery.service.abstracts.CustomerService;
-import com.example.grocery.service.constants.Messages.ErrorMessages;
-import com.example.grocery.service.constants.Messages.GetByIdMessages;
-import com.example.grocery.service.constants.Messages.GetListMessages;
+import com.example.grocery.service.interfaces.CustomerService;
 import com.example.grocery.core.utilities.exceptions.BusinessException;
 import com.example.grocery.core.utilities.mapper.MapperService;
 import com.example.grocery.core.utilities.results.DataResult;
 import com.example.grocery.core.utilities.results.SuccessDataResult;
-import com.example.grocery.dataAccess.abstracts.CustomerRepository;
-import com.example.grocery.entity.concretes.Customer;
+import com.example.grocery.repository.CustomerRepository;
+import com.example.grocery.model.concretes.Customer;
 import com.example.grocery.api.responses.customer.GetAllCustomerResponse;
 import com.example.grocery.api.responses.customer.GetByIdCustomerResponse;
 
 @Service
-public class CustomerManager implements CustomerService {
+@AllArgsConstructor
+public class CustomerServiceImpl implements CustomerService {
 
-    @Autowired
-    private CustomerRepository customerRepository;
-    @Autowired
-    private MapperService mapperService;
-    @Autowired
-    private CustomerBusinessRules customerBusinessRules;
+    private final CustomerRepository customerRepository;
+    private final MapperService mapperService;
+    private final CustomerBusinessRules customerBusinessRules;
 
     @Override
     public DataResult<List<GetAllCustomerResponse>> getAll() {
@@ -41,16 +37,16 @@ public class CustomerManager implements CustomerService {
                     GetAllCustomerResponse.class);
             returnList.add(obj);
         }
-        return new SuccessDataResult<>(returnList, GetListMessages.CUSTOMERS_LISTED);
+        return new SuccessDataResult<>(returnList, Messages.GetListMessages.CUSTOMERS_LISTED);
     }
 
     @Override
     public DataResult<GetByIdCustomerResponse> getById(Long id) {
         Customer inDbCustomer = customerRepository.findById(id)
-                .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
+                .orElseThrow(() -> new BusinessException(Messages.ErrorMessages.ID_NOT_FOUND));
         GetByIdCustomerResponse returnObj = mapperService.forResponse().map(inDbCustomer,
                 GetByIdCustomerResponse.class);
-        return new SuccessDataResult<>(returnObj, GetByIdMessages.CUSTOMER_LISTED);
+        return new SuccessDataResult<>(returnObj, Messages.GetByIdMessages.CUSTOMER_LISTED);
     }
 
     @Override
@@ -64,7 +60,7 @@ public class CustomerManager implements CustomerService {
                     GetAllCustomerResponse.class);
             returnList.add(obj);
         }
-        return new SuccessDataResult<>(returnList, GetListMessages.CUSTOMERS_SORTED + sortBy);
+        return new SuccessDataResult<>(returnList, Messages.GetListMessages.CUSTOMERS_SORTED + sortBy);
     }
 
     @Override
@@ -79,7 +75,7 @@ public class CustomerManager implements CustomerService {
                     GetAllCustomerResponse.class);
             returnList.add(obj);
         }
-        return new SuccessDataResult<>(returnList, GetListMessages.CUSTOMERS_PAGINATED);
+        return new SuccessDataResult<>(returnList, Messages.GetListMessages.CUSTOMERS_PAGINATED);
     }
 
     @Override
@@ -97,14 +93,14 @@ public class CustomerManager implements CustomerService {
                     GetAllCustomerResponse.class);
             returnList.add(obj);
         }
-        return new SuccessDataResult<>(returnList, GetListMessages.CUSTOMERS_PAGINATED_AND_SORTED + sortBy);
+        return new SuccessDataResult<>(returnList, Messages.GetListMessages.CUSTOMERS_PAGINATED_AND_SORTED + sortBy);
     }
 
     // Bağımlılığı kontrol altına almak için tasarlandı
     @Override
     public Customer getCustomerById(Long id) {
         return customerRepository.findById(id)
-                .orElseThrow(() -> new BusinessException(ErrorMessages.CUSTOMER_ID_NOT_FOUND));
+                .orElseThrow(() -> new BusinessException(Messages.ErrorMessages.CUSTOMER_ID_NOT_FOUND));
     }
 
 }

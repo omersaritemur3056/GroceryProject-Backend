@@ -1,10 +1,10 @@
-package com.example.grocery.dataAccess.abstracts;
+package com.example.grocery.repository;
 
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.example.grocery.entity.concretes.Category;
+import com.example.grocery.model.concretes.Category;
 
 public interface CategoryRepository extends JpaRepository<Category, Long> {
 

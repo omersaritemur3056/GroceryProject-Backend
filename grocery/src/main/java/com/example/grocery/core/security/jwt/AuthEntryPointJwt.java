@@ -9,7 +9,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
 
-import com.example.grocery.business.constants.Messages.LogMessages.LogErrorMessages;
+import com.example.grocery.service.constants.Messages.LogMessages.LogErrorMessages;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.servlet.ServletException;

@@ -1,4 +1,4 @@
-package com.example.grocery.webApi.requests.individualCustomer;
+package com.example.grocery.api.requests.individualCustomer;
 
 import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;

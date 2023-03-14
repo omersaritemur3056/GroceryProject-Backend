@@ -25123,3 +25123,847 @@ java.lang.NullPointerException: Cannot invoke "Object.toString()" because "this.
 2023-03-04 17:17:56 INFO Closing JPA EntityManagerFactory for persistence unit 'default'
 2023-03-04 17:17:56 INFO HikariPool-1 - Shutdown initiated...
 2023-03-04 17:17:56 INFO HikariPool-1 - Shutdown completed.
+2023-03-07 10:40:41 INFO HV000001: Hibernate Validator 8.0.0.Final
+2023-03-07 10:40:42 INFO Starting GroceryApplication using Java 18.0.2.1 with PID 7308 (C:\GroceryProject-Backend\grocery\target\classes started by palao in C:\GroceryProject-Backend)
+2023-03-07 10:40:42 INFO No active profile set, falling back to 1 default profile: "default"
+2023-03-07 10:40:42 INFO Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-03-07 10:40:42 INFO For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-03-07 10:40:43 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-03-07 10:40:43 INFO Finished Spring Data repository scanning in 178 ms. Found 14 JPA repository interfaces.
+2023-03-07 10:40:44 INFO Tomcat initialized with port(s): 8080 (http)
+2023-03-07 10:40:44 INFO Initializing ProtocolHandler ["http-nio-8080"]
+2023-03-07 10:40:44 INFO Starting service [Tomcat]
+2023-03-07 10:40:44 INFO Starting Servlet engine: [Apache Tomcat/10.1.5]
+2023-03-07 10:40:44 INFO Initializing Spring embedded WebApplicationContext
+2023-03-07 10:40:44 INFO Root WebApplicationContext: initialization completed in 2774 ms
+2023-03-07 10:40:45 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-03-07 10:40:45 INFO HHH000412: Hibernate ORM core version 6.1.6.Final
+2023-03-07 10:40:45 WARN HHH90000021: Encountered deprecated setting [javax.persistence.validation.mode], use [jakarta.persistence.validation.mode] instead
+2023-03-07 10:40:45 WARN HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-03-07 10:40:45 INFO HikariPool-1 - Starting...
+2023-03-07 10:40:46 INFO HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@255343cb
+2023-03-07 10:40:46 INFO HikariPool-1 - Start completed.
+2023-03-07 10:40:46 INFO HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2023-03-07 10:40:47 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-03-07 10:40:47 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-03-07 10:40:49 WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-03-07 10:40:50 INFO Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@700ee010, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@28703eb8, org.springframework.security.web.context.SecurityContextHolderFilter@27dad68, org.springframework.security.web.header.HeaderWriterFilter@7586a62a, org.springframework.web.filter.CorsFilter@362b3bc2, org.springframework.security.web.authentication.logout.LogoutFilter@4e165d8b, com.example.grocery.core.security.jwt.AuthTokenFilter@6a333a9d, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@78540e5f, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@301e974, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5aa6ab5, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@34b2238c, org.springframework.security.web.session.SessionManagementFilter@26c98fa0, org.springframework.security.web.access.ExceptionTranslationFilter@42d414ac, org.springframework.security.web.access.intercept.AuthorizationFilter@7946865e]
+2023-03-07 10:40:50 INFO LiveReload server is running on port 35729
+2023-03-07 10:40:50 INFO Starting ProtocolHandler ["http-nio-8080"]
+2023-03-07 10:40:50 INFO Tomcat started on port(s): 8080 (http) with context path ''
+2023-03-07 10:40:50 INFO Started GroceryApplication in 9.481 seconds (process running for 11.004)
+2023-03-07 10:44:24 INFO Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-03-07 10:44:24 INFO Initializing Servlet 'dispatcherServlet'
+2023-03-07 10:44:24 INFO Completed initialization in 13 ms
+2023-03-07 11:06:25 WARN No mapping for GET /favicon.ico
+2023-03-07 11:06:29 INFO Init duration for springdoc-openapi is: 1718 ms
+2023-03-07 13:11:59 INFO Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-03-07 13:11:59 INFO HikariPool-1 - Shutdown initiated...
+2023-03-07 13:11:59 INFO HikariPool-1 - Shutdown completed.
+2023-03-07 21:48:56 INFO HV000001: Hibernate Validator 8.0.0.Final
+2023-03-07 21:48:56 INFO Starting GroceryApplication using Java 18.0.2.1 with PID 15124 (C:\GroceryProject-Backend\grocery\target\classes started by palao in C:\GroceryProject-Backend)
+2023-03-07 21:48:56 INFO No active profile set, falling back to 1 default profile: "default"
+2023-03-07 21:48:56 INFO Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-03-07 21:48:56 INFO For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-03-07 21:48:57 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-03-07 21:48:58 INFO Finished Spring Data repository scanning in 205 ms. Found 14 JPA repository interfaces.
+2023-03-07 21:48:59 INFO Tomcat initialized with port(s): 8080 (http)
+2023-03-07 21:48:59 INFO Initializing ProtocolHandler ["http-nio-8080"]
+2023-03-07 21:48:59 INFO Starting service [Tomcat]
+2023-03-07 21:48:59 INFO Starting Servlet engine: [Apache Tomcat/10.1.5]
+2023-03-07 21:48:59 INFO Initializing Spring embedded WebApplicationContext
+2023-03-07 21:48:59 INFO Root WebApplicationContext: initialization completed in 3050 ms
+2023-03-07 21:48:59 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-03-07 21:48:59 INFO HHH000412: Hibernate ORM core version 6.1.6.Final
+2023-03-07 21:49:00 WARN HHH90000021: Encountered deprecated setting [javax.persistence.validation.mode], use [jakarta.persistence.validation.mode] instead
+2023-03-07 21:49:00 WARN HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-03-07 21:49:00 INFO HikariPool-1 - Starting...
+2023-03-07 21:49:00 INFO HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@1f9ec532
+2023-03-07 21:49:00 INFO HikariPool-1 - Start completed.
+2023-03-07 21:49:00 INFO HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2023-03-07 21:49:02 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-03-07 21:49:02 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-03-07 21:49:03 WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-03-07 21:49:04 INFO Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@5d0cb52a, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7e73b620, org.springframework.security.web.context.SecurityContextHolderFilter@47c1932d, org.springframework.security.web.header.HeaderWriterFilter@cbd92d7, org.springframework.web.filter.CorsFilter@55f93b11, org.springframework.security.web.authentication.logout.LogoutFilter@466ea213, com.example.grocery.core.security.jwt.AuthTokenFilter@54d74be8, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@7abb3cef, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7b2cc39, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7d73142a, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4d86fc0, org.springframework.security.web.session.SessionManagementFilter@40987525, org.springframework.security.web.access.ExceptionTranslationFilter@49861276, org.springframework.security.web.access.intercept.AuthorizationFilter@16b5705a]
+2023-03-07 21:49:05 INFO LiveReload server is running on port 35729
+2023-03-07 21:49:05 INFO Starting ProtocolHandler ["http-nio-8080"]
+2023-03-07 21:49:05 INFO Tomcat started on port(s): 8080 (http) with context path ''
+2023-03-07 21:49:05 INFO Started GroceryApplication in 9.475 seconds (process running for 10.884)
+2023-03-07 21:57:48 INFO Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-03-07 21:57:48 INFO Initializing Servlet 'dispatcherServlet'
+2023-03-07 21:57:48 INFO Completed initialization in 151 ms
+2023-03-08 00:17:52 INFO Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-03-08 00:17:52 INFO HikariPool-1 - Shutdown initiated...
+2023-03-08 00:17:52 INFO HikariPool-1 - Shutdown completed.
+2023-03-10 12:09:21 INFO HV000001: Hibernate Validator 8.0.0.Final
+2023-03-10 12:09:21 INFO Starting GroceryApplication using Java 18.0.2.1 with PID 6508 (C:\GroceryProject-Backend\grocery\target\classes started by palao in C:\GroceryProject-Backend)
+2023-03-10 12:09:21 INFO No active profile set, falling back to 1 default profile: "default"
+2023-03-10 12:09:21 INFO Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-03-10 12:09:21 INFO For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-03-10 12:09:23 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-03-10 12:09:23 INFO Finished Spring Data repository scanning in 198 ms. Found 14 JPA repository interfaces.
+2023-03-10 12:09:24 INFO Tomcat initialized with port(s): 8080 (http)
+2023-03-10 12:09:24 INFO Initializing ProtocolHandler ["http-nio-8080"]
+2023-03-10 12:09:24 INFO Starting service [Tomcat]
+2023-03-10 12:09:24 INFO Starting Servlet engine: [Apache Tomcat/10.1.5]
+2023-03-10 12:09:24 INFO Initializing Spring embedded WebApplicationContext
+2023-03-10 12:09:24 INFO Root WebApplicationContext: initialization completed in 2770 ms
+2023-03-10 12:09:24 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-03-10 12:09:24 INFO HHH000412: Hibernate ORM core version 6.1.6.Final
+2023-03-10 12:09:25 WARN HHH90000021: Encountered deprecated setting [javax.persistence.validation.mode], use [jakarta.persistence.validation.mode] instead
+2023-03-10 12:09:25 WARN HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-03-10 12:09:25 INFO HikariPool-1 - Starting...
+2023-03-10 12:09:25 INFO HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@29a248eb
+2023-03-10 12:09:25 INFO HikariPool-1 - Start completed.
+2023-03-10 12:09:25 INFO HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2023-03-10 12:09:27 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-03-10 12:09:27 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-03-10 12:09:28 WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-03-10 12:09:29 INFO Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@685609b, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6dc76dcd, org.springframework.security.web.context.SecurityContextHolderFilter@7fd32306, org.springframework.security.web.header.HeaderWriterFilter@51ff4d49, org.springframework.web.filter.CorsFilter@57568e42, org.springframework.security.web.authentication.logout.LogoutFilter@67e0e461, com.example.grocery.core.security.jwt.AuthTokenFilter@749dad46, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@e0ca4b2, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@2b737b06, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1c0a0c9d, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2e864823, org.springframework.security.web.session.SessionManagementFilter@3247c746, org.springframework.security.web.access.ExceptionTranslationFilter@5c6bfc4f, org.springframework.security.web.access.intercept.AuthorizationFilter@3f0a8cc1]
+2023-03-10 12:09:30 INFO LiveReload server is running on port 35729
+2023-03-10 12:09:30 INFO Starting ProtocolHandler ["http-nio-8080"]
+2023-03-10 12:09:30 INFO Tomcat started on port(s): 8080 (http) with context path ''
+2023-03-10 12:09:30 INFO Started GroceryApplication in 9.116 seconds (process running for 10.497)
+2023-03-10 12:13:22 INFO Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-03-10 12:13:22 INFO Initializing Servlet 'dispatcherServlet'
+2023-03-10 12:13:22 INFO Completed initialization in 1 ms
+2023-03-10 12:43:29 WARN Resolved [org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public org.springframework.http.ResponseEntity<com.example.grocery.core.utilities.results.Result> com.example.grocery.webApi.controller.ProductsController.delete(com.example.grocery.webApi.requests.product.DeleteProductRequest)]
+2023-03-10 14:43:19 INFO Product: ACE deleted!
+2023-03-10 14:43:41 INFO Product: cabbage deleted!
+2023-03-10 14:43:59 INFO Product: carrot deleted!
+2023-03-10 14:44:13 INFO Product: Cif deleted!
+2023-03-10 14:44:47 INFO Product: Domestos deleted!
+2023-03-10 14:45:49 INFO Product: Domestos Extra deleted!
+2023-03-10 14:46:17 INFO Product: Domestos Ultimate deleted!
+2023-03-10 14:48:49 INFO Product: Dove deleted!
+2023-03-10 15:07:34 INFO Product: Egg plant deleted!
+2023-03-10 15:10:23 INFO Product: Grape deleted!
+2023-03-10 15:23:09 INFO Product: Lahana turşusu deleted!
+2023-03-10 15:42:10 WARN Resolved [org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public org.springframework.http.ResponseEntity<com.example.grocery.core.utilities.results.Result> com.example.grocery.webApi.controller.CategoriesController.delete(com.example.grocery.webApi.requests.category.DeleteCategoryRequest)]
+2023-03-10 15:43:16 INFO Category: Kişisel Bakım deleted!
+2023-03-10 15:43:35 INFO Category: string deleted!
+2023-03-10 15:43:35 WARN SQL Error: 0, SQLState: 23503
+2023-03-10 15:43:35 ERROR ERROR: update or delete on table "categories" violates foreign key constraint "fkoic3eugiqytqtafxb6eqi96pm" on table "products"
+  Ayrıntı: Key (category_id)=(1) is still referenced from table "products".
+2023-03-10 15:43:35 INFO HHH000010: On release of batch it still contained JDBC statements
+2023-03-10 16:04:08 INFO Corporate customer: string deleted!
+2023-03-10 16:07:25 INFO Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-03-10 16:07:25 INFO HikariPool-1 - Shutdown initiated...
+2023-03-10 16:07:25 INFO HikariPool-1 - Shutdown completed.
+2023-03-10 21:45:28 INFO HV000001: Hibernate Validator 8.0.0.Final
+2023-03-10 21:45:29 INFO Starting GroceryApplication using Java 18.0.2.1 with PID 18156 (C:\GroceryProject-Backend\grocery\target\classes started by palao in C:\GroceryProject-Backend)
+2023-03-10 21:45:29 INFO No active profile set, falling back to 1 default profile: "default"
+2023-03-10 21:45:29 INFO Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-03-10 21:45:29 INFO For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-03-10 21:45:30 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-03-10 21:45:30 INFO Finished Spring Data repository scanning in 162 ms. Found 14 JPA repository interfaces.
+2023-03-10 21:45:31 INFO Tomcat initialized with port(s): 8080 (http)
+2023-03-10 21:45:31 INFO Initializing ProtocolHandler ["http-nio-8080"]
+2023-03-10 21:45:31 INFO Starting service [Tomcat]
+2023-03-10 21:45:31 INFO Starting Servlet engine: [Apache Tomcat/10.1.5]
+2023-03-10 21:45:31 INFO Initializing Spring embedded WebApplicationContext
+2023-03-10 21:45:31 INFO Root WebApplicationContext: initialization completed in 2697 ms
+2023-03-10 21:45:32 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-03-10 21:45:32 INFO HHH000412: Hibernate ORM core version 6.1.6.Final
+2023-03-10 21:45:32 WARN HHH90000021: Encountered deprecated setting [javax.persistence.validation.mode], use [jakarta.persistence.validation.mode] instead
+2023-03-10 21:45:32 WARN HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-03-10 21:45:32 INFO HikariPool-1 - Starting...
+2023-03-10 21:45:32 INFO HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@755df27f
+2023-03-10 21:45:32 INFO HikariPool-1 - Start completed.
+2023-03-10 21:45:33 INFO HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2023-03-10 21:45:34 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-03-10 21:45:34 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-03-10 21:45:35 WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-03-10 21:45:36 INFO Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@3193cfff, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1796dee2, org.springframework.security.web.context.SecurityContextHolderFilter@2a952753, org.springframework.security.web.header.HeaderWriterFilter@7e74c049, org.springframework.web.filter.CorsFilter@1563ce9c, org.springframework.security.web.authentication.logout.LogoutFilter@7c61f0ba, com.example.grocery.core.security.jwt.AuthTokenFilter@7eb3edf8, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@3943ec1b, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@2101d4cc, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@214ed21f, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@66358b03, org.springframework.security.web.session.SessionManagementFilter@1453cf12, org.springframework.security.web.access.ExceptionTranslationFilter@407de9b0, org.springframework.security.web.access.intercept.AuthorizationFilter@7cd42d35]
+2023-03-10 21:45:36 INFO LiveReload server is running on port 35729
+2023-03-10 21:45:36 INFO Starting ProtocolHandler ["http-nio-8080"]
+2023-03-10 21:45:36 INFO Tomcat started on port(s): 8080 (http) with context path ''
+2023-03-10 21:45:36 INFO Started GroceryApplication in 8.445 seconds (process running for 9.999)
+2023-03-10 21:56:55 INFO Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-03-10 21:56:55 INFO Initializing Servlet 'dispatcherServlet'
+2023-03-10 21:56:56 INFO Completed initialization in 43 ms
+2023-03-10 22:56:07 INFO Product: string11111 deleted!
+2023-03-10 22:59:33 INFO Category: string deleted!
+2023-03-10 22:59:33 WARN SQL Error: 0, SQLState: 23503
+2023-03-10 22:59:33 ERROR ERROR: update or delete on table "categories" violates foreign key constraint "fkoic3eugiqytqtafxb6eqi96pm" on table "products"
+  Ayrıntı: Key (category_id)=(1) is still referenced from table "products".
+2023-03-10 22:59:33 INFO HHH000010: On release of batch it still contained JDBC statements
+2023-03-11 00:21:47 ERROR Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: org.springframework.http.converter.HttpMessageConversionException: Type definition error: [array type, component type: [simple type, class java.lang.String]]] with root cause
+com.fasterxml.jackson.databind.exc.InvalidDefinitionException: Cannot construct instance of `java.lang.String[]`: no String-argument constructor/factory method to deserialize from String value ('1')
+ at [Source: (org.springframework.util.StreamUtils$NonClosingInputStream); line: 1, column: 195] (through reference chain: com.example.grocery.webApi.requests.product.CreateProductRequest["imageUrls"])
+	at com.fasterxml.jackson.databind.exc.InvalidDefinitionException.from(InvalidDefinitionException.java:67)
+	at com.fasterxml.jackson.databind.DeserializationContext.reportBadDefinition(DeserializationContext.java:1909)
+	at com.fasterxml.jackson.databind.DatabindContext.reportBadDefinition(DatabindContext.java:408)
+	at com.fasterxml.jackson.databind.DeserializationContext.handleMissingInstantiator(DeserializationContext.java:1349)
+	at com.fasterxml.jackson.databind.deser.std.StdDeserializer._deserializeFromString(StdDeserializer.java:311)
+	at com.fasterxml.jackson.databind.deser.std.StringArrayDeserializer.handleNonArray(StringArrayDeserializer.java:343)
+	at com.fasterxml.jackson.databind.deser.std.StringArrayDeserializer.deserialize(StringArrayDeserializer.java:143)
+	at com.fasterxml.jackson.databind.deser.std.StringArrayDeserializer.deserialize(StringArrayDeserializer.java:27)
+	at com.fasterxml.jackson.databind.deser.impl.MethodProperty.deserializeAndSet(MethodProperty.java:129)
+	at com.fasterxml.jackson.databind.deser.BeanDeserializer.deserializeFromObject(BeanDeserializer.java:392)
+	at com.fasterxml.jackson.databind.deser.BeanDeserializer.deserialize(BeanDeserializer.java:185)
+	at com.fasterxml.jackson.databind.deser.DefaultDeserializationContext.readRootValue(DefaultDeserializationContext.java:323)
+	at com.fasterxml.jackson.databind.ObjectReader._bindAndClose(ObjectReader.java:2105)
+	at com.fasterxml.jackson.databind.ObjectReader.readValue(ObjectReader.java:1481)
+	at org.springframework.http.converter.json.AbstractJackson2HttpMessageConverter.readJavaType(AbstractJackson2HttpMessageConverter.java:395)
+	at org.springframework.http.converter.json.AbstractJackson2HttpMessageConverter.read(AbstractJackson2HttpMessageConverter.java:354)
+	at org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodArgumentResolver.readWithMessageConverters(AbstractMessageConverterMethodArgumentResolver.java:182)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.readWithMessageConverters(RequestResponseBodyMethodProcessor.java:163)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.resolveArgument(RequestResponseBodyMethodProcessor.java:136)
+	at org.springframework.web.method.support.HandlerMethodArgumentResolverComposite.resolveArgument(HandlerMethodArgumentResolverComposite.java:122)
+	at org.springframework.web.method.support.InvocableHandlerMethod.getMethodArgumentValues(InvocableHandlerMethod.java:181)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:148)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:884)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:797)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1080)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:973)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1011)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:731)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:814)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:223)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:110)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158)
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:365)
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:131)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:85)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:227)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:221)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at com.example.grocery.core.security.jwt.AuthTokenFilter.doFilterInternal(AuthTokenFilter.java:49)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:351)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:267)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:177)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:542)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:119)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:357)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:400)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:859)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1734)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+2023-03-11 00:22:08 WARN Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot coerce empty String ("") to element of `java.lang.String[]` (but could if coercion was enabled using `CoercionConfig`)]
+2023-03-11 00:22:49 WARN Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot coerce empty String ("") to element of `java.lang.String[]` (but could if coercion was enabled using `CoercionConfig`)]
+2023-03-11 00:23:58 INFO Product: Portakal added!
+2023-03-11 00:28:51 INFO Product: Hıyar2 updated!
+2023-03-11 00:33:59 INFO Product: Hıyar3 updated!
+2023-03-11 01:11:05 INFO Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-03-11 01:11:05 INFO HikariPool-1 - Shutdown initiated...
+2023-03-11 01:11:05 INFO HikariPool-1 - Shutdown completed.
+2023-03-11 12:06:30 INFO HV000001: Hibernate Validator 8.0.0.Final
+2023-03-11 12:06:31 INFO Starting GroceryApplication using Java 18.0.2.1 with PID 448 (C:\GroceryProject-Backend\grocery\target\classes started by palao in C:\GroceryProject-Backend)
+2023-03-11 12:06:31 INFO No active profile set, falling back to 1 default profile: "default"
+2023-03-11 12:06:31 INFO Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-03-11 12:06:31 INFO For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-03-11 12:06:32 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-03-11 12:06:32 INFO Finished Spring Data repository scanning in 150 ms. Found 14 JPA repository interfaces.
+2023-03-11 12:06:33 INFO Tomcat initialized with port(s): 8080 (http)
+2023-03-11 12:06:33 INFO Initializing ProtocolHandler ["http-nio-8080"]
+2023-03-11 12:06:33 INFO Starting service [Tomcat]
+2023-03-11 12:06:33 INFO Starting Servlet engine: [Apache Tomcat/10.1.5]
+2023-03-11 12:06:33 INFO Initializing Spring embedded WebApplicationContext
+2023-03-11 12:06:33 INFO Root WebApplicationContext: initialization completed in 2638 ms
+2023-03-11 12:06:34 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-03-11 12:06:34 INFO HHH000412: Hibernate ORM core version 6.1.6.Final
+2023-03-11 12:06:34 WARN HHH90000021: Encountered deprecated setting [javax.persistence.validation.mode], use [jakarta.persistence.validation.mode] instead
+2023-03-11 12:06:34 WARN HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-03-11 12:06:34 INFO HikariPool-1 - Starting...
+2023-03-11 12:06:34 INFO HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@755df27f
+2023-03-11 12:06:34 INFO HikariPool-1 - Start completed.
+2023-03-11 12:06:35 INFO HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2023-03-11 12:06:36 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-03-11 12:06:36 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-03-11 12:06:37 WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-03-11 12:06:38 INFO Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@3193cfff, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1796dee2, org.springframework.security.web.context.SecurityContextHolderFilter@2a952753, org.springframework.security.web.header.HeaderWriterFilter@7e74c049, org.springframework.web.filter.CorsFilter@1563ce9c, org.springframework.security.web.authentication.logout.LogoutFilter@7c61f0ba, com.example.grocery.core.security.jwt.AuthTokenFilter@15e95d3d, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@3943ec1b, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@2101d4cc, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@214ed21f, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@66358b03, org.springframework.security.web.session.SessionManagementFilter@1453cf12, org.springframework.security.web.access.ExceptionTranslationFilter@407de9b0, org.springframework.security.web.access.intercept.AuthorizationFilter@7cd42d35]
+2023-03-11 12:06:38 INFO LiveReload server is running on port 35729
+2023-03-11 12:06:38 INFO Starting ProtocolHandler ["http-nio-8080"]
+2023-03-11 12:06:38 INFO Tomcat started on port(s): 8080 (http) with context path ''
+2023-03-11 12:06:38 INFO Started GroceryApplication in 8.298 seconds (process running for 9.702)
+2023-03-11 12:15:43 INFO Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-03-11 12:15:43 INFO HikariPool-1 - Shutdown initiated...
+2023-03-11 12:15:43 INFO HikariPool-1 - Shutdown completed.
+2023-03-11 12:44:22 INFO HV000001: Hibernate Validator 8.0.0.Final
+2023-03-11 12:44:22 INFO Starting GroceryApplication using Java 18.0.2.1 with PID 17304 (C:\GroceryProject-Backend\grocery\target\classes started by palao in C:\GroceryProject-Backend)
+2023-03-11 12:44:22 INFO No active profile set, falling back to 1 default profile: "default"
+2023-03-11 12:44:22 INFO Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-03-11 12:44:22 INFO For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-03-11 12:44:24 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-03-11 12:44:24 INFO Finished Spring Data repository scanning in 162 ms. Found 14 JPA repository interfaces.
+2023-03-11 12:44:25 INFO Tomcat initialized with port(s): 8080 (http)
+2023-03-11 12:44:25 INFO Initializing ProtocolHandler ["http-nio-8080"]
+2023-03-11 12:44:25 INFO Starting service [Tomcat]
+2023-03-11 12:44:25 INFO Starting Servlet engine: [Apache Tomcat/10.1.5]
+2023-03-11 12:44:25 INFO Initializing Spring embedded WebApplicationContext
+2023-03-11 12:44:25 INFO Root WebApplicationContext: initialization completed in 2600 ms
+2023-03-11 12:44:25 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-03-11 12:44:25 INFO HHH000412: Hibernate ORM core version 6.1.6.Final
+2023-03-11 12:44:26 WARN HHH90000021: Encountered deprecated setting [javax.persistence.validation.mode], use [jakarta.persistence.validation.mode] instead
+2023-03-11 12:44:26 WARN HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-03-11 12:44:26 INFO HikariPool-1 - Starting...
+2023-03-11 12:44:26 INFO HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@7637eb15
+2023-03-11 12:44:26 INFO HikariPool-1 - Start completed.
+2023-03-11 12:44:26 INFO HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2023-03-11 12:44:28 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-03-11 12:44:28 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-03-11 12:44:29 WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-03-11 12:44:29 INFO Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@71f8086c, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2bbe1ab4, org.springframework.security.web.context.SecurityContextHolderFilter@350b6d8e, org.springframework.security.web.header.HeaderWriterFilter@51304c4a, org.springframework.web.filter.CorsFilter@255e779c, org.springframework.security.web.authentication.logout.LogoutFilter@24f27185, com.example.grocery.core.security.jwt.AuthTokenFilter@2360a289, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@75ba8f7, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3b311229, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7946865e, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1c177d49, org.springframework.security.web.session.SessionManagementFilter@5745b772, org.springframework.security.web.access.ExceptionTranslationFilter@4e165d8b, org.springframework.security.web.access.intercept.AuthorizationFilter@62a1a65a]
+2023-03-11 12:44:30 INFO LiveReload server is running on port 35729
+2023-03-11 12:44:30 INFO Starting ProtocolHandler ["http-nio-8080"]
+2023-03-11 12:44:30 INFO Tomcat started on port(s): 8080 (http) with context path ''
+2023-03-11 12:44:30 INFO Started GroceryApplication in 8.036 seconds (process running for 9.356)
+2023-03-11 12:46:04 INFO Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-03-11 12:46:04 INFO Initializing Servlet 'dispatcherServlet'
+2023-03-11 12:46:04 INFO Completed initialization in 1 ms
+2023-03-11 12:46:05 WARN No mapping for GET /favicon.ico
+2023-03-11 12:48:53 INFO Category: Deneme updated!
+2023-03-11 15:32:53 ERROR Unauthorized error: Full authentication is required to access this resource
+2023-03-11 15:32:58 ERROR Unauthorized error: Full authentication is required to access this resource
+2023-03-11 15:33:02 ERROR Unauthorized error: Full authentication is required to access this resource
+2023-03-11 15:43:16 INFO Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-03-11 15:43:16 INFO HikariPool-1 - Shutdown initiated...
+2023-03-11 15:43:16 INFO HikariPool-1 - Shutdown completed.
+2023-03-12 12:43:22 INFO HV000001: Hibernate Validator 8.0.0.Final
+2023-03-12 12:43:22 INFO Starting GroceryApplication using Java 18.0.2.1 with PID 13680 (C:\GroceryProject-Backend\grocery\target\classes started by palao in C:\GroceryProject-Backend)
+2023-03-12 12:43:22 INFO No active profile set, falling back to 1 default profile: "default"
+2023-03-12 12:43:22 INFO Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-03-12 12:43:22 INFO For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-03-12 12:43:23 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-03-12 12:43:23 INFO Finished Spring Data repository scanning in 175 ms. Found 14 JPA repository interfaces.
+2023-03-12 12:43:24 INFO Tomcat initialized with port(s): 8080 (http)
+2023-03-12 12:43:24 INFO Initializing ProtocolHandler ["http-nio-8080"]
+2023-03-12 12:43:24 INFO Starting service [Tomcat]
+2023-03-12 12:43:24 INFO Starting Servlet engine: [Apache Tomcat/10.1.5]
+2023-03-12 12:43:25 INFO Initializing Spring embedded WebApplicationContext
+2023-03-12 12:43:25 INFO Root WebApplicationContext: initialization completed in 2678 ms
+2023-03-12 12:43:25 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-03-12 12:43:25 INFO HHH000412: Hibernate ORM core version 6.1.6.Final
+2023-03-12 12:43:25 WARN HHH90000021: Encountered deprecated setting [javax.persistence.validation.mode], use [jakarta.persistence.validation.mode] instead
+2023-03-12 12:43:25 WARN HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-03-12 12:43:26 INFO HikariPool-1 - Starting...
+2023-03-12 12:43:26 INFO HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@53c13f18
+2023-03-12 12:43:26 INFO HikariPool-1 - Start completed.
+2023-03-12 12:43:26 INFO HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2023-03-12 12:43:28 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-03-12 12:43:28 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-03-12 12:43:29 WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-03-12 12:43:30 INFO Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@75ba8f7, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6c9c5e49, org.springframework.security.web.context.SecurityContextHolderFilter@5745b772, org.springframework.security.web.header.HeaderWriterFilter@2c9ac26a, org.springframework.web.filter.CorsFilter@1e04fe80, org.springframework.security.web.authentication.logout.LogoutFilter@dbdb96a, com.example.grocery.core.security.jwt.AuthTokenFilter@20c1e91e, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@2ab8329f, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4153f65, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1672fc3d, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@71f8086c, org.springframework.security.web.session.SessionManagementFilter@7b6f67dc, org.springframework.security.web.access.ExceptionTranslationFilter@8b7af6a, org.springframework.security.web.access.intercept.AuthorizationFilter@64f03de4]
+2023-03-12 12:43:30 INFO LiveReload server is running on port 35729
+2023-03-12 12:43:30 INFO Starting ProtocolHandler ["http-nio-8080"]
+2023-03-12 12:43:30 INFO Tomcat started on port(s): 8080 (http) with context path ''
+2023-03-12 12:43:30 INFO Started GroceryApplication in 8.913 seconds (process running for 10.442)
+2023-03-12 12:46:04 INFO Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-03-12 12:46:04 INFO Initializing Servlet 'dispatcherServlet'
+2023-03-12 12:46:04 INFO Completed initialization in 2 ms
+2023-03-12 16:57:56 INFO Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-03-12 16:57:56 INFO HikariPool-1 - Shutdown initiated...
+2023-03-12 16:57:57 INFO HikariPool-1 - Shutdown completed.
+2023-03-14 10:30:19 INFO HV000001: Hibernate Validator 8.0.0.Final
+2023-03-14 10:30:19 INFO Starting GroceryApplication using Java 18.0.2.1 with PID 11864 (C:\GroceryProject-Backend\grocery\target\classes started by palao in C:\GroceryProject-Backend)
+2023-03-14 10:30:19 INFO No active profile set, falling back to 1 default profile: "default"
+2023-03-14 10:30:19 INFO Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-03-14 10:30:19 INFO For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-03-14 10:30:21 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-03-14 10:30:21 INFO Finished Spring Data repository scanning in 152 ms. Found 14 JPA repository interfaces.
+2023-03-14 10:30:22 INFO Tomcat initialized with port(s): 8080 (http)
+2023-03-14 10:30:22 INFO Initializing ProtocolHandler ["http-nio-8080"]
+2023-03-14 10:30:22 INFO Starting service [Tomcat]
+2023-03-14 10:30:22 INFO Starting Servlet engine: [Apache Tomcat/10.1.5]
+2023-03-14 10:30:22 INFO Initializing Spring embedded WebApplicationContext
+2023-03-14 10:30:22 INFO Root WebApplicationContext: initialization completed in 2817 ms
+2023-03-14 10:30:22 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-03-14 10:30:22 INFO HHH000412: Hibernate ORM core version 6.1.6.Final
+2023-03-14 10:30:23 WARN HHH90000021: Encountered deprecated setting [javax.persistence.validation.mode], use [jakarta.persistence.validation.mode] instead
+2023-03-14 10:30:23 WARN HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-03-14 10:30:23 INFO HikariPool-1 - Starting...
+2023-03-14 10:30:23 INFO HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@7b1f47bc
+2023-03-14 10:30:23 INFO HikariPool-1 - Start completed.
+2023-03-14 10:30:24 INFO HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2023-03-14 10:30:25 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-03-14 10:30:25 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-03-14 10:30:26 WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-03-14 10:30:27 INFO Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@3c86ccac, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@9988f2a, org.springframework.security.web.context.SecurityContextHolderFilter@6d39ce1f, org.springframework.security.web.header.HeaderWriterFilter@6e84aeb4, org.springframework.web.filter.CorsFilter@3424763e, org.springframework.security.web.authentication.logout.LogoutFilter@2a952753, com.example.grocery.core.security.jwt.AuthTokenFilter@45823f45, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@149427f9, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@802b5cc, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@26a24098, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@9131580, org.springframework.security.web.session.SessionManagementFilter@38b7146, org.springframework.security.web.access.ExceptionTranslationFilter@78d96bb, org.springframework.security.web.access.intercept.AuthorizationFilter@62dcbdb2]
+2023-03-14 10:30:28 INFO LiveReload server is running on port 35729
+2023-03-14 10:30:28 INFO Starting ProtocolHandler ["http-nio-8080"]
+2023-03-14 10:30:28 INFO Tomcat started on port(s): 8080 (http) with context path ''
+2023-03-14 10:30:28 INFO Started GroceryApplication in 9.368 seconds (process running for 11.11)
+2023-03-14 10:33:20 INFO Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-03-14 10:33:20 INFO Initializing Servlet 'dispatcherServlet'
+2023-03-14 10:33:20 INFO Completed initialization in 14 ms
+2023-03-14 11:29:47 INFO User: omer logined!
+2023-03-14 12:09:17 INFO User: omer logined!
+2023-03-14 12:25:35 ERROR Unauthorized error: Bad credentials
+2023-03-14 12:25:50 INFO User: omer logined!
+2023-03-14 12:32:05 INFO User: omer logined!
+2023-03-14 12:37:49 INFO User: omer logined!
+2023-03-14 12:38:59 INFO User: omer logined!
+2023-03-14 12:43:35 INFO User: omer logined!
+2023-03-14 12:46:35 ERROR Unauthorized error: Bad credentials
+2023-03-14 12:48:31 ERROR Unauthorized error: Bad credentials
+2023-03-14 12:49:32 ERROR Unauthorized error: Bad credentials
+2023-03-14 12:50:21 ERROR Unauthorized error: Bad credentials
+2023-03-14 12:50:29 ERROR Unauthorized error: Bad credentials
+2023-03-14 12:53:37 INFO Restarting due to 1 class path change (0 additions, 1 deletion, 0 modifications)
+2023-03-14 12:53:37 INFO Pausing ProtocolHandler ["http-nio-8080"]
+2023-03-14 12:53:37 INFO Stopping service [Tomcat]
+2023-03-14 12:53:37 INFO Destroying Spring FrameworkServlet 'dispatcherServlet'
+2023-03-14 12:53:37 WARN The web application [ROOT] appears to have started a thread named [HikariPool-1 housekeeper] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@18.0.2.1/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@18.0.2.1/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+ java.base@18.0.2.1/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1672)
+ java.base@18.0.2.1/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+ java.base@18.0.2.1/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base@18.0.2.1/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+ java.base@18.0.2.1/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+ java.base@18.0.2.1/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+ java.base@18.0.2.1/java.lang.Thread.run(Thread.java:833)
+2023-03-14 12:53:37 INFO Stopping ProtocolHandler ["http-nio-8080"]
+2023-03-14 12:53:37 INFO Destroying ProtocolHandler ["http-nio-8080"]
+2023-03-14 12:53:37 INFO Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-03-14 12:53:37 INFO HikariPool-1 - Shutdown initiated...
+2023-03-14 12:53:37 INFO HikariPool-1 - Shutdown completed.
+2023-03-14 12:53:38 INFO Starting GroceryApplication using Java 18.0.2.1 with PID 11864 (C:\GroceryProject-Backend\grocery\target\classes started by palao in C:\GroceryProject-Backend)
+2023-03-14 12:53:38 INFO No active profile set, falling back to 1 default profile: "default"
+2023-03-14 12:53:39 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-03-14 12:53:39 INFO Finished Spring Data repository scanning in 138 ms. Found 14 JPA repository interfaces.
+2023-03-14 12:53:39 INFO Tomcat initialized with port(s): 8080 (http)
+2023-03-14 12:53:39 INFO Initializing ProtocolHandler ["http-nio-8080"]
+2023-03-14 12:53:39 INFO Starting service [Tomcat]
+2023-03-14 12:53:39 INFO Starting Servlet engine: [Apache Tomcat/10.1.5]
+2023-03-14 12:53:39 INFO Initializing Spring embedded WebApplicationContext
+2023-03-14 12:53:39 INFO Root WebApplicationContext: initialization completed in 1514 ms
+2023-03-14 12:53:39 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-03-14 12:53:39 WARN HHH90000021: Encountered deprecated setting [javax.persistence.validation.mode], use [jakarta.persistence.validation.mode] instead
+2023-03-14 12:53:39 WARN HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-03-14 12:53:39 INFO HikariPool-2 - Starting...
+2023-03-14 12:53:39 INFO HikariPool-2 - Added connection org.postgresql.jdbc.PgConnection@362963b3
+2023-03-14 12:53:39 INFO HikariPool-2 - Start completed.
+2023-03-14 12:53:39 INFO HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2023-03-14 12:53:40 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-03-14 12:53:40 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-03-14 12:53:40 WARN Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'corporateCustomerManager': Unsatisfied dependency expressed through field 'userService': Error creating bean with name 'userManager': Unsatisfied dependency expressed through field 'authenticationManager': No qualifying bean of type 'org.springframework.security.authentication.AuthenticationManager' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+2023-03-14 12:53:40 INFO Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-03-14 12:53:40 INFO HikariPool-2 - Shutdown initiated...
+2023-03-14 12:53:40 INFO HikariPool-2 - Shutdown completed.
+2023-03-14 12:53:40 INFO Stopping service [Tomcat]
+2023-03-14 12:53:40 INFO 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2023-03-14 12:53:40 ERROR 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Field authenticationManager in com.example.grocery.core.security.services.UserManager required a bean of type 'org.springframework.security.authentication.AuthenticationManager' that could not be found.
+
+The injection point has the following annotations:
+	- @org.springframework.beans.factory.annotation.Autowired(required=true)
+
+
+Action:
+
+Consider defining a bean of type 'org.springframework.security.authentication.AuthenticationManager' in your configuration.
+
+2023-03-14 12:53:42 INFO Starting GroceryApplication using Java 18.0.2.1 with PID 11864 (C:\GroceryProject-Backend\grocery\target\classes started by palao in C:\GroceryProject-Backend)
+2023-03-14 12:53:42 INFO No active profile set, falling back to 1 default profile: "default"
+2023-03-14 12:53:42 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-03-14 12:53:42 INFO Finished Spring Data repository scanning in 81 ms. Found 14 JPA repository interfaces.
+2023-03-14 12:53:42 INFO Tomcat initialized with port(s): 8080 (http)
+2023-03-14 12:53:42 INFO Initializing ProtocolHandler ["http-nio-8080"]
+2023-03-14 12:53:42 INFO Starting service [Tomcat]
+2023-03-14 12:53:42 INFO Starting Servlet engine: [Apache Tomcat/10.1.5]
+2023-03-14 12:53:42 INFO Initializing Spring embedded WebApplicationContext
+2023-03-14 12:53:42 INFO Root WebApplicationContext: initialization completed in 589 ms
+2023-03-14 12:53:42 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-03-14 12:53:42 WARN HHH90000021: Encountered deprecated setting [javax.persistence.validation.mode], use [jakarta.persistence.validation.mode] instead
+2023-03-14 12:53:42 WARN HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-03-14 12:53:42 INFO HikariPool-3 - Starting...
+2023-03-14 12:53:42 INFO HikariPool-3 - Added connection org.postgresql.jdbc.PgConnection@422778c0
+2023-03-14 12:53:42 INFO HikariPool-3 - Start completed.
+2023-03-14 12:53:42 INFO HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2023-03-14 12:53:43 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-03-14 12:53:43 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-03-14 12:53:43 WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-03-14 12:53:44 INFO Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@69afd081, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@492e8a2f, org.springframework.security.web.context.SecurityContextHolderFilter@66f98a00, org.springframework.security.web.header.HeaderWriterFilter@1736a15, org.springframework.web.filter.CorsFilter@1a1f6e08, org.springframework.security.web.authentication.logout.LogoutFilter@3c619b29, com.example.grocery.core.security.jwt.AuthTokenFilter@33b45e6b, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@112429ba, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@246d54df, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3e54a185, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2a46fd08, org.springframework.security.web.session.SessionManagementFilter@329a99f6, org.springframework.security.web.access.ExceptionTranslationFilter@5772a484, org.springframework.security.web.access.intercept.AuthorizationFilter@245ee78d]
+2023-03-14 12:53:44 INFO LiveReload server is running on port 35729
+2023-03-14 12:53:44 INFO Starting ProtocolHandler ["http-nio-8080"]
+2023-03-14 12:53:44 INFO Tomcat started on port(s): 8080 (http) with context path ''
+2023-03-14 12:53:44 INFO Started GroceryApplication in 1.95 seconds (process running for 8606.781)
+2023-03-14 12:53:44 INFO Condition evaluation unchanged
+2023-03-14 12:54:14 INFO Restarting due to 1 class path change (0 additions, 1 deletion, 0 modifications)
+2023-03-14 12:54:14 INFO Pausing ProtocolHandler ["http-nio-8080"]
+2023-03-14 12:54:14 INFO Stopping service [Tomcat]
+2023-03-14 12:54:14 WARN The web application [ROOT] appears to have started a thread named [HikariPool-3 housekeeper] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@18.0.2.1/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@18.0.2.1/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+ java.base@18.0.2.1/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1672)
+ java.base@18.0.2.1/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+ java.base@18.0.2.1/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base@18.0.2.1/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+ java.base@18.0.2.1/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+ java.base@18.0.2.1/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+ java.base@18.0.2.1/java.lang.Thread.run(Thread.java:833)
+2023-03-14 12:54:14 INFO Stopping ProtocolHandler ["http-nio-8080"]
+2023-03-14 12:54:14 INFO Destroying ProtocolHandler ["http-nio-8080"]
+2023-03-14 12:54:14 INFO Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-03-14 12:54:14 INFO HikariPool-3 - Shutdown initiated...
+2023-03-14 12:54:14 INFO HikariPool-3 - Shutdown completed.
+2023-03-14 12:54:14 INFO Starting GroceryApplication using Java 18.0.2.1 with PID 11864 (C:\GroceryProject-Backend\grocery\target\classes started by palao in C:\GroceryProject-Backend)
+2023-03-14 12:54:14 INFO No active profile set, falling back to 1 default profile: "default"
+2023-03-14 12:54:14 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-03-14 12:54:14 INFO Finished Spring Data repository scanning in 75 ms. Found 14 JPA repository interfaces.
+2023-03-14 12:54:15 INFO Tomcat initialized with port(s): 8080 (http)
+2023-03-14 12:54:15 INFO Initializing ProtocolHandler ["http-nio-8080"]
+2023-03-14 12:54:15 INFO Starting service [Tomcat]
+2023-03-14 12:54:15 INFO Starting Servlet engine: [Apache Tomcat/10.1.5]
+2023-03-14 12:54:15 INFO Initializing Spring embedded WebApplicationContext
+2023-03-14 12:54:15 INFO Root WebApplicationContext: initialization completed in 575 ms
+2023-03-14 12:54:15 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-03-14 12:54:15 WARN HHH90000021: Encountered deprecated setting [javax.persistence.validation.mode], use [jakarta.persistence.validation.mode] instead
+2023-03-14 12:54:15 WARN HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-03-14 12:54:15 INFO HikariPool-4 - Starting...
+2023-03-14 12:54:15 INFO HikariPool-4 - Added connection org.postgresql.jdbc.PgConnection@64cd5289
+2023-03-14 12:54:15 INFO HikariPool-4 - Start completed.
+2023-03-14 12:54:15 INFO HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2023-03-14 12:54:15 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-03-14 12:54:15 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-03-14 12:54:15 WARN Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'corporateCustomerManager': Unsatisfied dependency expressed through field 'userService': Error creating bean with name 'userManager': Unsatisfied dependency expressed through field 'authenticationManager': No qualifying bean of type 'org.springframework.security.authentication.AuthenticationManager' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+2023-03-14 12:54:15 INFO Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-03-14 12:54:15 INFO HikariPool-4 - Shutdown initiated...
+2023-03-14 12:54:15 INFO HikariPool-4 - Shutdown completed.
+2023-03-14 12:54:15 INFO Stopping service [Tomcat]
+2023-03-14 12:54:15 INFO 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2023-03-14 12:54:15 ERROR 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Field authenticationManager in com.example.grocery.core.security.services.UserManager required a bean of type 'org.springframework.security.authentication.AuthenticationManager' that could not be found.
+
+The injection point has the following annotations:
+	- @org.springframework.beans.factory.annotation.Autowired(required=true)
+
+
+Action:
+
+Consider defining a bean of type 'org.springframework.security.authentication.AuthenticationManager' in your configuration.
+
+2023-03-14 12:54:17 INFO Starting GroceryApplication using Java 18.0.2.1 with PID 11864 (C:\GroceryProject-Backend\grocery\target\classes started by palao in C:\GroceryProject-Backend)
+2023-03-14 12:54:17 INFO No active profile set, falling back to 1 default profile: "default"
+2023-03-14 12:54:17 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-03-14 12:54:17 INFO Finished Spring Data repository scanning in 77 ms. Found 14 JPA repository interfaces.
+2023-03-14 12:54:17 INFO Tomcat initialized with port(s): 8080 (http)
+2023-03-14 12:54:17 INFO Initializing ProtocolHandler ["http-nio-8080"]
+2023-03-14 12:54:17 INFO Starting service [Tomcat]
+2023-03-14 12:54:17 INFO Starting Servlet engine: [Apache Tomcat/10.1.5]
+2023-03-14 12:54:17 INFO Initializing Spring embedded WebApplicationContext
+2023-03-14 12:54:17 INFO Root WebApplicationContext: initialization completed in 512 ms
+2023-03-14 12:54:17 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-03-14 12:54:17 WARN HHH90000021: Encountered deprecated setting [javax.persistence.validation.mode], use [jakarta.persistence.validation.mode] instead
+2023-03-14 12:54:17 WARN HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-03-14 12:54:17 INFO HikariPool-5 - Starting...
+2023-03-14 12:54:17 INFO HikariPool-5 - Added connection org.postgresql.jdbc.PgConnection@35780f58
+2023-03-14 12:54:17 INFO HikariPool-5 - Start completed.
+2023-03-14 12:54:17 INFO HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2023-03-14 12:54:18 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-03-14 12:54:18 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-03-14 12:54:18 WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-03-14 12:54:18 INFO Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@524725fc, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@15057d0d, org.springframework.security.web.context.SecurityContextHolderFilter@5ccce565, org.springframework.security.web.header.HeaderWriterFilter@1aaaea01, org.springframework.web.filter.CorsFilter@fd5667e, org.springframework.security.web.authentication.logout.LogoutFilter@7d9fdf2a, com.example.grocery.core.security.jwt.AuthTokenFilter@5956381a, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@51a2c66d, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4824fdca, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@593fc2d, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@48034847, org.springframework.security.web.session.SessionManagementFilter@6e45aad7, org.springframework.security.web.access.ExceptionTranslationFilter@142b7c9, org.springframework.security.web.access.intercept.AuthorizationFilter@8d24310]
+2023-03-14 12:54:18 INFO LiveReload server is running on port 35729
+2023-03-14 12:54:18 INFO Starting ProtocolHandler ["http-nio-8080"]
+2023-03-14 12:54:18 INFO Tomcat started on port(s): 8080 (http) with context path ''
+2023-03-14 12:54:18 INFO Started GroceryApplication in 1.629 seconds (process running for 8641.442)
+2023-03-14 12:54:18 INFO Condition evaluation unchanged
+2023-03-14 12:54:34 INFO Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-03-14 12:54:34 INFO Initializing Servlet 'dispatcherServlet'
+2023-03-14 12:54:34 INFO Completed initialization in 2 ms
+2023-03-14 12:54:34 ERROR Unauthorized error: Full authentication is required to access this resource
+2023-03-14 12:54:44 ERROR Unauthorized error: Full authentication is required to access this resource
+2023-03-14 12:54:52 ERROR Unauthorized error: Full authentication is required to access this resource
+2023-03-14 12:55:08 ERROR Unauthorized error: Full authentication is required to access this resource
+2023-03-14 12:55:17 INFO Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-03-14 12:55:17 INFO HikariPool-5 - Shutdown initiated...
+2023-03-14 12:55:17 INFO HikariPool-5 - Shutdown completed.
+2023-03-14 12:55:20 INFO HV000001: Hibernate Validator 8.0.0.Final
+2023-03-14 12:55:20 INFO Starting GroceryApplication using Java 18.0.2.1 with PID 8676 (C:\GroceryProject-Backend\grocery\target\classes started by palao in C:\GroceryProject-Backend)
+2023-03-14 12:55:20 INFO No active profile set, falling back to 1 default profile: "default"
+2023-03-14 12:55:20 INFO Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-03-14 12:55:20 INFO For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-03-14 12:55:22 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-03-14 12:55:22 INFO Finished Spring Data repository scanning in 179 ms. Found 14 JPA repository interfaces.
+2023-03-14 12:55:23 INFO Tomcat initialized with port(s): 8080 (http)
+2023-03-14 12:55:23 INFO Initializing ProtocolHandler ["http-nio-8080"]
+2023-03-14 12:55:23 INFO Starting service [Tomcat]
+2023-03-14 12:55:23 INFO Starting Servlet engine: [Apache Tomcat/10.1.5]
+2023-03-14 12:55:23 INFO Initializing Spring embedded WebApplicationContext
+2023-03-14 12:55:23 INFO Root WebApplicationContext: initialization completed in 2675 ms
+2023-03-14 12:55:23 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-03-14 12:55:23 INFO HHH000412: Hibernate ORM core version 6.1.6.Final
+2023-03-14 12:55:24 WARN HHH90000021: Encountered deprecated setting [javax.persistence.validation.mode], use [jakarta.persistence.validation.mode] instead
+2023-03-14 12:55:24 WARN HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-03-14 12:55:24 INFO HikariPool-1 - Starting...
+2023-03-14 12:55:24 INFO HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@6cccfd45
+2023-03-14 12:55:24 INFO HikariPool-1 - Start completed.
+2023-03-14 12:55:24 INFO HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2023-03-14 12:55:26 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-03-14 12:55:26 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-03-14 12:55:27 WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-03-14 12:55:28 INFO Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@6a40c45f, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3f9287ab, org.springframework.security.web.context.SecurityContextHolderFilter@49861276, org.springframework.security.web.header.HeaderWriterFilter@688b10e7, org.springframework.web.filter.CorsFilter@23f25f44, org.springframework.security.web.authentication.logout.LogoutFilter@664e3015, com.example.grocery.core.security.jwt.AuthTokenFilter@60737cd7, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@1208e1f5, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@cbd92d7, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@58847f5f, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@16b5705a, org.springframework.security.web.session.SessionManagementFilter@423c7d35, org.springframework.security.web.access.ExceptionTranslationFilter@4e291db5, org.springframework.security.web.access.intercept.AuthorizationFilter@4bd98cbd]
+2023-03-14 12:55:29 INFO LiveReload server is running on port 35729
+2023-03-14 12:55:29 INFO Starting ProtocolHandler ["http-nio-8080"]
+2023-03-14 12:55:29 INFO Tomcat started on port(s): 8080 (http) with context path ''
+2023-03-14 12:55:29 INFO Started GroceryApplication in 8.804 seconds (process running for 9.733)
+2023-03-14 12:55:32 INFO Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-03-14 12:55:32 INFO Initializing Servlet 'dispatcherServlet'
+2023-03-14 12:55:32 INFO Completed initialization in 1 ms
+2023-03-14 12:55:32 ERROR Unauthorized error: Full authentication is required to access this resource
+2023-03-14 12:55:37 ERROR Unauthorized error: Full authentication is required to access this resource
+2023-03-14 12:56:12 INFO Restarting due to 1 class path change (0 additions, 1 deletion, 0 modifications)
+2023-03-14 12:56:12 INFO Pausing ProtocolHandler ["http-nio-8080"]
+2023-03-14 12:56:12 INFO Stopping service [Tomcat]
+2023-03-14 12:56:12 INFO Destroying Spring FrameworkServlet 'dispatcherServlet'
+2023-03-14 12:56:12 WARN The web application [ROOT] appears to have started a thread named [HikariPool-1 housekeeper] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@18.0.2.1/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@18.0.2.1/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+ java.base@18.0.2.1/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1672)
+ java.base@18.0.2.1/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+ java.base@18.0.2.1/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base@18.0.2.1/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+ java.base@18.0.2.1/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+ java.base@18.0.2.1/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+ java.base@18.0.2.1/java.lang.Thread.run(Thread.java:833)
+2023-03-14 12:56:12 INFO Stopping ProtocolHandler ["http-nio-8080"]
+2023-03-14 12:56:12 INFO Destroying ProtocolHandler ["http-nio-8080"]
+2023-03-14 12:56:12 INFO Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-03-14 12:56:12 INFO HikariPool-1 - Shutdown initiated...
+2023-03-14 12:56:12 INFO HikariPool-1 - Shutdown completed.
+2023-03-14 12:56:12 INFO Starting GroceryApplication using Java 18.0.2.1 with PID 8676 (C:\GroceryProject-Backend\grocery\target\classes started by palao in C:\GroceryProject-Backend)
+2023-03-14 12:56:12 INFO No active profile set, falling back to 1 default profile: "default"
+2023-03-14 12:56:13 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-03-14 12:56:13 INFO Finished Spring Data repository scanning in 106 ms. Found 14 JPA repository interfaces.
+2023-03-14 12:56:13 INFO Tomcat initialized with port(s): 8080 (http)
+2023-03-14 12:56:13 INFO Initializing ProtocolHandler ["http-nio-8080"]
+2023-03-14 12:56:13 INFO Starting service [Tomcat]
+2023-03-14 12:56:13 INFO Starting Servlet engine: [Apache Tomcat/10.1.5]
+2023-03-14 12:56:13 INFO Initializing Spring embedded WebApplicationContext
+2023-03-14 12:56:13 INFO Root WebApplicationContext: initialization completed in 1056 ms
+2023-03-14 12:56:13 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-03-14 12:56:13 WARN HHH90000021: Encountered deprecated setting [javax.persistence.validation.mode], use [jakarta.persistence.validation.mode] instead
+2023-03-14 12:56:13 WARN HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-03-14 12:56:13 INFO HikariPool-2 - Starting...
+2023-03-14 12:56:13 INFO HikariPool-2 - Added connection org.postgresql.jdbc.PgConnection@c8dcbaa
+2023-03-14 12:56:13 INFO HikariPool-2 - Start completed.
+2023-03-14 12:56:13 INFO HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2023-03-14 12:56:13 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-03-14 12:56:13 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-03-14 12:56:14 WARN Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'corporateCustomerManager': Unsatisfied dependency expressed through field 'userService': Error creating bean with name 'userManager': Unsatisfied dependency expressed through field 'authenticationManager': No qualifying bean of type 'org.springframework.security.authentication.AuthenticationManager' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+2023-03-14 12:56:14 INFO Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-03-14 12:56:14 INFO HikariPool-2 - Shutdown initiated...
+2023-03-14 12:56:14 INFO HikariPool-2 - Shutdown completed.
+2023-03-14 12:56:14 INFO Stopping service [Tomcat]
+2023-03-14 12:56:14 INFO 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2023-03-14 12:56:14 ERROR 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Field authenticationManager in com.example.grocery.core.security.services.UserManager required a bean of type 'org.springframework.security.authentication.AuthenticationManager' that could not be found.
+
+The injection point has the following annotations:
+	- @org.springframework.beans.factory.annotation.Autowired(required=true)
+
+
+Action:
+
+Consider defining a bean of type 'org.springframework.security.authentication.AuthenticationManager' in your configuration.
+
+2023-03-14 12:56:16 INFO Starting GroceryApplication using Java 18.0.2.1 with PID 8676 (C:\GroceryProject-Backend\grocery\target\classes started by palao in C:\GroceryProject-Backend)
+2023-03-14 12:56:16 INFO No active profile set, falling back to 1 default profile: "default"
+2023-03-14 12:56:16 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-03-14 12:56:16 INFO Finished Spring Data repository scanning in 76 ms. Found 14 JPA repository interfaces.
+2023-03-14 12:56:16 INFO Tomcat initialized with port(s): 8080 (http)
+2023-03-14 12:56:16 INFO Initializing ProtocolHandler ["http-nio-8080"]
+2023-03-14 12:56:16 INFO Starting service [Tomcat]
+2023-03-14 12:56:16 INFO Starting Servlet engine: [Apache Tomcat/10.1.5]
+2023-03-14 12:56:16 INFO Initializing Spring embedded WebApplicationContext
+2023-03-14 12:56:16 INFO Root WebApplicationContext: initialization completed in 627 ms
+2023-03-14 12:56:16 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-03-14 12:56:16 WARN HHH90000021: Encountered deprecated setting [javax.persistence.validation.mode], use [jakarta.persistence.validation.mode] instead
+2023-03-14 12:56:16 WARN HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-03-14 12:56:16 INFO HikariPool-3 - Starting...
+2023-03-14 12:56:16 INFO HikariPool-3 - Added connection org.postgresql.jdbc.PgConnection@5213ac97
+2023-03-14 12:56:16 INFO HikariPool-3 - Start completed.
+2023-03-14 12:56:16 INFO HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2023-03-14 12:56:17 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-03-14 12:56:17 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-03-14 12:56:17 WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-03-14 12:56:17 INFO Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@4935dea3, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@83a52de, org.springframework.security.web.context.SecurityContextHolderFilter@2feb64c, org.springframework.security.web.header.HeaderWriterFilter@4946ce01, org.springframework.web.filter.CorsFilter@486018cb, org.springframework.security.web.authentication.logout.LogoutFilter@522c3967, com.example.grocery.core.security.jwt.AuthTokenFilter@2e58039b, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@7ae12799, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7e05b71, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@78a9bb4a, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3b4e23b1, org.springframework.security.web.session.SessionManagementFilter@5e606060, org.springframework.security.web.access.ExceptionTranslationFilter@7b2fc684, org.springframework.security.web.access.intercept.AuthorizationFilter@625459d3]
+2023-03-14 12:56:17 INFO LiveReload server is running on port 35729
+2023-03-14 12:56:17 INFO Starting ProtocolHandler ["http-nio-8080"]
+2023-03-14 12:56:17 INFO Tomcat started on port(s): 8080 (http) with context path ''
+2023-03-14 12:56:17 INFO Started GroceryApplication in 1.937 seconds (process running for 58.593)
+2023-03-14 12:56:17 INFO Condition evaluation unchanged
+2023-03-14 12:56:23 INFO Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-03-14 12:56:23 INFO Initializing Servlet 'dispatcherServlet'
+2023-03-14 12:56:23 INFO Completed initialization in 1 ms
+2023-03-14 12:56:55 ERROR Unauthorized error: Full authentication is required to access this resource
+2023-03-14 12:57:01 ERROR Unauthorized error: Full authentication is required to access this resource
+2023-03-14 12:59:16 INFO Restarting due to 6 class path changes (0 additions, 6 deletions, 0 modifications)
+2023-03-14 12:59:16 INFO Pausing ProtocolHandler ["http-nio-8080"]
+2023-03-14 12:59:16 INFO Stopping service [Tomcat]
+2023-03-14 12:59:16 INFO Destroying Spring FrameworkServlet 'dispatcherServlet'
+2023-03-14 12:59:16 WARN The web application [ROOT] appears to have started a thread named [HikariPool-3 housekeeper] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@18.0.2.1/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@18.0.2.1/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+ java.base@18.0.2.1/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1672)
+ java.base@18.0.2.1/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+ java.base@18.0.2.1/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base@18.0.2.1/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+ java.base@18.0.2.1/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+ java.base@18.0.2.1/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+ java.base@18.0.2.1/java.lang.Thread.run(Thread.java:833)
+2023-03-14 12:59:16 INFO Stopping ProtocolHandler ["http-nio-8080"]
+2023-03-14 12:59:16 INFO Destroying ProtocolHandler ["http-nio-8080"]
+2023-03-14 12:59:16 INFO Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-03-14 12:59:16 INFO HikariPool-3 - Shutdown initiated...
+2023-03-14 12:59:16 INFO HikariPool-3 - Shutdown completed.
+2023-03-14 12:59:16 INFO Starting GroceryApplication using Java 18.0.2.1 with PID 8676 (C:\GroceryProject-Backend\grocery\target\classes started by palao in C:\GroceryProject-Backend)
+2023-03-14 12:59:16 INFO No active profile set, falling back to 1 default profile: "default"
+2023-03-14 12:59:17 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-03-14 12:59:17 INFO Finished Spring Data repository scanning in 87 ms. Found 14 JPA repository interfaces.
+2023-03-14 12:59:17 INFO Tomcat initialized with port(s): 8080 (http)
+2023-03-14 12:59:17 INFO Initializing ProtocolHandler ["http-nio-8080"]
+2023-03-14 12:59:17 INFO Starting service [Tomcat]
+2023-03-14 12:59:17 INFO Starting Servlet engine: [Apache Tomcat/10.1.5]
+2023-03-14 12:59:17 INFO Initializing Spring embedded WebApplicationContext
+2023-03-14 12:59:17 INFO Root WebApplicationContext: initialization completed in 705 ms
+2023-03-14 12:59:17 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-03-14 12:59:17 WARN HHH90000021: Encountered deprecated setting [javax.persistence.validation.mode], use [jakarta.persistence.validation.mode] instead
+2023-03-14 12:59:17 WARN HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-03-14 12:59:17 INFO HikariPool-4 - Starting...
+2023-03-14 12:59:17 INFO HikariPool-4 - Added connection org.postgresql.jdbc.PgConnection@51b6603e
+2023-03-14 12:59:17 INFO HikariPool-4 - Start completed.
+2023-03-14 12:59:17 INFO HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2023-03-14 12:59:17 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-03-14 12:59:17 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-03-14 12:59:18 WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-03-14 12:59:18 INFO Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@67c83030, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@40c39d46, org.springframework.security.web.context.SecurityContextHolderFilter@1ce702c7, org.springframework.security.web.header.HeaderWriterFilter@718033ce, org.springframework.web.filter.CorsFilter@37a259a5, org.springframework.security.web.authentication.logout.LogoutFilter@6fdd9d67, com.example.grocery.core.security.jwt.AuthTokenFilter@4057c9de, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@64fdaf6d, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5e365876, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2e580e3d, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3ead0efb, org.springframework.security.web.session.SessionManagementFilter@353a11fc, org.springframework.security.web.access.ExceptionTranslationFilter@6504f2e7, org.springframework.security.web.access.intercept.AuthorizationFilter@6d0352a1]
+2023-03-14 12:59:18 INFO LiveReload server is running on port 35729
+2023-03-14 12:59:18 INFO Starting ProtocolHandler ["http-nio-8080"]
+2023-03-14 12:59:18 INFO Tomcat started on port(s): 8080 (http) with context path ''
+2023-03-14 12:59:18 INFO Started GroceryApplication in 1.915 seconds (process running for 239.336)
+2023-03-14 12:59:18 INFO Condition evaluation unchanged
+2023-03-14 12:59:27 INFO Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-03-14 12:59:27 INFO Initializing Servlet 'dispatcherServlet'
+2023-03-14 12:59:27 INFO Completed initialization in 1 ms
+2023-03-14 12:59:27 ERROR Unauthorized error: Full authentication is required to access this resource
+2023-03-14 12:59:48 ERROR Unauthorized error: Full authentication is required to access this resource
+2023-03-14 13:00:08 INFO Employee: string string deleted!
+2023-03-14 14:02:06 INFO Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-03-14 14:02:06 INFO HikariPool-4 - Shutdown initiated...
+2023-03-14 14:02:06 INFO HikariPool-4 - Shutdown completed.
+2023-03-14 14:26:43 INFO HV000001: Hibernate Validator 8.0.0.Final
+2023-03-14 14:26:43 INFO Starting GroceryApplication using Java 18.0.2.1 with PID 4472 (C:\GroceryProject-Backend\grocery\target\classes started by palao in C:\GroceryProject-Backend)
+2023-03-14 14:26:43 INFO No active profile set, falling back to 1 default profile: "default"
+2023-03-14 14:26:43 INFO Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-03-14 14:26:43 INFO For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-03-14 14:26:44 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-03-14 14:26:45 INFO Finished Spring Data repository scanning in 171 ms. Found 14 JPA repository interfaces.
+2023-03-14 14:26:46 INFO Tomcat initialized with port(s): 8080 (http)
+2023-03-14 14:26:46 INFO Initializing ProtocolHandler ["http-nio-8080"]
+2023-03-14 14:26:46 INFO Starting service [Tomcat]
+2023-03-14 14:26:46 INFO Starting Servlet engine: [Apache Tomcat/10.1.5]
+2023-03-14 14:26:46 INFO Initializing Spring embedded WebApplicationContext
+2023-03-14 14:26:46 INFO Root WebApplicationContext: initialization completed in 2783 ms
+2023-03-14 14:26:46 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-03-14 14:26:46 INFO HHH000412: Hibernate ORM core version 6.1.6.Final
+2023-03-14 14:26:46 WARN HHH90000021: Encountered deprecated setting [javax.persistence.validation.mode], use [jakarta.persistence.validation.mode] instead
+2023-03-14 14:26:46 WARN HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-03-14 14:26:47 INFO HikariPool-1 - Starting...
+2023-03-14 14:26:47 INFO HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@75a4b8c4
+2023-03-14 14:26:47 INFO HikariPool-1 - Start completed.
+2023-03-14 14:26:47 INFO HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2023-03-14 14:26:48 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-03-14 14:26:48 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-03-14 14:26:50 WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-03-14 14:26:50 INFO Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@82e3edb, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2db57d02, org.springframework.security.web.context.SecurityContextHolderFilter@705d25ac, org.springframework.security.web.header.HeaderWriterFilter@7a9b364d, org.springframework.web.filter.CorsFilter@a97bf3b, org.springframework.security.web.authentication.logout.LogoutFilter@4d86fc0, com.example.grocery.core.security.jwt.AuthTokenFilter@45cf482e, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@5a5ffc20, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@664e3015, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1c197e0c, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2dd91957, org.springframework.security.web.session.SessionManagementFilter@7d2338d7, org.springframework.security.web.access.ExceptionTranslationFilter@61db816, org.springframework.security.web.access.intercept.AuthorizationFilter@7a906bab]
+2023-03-14 14:26:51 INFO LiveReload server is running on port 35729
+2023-03-14 14:26:51 INFO Starting ProtocolHandler ["http-nio-8080"]
+2023-03-14 14:26:51 INFO Tomcat started on port(s): 8080 (http) with context path ''
+2023-03-14 14:26:51 INFO Started GroceryApplication in 8.582 seconds (process running for 9.534)
+2023-03-14 14:26:58 INFO Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-03-14 14:26:58 INFO HikariPool-1 - Shutdown initiated...
+2023-03-14 14:26:58 INFO HikariPool-1 - Shutdown completed.

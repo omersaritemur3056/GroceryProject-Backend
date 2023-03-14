@@ -1,6 +1,6 @@
 package com.example.grocery.core.security.services;
 
-import com.example.grocery.business.constants.Messages;
+import com.example.grocery.service.constants.Messages;
 import com.example.grocery.core.mailing.service.EmailService;
 import com.example.grocery.core.security.models.User;
 import com.example.grocery.core.security.repository.UserRepository;

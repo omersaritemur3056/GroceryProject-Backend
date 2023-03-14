@@ -1,4 +1,4 @@
-package com.example.grocery.webApi.controller;
+package com.example.grocery.api.controller;
 
 import java.util.List;
 
@@ -7,14 +7,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.example.grocery.business.abstracts.ProductService;
+import com.example.grocery.service.interfaces.ProductService;
 import com.example.grocery.core.utilities.results.DataResult;
 import com.example.grocery.core.utilities.results.Result;
-import com.example.grocery.webApi.requests.product.CreateProductRequest;
-import com.example.grocery.webApi.requests.product.DeleteProductRequest;
-import com.example.grocery.webApi.requests.product.UpdateProductRequest;
-import com.example.grocery.webApi.responses.product.GetAllProductResponse;
-import com.example.grocery.webApi.responses.product.GetByIdProductResponse;
+import com.example.grocery.api.requests.product.CreateProductRequest;
+import com.example.grocery.api.requests.product.DeleteProductRequest;
+import com.example.grocery.api.requests.product.UpdateProductRequest;
+import com.example.grocery.api.responses.product.GetAllProductResponse;
+import com.example.grocery.api.responses.product.GetByIdProductResponse;
 
 import jakarta.validation.Valid;
 

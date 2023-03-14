@@ -1,10 +1,10 @@
 package com.example.grocery.layeredTest.service;
 
-import com.example.grocery.service.concretes.PhotoManager;
+import com.example.grocery.service.implement.PhotoServiceImpl;
 import com.example.grocery.core.utilities.image.ImageService;
 import com.example.grocery.core.utilities.mapper.MapperService;
-import com.example.grocery.dataAccess.abstracts.ImageRepository;
-import com.example.grocery.entity.concretes.Image;
+import com.example.grocery.repository.ImageRepository;
+import com.example.grocery.model.concretes.Image;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.*;
@@ -17,7 +17,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import static org.springframework.test.util.AssertionErrors.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
-public class PhotoManagerTest {
+public class PhotoServiceImplTest {
 
     @Mock
     private ImageService imageService;
@@ -29,7 +29,7 @@ public class PhotoManagerTest {
     private ImageRepository imageRepository;
 
     @InjectMocks
-    private PhotoManager photoManager;
+    private PhotoServiceImpl photoServiceImpl;
 
     private Image image, image2;
 
@@ -78,7 +78,7 @@ public class PhotoManagerTest {
 
     @Test
     public void imageListShouldReturn() throws Exception {
-        assertThat(photoManager.getAll()).isNotNull();
+        assertThat(photoServiceImpl.getAll()).isNotNull();
     }
 
     @Test

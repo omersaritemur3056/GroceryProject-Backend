@@ -1,15 +1,15 @@
-package com.example.grocery.service.concretes;
+package com.example.grocery.service.implement;
 
 import java.util.ArrayList;
 import java.util.List;
 import com.example.grocery.service.rules.PhotoBusinessRules;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.grocery.service.abstracts.PhotoService;
+import com.example.grocery.service.interfaces.PhotoService;
 import com.example.grocery.service.constants.Messages.CreateMessages;
 import com.example.grocery.service.constants.Messages.DeleteMessages;
 import com.example.grocery.service.constants.Messages.ErrorMessages;
@@ -25,8 +25,8 @@ import com.example.grocery.core.utilities.results.DataResult;
 import com.example.grocery.core.utilities.results.Result;
 import com.example.grocery.core.utilities.results.SuccessDataResult;
 import com.example.grocery.core.utilities.results.SuccessResult;
-import com.example.grocery.dataAccess.abstracts.ImageRepository;
-import com.example.grocery.entity.concretes.Image;
+import com.example.grocery.repository.ImageRepository;
+import com.example.grocery.model.concretes.Image;
 import com.example.grocery.api.responses.image.GetAllImageResponse;
 import com.example.grocery.api.responses.image.GetByIdImageResponse;
 import com.example.grocery.api.responses.image.GetByUrlImageResponse;
@@ -36,16 +36,13 @@ import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
-public class PhotoManager implements PhotoService {
+@AllArgsConstructor
+public class PhotoServiceImpl implements PhotoService {
 
-    @Autowired
-    private ImageRepository imageRepository;
-    @Autowired
-    private ImageService imageService;
-    @Autowired
-    private MapperService mapperService;
-    @Autowired
-    private PhotoBusinessRules photoBusinessRules;
+    private final ImageRepository imageRepository;
+    private final ImageService imageService;
+    private final MapperService mapperService;
+    private final PhotoBusinessRules photoBusinessRules;
 
     @Override
     @Transactional

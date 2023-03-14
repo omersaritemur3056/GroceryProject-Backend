@@ -1,4 +1,4 @@
-package com.example.grocery.service.abstracts;
+package com.example.grocery.service.interfaces;
 
 import java.util.List;
 

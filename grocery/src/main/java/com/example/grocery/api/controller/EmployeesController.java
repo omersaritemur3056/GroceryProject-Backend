@@ -1,4 +1,4 @@
-package com.example.grocery.webApi.controller;
+package com.example.grocery.api.controller;
 
 import java.util.List;
 
@@ -6,14 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.example.grocery.business.abstracts.EmployeeService;
+import com.example.grocery.service.interfaces.EmployeeService;
 import com.example.grocery.core.utilities.results.DataResult;
 import com.example.grocery.core.utilities.results.Result;
-import com.example.grocery.webApi.requests.employee.CreateEmployeeRequest;
-import com.example.grocery.webApi.requests.employee.DeleteEmployeeRequest;
-import com.example.grocery.webApi.requests.employee.UpdateEmployeeRequest;
-import com.example.grocery.webApi.responses.employee.GetAllEmployeeResponse;
-import com.example.grocery.webApi.responses.employee.GetByIdEmployeeResponse;
+import com.example.grocery.api.requests.employee.CreateEmployeeRequest;
+import com.example.grocery.api.requests.employee.DeleteEmployeeRequest;
+import com.example.grocery.api.requests.employee.UpdateEmployeeRequest;
+import com.example.grocery.api.responses.employee.GetAllEmployeeResponse;
+import com.example.grocery.api.responses.employee.GetByIdEmployeeResponse;
 
 import jakarta.validation.Valid;
 

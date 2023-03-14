@@ -1,4 +1,4 @@
-package com.example.grocery.webApi.controller;
+package com.example.grocery.api.controller;
 
 import java.util.List;
 
@@ -9,12 +9,12 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.grocery.business.abstracts.PhotoService;
+import com.example.grocery.service.interfaces.PhotoService;
 import com.example.grocery.core.utilities.results.DataResult;
 import com.example.grocery.core.utilities.results.Result;
-import com.example.grocery.webApi.responses.image.GetAllImageResponse;
-import com.example.grocery.webApi.responses.image.GetByIdImageResponse;
-import com.example.grocery.webApi.responses.image.GetByUrlImageResponse;
+import com.example.grocery.api.responses.image.GetAllImageResponse;
+import com.example.grocery.api.responses.image.GetByIdImageResponse;
+import com.example.grocery.api.responses.image.GetByUrlImageResponse;
 
 @RestController
 @RequestMapping("/api/image")

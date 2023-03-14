@@ -1,4 +1,4 @@
-package com.example.grocery.webApi.responses.image;
+package com.example.grocery.api.responses.image;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

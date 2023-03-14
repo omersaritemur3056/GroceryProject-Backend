@@ -1,4 +1,4 @@
-package com.example.grocery.webApi.requests.payment;
+package com.example.grocery.api.requests.payment;
 
 import org.hibernate.validator.constraints.CreditCardNumber;
 

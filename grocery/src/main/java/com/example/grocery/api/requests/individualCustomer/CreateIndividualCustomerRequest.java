@@ -1,6 +1,6 @@
-package com.example.grocery.webApi.requests.individualCustomer;
+package com.example.grocery.api.requests.individualCustomer;
 
-import com.example.grocery.entity.enums.Gender;
+import com.example.grocery.model.enums.Gender;
 
 import jakarta.validation.constraints.*;
 

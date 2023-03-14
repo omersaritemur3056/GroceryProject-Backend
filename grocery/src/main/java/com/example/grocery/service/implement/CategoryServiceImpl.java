@@ -1,9 +1,8 @@
-package com.example.grocery.service.concretes;
+package com.example.grocery.service.implement;
 
-import com.example.grocery.service.abstracts.CategoryService;
-import com.example.grocery.service.constants.Messages.*;
-import com.example.grocery.service.constants.Messages.LogMessages.LogInfoMessages;
+import com.example.grocery.service.constants.Messages;
 import com.example.grocery.service.rules.CategoryBusinessRules;
+import com.example.grocery.service.interfaces.CategoryService;
 import com.example.grocery.core.utilities.business.BusinessRules;
 import com.example.grocery.core.utilities.exceptions.BusinessException;
 import com.example.grocery.core.utilities.mapper.MapperService;
@@ -11,16 +10,16 @@ import com.example.grocery.core.utilities.results.DataResult;
 import com.example.grocery.core.utilities.results.Result;
 import com.example.grocery.core.utilities.results.SuccessDataResult;
 import com.example.grocery.core.utilities.results.SuccessResult;
-import com.example.grocery.dataAccess.abstracts.CategoryRepository;
-import com.example.grocery.entity.concretes.Category;
+import com.example.grocery.repository.CategoryRepository;
+import com.example.grocery.model.concretes.Category;
 import com.example.grocery.api.requests.category.CreateCategoryRequest;
 import com.example.grocery.api.requests.category.DeleteCategoryRequest;
 import com.example.grocery.api.requests.category.UpdateCategoryRequest;
 import com.example.grocery.api.responses.category.GetAllCategoryResponse;
 import com.example.grocery.api.responses.category.GetByIdCategoryResponse;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -30,14 +29,12 @@ import java.util.stream.Collectors;
 
 @Service
 @Slf4j
-public class CategoryManager implements CategoryService {
+@AllArgsConstructor
+public class CategoryServiceImpl implements CategoryService {
 
-    @Autowired
-    private CategoryRepository categoryRepository;
-    @Autowired
-    private MapperService mapperService;
-    @Autowired
-    private CategoryBusinessRules categoryBusinessRules;
+    private final CategoryRepository categoryRepository;
+    private final MapperService mapperService;
+    private final CategoryBusinessRules categoryBusinessRules;
 
     @Override
     public Result add(CreateCategoryRequest createCategoryRequest) {
@@ -48,8 +45,8 @@ public class CategoryManager implements CategoryService {
 
         Category category = mapperService.forRequest().map(createCategoryRequest, Category.class);
         categoryRepository.save(category);
-        log.info(LogInfoMessages.CATEGORY_ADDED, createCategoryRequest.getName());
-        return new SuccessResult(CreateMessages.CATEGORY_CREATED);
+        log.info(Messages.LogMessages.LogInfoMessages.CATEGORY_ADDED, createCategoryRequest.getName());
+        return new SuccessResult(Messages.CreateMessages.CATEGORY_CREATED);
     }
 
     @Override
@@ -60,9 +57,9 @@ public class CategoryManager implements CategoryService {
             return rules;
 
         Category category = mapperService.forRequest().map(deleteCategoryRequest, Category.class);
-        log.info(LogInfoMessages.CATEGORY_DELETED, getCategoryById(deleteCategoryRequest.getId()).getName());
+        log.info(Messages.LogMessages.LogInfoMessages.CATEGORY_DELETED, getCategoryById(deleteCategoryRequest.getId()).getName());
         categoryRepository.delete(category);
-        return new SuccessResult(DeleteMessages.CATEGORY_DELETED);
+        return new SuccessResult(Messages.DeleteMessages.CATEGORY_DELETED);
     }
 
     @Override
@@ -74,12 +71,12 @@ public class CategoryManager implements CategoryService {
             return rules;
 
         Category inDbCategory = categoryRepository.findById(id)
-                .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
+                .orElseThrow(() -> new BusinessException(Messages.ErrorMessages.ID_NOT_FOUND));
         Category category = mapperService.forRequest().map(updateCategoryRequest, Category.class);
         category.setId(inDbCategory.getId());
         categoryRepository.save(category);
-        log.info(LogInfoMessages.CATEGORY_UPDATED, updateCategoryRequest.getName());
-        return new SuccessResult(UpdateMessages.CATEGORY_MODIFIED);
+        log.info(Messages.LogMessages.LogInfoMessages.CATEGORY_UPDATED, updateCategoryRequest.getName());
+        return new SuccessResult(Messages.UpdateMessages.CATEGORY_MODIFIED);
     }
 
     @Override
@@ -88,16 +85,16 @@ public class CategoryManager implements CategoryService {
         List<GetAllCategoryResponse> returnList = categories.stream()
                 .map(c -> mapperService.forResponse().map(c, GetAllCategoryResponse.class)).toList();
 
-        return new SuccessDataResult<>(returnList, GetListMessages.CATEGORIES_LISTED);
+        return new SuccessDataResult<>(returnList, Messages.GetListMessages.CATEGORIES_LISTED);
     }
 
     @Override
     public DataResult<GetByIdCategoryResponse> getById(Long id) {
         Category category = categoryRepository.findById(id)
-                .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
+                .orElseThrow(() -> new BusinessException(Messages.ErrorMessages.ID_NOT_FOUND));
         GetByIdCategoryResponse getByIdCategoryResponse = mapperService.forResponse().map(category,
                 GetByIdCategoryResponse.class);
-        return new SuccessDataResult<>(getByIdCategoryResponse, GetByIdMessages.CATEGORY_LISTED);
+        return new SuccessDataResult<>(getByIdCategoryResponse, Messages.GetByIdMessages.CATEGORY_LISTED);
     }
 
     @Override
@@ -107,7 +104,7 @@ public class CategoryManager implements CategoryService {
         List<Category> categories = categoryRepository.findAll(Sort.by(Sort.Direction.ASC, sortBy));
         List<GetAllCategoryResponse> returnList = categories.stream()
                 .map(c -> mapperService.forResponse().map(c, GetAllCategoryResponse.class)).toList();
-        return new SuccessDataResult<>(returnList, GetListMessages.CATEGORIES_SORTED + sortBy);
+        return new SuccessDataResult<>(returnList, Messages.GetListMessages.CATEGORIES_SORTED + sortBy);
     }
 
     @Override
@@ -119,7 +116,7 @@ public class CategoryManager implements CategoryService {
         List<GetAllCategoryResponse> returnList = categories.stream()
                 .map(c -> mapperService.forResponse().map(c, GetAllCategoryResponse.class))
                 .collect(Collectors.toList());
-        return new SuccessDataResult<>(returnList, GetListMessages.CATEGORIED_PAGINATED);
+        return new SuccessDataResult<>(returnList, Messages.GetListMessages.CATEGORIED_PAGINATED);
     }
 
     @Override
@@ -134,7 +131,7 @@ public class CategoryManager implements CategoryService {
         List<GetAllCategoryResponse> returnList = categories.stream()
                 .map(c -> mapperService.forResponse().map(c, GetAllCategoryResponse.class))
                 .collect(Collectors.toList());
-        return new SuccessDataResult<>(returnList, GetListMessages.CATEGORIES_PAGINATED_AND_SORTED + sortBy);
+        return new SuccessDataResult<>(returnList, Messages.GetListMessages.CATEGORIES_PAGINATED_AND_SORTED + sortBy);
     }
 
     // ProductManager sınıfımızda bağımlılığı kontrol altına alma adına kullanılmak
@@ -142,7 +139,7 @@ public class CategoryManager implements CategoryService {
     @Override
     public Category getCategoryById(Long id) {
         return categoryRepository.findById(id)
-                .orElseThrow(() -> new BusinessException(ErrorMessages.CATEGORY_ID_NOT_FOUND));
+                .orElseThrow(() -> new BusinessException(Messages.ErrorMessages.CATEGORY_ID_NOT_FOUND));
     }
 
 }

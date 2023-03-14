@@ -1,10 +1,10 @@
-package com.example.grocery.service.abstracts;
+package com.example.grocery.service.interfaces;
 
 import java.util.List;
 
 import com.example.grocery.core.utilities.results.DataResult;
 import com.example.grocery.core.utilities.results.Result;
-import com.example.grocery.entity.concretes.Producer;
+import com.example.grocery.model.concretes.Producer;
 import com.example.grocery.api.requests.producer.CreateProducerRequest;
 import com.example.grocery.api.requests.producer.DeleteProducerRequest;
 import com.example.grocery.api.requests.producer.UpdateProducerRequest;

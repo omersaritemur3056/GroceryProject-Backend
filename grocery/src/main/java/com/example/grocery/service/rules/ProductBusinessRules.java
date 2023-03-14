@@ -1,14 +1,14 @@
 package com.example.grocery.service.rules;
 
-import com.example.grocery.service.abstracts.CategoryService;
-import com.example.grocery.service.abstracts.ProducerService;
-import com.example.grocery.service.abstracts.SupplierService;
+import com.example.grocery.service.interfaces.CategoryService;
+import com.example.grocery.service.interfaces.ProducerService;
+import com.example.grocery.service.interfaces.SupplierService;
 import com.example.grocery.service.constants.Messages;
 import com.example.grocery.core.utilities.exceptions.BusinessException;
 import com.example.grocery.core.utilities.results.Result;
 import com.example.grocery.core.utilities.results.SuccessResult;
-import com.example.grocery.dataAccess.abstracts.ProductRepository;
-import com.example.grocery.entity.concretes.Product;
+import com.example.grocery.repository.ProductRepository;
+import com.example.grocery.model.concretes.Product;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

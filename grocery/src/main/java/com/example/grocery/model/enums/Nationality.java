@@ -1,4 +1,4 @@
-package com.example.grocery.entity.enums;
+package com.example.grocery.model.enums;
 
 public enum Nationality {
     TURKISH("Turkish citizen"),

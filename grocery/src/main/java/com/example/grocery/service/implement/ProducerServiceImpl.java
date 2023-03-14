@@ -1,21 +1,15 @@
-package com.example.grocery.service.concretes;
+package com.example.grocery.service.implement;
 
 import java.util.List;
 
+import com.example.grocery.service.constants.Messages;
 import com.example.grocery.service.rules.ProducerBusinessRules;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import com.example.grocery.service.abstracts.ProducerService;
-import com.example.grocery.service.constants.Messages.CreateMessages;
-import com.example.grocery.service.constants.Messages.DeleteMessages;
-import com.example.grocery.service.constants.Messages.ErrorMessages;
-import com.example.grocery.service.constants.Messages.GetByIdMessages;
-import com.example.grocery.service.constants.Messages.GetListMessages;
-import com.example.grocery.service.constants.Messages.UpdateMessages;
-import com.example.grocery.service.constants.Messages.LogMessages.LogInfoMessages;
+import com.example.grocery.service.interfaces.ProducerService;
 import com.example.grocery.core.utilities.business.BusinessRules;
 import com.example.grocery.core.utilities.exceptions.BusinessException;
 import com.example.grocery.core.utilities.mapper.MapperService;
@@ -23,8 +17,8 @@ import com.example.grocery.core.utilities.results.DataResult;
 import com.example.grocery.core.utilities.results.Result;
 import com.example.grocery.core.utilities.results.SuccessDataResult;
 import com.example.grocery.core.utilities.results.SuccessResult;
-import com.example.grocery.dataAccess.abstracts.ProducerRepository;
-import com.example.grocery.entity.concretes.Producer;
+import com.example.grocery.repository.ProducerRepository;
+import com.example.grocery.model.concretes.Producer;
 import com.example.grocery.api.requests.producer.CreateProducerRequest;
 import com.example.grocery.api.requests.producer.DeleteProducerRequest;
 import com.example.grocery.api.requests.producer.UpdateProducerRequest;
@@ -35,14 +29,12 @@ import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
-public class ProducerManager implements ProducerService {
+@AllArgsConstructor
+public class ProducerServiceImpl implements ProducerService {
 
-    @Autowired
-    private ProducerRepository producerRepository;
-    @Autowired
-    private MapperService mapperService;
-    @Autowired
-    private ProducerBusinessRules producerBusinessRules;
+    private final ProducerRepository producerRepository;
+    private final MapperService mapperService;
+    private final ProducerBusinessRules producerBusinessRules;
 
     @Override
     public Result add(CreateProducerRequest createProducerRequest) {
@@ -53,8 +45,8 @@ public class ProducerManager implements ProducerService {
 
         Producer producer = mapperService.forRequest().map(createProducerRequest, Producer.class);
         producerRepository.save(producer);
-        log.info(LogInfoMessages.PRODUCER_ADDED, createProducerRequest.getName());
-        return new SuccessResult(CreateMessages.PRODUCER_CREATED);
+        log.info(Messages.LogMessages.LogInfoMessages.PRODUCER_ADDED, createProducerRequest.getName());
+        return new SuccessResult(Messages.CreateMessages.PRODUCER_CREATED);
     }
 
     @Override
@@ -66,12 +58,12 @@ public class ProducerManager implements ProducerService {
             return rules;
 
         var inDbProducer = producerRepository.findById(id)
-                .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
+                .orElseThrow(() -> new BusinessException(Messages.ErrorMessages.ID_NOT_FOUND));
         Producer producer = mapperService.forRequest().map(updateProducerRequest, Producer.class);
         producer.setId(inDbProducer.getId());
         producerRepository.save(producer);
-        log.info(LogInfoMessages.PRODUCER_UPDATED, updateProducerRequest.getName());
-        return new SuccessResult(UpdateMessages.PRODUCER_MODIFIED);
+        log.info(Messages.LogMessages.LogInfoMessages.PRODUCER_UPDATED, updateProducerRequest.getName());
+        return new SuccessResult(Messages.UpdateMessages.PRODUCER_MODIFIED);
     }
 
     @Override
@@ -82,9 +74,9 @@ public class ProducerManager implements ProducerService {
             return rules;
 
         Producer producer = mapperService.forRequest().map(deleteProducerRequest, Producer.class);
-        log.info(LogInfoMessages.PRODUCER_DELETED, getProducerById(deleteProducerRequest.getId()).getName());
+        log.info(Messages.LogMessages.LogInfoMessages.PRODUCER_DELETED, getProducerById(deleteProducerRequest.getId()).getName());
         producerRepository.delete(producer);
-        return new SuccessResult(DeleteMessages.PRODUCER_DELETED);
+        return new SuccessResult(Messages.DeleteMessages.PRODUCER_DELETED);
     }
 
     @Override
@@ -92,16 +84,16 @@ public class ProducerManager implements ProducerService {
         List<Producer> producers = producerRepository.findAll();
         List<GetAllProducerResponse> returnList = producers.stream()
                 .map(p -> mapperService.forResponse().map(p, GetAllProducerResponse.class)).toList();
-        return new SuccessDataResult<>(returnList, GetListMessages.PRODUCERS_LISTED);
+        return new SuccessDataResult<>(returnList, Messages.GetListMessages.PRODUCERS_LISTED);
     }
 
     @Override
     public DataResult<GetByIdProducerResponse> getById(Long id) {
         Producer producer = producerRepository.findById(id)
-                .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
+                .orElseThrow(() -> new BusinessException(Messages.ErrorMessages.ID_NOT_FOUND));
         GetByIdProducerResponse getByIdProducerResponse = mapperService.forResponse().map(producer,
                 GetByIdProducerResponse.class);
-        return new SuccessDataResult<>(getByIdProducerResponse, GetByIdMessages.PRODUCER_LISTED);
+        return new SuccessDataResult<>(getByIdProducerResponse, Messages.GetByIdMessages.PRODUCER_LISTED);
     }
 
     @Override
@@ -111,7 +103,7 @@ public class ProducerManager implements ProducerService {
         List<Producer> producers = producerRepository.findAll(Sort.by(Sort.Direction.ASC, sortBy));
         List<GetAllProducerResponse> returnList = producers.stream()
                 .map(p -> mapperService.forResponse().map(p, GetAllProducerResponse.class)).toList();
-        return new SuccessDataResult<>(returnList, GetListMessages.PRODUCERS_SORTED + sortBy);
+        return new SuccessDataResult<>(returnList, Messages.GetListMessages.PRODUCERS_SORTED + sortBy);
     }
 
     @Override
@@ -122,7 +114,7 @@ public class ProducerManager implements ProducerService {
         List<Producer> producers = producerRepository.findAll(PageRequest.of(pageNo, pageSize)).toList();
         List<GetAllProducerResponse> returnList = producers.stream()
                 .map(p -> mapperService.forResponse().map(p, GetAllProducerResponse.class)).toList();
-        return new SuccessDataResult<>(returnList, GetListMessages.PRODUCERS_PAGINATED);
+        return new SuccessDataResult<>(returnList, Messages.GetListMessages.PRODUCERS_PAGINATED);
     }
 
     @Override
@@ -136,7 +128,7 @@ public class ProducerManager implements ProducerService {
                 .findAll(PageRequest.of(pageNo, pageSize).withSort(Sort.by(sortBy))).toList();
         List<GetAllProducerResponse> returnList = producers.stream()
                 .map(p -> mapperService.forResponse().map(p, GetAllProducerResponse.class)).toList();
-        return new SuccessDataResult<>(returnList, GetListMessages.PRODUCERS_PAGINATED_AND_SORTED + sortBy);
+        return new SuccessDataResult<>(returnList, Messages.GetListMessages.PRODUCERS_PAGINATED_AND_SORTED + sortBy);
     }
 
     // ProductManager sınıfımızda bağımlılığı kontrol altına alma adına kullanılmak
@@ -144,7 +136,7 @@ public class ProducerManager implements ProducerService {
     @Override
     public Producer getProducerById(Long id) {
         return producerRepository.findById(id)
-                .orElseThrow(() -> new BusinessException(ErrorMessages.PRODUCER_ID_NOT_FOUND));
+                .orElseThrow(() -> new BusinessException(Messages.ErrorMessages.PRODUCER_ID_NOT_FOUND));
     }
 
 }

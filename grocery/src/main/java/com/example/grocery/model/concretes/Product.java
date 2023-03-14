@@ -1,4 +1,4 @@
-package com.example.grocery.entity.concretes;
+package com.example.grocery.model.concretes;
 
 import java.time.LocalDate;
 import java.util.List;

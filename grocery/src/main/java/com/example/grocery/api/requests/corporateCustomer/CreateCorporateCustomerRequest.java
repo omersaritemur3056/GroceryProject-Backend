@@ -1,4 +1,4 @@
-package com.example.grocery.webApi.requests.corporateCustomer;
+package com.example.grocery.api.requests.corporateCustomer;
 
 import jakarta.validation.constraints.*;
 

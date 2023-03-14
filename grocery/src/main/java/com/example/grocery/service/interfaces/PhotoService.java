@@ -1,4 +1,4 @@
-package com.example.grocery.service.abstracts;
+package com.example.grocery.service.interfaces;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.grocery.core.utilities.results.DataResult;
 import com.example.grocery.core.utilities.results.Result;
-import com.example.grocery.entity.concretes.Image;
+import com.example.grocery.model.concretes.Image;
 import com.example.grocery.api.responses.image.GetAllImageResponse;
 import com.example.grocery.api.responses.image.GetByIdImageResponse;
 import com.example.grocery.api.responses.image.GetByUrlImageResponse;

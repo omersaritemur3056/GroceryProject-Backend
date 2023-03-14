@@ -2,7 +2,7 @@ package com.example.grocery.service.rules;
 
 import com.example.grocery.service.constants.Messages;
 import com.example.grocery.core.utilities.exceptions.BusinessException;
-import com.example.grocery.entity.concretes.Image;
+import com.example.grocery.model.concretes.Image;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;

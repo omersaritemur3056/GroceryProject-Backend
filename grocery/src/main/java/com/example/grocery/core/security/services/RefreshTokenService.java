@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.example.grocery.business.constants.Messages.ErrorMessages;
+import com.example.grocery.service.constants.Messages.ErrorMessages;
 import com.example.grocery.core.security.models.RefreshToken;
 import com.example.grocery.core.security.repository.RefreshTokenRepository;
 import com.example.grocery.core.security.repository.UserRepository;

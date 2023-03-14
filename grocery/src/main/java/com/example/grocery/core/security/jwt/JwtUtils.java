@@ -6,7 +6,7 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import com.example.grocery.business.constants.Messages.LogMessages.LogErrorMessages;
+import com.example.grocery.service.constants.Messages.LogMessages.LogErrorMessages;
 import com.example.grocery.core.security.services.UserDetailsImpl;
 
 import io.jsonwebtoken.*;

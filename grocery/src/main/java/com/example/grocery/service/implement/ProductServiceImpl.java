@@ -1,9 +1,9 @@
-package com.example.grocery.service.concretes;
+package com.example.grocery.service.implement;
 
-import com.example.grocery.service.abstracts.*;
+import com.example.grocery.service.rules.ProductBusinessRules;
+import com.example.grocery.service.interfaces.*;
 import com.example.grocery.service.constants.Messages.*;
 import com.example.grocery.service.constants.Messages.LogMessages.LogInfoMessages;
-import com.example.grocery.service.rules.ProductBusinessRules;
 import com.example.grocery.core.utilities.business.BusinessRules;
 import com.example.grocery.core.utilities.exceptions.BusinessException;
 import com.example.grocery.core.utilities.mapper.MapperService;
@@ -11,17 +11,17 @@ import com.example.grocery.core.utilities.results.DataResult;
 import com.example.grocery.core.utilities.results.Result;
 import com.example.grocery.core.utilities.results.SuccessDataResult;
 import com.example.grocery.core.utilities.results.SuccessResult;
-import com.example.grocery.dataAccess.abstracts.ProductRepository;
-import com.example.grocery.entity.concretes.Image;
-import com.example.grocery.entity.concretes.Product;
+import com.example.grocery.repository.ProductRepository;
+import com.example.grocery.model.concretes.Image;
+import com.example.grocery.model.concretes.Product;
 import com.example.grocery.api.requests.product.CreateProductRequest;
 import com.example.grocery.api.requests.product.DeleteProductRequest;
 import com.example.grocery.api.requests.product.UpdateProductRequest;
 import com.example.grocery.api.responses.product.GetAllProductResponse;
 import com.example.grocery.api.responses.product.GetByIdProductResponse;
 import jakarta.transaction.Transactional;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -34,22 +34,16 @@ import java.util.List;
 
 @Service
 @Slf4j
-public class ProductManager implements ProductService {
+@AllArgsConstructor
+public class ProductServiceImpl implements ProductService {
 
-    @Autowired
-    private ProductRepository productRepository;
-    @Autowired
-    private CategoryService categoryService;
-    @Autowired
-    private ProducerService producerService;
-    @Autowired
-    private SupplierService supplierService;
-    @Autowired
-    private MapperService mapperService;
-    @Autowired
-    private PhotoService photoService;
-    @Autowired
-    private ProductBusinessRules productBusinessRules;
+    private final ProductRepository productRepository;
+    private final CategoryService categoryService;
+    private final ProducerService producerService;
+    private final SupplierService supplierService;
+    private final MapperService mapperService;
+    private final PhotoService photoService;
+    private final ProductBusinessRules productBusinessRules;
 
     @Override
     @Transactional
