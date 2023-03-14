@@ -25967,3 +25967,123 @@ Consider defining a bean of type 'org.springframework.security.authentication.Au
 2023-03-14 14:26:58 INFO Closing JPA EntityManagerFactory for persistence unit 'default'
 2023-03-14 14:26:58 INFO HikariPool-1 - Shutdown initiated...
 2023-03-14 14:26:58 INFO HikariPool-1 - Shutdown completed.
+2023-03-14 14:34:48 INFO HV000001: Hibernate Validator 8.0.0.Final
+2023-03-14 14:34:49 INFO Starting GroceryApplication using Java 18.0.2.1 with PID 1748 (C:\GroceryProject-Backend\grocery\target\classes started by palao in C:\GroceryProject-Backend)
+2023-03-14 14:34:49 INFO No active profile set, falling back to 1 default profile: "default"
+2023-03-14 14:34:49 INFO Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-03-14 14:34:49 INFO For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-03-14 14:34:50 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-03-14 14:34:50 INFO Finished Spring Data repository scanning in 223 ms. Found 14 JPA repository interfaces.
+2023-03-14 14:34:52 INFO Tomcat initialized with port(s): 8080 (http)
+2023-03-14 14:34:52 INFO Initializing ProtocolHandler ["http-nio-8080"]
+2023-03-14 14:34:52 INFO Starting service [Tomcat]
+2023-03-14 14:34:52 INFO Starting Servlet engine: [Apache Tomcat/10.1.5]
+2023-03-14 14:34:52 INFO Initializing Spring embedded WebApplicationContext
+2023-03-14 14:34:52 INFO Root WebApplicationContext: initialization completed in 3128 ms
+2023-03-14 14:34:52 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-03-14 14:34:52 INFO HHH000412: Hibernate ORM core version 6.1.6.Final
+2023-03-14 14:34:53 WARN HHH90000021: Encountered deprecated setting [javax.persistence.validation.mode], use [jakarta.persistence.validation.mode] instead
+2023-03-14 14:34:53 WARN HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-03-14 14:34:53 INFO HikariPool-1 - Starting...
+2023-03-14 14:34:53 INFO HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@42f63852
+2023-03-14 14:34:53 INFO HikariPool-1 - Start completed.
+2023-03-14 14:34:54 INFO HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2023-03-14 14:34:55 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-03-14 14:34:55 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-03-14 14:34:56 WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-03-14 14:34:57 INFO Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@565a8a60, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1dce1687, org.springframework.security.web.context.SecurityContextHolderFilter@15f7f10a, org.springframework.security.web.header.HeaderWriterFilter@2dd91957, org.springframework.web.filter.CorsFilter@179efd38, org.springframework.security.web.authentication.logout.LogoutFilter@53f61ed1, com.example.grocery.core.security.jwt.AuthTokenFilter@64c1a89e, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@4c50e1e5, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6a497a04, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@231683ce, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@29146389, org.springframework.security.web.session.SessionManagementFilter@52a31831, org.springframework.security.web.access.ExceptionTranslationFilter@2db57d02, org.springframework.security.web.access.intercept.AuthorizationFilter@59e481c]
+2023-03-14 14:34:58 INFO LiveReload server is running on port 35729
+2023-03-14 14:34:58 INFO Starting ProtocolHandler ["http-nio-8080"]
+2023-03-14 14:34:58 INFO Tomcat started on port(s): 8080 (http) with context path ''
+2023-03-14 14:34:58 INFO Started GroceryApplication in 10.026 seconds (process running for 11.167)
+2023-03-14 14:35:48 INFO Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-03-14 14:35:48 INFO Initializing Servlet 'dispatcherServlet'
+2023-03-14 14:35:48 INFO Completed initialization in 1 ms
+2023-03-14 14:36:16 INFO User: omer logined!
+2023-03-14 14:40:49 INFO Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-03-14 14:40:49 INFO HikariPool-1 - Shutdown initiated...
+2023-03-14 14:40:49 INFO HikariPool-1 - Shutdown completed.
+2023-03-14 14:40:55 INFO HV000001: Hibernate Validator 8.0.0.Final
+2023-03-14 14:40:55 INFO Starting GroceryApplication using Java 18.0.2.1 with PID 9928 (C:\GroceryProject-Backend\grocery\target\classes started by palao in C:\GroceryProject-Backend)
+2023-03-14 14:40:55 INFO No active profile set, falling back to 1 default profile: "default"
+2023-03-14 14:40:55 INFO Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-03-14 14:40:55 INFO For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-03-14 14:40:56 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-03-14 14:40:57 INFO Finished Spring Data repository scanning in 173 ms. Found 14 JPA repository interfaces.
+2023-03-14 14:40:58 INFO Tomcat initialized with port(s): 8080 (http)
+2023-03-14 14:40:58 INFO Initializing ProtocolHandler ["http-nio-8080"]
+2023-03-14 14:40:58 INFO Starting service [Tomcat]
+2023-03-14 14:40:58 INFO Starting Servlet engine: [Apache Tomcat/10.1.5]
+2023-03-14 14:40:58 INFO Initializing Spring embedded WebApplicationContext
+2023-03-14 14:40:58 INFO Root WebApplicationContext: initialization completed in 3056 ms
+2023-03-14 14:40:58 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-03-14 14:40:58 INFO HHH000412: Hibernate ORM core version 6.1.6.Final
+2023-03-14 14:40:59 WARN HHH90000021: Encountered deprecated setting [javax.persistence.validation.mode], use [jakarta.persistence.validation.mode] instead
+2023-03-14 14:40:59 WARN HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-03-14 14:40:59 INFO HikariPool-1 - Starting...
+2023-03-14 14:40:59 INFO HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@456c0326
+2023-03-14 14:40:59 INFO HikariPool-1 - Start completed.
+2023-03-14 14:40:59 INFO HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2023-03-14 14:41:00 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-03-14 14:41:00 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-03-14 14:41:02 WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-03-14 14:41:03 INFO Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@4381410, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1114228c, org.springframework.security.web.context.SecurityContextHolderFilter@38a9191e, org.springframework.security.web.header.HeaderWriterFilter@7b2cc39, org.springframework.web.filter.CorsFilter@6ce9aca8, org.springframework.security.web.authentication.logout.LogoutFilter@1208e1f5, com.example.grocery.core.security.jwt.AuthTokenFilter@3dee73b7, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@3cc52f94, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@49f34740, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@61db816, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6193b384, org.springframework.security.web.session.SessionManagementFilter@37a48947, org.springframework.security.web.access.ExceptionTranslationFilter@47c1932d, org.springframework.security.web.access.intercept.AuthorizationFilter@4d86fc0]
+2023-03-14 14:41:03 INFO LiveReload server is running on port 35729
+2023-03-14 14:41:03 INFO Starting ProtocolHandler ["http-nio-8080"]
+2023-03-14 14:41:03 INFO Tomcat started on port(s): 8080 (http) with context path ''
+2023-03-14 14:41:03 INFO Started GroceryApplication in 8.785 seconds (process running for 9.709)
+2023-03-14 14:41:34 INFO Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-03-14 14:41:34 INFO Initializing Servlet 'dispatcherServlet'
+2023-03-14 14:41:34 INFO Completed initialization in 1 ms
+2023-03-14 15:08:22 INFO User: omer logined!
+2023-03-14 15:12:45 ERROR Unauthorized error: Full authentication is required to access this resource
+2023-03-14 15:23:26 INFO User: omer logined!
+2023-03-14 15:23:39 INFO Category: deneme2 added!
+2023-03-14 15:29:04 INFO Category: deneme3 added!
+2023-03-14 15:31:01 INFO Supplier: Tuzlayıcı A.Ş added!
+2023-03-14 15:31:02 WARN Supplier email: tuzlayıcı@gmail.com already exists!
+2023-03-14 15:31:02 WARN Supplier email: tuzlayıcı@gmail.com already exists!
+2023-03-14 15:44:44 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-14 15:44:44 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-14 15:51:41 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-14 15:51:41 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-14 15:52:17 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-14 15:52:17 ERROR Unauthorized error: Full authentication is required to access this resource
+2023-03-14 15:53:16 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-14 15:53:35 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-14 15:57:54 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-14 15:58:08 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-14 15:58:12 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-14 15:58:35 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-14 15:58:39 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-14 16:00:46 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-14 16:00:46 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-14 16:00:57 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-14 16:00:57 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-14 16:01:15 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-14 16:01:15 ERROR Unauthorized error: Full authentication is required to access this resource
+2023-03-14 16:01:16 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-14 16:01:16 ERROR Unauthorized error: Full authentication is required to access this resource
+2023-03-14 16:01:17 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-14 16:01:17 ERROR Unauthorized error: Full authentication is required to access this resource
+2023-03-14 16:01:17 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-14 16:01:17 ERROR Unauthorized error: Full authentication is required to access this resource
+2023-03-14 16:01:17 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-14 16:01:17 ERROR Unauthorized error: Full authentication is required to access this resource
+2023-03-14 16:01:22 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-14 16:01:22 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-14 16:02:18 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-14 16:02:18 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-14 16:11:15 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-14 16:11:15 INFO User: omer logined!
+2023-03-14 16:25:23 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-14 16:25:24 ERROR Unauthorized error: Bad credentials
+2023-03-14 16:25:37 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-14 16:25:37 INFO User: omer logined!
+2023-03-14 16:28:01 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-14 16:28:06 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-14 16:28:40 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-14 16:28:40 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-14 16:31:51 INFO Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-03-14 16:31:51 INFO HikariPool-1 - Shutdown initiated...
+2023-03-14 16:31:51 INFO HikariPool-1 - Shutdown completed.

@@ -9,7 +9,7 @@ import com.example.grocery.api.requests.order.UpdateOrderRequest;
 import com.example.grocery.api.responses.order.GetAllOrderResponse;
 import com.example.grocery.api.responses.order.GetByIdOrderResponse;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,10 +19,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/order")
 @CrossOrigin
+@AllArgsConstructor
 public class OrdersController {
 
-    @Autowired
-    private OrderService orderService;
+    private final OrderService orderService;
 
     @PostMapping("/add")
     public ResponseEntity<Result> add(@Valid @RequestBody CreateOrderRequest createOrderRequest) {

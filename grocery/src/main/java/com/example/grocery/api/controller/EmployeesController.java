@@ -2,7 +2,7 @@ package com.example.grocery.api.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,10 +20,10 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/api/employee")
 @CrossOrigin
+@AllArgsConstructor
 public class EmployeesController {
 
-    @Autowired
-    private EmployeeService employeeService;
+    private final EmployeeService employeeService;
 
     @PostMapping("/add")
     public ResponseEntity<Result> add(@Valid @RequestBody CreateEmployeeRequest createEmployeeRequest) {

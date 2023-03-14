@@ -2,7 +2,7 @@ package com.example.grocery.api.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,9 +19,9 @@ import com.example.grocery.api.responses.image.GetByUrlImageResponse;
 @RestController
 @RequestMapping("/api/image")
 @CrossOrigin
+@AllArgsConstructor
 public class PhotosController {
 
-    @Autowired
     private PhotoService photoService;
 
     @PostMapping("/add")

@@ -2,7 +2,7 @@ package com.example.grocery.api.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,10 +21,10 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/api/payment")
 @CrossOrigin
+@AllArgsConstructor
 public class PaymentsController {
 
-    @Autowired
-    private PaymentService paymentService;
+    private final PaymentService paymentService;
 
     @PostMapping("/add")
     public ResponseEntity<Result> add(@Valid @RequestBody CreatePaymentRequest createPaymentRequest) {

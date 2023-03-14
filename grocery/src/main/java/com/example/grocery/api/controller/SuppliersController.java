@@ -2,7 +2,7 @@ package com.example.grocery.api.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,10 +20,10 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/api/supplier")
 @CrossOrigin
+@AllArgsConstructor
 public class SuppliersController {
 
-    @Autowired
-    private SupplierService supplierService;
+    private final SupplierService supplierService;
 
     @PostMapping("/add")
     public ResponseEntity<Result> add(@Valid @RequestBody CreateSupplierRequest createSupplierRequest) {

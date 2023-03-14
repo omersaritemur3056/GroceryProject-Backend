@@ -2,9 +2,10 @@ package com.example.grocery.api.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.grocery.service.interfaces.ProductService;
@@ -21,12 +22,13 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/api/product")
 @CrossOrigin
+@AllArgsConstructor
 public class ProductsController {
 
-    @Autowired
-    private ProductService productService;
+    private final ProductService productService;
 
     @PostMapping("/add")
+    @Secured("ADMIN")
     public ResponseEntity<Result> add(@Valid @RequestBody CreateProductRequest createProductRequest) {
         return ResponseEntity.ok().body(productService.add(createProductRequest));
     }

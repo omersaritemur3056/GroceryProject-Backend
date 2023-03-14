@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -51,24 +51,17 @@ import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
-public class UserManager implements UserService {
+@AllArgsConstructor
+public class UserServiceImpl implements UserService {
 
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private RoleRepository roleRepository;
-    @Autowired
-    private RefreshTokenService refreshTokenService;
-    @Autowired
-    private AuthenticationManager authenticationManager;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-    @Autowired
-    private JwtUtils jwtUtils;
-    @Autowired
-    private MapperService mapperService;
-    @Autowired
-    private UserBusinessRules userBusinessRules;
+    private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
+    private final RefreshTokenService refreshTokenService;
+    private final AuthenticationManager authenticationManager;
+    private final PasswordEncoder passwordEncoder;
+    private final JwtUtils jwtUtils;
+    private final MapperService mapperService;
+    private final UserBusinessRules userBusinessRules;
 
     @Override
     @Transactional

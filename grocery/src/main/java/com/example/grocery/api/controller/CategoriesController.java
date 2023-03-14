@@ -1,7 +1,8 @@
 package com.example.grocery.api.controller;
 
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.example.grocery.service.interfaces.CategoryService;
@@ -18,10 +19,10 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/api/category")
 @CrossOrigin
+@AllArgsConstructor
 public class CategoriesController {
 
-    @Autowired
-    private CategoryService categoryService;
+    private final CategoryService categoryService;
 
     @PostMapping("/add")
     public ResponseEntity<Result> add(@Valid @RequestBody CreateCategoryRequest createCategoryRequest) {

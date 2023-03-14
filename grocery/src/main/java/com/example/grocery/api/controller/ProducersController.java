@@ -2,6 +2,7 @@ package com.example.grocery.api.controller;
 
 import java.util.List;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,10 +22,10 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/api/producer")
 @CrossOrigin
+@AllArgsConstructor
 public class ProducersController {
 
-    @Autowired
-    private ProducerService producerService;
+    private final ProducerService producerService;
 
     @PostMapping("/add")
     public ResponseEntity<Result> add(@Valid @RequestBody CreateProducerRequest createProducerRequest) {

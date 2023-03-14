@@ -2,7 +2,7 @@ package com.example.grocery.api.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,10 +14,10 @@ import com.example.grocery.api.responses.customer.GetByIdCustomerResponse;
 @RestController
 @RequestMapping("/api/customer")
 @CrossOrigin
+@AllArgsConstructor
 public class CustomersController {
 
-    @Autowired
-    private CustomerService customerService;
+    private final CustomerService customerService;
 
     @GetMapping("/getall")
     public ResponseEntity<DataResult<List<GetAllCustomerResponse>>> getAll() {
