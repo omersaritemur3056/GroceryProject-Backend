@@ -8,8 +8,8 @@ import com.example.grocery.core.validation.mernisValidation.MernisValidationServ
 import com.example.grocery.repository.EmployeeRepository;
 import com.example.grocery.model.concretes.Employee;
 import com.example.grocery.model.enums.Nationality;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -17,12 +17,11 @@ import java.time.Period;
 
 @Slf4j
 @Service
+@AllArgsConstructor
 public class EmployeeBusinessRules {
 
-    @Autowired
-    private EmployeeRepository employeeRepository;
-    @Autowired
-    private MernisValidationService mernisValidationService;
+    private final EmployeeRepository employeeRepository;
+    private final MernisValidationService mernisValidationService;
 
     public Result isExistId(Long id) {
         if (!employeeRepository.existsById(id)) {

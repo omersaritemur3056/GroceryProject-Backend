@@ -8,20 +8,18 @@ import com.example.grocery.core.utilities.results.Result;
 import com.example.grocery.core.utilities.results.SuccessResult;
 import com.example.grocery.repository.OrderRepository;
 import com.example.grocery.model.concretes.Order;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
+@AllArgsConstructor
 public class OrderBusinessRules {
 
-    @Autowired
-    private OrderRepository orderRepository;
-    @Autowired
-    private CustomerService customerService;
-    @Autowired
-    private PaymentService paymentService;
+    private final OrderRepository orderRepository;
+    private final CustomerService customerService;
+    private final PaymentService paymentService;
 
     public Result isExistId(Long id) {
         if (!orderRepository.existsById(id)) {

@@ -7,18 +7,17 @@ import com.example.grocery.core.utilities.results.SuccessResult;
 import com.example.grocery.core.validation.debitCardValidation.DebitCardValidationService;
 import com.example.grocery.repository.PaymentRepository;
 import com.example.grocery.model.concretes.Payment;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
+@AllArgsConstructor
 public class PaymentBusinessRules {
 
-    @Autowired
-    private PaymentRepository paymentRepository;
-    @Autowired
-    private DebitCardValidationService debitCardValidationService;
+    private final PaymentRepository paymentRepository;
+    private final DebitCardValidationService debitCardValidationService;
 
     public Result isValidCard(String cardNumber, String fullName, int cardExpirationYear, int cardExpirationMonth,
                                String cardCvv) {

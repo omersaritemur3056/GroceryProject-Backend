@@ -6,16 +6,16 @@ import com.example.grocery.core.utilities.results.Result;
 import com.example.grocery.core.utilities.results.SuccessResult;
 import com.example.grocery.repository.SupplierRepository;
 import com.example.grocery.model.concretes.Supplier;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
+@AllArgsConstructor
 public class SupplierBusinessRules {
 
-    @Autowired
-    private SupplierRepository supplierRepository;
+    private final SupplierRepository supplierRepository;
 
     public Result isExistId(Long id) {
         if (!supplierRepository.existsById(id)) {

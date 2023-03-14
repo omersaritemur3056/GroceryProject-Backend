@@ -9,24 +9,21 @@ import com.example.grocery.core.utilities.results.Result;
 import com.example.grocery.core.utilities.results.SuccessResult;
 import com.example.grocery.repository.ProductRepository;
 import com.example.grocery.model.concretes.Product;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 
 @Slf4j
 @Service
+@AllArgsConstructor
 public class ProductBusinessRules {
 
-    @Autowired
-    private ProductRepository productRepository;
-    @Autowired
-    private ProducerService producerService;
-    @Autowired
-    private SupplierService supplierService;
-    @Autowired
-    private CategoryService categoryService;
+    private final ProductRepository productRepository;
+    private final ProducerService producerService;
+    private final SupplierService supplierService;
+    private final CategoryService categoryService;
 
     public void removeExpiratedProduct() {
         for (Product product : productRepository.findAll()) {

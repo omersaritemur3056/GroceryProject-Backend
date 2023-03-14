@@ -3,6 +3,8 @@ package com.example.grocery.layeredTest.controller;
 import com.example.grocery.service.interfaces.PhotoService;
 import com.example.grocery.repository.ImageRepository;
 import com.example.grocery.model.concretes.Image;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;

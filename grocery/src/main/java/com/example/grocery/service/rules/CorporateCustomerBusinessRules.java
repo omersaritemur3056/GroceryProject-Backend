@@ -7,18 +7,18 @@ import com.example.grocery.core.utilities.results.Result;
 import com.example.grocery.core.utilities.results.SuccessResult;
 import com.example.grocery.repository.CorporateCustomerRepository;
 import com.example.grocery.model.concretes.CorporateCustomer;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
+@AllArgsConstructor
 public class CorporateCustomerBusinessRules {
 
-    @Autowired
-    private CorporateCustomerRepository corporateCustomerRepository;
-    @Autowired
-    private UserService userService;
+    private final CorporateCustomerRepository corporateCustomerRepository;
+
+    private final UserService userService;
 
     public Result isExistTaxNumber(String taxNumber) {
         if (corporateCustomerRepository.existsByTaxNumber(taxNumber)) {

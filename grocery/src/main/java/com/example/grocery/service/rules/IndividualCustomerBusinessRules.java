@@ -7,18 +7,17 @@ import com.example.grocery.core.utilities.results.Result;
 import com.example.grocery.core.utilities.results.SuccessResult;
 import com.example.grocery.repository.IndividualCustomerRepository;
 import com.example.grocery.model.concretes.IndividualCustomer;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
+@AllArgsConstructor
 public class IndividualCustomerBusinessRules {
 
-    @Autowired
-    private IndividualCustomerRepository individualCustomerRepository;
-    @Autowired
-    private UserService userService;
+    private final IndividualCustomerRepository individualCustomerRepository;
+    private final UserService userService;
 
     public Result isExistId(Long id) {
         if (!userService.existById(id)) {
