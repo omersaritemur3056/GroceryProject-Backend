@@ -26087,3 +26087,676 @@ Consider defining a bean of type 'org.springframework.security.authentication.Au
 2023-03-14 16:31:51 INFO Closing JPA EntityManagerFactory for persistence unit 'default'
 2023-03-14 16:31:51 INFO HikariPool-1 - Shutdown initiated...
 2023-03-14 16:31:51 INFO HikariPool-1 - Shutdown completed.
+2023-03-15 11:18:02 INFO HV000001: Hibernate Validator 8.0.0.Final
+2023-03-15 11:18:02 INFO Starting GroceryApplication using Java 18.0.2.1 with PID 8188 (C:\GroceryProject-Backend\grocery\target\classes started by palao in C:\GroceryProject-Backend)
+2023-03-15 11:18:02 INFO No active profile set, falling back to 1 default profile: "default"
+2023-03-15 11:18:02 INFO Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-03-15 11:18:02 INFO For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-03-15 11:18:03 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-03-15 11:18:03 INFO Finished Spring Data repository scanning in 181 ms. Found 14 JPA repository interfaces.
+2023-03-15 11:18:04 INFO Tomcat initialized with port(s): 8080 (http)
+2023-03-15 11:18:04 INFO Initializing ProtocolHandler ["http-nio-8080"]
+2023-03-15 11:18:04 INFO Starting service [Tomcat]
+2023-03-15 11:18:04 INFO Starting Servlet engine: [Apache Tomcat/10.1.5]
+2023-03-15 11:18:04 INFO Initializing Spring embedded WebApplicationContext
+2023-03-15 11:18:04 INFO Root WebApplicationContext: initialization completed in 2378 ms
+2023-03-15 11:18:05 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-03-15 11:18:05 INFO HHH000412: Hibernate ORM core version 6.1.6.Final
+2023-03-15 11:18:05 WARN HHH90000021: Encountered deprecated setting [javax.persistence.validation.mode], use [jakarta.persistence.validation.mode] instead
+2023-03-15 11:18:05 WARN HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-03-15 11:18:05 INFO HikariPool-1 - Starting...
+2023-03-15 11:18:06 INFO HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@587a6fb6
+2023-03-15 11:18:06 INFO HikariPool-1 - Start completed.
+2023-03-15 11:18:06 INFO HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2023-03-15 11:18:07 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-03-15 11:18:07 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-03-15 11:18:08 WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-03-15 11:18:09 INFO Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@37456c8f, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@29a4fa80, org.springframework.security.web.context.SecurityContextHolderFilter@1154dbf5, org.springframework.security.web.header.HeaderWriterFilter@39322832, org.springframework.web.filter.CorsFilter@506c49d9, org.springframework.security.web.authentication.logout.LogoutFilter@1b0d506e, com.example.grocery.core.security.jwt.AuthTokenFilter@645d832b, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@303bf98, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@8f140b5, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3f929ade, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1defc2d4, org.springframework.security.web.session.SessionManagementFilter@4d73a113, org.springframework.security.web.access.ExceptionTranslationFilter@7114117e, org.springframework.security.web.access.intercept.AuthorizationFilter@13a988f6]
+2023-03-15 11:18:10 INFO LiveReload server is running on port 35729
+2023-03-15 11:18:10 INFO Starting ProtocolHandler ["http-nio-8080"]
+2023-03-15 11:18:10 INFO Tomcat started on port(s): 8080 (http) with context path ''
+2023-03-15 11:18:10 INFO Started GroceryApplication in 8.26 seconds (process running for 8.998)
+2023-03-15 11:21:54 INFO Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-03-15 11:21:54 INFO Initializing Servlet 'dispatcherServlet'
+2023-03-15 11:21:54 INFO Completed initialization in 3 ms
+2023-03-15 11:21:54 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 11:21:54 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 11:36:39 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 11:36:39 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 11:38:18 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 11:38:18 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 11:39:24 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 11:39:24 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 11:39:49 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 11:39:49 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 11:40:25 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 11:40:25 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 11:40:32 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 11:40:32 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 11:42:25 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 11:42:25 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 11:44:07 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 11:46:34 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 11:46:49 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 11:47:20 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 11:58:06 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 11:58:21 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 11:58:52 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 11:59:15 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 11:59:16 INFO User: tursu123 saved in DB!
+2023-03-15 11:59:39 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 11:59:39 ERROR Unauthorized error: Bad credentials
+2023-03-15 11:59:55 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 11:59:55 ERROR Unauthorized error: Bad credentials
+2023-03-15 11:59:56 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 11:59:56 ERROR Unauthorized error: Bad credentials
+2023-03-15 12:00:56 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 12:01:04 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 12:01:04 INFO User: omersaritemur3056 saved in DB!
+2023-03-15 12:01:30 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 12:01:30 INFO User: omersaritemur3056 logined!
+2023-03-15 12:03:02 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 12:06:01 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 12:06:01 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 12:06:09 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 12:06:12 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 12:06:15 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 12:06:19 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 12:06:23 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 12:06:28 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 12:07:15 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 12:07:20 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 12:07:35 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 12:07:35 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 12:07:35 ERROR Unauthorized error: Full authentication is required to access this resource
+2023-03-15 12:07:39 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 12:07:42 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 12:07:42 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 12:07:47 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 12:07:47 ERROR Unauthorized error: Full authentication is required to access this resource
+2023-03-15 12:07:47 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 12:07:50 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 12:07:50 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 12:07:55 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 12:13:45 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 12:17:54 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 12:17:54 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 12:22:11 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 12:22:11 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 12:22:30 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 12:22:30 ERROR Unauthorized error: Bad credentials
+2023-03-15 12:23:25 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 12:23:25 ERROR Unauthorized error: Bad credentials
+2023-03-15 12:23:37 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 12:23:37 INFO User: omer logined!
+2023-03-15 12:24:09 INFO User: omer logined!
+2023-03-15 12:24:26 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 12:24:53 INFO User: omer logined!
+2023-03-15 12:30:14 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 12:30:15 INFO User: omer logined!
+2023-03-15 12:30:36 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 12:37:08 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 12:37:08 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 12:37:25 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 12:37:25 INFO User: omer logined!
+2023-03-15 12:51:01 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 12:51:45 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 12:51:45 INFO User: omersaritemur3056 logined!
+2023-03-15 12:57:58 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 12:58:10 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 12:58:10 INFO User: omer logined!
+2023-03-15 13:00:08 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 13:00:30 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 13:00:30 INFO User: omersaritemur3056 logined!
+2023-03-15 13:09:30 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 13:09:44 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 13:09:44 INFO User: omer logined!
+2023-03-15 13:54:32 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 13:54:55 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 13:54:55 INFO User: omersaritemur3056 logined!
+2023-03-15 13:58:16 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 13:58:29 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 13:58:29 INFO User: omer logined!
+2023-03-15 14:00:39 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 14:01:30 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 14:01:31 INFO User: omersaritemur3056 logined!
+2023-03-15 14:18:57 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 14:19:10 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 14:19:10 INFO User: omer logined!
+2023-03-15 14:20:02 WARN Supplier email: string@string.com already exists!
+2023-03-15 14:20:06 WARN Supplier email: string@string.com already exists!
+2023-03-15 14:20:07 WARN Supplier email: string@string.com already exists!
+2023-03-15 14:20:08 WARN Supplier email: string@string.com already exists!
+2023-03-15 14:20:18 WARN Supplier email: string@string.com already exists!
+2023-03-15 14:21:56 INFO Producer: string2 added!
+2023-03-15 14:30:31 WARN Category name: deneme3 already exists!
+2023-03-15 14:31:37 WARN Category name: deneme already exists!
+2023-03-15 14:34:11 INFO Producer: deneme3 updated!
+2023-03-15 15:05:05 INFO Restarting due to 1 class path change (0 additions, 1 deletion, 0 modifications)
+2023-03-15 15:05:06 INFO Pausing ProtocolHandler ["http-nio-8080"]
+2023-03-15 15:05:06 INFO Stopping service [Tomcat]
+2023-03-15 15:05:06 INFO Destroying Spring FrameworkServlet 'dispatcherServlet'
+2023-03-15 15:05:06 WARN The web application [ROOT] appears to have started a thread named [HikariPool-1 housekeeper] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@18.0.2.1/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@18.0.2.1/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+ java.base@18.0.2.1/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1672)
+ java.base@18.0.2.1/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+ java.base@18.0.2.1/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base@18.0.2.1/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+ java.base@18.0.2.1/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+ java.base@18.0.2.1/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+ java.base@18.0.2.1/java.lang.Thread.run(Thread.java:833)
+2023-03-15 15:05:06 INFO Stopping ProtocolHandler ["http-nio-8080"]
+2023-03-15 15:05:06 INFO Destroying ProtocolHandler ["http-nio-8080"]
+2023-03-15 15:05:06 INFO Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-03-15 15:05:06 INFO HikariPool-1 - Shutdown initiated...
+2023-03-15 15:05:06 INFO HikariPool-1 - Shutdown completed.
+2023-03-15 15:05:06 INFO Starting GroceryApplication using Java 18.0.2.1 with PID 8188 (C:\GroceryProject-Backend\grocery\target\classes started by palao in C:\GroceryProject-Backend)
+2023-03-15 15:05:06 INFO No active profile set, falling back to 1 default profile: "default"
+2023-03-15 15:05:07 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-03-15 15:05:07 INFO Finished Spring Data repository scanning in 149 ms. Found 14 JPA repository interfaces.
+2023-03-15 15:05:08 INFO Tomcat initialized with port(s): 8080 (http)
+2023-03-15 15:05:08 INFO Initializing ProtocolHandler ["http-nio-8080"]
+2023-03-15 15:05:08 INFO Starting service [Tomcat]
+2023-03-15 15:05:08 INFO Starting Servlet engine: [Apache Tomcat/10.1.5]
+2023-03-15 15:05:08 INFO Initializing Spring embedded WebApplicationContext
+2023-03-15 15:05:08 INFO Root WebApplicationContext: initialization completed in 1436 ms
+2023-03-15 15:05:08 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-03-15 15:05:08 WARN HHH90000021: Encountered deprecated setting [javax.persistence.validation.mode], use [jakarta.persistence.validation.mode] instead
+2023-03-15 15:05:08 WARN HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-03-15 15:05:08 INFO HikariPool-2 - Starting...
+2023-03-15 15:05:08 INFO HikariPool-2 - Added connection org.postgresql.jdbc.PgConnection@6ef68ac6
+2023-03-15 15:05:08 INFO HikariPool-2 - Start completed.
+2023-03-15 15:05:08 INFO HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2023-03-15 15:05:08 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-03-15 15:05:08 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-03-15 15:05:09 WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-03-15 15:05:09 INFO Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@16f2b8ca, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@669888f2, org.springframework.security.web.context.SecurityContextHolderFilter@b3ef1af, org.springframework.security.web.header.HeaderWriterFilter@9898056, org.springframework.web.filter.CorsFilter@6aeb89d6, org.springframework.security.web.authentication.logout.LogoutFilter@15eabba3, com.example.grocery.core.security.jwt.AuthTokenFilter@734d1044, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@3c65055, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@21d66246, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6418cd1a, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5b1e2826, org.springframework.security.web.session.SessionManagementFilter@55994dac, org.springframework.security.web.access.ExceptionTranslationFilter@2b40205e, org.springframework.security.web.access.intercept.AuthorizationFilter@722fda05]
+2023-03-15 15:05:10 INFO LiveReload server is running on port 35729
+2023-03-15 15:05:10 INFO Starting ProtocolHandler ["http-nio-8080"]
+2023-03-15 15:05:10 INFO Tomcat started on port(s): 8080 (http) with context path ''
+2023-03-15 15:05:10 INFO Started GroceryApplication in 3.308 seconds (process running for 13628.932)
+2023-03-15 15:05:10 INFO Condition evaluation unchanged
+2023-03-15 15:05:11 INFO Restarting due to 1 class path change (1 addition, 0 deletions, 0 modifications)
+2023-03-15 15:05:11 INFO Pausing ProtocolHandler ["http-nio-8080"]
+2023-03-15 15:05:11 INFO Stopping service [Tomcat]
+2023-03-15 15:05:11 WARN The web application [ROOT] appears to have started a thread named [HikariPool-2 housekeeper] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@18.0.2.1/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@18.0.2.1/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+ java.base@18.0.2.1/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1672)
+ java.base@18.0.2.1/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+ java.base@18.0.2.1/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base@18.0.2.1/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+ java.base@18.0.2.1/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+ java.base@18.0.2.1/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+ java.base@18.0.2.1/java.lang.Thread.run(Thread.java:833)
+2023-03-15 15:05:11 WARN The web application [ROOT] appears to have started a thread named [HikariPool-2 connection adder] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@18.0.2.1/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@18.0.2.1/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+ java.base@18.0.2.1/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1672)
+ java.base@18.0.2.1/java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:460)
+ java.base@18.0.2.1/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1061)
+ java.base@18.0.2.1/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+ java.base@18.0.2.1/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+ java.base@18.0.2.1/java.lang.Thread.run(Thread.java:833)
+2023-03-15 15:05:11 INFO Stopping ProtocolHandler ["http-nio-8080"]
+2023-03-15 15:05:11 INFO Destroying ProtocolHandler ["http-nio-8080"]
+2023-03-15 15:05:11 INFO Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-03-15 15:05:11 INFO HikariPool-2 - Shutdown initiated...
+2023-03-15 15:05:11 INFO HikariPool-2 - Shutdown completed.
+2023-03-15 15:05:12 INFO Starting GroceryApplication using Java 18.0.2.1 with PID 8188 (C:\GroceryProject-Backend\grocery\target\classes started by palao in C:\GroceryProject-Backend)
+2023-03-15 15:05:12 INFO No active profile set, falling back to 1 default profile: "default"
+2023-03-15 15:05:12 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-03-15 15:05:12 INFO Finished Spring Data repository scanning in 72 ms. Found 14 JPA repository interfaces.
+2023-03-15 15:05:12 INFO Tomcat initialized with port(s): 8080 (http)
+2023-03-15 15:05:12 INFO Initializing ProtocolHandler ["http-nio-8080"]
+2023-03-15 15:05:12 INFO Starting service [Tomcat]
+2023-03-15 15:05:12 INFO Starting Servlet engine: [Apache Tomcat/10.1.5]
+2023-03-15 15:05:12 INFO Initializing Spring embedded WebApplicationContext
+2023-03-15 15:05:12 INFO Root WebApplicationContext: initialization completed in 576 ms
+2023-03-15 15:05:12 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-03-15 15:05:12 WARN HHH90000021: Encountered deprecated setting [javax.persistence.validation.mode], use [jakarta.persistence.validation.mode] instead
+2023-03-15 15:05:12 WARN HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-03-15 15:05:12 INFO HikariPool-3 - Starting...
+2023-03-15 15:05:12 INFO HikariPool-3 - Added connection org.postgresql.jdbc.PgConnection@46fcf827
+2023-03-15 15:05:12 INFO HikariPool-3 - Start completed.
+2023-03-15 15:05:12 INFO HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2023-03-15 15:05:12 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-03-15 15:05:12 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-03-15 15:05:13 WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-03-15 15:05:13 INFO Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@e6ae14d, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@30daf991, org.springframework.security.web.context.SecurityContextHolderFilter@434d5458, org.springframework.security.web.header.HeaderWriterFilter@416f2aa3, org.springframework.web.filter.CorsFilter@4b575024, org.springframework.security.web.authentication.logout.LogoutFilter@3c501207, com.example.grocery.core.security.jwt.AuthTokenFilter@7a2434ec, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@32960d32, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@436e177c, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7bec0780, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@492a3be1, org.springframework.security.web.session.SessionManagementFilter@116fff63, org.springframework.security.web.access.ExceptionTranslationFilter@36a6c0a5, org.springframework.security.web.access.intercept.AuthorizationFilter@14fdf167]
+2023-03-15 15:05:13 INFO LiveReload server is running on port 35729
+2023-03-15 15:05:13 INFO Starting ProtocolHandler ["http-nio-8080"]
+2023-03-15 15:05:13 INFO Tomcat started on port(s): 8080 (http) with context path ''
+2023-03-15 15:05:13 INFO Started GroceryApplication in 1.552 seconds (process running for 13632.349)
+2023-03-15 15:05:13 INFO Condition evaluation unchanged
+2023-03-15 15:05:15 INFO Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-03-15 15:05:15 INFO Initializing Servlet 'dispatcherServlet'
+2023-03-15 15:05:15 INFO Completed initialization in 1 ms
+2023-03-15 15:12:17 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 15:12:40 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 15:12:41 ERROR Unauthorized error: Bad credentials
+2023-03-15 15:12:49 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 15:12:50 INFO User: omer logined!
+2023-03-15 15:20:24 INFO Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-03-15 15:20:24 INFO HikariPool-3 - Shutdown initiated...
+2023-03-15 15:20:24 INFO HikariPool-3 - Shutdown completed.
+2023-03-15 15:20:31 INFO HV000001: Hibernate Validator 8.0.0.Final
+2023-03-15 15:20:31 INFO Starting GroceryApplication using Java 18.0.2.1 with PID 18636 (C:\GroceryProject-Backend\grocery\target\classes started by palao in C:\GroceryProject-Backend)
+2023-03-15 15:20:31 INFO No active profile set, falling back to 1 default profile: "default"
+2023-03-15 15:20:31 INFO Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-03-15 15:20:31 INFO For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-03-15 15:20:32 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-03-15 15:20:32 INFO Finished Spring Data repository scanning in 194 ms. Found 14 JPA repository interfaces.
+2023-03-15 15:20:33 INFO Tomcat initialized with port(s): 8080 (http)
+2023-03-15 15:20:33 INFO Initializing ProtocolHandler ["http-nio-8080"]
+2023-03-15 15:20:33 INFO Starting service [Tomcat]
+2023-03-15 15:20:33 INFO Starting Servlet engine: [Apache Tomcat/10.1.5]
+2023-03-15 15:20:33 INFO Initializing Spring embedded WebApplicationContext
+2023-03-15 15:20:33 INFO Root WebApplicationContext: initialization completed in 2564 ms
+2023-03-15 15:20:34 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-03-15 15:20:34 INFO HHH000412: Hibernate ORM core version 6.1.6.Final
+2023-03-15 15:20:34 WARN HHH90000021: Encountered deprecated setting [javax.persistence.validation.mode], use [jakarta.persistence.validation.mode] instead
+2023-03-15 15:20:34 WARN HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-03-15 15:20:34 INFO HikariPool-1 - Starting...
+2023-03-15 15:20:35 INFO HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@2b1b1f9c
+2023-03-15 15:20:35 INFO HikariPool-1 - Start completed.
+2023-03-15 15:20:35 INFO HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2023-03-15 15:20:36 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-03-15 15:20:36 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-03-15 15:20:37 WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-03-15 15:20:38 INFO Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@1b9eda5, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7abcfd5e, org.springframework.security.web.context.SecurityContextHolderFilter@55f93b11, org.springframework.security.web.header.HeaderWriterFilter@7abb3cef, org.springframework.web.filter.CorsFilter@704b1536, org.springframework.security.web.authentication.logout.LogoutFilter@f0b7598, com.example.grocery.core.security.jwt.AuthTokenFilter@4e5000ca, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@8f6e32, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3cc52f94, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1114228c, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2b0df357, org.springframework.security.web.session.SessionManagementFilter@60063ed0, org.springframework.security.web.access.ExceptionTranslationFilter@23f25f44, org.springframework.security.web.access.intercept.AuthorizationFilter@281f40b6]
+2023-03-15 15:20:38 INFO LiveReload server is running on port 35729
+2023-03-15 15:20:38 INFO Starting ProtocolHandler ["http-nio-8080"]
+2023-03-15 15:20:38 INFO Tomcat started on port(s): 8080 (http) with context path ''
+2023-03-15 15:20:38 INFO Started GroceryApplication in 8.231 seconds (process running for 9.104)
+2023-03-15 15:20:47 INFO Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-03-15 15:20:47 INFO Initializing Servlet 'dispatcherServlet'
+2023-03-15 15:20:47 INFO Completed initialization in 1 ms
+2023-03-15 15:21:54 INFO Producer: string2 deleted!
+2023-03-15 15:26:11 INFO Restarting due to 1 class path change (0 additions, 1 deletion, 0 modifications)
+2023-03-15 15:26:11 INFO Pausing ProtocolHandler ["http-nio-8080"]
+2023-03-15 15:26:11 INFO Stopping service [Tomcat]
+2023-03-15 15:26:11 INFO Destroying Spring FrameworkServlet 'dispatcherServlet'
+2023-03-15 15:26:11 WARN The web application [ROOT] appears to have started a thread named [HikariPool-1 housekeeper] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@18.0.2.1/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@18.0.2.1/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+ java.base@18.0.2.1/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1672)
+ java.base@18.0.2.1/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+ java.base@18.0.2.1/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base@18.0.2.1/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+ java.base@18.0.2.1/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+ java.base@18.0.2.1/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+ java.base@18.0.2.1/java.lang.Thread.run(Thread.java:833)
+2023-03-15 15:26:11 INFO Stopping ProtocolHandler ["http-nio-8080"]
+2023-03-15 15:26:11 INFO Destroying ProtocolHandler ["http-nio-8080"]
+2023-03-15 15:26:11 INFO Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-03-15 15:26:11 INFO HikariPool-1 - Shutdown initiated...
+2023-03-15 15:26:11 INFO HikariPool-1 - Shutdown completed.
+2023-03-15 15:26:11 INFO Starting GroceryApplication using Java 18.0.2.1 with PID 18636 (C:\GroceryProject-Backend\grocery\target\classes started by palao in C:\GroceryProject-Backend)
+2023-03-15 15:26:11 INFO No active profile set, falling back to 1 default profile: "default"
+2023-03-15 15:26:12 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-03-15 15:26:12 INFO Finished Spring Data repository scanning in 128 ms. Found 14 JPA repository interfaces.
+2023-03-15 15:26:12 INFO Tomcat initialized with port(s): 8080 (http)
+2023-03-15 15:26:12 INFO Initializing ProtocolHandler ["http-nio-8080"]
+2023-03-15 15:26:12 INFO Starting service [Tomcat]
+2023-03-15 15:26:12 INFO Starting Servlet engine: [Apache Tomcat/10.1.5]
+2023-03-15 15:26:12 INFO Initializing Spring embedded WebApplicationContext
+2023-03-15 15:26:12 INFO Root WebApplicationContext: initialization completed in 939 ms
+2023-03-15 15:26:12 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-03-15 15:26:12 WARN HHH90000021: Encountered deprecated setting [javax.persistence.validation.mode], use [jakarta.persistence.validation.mode] instead
+2023-03-15 15:26:12 WARN HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-03-15 15:26:12 INFO HikariPool-2 - Starting...
+2023-03-15 15:26:12 INFO HikariPool-2 - Added connection org.postgresql.jdbc.PgConnection@1cc8c5a4
+2023-03-15 15:26:12 INFO HikariPool-2 - Start completed.
+2023-03-15 15:26:12 INFO HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2023-03-15 15:26:13 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-03-15 15:26:13 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-03-15 15:26:13 WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-03-15 15:26:13 INFO Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@64bc01e1, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5649b58b, org.springframework.security.web.context.SecurityContextHolderFilter@72e3942a, org.springframework.security.web.header.HeaderWriterFilter@3fcfbc9d, org.springframework.web.filter.CorsFilter@1e87dd60, org.springframework.security.web.authentication.logout.LogoutFilter@678519c0, com.example.grocery.core.security.jwt.AuthTokenFilter@3ccca93b, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@2bb8564f, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3fc2aa58, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7d2bd269, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7764fad1, org.springframework.security.web.session.SessionManagementFilter@3959a5f2, org.springframework.security.web.access.ExceptionTranslationFilter@130bdce2, org.springframework.security.web.access.intercept.AuthorizationFilter@6e24c456]
+2023-03-15 15:26:13 INFO LiveReload server is running on port 35729
+2023-03-15 15:26:13 INFO Starting ProtocolHandler ["http-nio-8080"]
+2023-03-15 15:26:13 INFO Tomcat started on port(s): 8080 (http) with context path ''
+2023-03-15 15:26:13 INFO Started GroceryApplication in 2.186 seconds (process running for 344.2)
+2023-03-15 15:26:13 INFO Condition evaluation unchanged
+2023-03-15 15:26:15 INFO Restarting due to 1 class path change (1 addition, 0 deletions, 0 modifications)
+2023-03-15 15:26:15 INFO Pausing ProtocolHandler ["http-nio-8080"]
+2023-03-15 15:26:15 INFO Stopping service [Tomcat]
+2023-03-15 15:26:15 WARN The web application [ROOT] appears to have started a thread named [HikariPool-2 housekeeper] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@18.0.2.1/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@18.0.2.1/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+ java.base@18.0.2.1/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1672)
+ java.base@18.0.2.1/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+ java.base@18.0.2.1/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base@18.0.2.1/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+ java.base@18.0.2.1/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+ java.base@18.0.2.1/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+ java.base@18.0.2.1/java.lang.Thread.run(Thread.java:833)
+2023-03-15 15:26:15 WARN The web application [ROOT] appears to have started a thread named [HikariPool-2 connection adder] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@18.0.2.1/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@18.0.2.1/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+ java.base@18.0.2.1/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1672)
+ java.base@18.0.2.1/java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:460)
+ java.base@18.0.2.1/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1061)
+ java.base@18.0.2.1/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+ java.base@18.0.2.1/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+ java.base@18.0.2.1/java.lang.Thread.run(Thread.java:833)
+2023-03-15 15:26:15 INFO Stopping ProtocolHandler ["http-nio-8080"]
+2023-03-15 15:26:15 INFO Destroying ProtocolHandler ["http-nio-8080"]
+2023-03-15 15:26:15 INFO Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-03-15 15:26:15 INFO HikariPool-2 - Shutdown initiated...
+2023-03-15 15:26:15 INFO HikariPool-2 - Shutdown completed.
+2023-03-15 15:26:15 INFO Starting GroceryApplication using Java 18.0.2.1 with PID 18636 (C:\GroceryProject-Backend\grocery\target\classes started by palao in C:\GroceryProject-Backend)
+2023-03-15 15:26:15 INFO No active profile set, falling back to 1 default profile: "default"
+2023-03-15 15:26:16 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-03-15 15:26:16 INFO Finished Spring Data repository scanning in 69 ms. Found 14 JPA repository interfaces.
+2023-03-15 15:26:16 INFO Tomcat initialized with port(s): 8080 (http)
+2023-03-15 15:26:16 INFO Initializing ProtocolHandler ["http-nio-8080"]
+2023-03-15 15:26:16 INFO Starting service [Tomcat]
+2023-03-15 15:26:16 INFO Starting Servlet engine: [Apache Tomcat/10.1.5]
+2023-03-15 15:26:16 INFO Initializing Spring embedded WebApplicationContext
+2023-03-15 15:26:16 INFO Root WebApplicationContext: initialization completed in 580 ms
+2023-03-15 15:26:16 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-03-15 15:26:16 WARN HHH90000021: Encountered deprecated setting [javax.persistence.validation.mode], use [jakarta.persistence.validation.mode] instead
+2023-03-15 15:26:16 WARN HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-03-15 15:26:16 INFO HikariPool-3 - Starting...
+2023-03-15 15:26:16 INFO HikariPool-3 - Added connection org.postgresql.jdbc.PgConnection@6036ff78
+2023-03-15 15:26:16 INFO HikariPool-3 - Start completed.
+2023-03-15 15:26:16 INFO HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2023-03-15 15:26:16 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-03-15 15:26:16 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-03-15 15:26:16 WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-03-15 15:26:17 INFO Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@3285fb2, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@58f43168, org.springframework.security.web.context.SecurityContextHolderFilter@62b63720, org.springframework.security.web.header.HeaderWriterFilter@5156623e, org.springframework.web.filter.CorsFilter@2f61593c, org.springframework.security.web.authentication.logout.LogoutFilter@7df8e74d, com.example.grocery.core.security.jwt.AuthTokenFilter@22d0331, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@3950055a, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@149f88cc, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@763a5ff3, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1622f35f, org.springframework.security.web.session.SessionManagementFilter@376de567, org.springframework.security.web.access.ExceptionTranslationFilter@3cb94cc6, org.springframework.security.web.access.intercept.AuthorizationFilter@3128c95b]
+2023-03-15 15:26:17 INFO LiveReload server is running on port 35729
+2023-03-15 15:26:17 INFO Starting ProtocolHandler ["http-nio-8080"]
+2023-03-15 15:26:17 INFO Tomcat started on port(s): 8080 (http) with context path ''
+2023-03-15 15:26:17 INFO Started GroceryApplication in 1.623 seconds (process running for 347.493)
+2023-03-15 15:26:17 INFO Condition evaluation unchanged
+2023-03-15 15:26:21 INFO Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-03-15 15:26:21 INFO Initializing Servlet 'dispatcherServlet'
+2023-03-15 15:26:21 INFO Completed initialization in 1 ms
+2023-03-15 15:32:38 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 15:32:38 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 15:33:26 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 15:33:26 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 15:36:38 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 15:36:38 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 15:36:56 WARN No mapping for GET /favicon.ico
+2023-03-15 15:37:01 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 15:37:01 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 15:37:47 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 15:37:47 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 15:39:15 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 15:39:15 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 15:40:29 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 15:40:29 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 15:42:15 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 15:42:15 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 15:43:03 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 15:43:03 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 15:44:55 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 15:44:55 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 15:54:08 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 15:54:09 INFO User: omer logined!
+2023-03-15 15:57:47 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 15:57:54 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 15:59:00 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 15:59:00 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 15:59:12 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 15:59:20 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 16:06:34 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 16:06:34 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 16:07:09 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 16:07:09 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 16:07:33 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 16:07:33 INFO User: omer logined!
+2023-03-15 16:07:48 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 16:07:54 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 16:10:21 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 16:10:33 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 16:10:33 INFO User: omer logined!
+2023-03-15 16:10:54 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 16:11:43 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 16:11:43 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 16:16:01 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 16:16:04 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 16:17:09 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 16:18:20 INFO Restarting due to 1 class path change (0 additions, 1 deletion, 0 modifications)
+2023-03-15 16:18:20 INFO Pausing ProtocolHandler ["http-nio-8080"]
+2023-03-15 16:18:20 INFO Stopping service [Tomcat]
+2023-03-15 16:18:20 INFO Destroying Spring FrameworkServlet 'dispatcherServlet'
+2023-03-15 16:18:20 WARN The web application [ROOT] appears to have started a thread named [HikariPool-3 housekeeper] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@18.0.2.1/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@18.0.2.1/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+ java.base@18.0.2.1/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1672)
+ java.base@18.0.2.1/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+ java.base@18.0.2.1/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base@18.0.2.1/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+ java.base@18.0.2.1/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+ java.base@18.0.2.1/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+ java.base@18.0.2.1/java.lang.Thread.run(Thread.java:833)
+2023-03-15 16:18:20 INFO Stopping ProtocolHandler ["http-nio-8080"]
+2023-03-15 16:18:20 INFO Destroying ProtocolHandler ["http-nio-8080"]
+2023-03-15 16:18:20 INFO Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-03-15 16:18:20 INFO HikariPool-3 - Shutdown initiated...
+2023-03-15 16:18:20 INFO HikariPool-3 - Shutdown completed.
+2023-03-15 16:18:21 INFO Starting GroceryApplication using Java 18.0.2.1 with PID 18636 (C:\GroceryProject-Backend\grocery\target\classes started by palao in C:\GroceryProject-Backend)
+2023-03-15 16:18:21 INFO No active profile set, falling back to 1 default profile: "default"
+2023-03-15 16:18:21 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-03-15 16:18:21 INFO Finished Spring Data repository scanning in 86 ms. Found 14 JPA repository interfaces.
+2023-03-15 16:18:22 INFO Tomcat initialized with port(s): 8080 (http)
+2023-03-15 16:18:22 INFO Initializing ProtocolHandler ["http-nio-8080"]
+2023-03-15 16:18:22 INFO Starting service [Tomcat]
+2023-03-15 16:18:22 INFO Starting Servlet engine: [Apache Tomcat/10.1.5]
+2023-03-15 16:18:22 INFO Initializing Spring embedded WebApplicationContext
+2023-03-15 16:18:22 INFO Root WebApplicationContext: initialization completed in 953 ms
+2023-03-15 16:18:22 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-03-15 16:18:22 WARN HHH90000021: Encountered deprecated setting [javax.persistence.validation.mode], use [jakarta.persistence.validation.mode] instead
+2023-03-15 16:18:22 WARN HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-03-15 16:18:22 INFO HikariPool-4 - Starting...
+2023-03-15 16:18:22 INFO HikariPool-4 - Added connection org.postgresql.jdbc.PgConnection@222be17f
+2023-03-15 16:18:22 INFO HikariPool-4 - Start completed.
+2023-03-15 16:18:22 INFO HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2023-03-15 16:18:22 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-03-15 16:18:22 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-03-15 16:18:22 WARN Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'corporateCustomersController' defined in file [C:\GroceryProject-Backend\grocery\target\classes\com\example\grocery\api\controller\CorporateCustomersController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'corporateCustomerServiceImpl' defined in file [C:\GroceryProject-Backend\grocery\target\classes\com\example\grocery\service\implement\CorporateCustomerServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 2: Error creating bean with name 'userServiceImpl' defined in file [C:\GroceryProject-Backend\grocery\target\classes\com\example\grocery\core\security\services\UserServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 3: No qualifying bean of type 'org.springframework.security.authentication.AuthenticationManager' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {}
+2023-03-15 16:18:22 INFO Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-03-15 16:18:22 INFO HikariPool-4 - Shutdown initiated...
+2023-03-15 16:18:22 INFO HikariPool-4 - Shutdown completed.
+2023-03-15 16:18:22 INFO Stopping service [Tomcat]
+2023-03-15 16:18:22 INFO 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2023-03-15 16:18:23 ERROR 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Parameter 3 of constructor in com.example.grocery.core.security.services.UserServiceImpl required a bean of type 'org.springframework.security.authentication.AuthenticationManager' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'org.springframework.security.authentication.AuthenticationManager' in your configuration.
+
+2023-03-15 16:18:24 INFO Starting GroceryApplication using Java 18.0.2.1 with PID 18636 (C:\GroceryProject-Backend\grocery\target\classes started by palao in C:\GroceryProject-Backend)
+2023-03-15 16:18:24 INFO No active profile set, falling back to 1 default profile: "default"
+2023-03-15 16:18:25 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-03-15 16:18:25 INFO Finished Spring Data repository scanning in 65 ms. Found 14 JPA repository interfaces.
+2023-03-15 16:18:25 INFO Tomcat initialized with port(s): 8080 (http)
+2023-03-15 16:18:25 INFO Initializing ProtocolHandler ["http-nio-8080"]
+2023-03-15 16:18:25 INFO Starting service [Tomcat]
+2023-03-15 16:18:25 INFO Starting Servlet engine: [Apache Tomcat/10.1.5]
+2023-03-15 16:18:25 INFO Initializing Spring embedded WebApplicationContext
+2023-03-15 16:18:25 INFO Root WebApplicationContext: initialization completed in 482 ms
+2023-03-15 16:18:25 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-03-15 16:18:25 WARN HHH90000021: Encountered deprecated setting [javax.persistence.validation.mode], use [jakarta.persistence.validation.mode] instead
+2023-03-15 16:18:25 WARN HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-03-15 16:18:25 INFO HikariPool-5 - Starting...
+2023-03-15 16:18:25 INFO HikariPool-5 - Added connection org.postgresql.jdbc.PgConnection@623eed70
+2023-03-15 16:18:25 INFO HikariPool-5 - Start completed.
+2023-03-15 16:18:25 INFO HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2023-03-15 16:18:25 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-03-15 16:18:25 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-03-15 16:18:25 WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-03-15 16:18:26 INFO Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@1a5937e7, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@48d2c839, org.springframework.security.web.context.SecurityContextHolderFilter@16b3d64d, org.springframework.security.web.header.HeaderWriterFilter@6d49aa8b, org.springframework.web.filter.CorsFilter@68a5730, org.springframework.security.web.authentication.logout.LogoutFilter@6c28a4e1, com.example.grocery.core.security.jwt.AuthTokenFilter@2200bfed, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@5f6e8b02, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5a19f828, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7a240c12, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2d17ea78, org.springframework.security.web.session.SessionManagementFilter@2dd4d2ff, org.springframework.security.web.access.ExceptionTranslationFilter@60759269, org.springframework.security.web.access.intercept.AuthorizationFilter@5a528883]
+2023-03-15 16:18:26 INFO LiveReload server is running on port 35729
+2023-03-15 16:18:26 INFO Starting ProtocolHandler ["http-nio-8080"]
+2023-03-15 16:18:26 INFO Tomcat started on port(s): 8080 (http) with context path ''
+2023-03-15 16:18:26 INFO Started GroceryApplication in 1.462 seconds (process running for 3476.35)
+2023-03-15 16:18:26 INFO Condition evaluation unchanged
+2023-03-15 16:18:34 INFO Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-03-15 16:18:34 INFO Initializing Servlet 'dispatcherServlet'
+2023-03-15 16:18:34 INFO Completed initialization in 2 ms
+2023-03-15 16:18:34 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 16:18:42 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 16:18:42 ERROR Unauthorized error: Full authentication is required to access this resource
+2023-03-15 16:19:13 INFO Restarting due to 1 class path change (0 additions, 1 deletion, 0 modifications)
+2023-03-15 16:19:13 INFO Pausing ProtocolHandler ["http-nio-8080"]
+2023-03-15 16:19:13 INFO Stopping service [Tomcat]
+2023-03-15 16:19:13 INFO Destroying Spring FrameworkServlet 'dispatcherServlet'
+2023-03-15 16:19:13 WARN The web application [ROOT] appears to have started a thread named [HikariPool-5 housekeeper] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@18.0.2.1/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@18.0.2.1/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+ java.base@18.0.2.1/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1672)
+ java.base@18.0.2.1/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+ java.base@18.0.2.1/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base@18.0.2.1/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+ java.base@18.0.2.1/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+ java.base@18.0.2.1/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+ java.base@18.0.2.1/java.lang.Thread.run(Thread.java:833)
+2023-03-15 16:19:13 INFO Stopping ProtocolHandler ["http-nio-8080"]
+2023-03-15 16:19:14 INFO Destroying ProtocolHandler ["http-nio-8080"]
+2023-03-15 16:19:14 INFO Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-03-15 16:19:14 INFO HikariPool-5 - Shutdown initiated...
+2023-03-15 16:19:14 INFO HikariPool-5 - Shutdown completed.
+2023-03-15 16:19:14 INFO Starting GroceryApplication using Java 18.0.2.1 with PID 18636 (C:\GroceryProject-Backend\grocery\target\classes started by palao in C:\GroceryProject-Backend)
+2023-03-15 16:19:14 INFO No active profile set, falling back to 1 default profile: "default"
+2023-03-15 16:19:14 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-03-15 16:19:14 INFO Finished Spring Data repository scanning in 121 ms. Found 14 JPA repository interfaces.
+2023-03-15 16:19:15 INFO Tomcat initialized with port(s): 8080 (http)
+2023-03-15 16:19:15 INFO Initializing ProtocolHandler ["http-nio-8080"]
+2023-03-15 16:19:15 INFO Starting service [Tomcat]
+2023-03-15 16:19:15 INFO Starting Servlet engine: [Apache Tomcat/10.1.5]
+2023-03-15 16:19:15 INFO Initializing Spring embedded WebApplicationContext
+2023-03-15 16:19:15 INFO Root WebApplicationContext: initialization completed in 913 ms
+2023-03-15 16:19:15 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-03-15 16:19:15 WARN HHH90000021: Encountered deprecated setting [javax.persistence.validation.mode], use [jakarta.persistence.validation.mode] instead
+2023-03-15 16:19:15 WARN HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-03-15 16:19:15 INFO HikariPool-6 - Starting...
+2023-03-15 16:19:15 INFO HikariPool-6 - Added connection org.postgresql.jdbc.PgConnection@165730db
+2023-03-15 16:19:15 INFO HikariPool-6 - Start completed.
+2023-03-15 16:19:15 INFO HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2023-03-15 16:19:15 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-03-15 16:19:15 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-03-15 16:19:15 WARN Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'corporateCustomersController' defined in file [C:\GroceryProject-Backend\grocery\target\classes\com\example\grocery\api\controller\CorporateCustomersController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'corporateCustomerServiceImpl' defined in file [C:\GroceryProject-Backend\grocery\target\classes\com\example\grocery\service\implement\CorporateCustomerServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 2: Error creating bean with name 'userServiceImpl' defined in file [C:\GroceryProject-Backend\grocery\target\classes\com\example\grocery\core\security\services\UserServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 3: No qualifying bean of type 'org.springframework.security.authentication.AuthenticationManager' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {}
+2023-03-15 16:19:15 INFO Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-03-15 16:19:15 INFO HikariPool-6 - Shutdown initiated...
+2023-03-15 16:19:15 INFO HikariPool-6 - Shutdown completed.
+2023-03-15 16:19:15 INFO Stopping service [Tomcat]
+2023-03-15 16:19:15 INFO 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2023-03-15 16:19:15 ERROR 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Parameter 3 of constructor in com.example.grocery.core.security.services.UserServiceImpl required a bean of type 'org.springframework.security.authentication.AuthenticationManager' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'org.springframework.security.authentication.AuthenticationManager' in your configuration.
+
+2023-03-15 16:19:17 INFO Starting GroceryApplication using Java 18.0.2.1 with PID 18636 (C:\GroceryProject-Backend\grocery\target\classes started by palao in C:\GroceryProject-Backend)
+2023-03-15 16:19:17 INFO No active profile set, falling back to 1 default profile: "default"
+2023-03-15 16:19:17 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-03-15 16:19:17 INFO Finished Spring Data repository scanning in 58 ms. Found 14 JPA repository interfaces.
+2023-03-15 16:19:17 INFO Tomcat initialized with port(s): 8080 (http)
+2023-03-15 16:19:17 INFO Initializing ProtocolHandler ["http-nio-8080"]
+2023-03-15 16:19:17 INFO Starting service [Tomcat]
+2023-03-15 16:19:17 INFO Starting Servlet engine: [Apache Tomcat/10.1.5]
+2023-03-15 16:19:17 INFO Initializing Spring embedded WebApplicationContext
+2023-03-15 16:19:17 INFO Root WebApplicationContext: initialization completed in 536 ms
+2023-03-15 16:19:17 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-03-15 16:19:17 WARN HHH90000021: Encountered deprecated setting [javax.persistence.validation.mode], use [jakarta.persistence.validation.mode] instead
+2023-03-15 16:19:17 WARN HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-03-15 16:19:17 INFO HikariPool-7 - Starting...
+2023-03-15 16:19:18 INFO HikariPool-7 - Added connection org.postgresql.jdbc.PgConnection@11a57a12
+2023-03-15 16:19:18 INFO HikariPool-7 - Start completed.
+2023-03-15 16:19:18 INFO HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2023-03-15 16:19:18 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-03-15 16:19:18 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-03-15 16:19:18 WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-03-15 16:19:18 INFO Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@11e10bad, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@29352f9a, org.springframework.security.web.context.SecurityContextHolderFilter@27733625, org.springframework.security.web.header.HeaderWriterFilter@467de05c, org.springframework.web.filter.CorsFilter@2e15e097, org.springframework.security.web.authentication.logout.LogoutFilter@53c637fb, com.example.grocery.core.security.jwt.AuthTokenFilter@9a1a44c, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@73fa93c6, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@39709e3c, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@10a6e64e, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@9d62230, org.springframework.security.web.session.SessionManagementFilter@25fb134e, org.springframework.security.web.access.ExceptionTranslationFilter@22178146, org.springframework.security.web.access.intercept.AuthorizationFilter@49c9ddc6]
+2023-03-15 16:19:18 INFO LiveReload server is running on port 35729
+2023-03-15 16:19:18 INFO Starting ProtocolHandler ["http-nio-8080"]
+2023-03-15 16:19:18 INFO Tomcat started on port(s): 8080 (http) with context path ''
+2023-03-15 16:19:18 INFO Started GroceryApplication in 1.505 seconds (process running for 3529.048)
+2023-03-15 16:19:18 INFO Condition evaluation unchanged
+2023-03-15 16:19:24 INFO Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-03-15 16:19:24 INFO Initializing Servlet 'dispatcherServlet'
+2023-03-15 16:19:24 INFO Completed initialization in 1 ms
+2023-03-15 16:19:24 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 16:19:29 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 16:19:31 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 16:20:06 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 16:21:13 INFO Restarting due to 1 class path change (0 additions, 1 deletion, 0 modifications)
+2023-03-15 16:21:13 INFO Pausing ProtocolHandler ["http-nio-8080"]
+2023-03-15 16:21:13 INFO Stopping service [Tomcat]
+2023-03-15 16:21:13 INFO Destroying Spring FrameworkServlet 'dispatcherServlet'
+2023-03-15 16:21:13 WARN The web application [ROOT] appears to have started a thread named [HikariPool-7 housekeeper] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@18.0.2.1/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@18.0.2.1/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+ java.base@18.0.2.1/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1672)
+ java.base@18.0.2.1/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+ java.base@18.0.2.1/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base@18.0.2.1/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+ java.base@18.0.2.1/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+ java.base@18.0.2.1/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+ java.base@18.0.2.1/java.lang.Thread.run(Thread.java:833)
+2023-03-15 16:21:13 INFO Stopping ProtocolHandler ["http-nio-8080"]
+2023-03-15 16:21:13 INFO Destroying ProtocolHandler ["http-nio-8080"]
+2023-03-15 16:21:13 INFO Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-03-15 16:21:13 INFO HikariPool-7 - Shutdown initiated...
+2023-03-15 16:21:13 INFO HikariPool-7 - Shutdown completed.
+2023-03-15 16:21:13 INFO Starting GroceryApplication using Java 18.0.2.1 with PID 18636 (C:\GroceryProject-Backend\grocery\target\classes started by palao in C:\GroceryProject-Backend)
+2023-03-15 16:21:13 INFO No active profile set, falling back to 1 default profile: "default"
+2023-03-15 16:21:14 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-03-15 16:21:14 INFO Finished Spring Data repository scanning in 68 ms. Found 14 JPA repository interfaces.
+2023-03-15 16:21:14 INFO Tomcat initialized with port(s): 8080 (http)
+2023-03-15 16:21:14 INFO Initializing ProtocolHandler ["http-nio-8080"]
+2023-03-15 16:21:14 INFO Starting service [Tomcat]
+2023-03-15 16:21:14 INFO Starting Servlet engine: [Apache Tomcat/10.1.5]
+2023-03-15 16:21:14 INFO Initializing Spring embedded WebApplicationContext
+2023-03-15 16:21:14 INFO Root WebApplicationContext: initialization completed in 554 ms
+2023-03-15 16:21:14 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-03-15 16:21:14 WARN HHH90000021: Encountered deprecated setting [javax.persistence.validation.mode], use [jakarta.persistence.validation.mode] instead
+2023-03-15 16:21:14 WARN HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-03-15 16:21:14 INFO HikariPool-8 - Starting...
+2023-03-15 16:21:14 INFO HikariPool-8 - Added connection org.postgresql.jdbc.PgConnection@7bd56790
+2023-03-15 16:21:14 INFO HikariPool-8 - Start completed.
+2023-03-15 16:21:14 INFO HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2023-03-15 16:21:14 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-03-15 16:21:14 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-03-15 16:21:15 WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-03-15 16:21:15 INFO Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@645e6944, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1a2719e4, org.springframework.security.web.context.SecurityContextHolderFilter@7f635aff, org.springframework.security.web.header.HeaderWriterFilter@24912fc1, org.springframework.web.filter.CorsFilter@2d0b221f, org.springframework.security.web.authentication.logout.LogoutFilter@323197ca, com.example.grocery.core.security.jwt.AuthTokenFilter@3d18524f, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@5aef3a14, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@821694d, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2563b0af, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@e978230, org.springframework.security.web.session.SessionManagementFilter@7500ee36, org.springframework.security.web.access.ExceptionTranslationFilter@2e3b31d7, org.springframework.security.web.access.intercept.AuthorizationFilter@907c39c]
+2023-03-15 16:21:15 INFO LiveReload server is running on port 35729
+2023-03-15 16:21:15 INFO Starting ProtocolHandler ["http-nio-8080"]
+2023-03-15 16:21:15 INFO Tomcat started on port(s): 8080 (http) with context path ''
+2023-03-15 16:21:15 INFO Started GroceryApplication in 1.544 seconds (process running for 3645.662)
+2023-03-15 16:21:15 INFO Condition evaluation unchanged
+2023-03-15 16:21:50 INFO Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-03-15 16:21:50 INFO Initializing Servlet 'dispatcherServlet'
+2023-03-15 16:21:50 INFO Completed initialization in 1 ms
+2023-03-15 16:21:50 ERROR Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2023-03-15 16:23:48 INFO Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-03-15 16:23:48 INFO HikariPool-8 - Shutdown initiated...
+2023-03-15 16:23:48 INFO HikariPool-8 - Shutdown completed.

@@ -97,13 +97,11 @@ public class WebSecurityConfig {
                         "/swagger-ui/**",
                         "/v2/api-docs/**",
                         "/swagger-resources/**",
-                        "/api/product/**",
+                        "/api/product/getlistbypaginationandsorting",
+                        "/api/product/getallbycategory",
                         "/api/category/getall",
-                        "/api/user/**",
-                        "/api/employee/getall",
-                        "/api/individualcustomer/getall",
-                        "/api/corporatecustomer/getall",
-                        "/api/image/**")
+                        "/api/user/signin",
+                        "/api/user/signup")
                 .permitAll()
                 // this config unit testing... test was succeed but diasble all security
                 // otherwise cloudinary upload operation throw 403 Error to testing
