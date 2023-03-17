@@ -71,6 +71,17 @@ public class PhotoServiceImpl implements PhotoService {
 
     @Override
     @Transactional
+    public Result deleteFromDbById(Long id) {
+        //imageService.delete(imageUrl);
+        Image image = imageRepository.findById(id)
+                .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
+        log.info("Image deleted from only Db: ", image.getUrl());
+        imageRepository.delete(image);
+        return new SuccessResult(DeleteMessages.IMAGE_DELETED);
+    }
+
+    @Override
+    @Transactional
     public DataResult<Object> update(Long id, MultipartFile file) {
         photoBusinessRules.isFormatValid(file);
 

@@ -30,9 +30,14 @@ public class PhotosController {
         return ResponseEntity.ok(photoService.upload(file));
     }
 
-    @DeleteMapping("/delete")
-    public ResponseEntity<Result> delete(String imageUrl) {
+    @DeleteMapping("/delete/{imageUrl}")
+    public ResponseEntity<Result> delete(@PathVariable String imageUrl) {
         return ResponseEntity.ok(photoService.delete(imageUrl));
+    }
+
+    @DeleteMapping("/deletefromdbbyid/{id}")
+    public ResponseEntity<Result> deleteFromDbById(@PathVariable Long id) {
+        return ResponseEntity.ok(photoService.deleteFromDbById(id));
     }
 
     @PutMapping("/update")
@@ -47,7 +52,7 @@ public class PhotosController {
         return new ResponseEntity<>(this.photoService.getAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/getbyid/{id}")
     public ResponseEntity<DataResult<GetByIdImageResponse>> getById(@PathVariable Long id) {
         return new ResponseEntity<>(this.photoService.getById(id), HttpStatus.OK);
     }

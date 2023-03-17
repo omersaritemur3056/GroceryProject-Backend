@@ -17,6 +17,8 @@ public interface PhotoService {
 
     Result delete(String imageUrl);
 
+    Result deleteFromDbById(Long id);
+
     DataResult<Object> update(Long id, MultipartFile file);
 
     DataResult<List<GetAllImageResponse>> getAll();
