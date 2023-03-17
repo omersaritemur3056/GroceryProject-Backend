@@ -26,7 +26,6 @@ public class CategoryBusinessRules {
 
     public Result isExistName(String name) {
         if (categoryRepository.existsByNameIgnoreCase(name)) {
-            // update ve create için ayrı ve anlamlı bir log yaz.
             log.warn(Messages.LogMessages.LogWarnMessages.CATEGORY_NAME_REPEATED, name);
             throw new BusinessException(Messages.ErrorMessages.CATEGORY_NAME_REPEATED);
         }

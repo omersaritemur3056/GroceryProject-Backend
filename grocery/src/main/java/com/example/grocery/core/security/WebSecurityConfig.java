@@ -99,12 +99,13 @@ public class WebSecurityConfig {
                         "/swagger-resources/**",
                         "/api/product/getlistbypaginationandsorting",
                         "/api/product/getallbycategory",
+                        "/api/product/getall",
                         "/api/category/getall",
                         "/api/user/signin",
                         "/api/user/signup")
                 .permitAll()
-                // this config unit testing... test was succeed but diasble all security
-                // otherwise cloudinary upload operation throw 403 Error to testing
+                .requestMatchers("/api/order/**")
+                .hasAnyAuthority("ADMIN","MODERATOR","USER","EDITOR")
                 .requestMatchers("/api/**")
                 .hasAnyAuthority("ADMIN","MODERATOR")
                 .anyRequest()

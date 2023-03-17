@@ -22,6 +22,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Table(name = "users")
 @Entity
@@ -48,10 +50,12 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "created_date_time", nullable = false)
+    @CreationTimestamp
+    @Column(name = "created_date_time", nullable = false, updatable = false)
     private LocalDateTime createdDateTime;
 
-    @Column(name = "updated_date_time")
+    @UpdateTimestamp
+    @Column(name = "updated_date_time", insertable = false)
     private LocalDateTime updatedDateTime;
 
     @Column(name = "is_active")

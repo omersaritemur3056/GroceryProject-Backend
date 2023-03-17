@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Objects;
 
 @Service
 @Slf4j
@@ -20,7 +21,7 @@ public class PhotoBusinessRules {
         formats.add("jpg");
         formats.add("jpeg");
 
-        if (file.isEmpty() || file.getOriginalFilename() == null) {
+        if (file.isEmpty() || Objects.isNull(file.getOriginalFilename())) {
             log.error(Messages.LogMessages.LogErrorMessages.FILE_IS_NULL);
             throw new BusinessException(Messages.ErrorMessages.FILE_IS_NULL);
         }

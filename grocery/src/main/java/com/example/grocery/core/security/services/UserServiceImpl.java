@@ -2,6 +2,7 @@ package com.example.grocery.core.security.services;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import lombok.AllArgsConstructor;
@@ -78,7 +79,7 @@ public class UserServiceImpl implements UserService {
         Set<String> strRoles = userForRegisterDto.getRole();
         Set<Role> roles = new HashSet<>();
 
-        if (strRoles == null) {
+        if (Objects.isNull(strRoles)) {
             Role userRole = roleRepository.findByName(Authority.USER)
                     .orElseThrow(() -> new BusinessException(ErrorMessages.ROLE_NOT_FOUND));
             roles.add(userRole);
@@ -89,19 +90,16 @@ public class UserServiceImpl implements UserService {
                         Role adminRole = roleRepository.findByName(Authority.ADMIN)
                                 .orElseThrow(() -> new BusinessException(ErrorMessages.ROLE_NOT_FOUND));
                         roles.add(adminRole);
-
                         break;
                     case "MODERATOR":
                         Role moderatorRole = roleRepository.findByName(Authority.MODERATOR)
                                 .orElseThrow(() -> new BusinessException(ErrorMessages.ROLE_NOT_FOUND));
                         roles.add(moderatorRole);
-
                         break;
                     case "EDITOR":
                         Role editorRole = roleRepository.findByName(Authority.EDITOR)
                                 .orElseThrow(() -> new BusinessException(ErrorMessages.ROLE_NOT_FOUND));
                         roles.add(editorRole);
-
                         break;
                     default:
                         Role userRole = roleRepository.findByName(Authority.USER)
@@ -159,7 +157,7 @@ public class UserServiceImpl implements UserService {
         Set<String> strRoles = updateUserRequestDto.getRole();
         Set<Role> roles = new HashSet<>();
 
-        if (strRoles == null) {
+        if (Objects.isNull(strRoles)) {
             Role userRole = roleRepository.findByName(Authority.USER)
                     .orElseThrow(() -> new BusinessException(ErrorMessages.ROLE_NOT_FOUND));
             roles.add(userRole);
@@ -170,19 +168,16 @@ public class UserServiceImpl implements UserService {
                         Role adminRole = roleRepository.findByName(Authority.ADMIN)
                                 .orElseThrow(() -> new BusinessException(ErrorMessages.ROLE_NOT_FOUND));
                         roles.add(adminRole);
-
                         break;
                     case "MODERATOR":
                         Role moderatorRole = roleRepository.findByName(Authority.MODERATOR)
                                 .orElseThrow(() -> new BusinessException(ErrorMessages.ROLE_NOT_FOUND));
                         roles.add(moderatorRole);
-
                         break;
                     case "EDITOR":
                         Role editorRole = roleRepository.findByName(Authority.EDITOR)
                                 .orElseThrow(() -> new BusinessException(ErrorMessages.ROLE_NOT_FOUND));
                         roles.add(editorRole);
-
                         break;
                     default:
                         Role userRole = roleRepository.findByName(Authority.USER)

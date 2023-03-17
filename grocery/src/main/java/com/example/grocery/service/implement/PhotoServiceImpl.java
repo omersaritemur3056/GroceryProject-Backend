@@ -2,6 +2,8 @@ package com.example.grocery.service.implement;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
 import com.example.grocery.service.rules.PhotoBusinessRules;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -152,7 +154,7 @@ public class PhotoServiceImpl implements PhotoService {
     @Override
     public List<Image> getImagesByIds(Long[] imageIds) {
         List<Image> resultList = new ArrayList<>();
-        if (imageIds == null) {
+        if (Objects.isNull(imageIds)) {
             return resultList;
         }
         for (Long forEachId : imageIds) {
@@ -167,7 +169,7 @@ public class PhotoServiceImpl implements PhotoService {
     public List<Image> getImagesByUrls(String[] imageUrls) {
         List<Image> resultList = new ArrayList<>();
         String x = imageUrls.toString();
-        if (imageUrls == null || x.contains("")) {
+        if (Objects.isNull(imageUrls) || x.contains("")) {
             return resultList;
         }
         for (String forEachUrl : imageUrls) {
