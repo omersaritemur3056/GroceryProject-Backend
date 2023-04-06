@@ -46,7 +46,7 @@ public class ProductsController {
 
     @GetMapping("/getall")
     public ResponseEntity<DataResult<List<GetAllProductResponse>>> getAll() throws InterruptedException {
-        Thread.sleep(2000);
+        Thread.sleep(1000);
         return ResponseEntity.ok(productService.getAll());
     }
 
@@ -58,7 +58,7 @@ public class ProductsController {
     @GetMapping("/getlistbysorting")
     public ResponseEntity<DataResult<List<GetAllProductResponse>>> getListBySorting(
             @RequestParam(defaultValue = "name") String sortBy) throws InterruptedException {
-        Thread.sleep(2000);
+        Thread.sleep(1000);
         return ResponseEntity.ok(productService.getListBySorting(sortBy));
     }
 
@@ -66,7 +66,7 @@ public class ProductsController {
     public ResponseEntity<DataResult<List<GetAllProductResponse>>> getListByPagination(
             @RequestParam(defaultValue = "0") int pageNo, @RequestParam(defaultValue = "10") int pageSize)
             throws InterruptedException{
-        Thread.sleep(2000);
+        Thread.sleep(1000);
         return ResponseEntity.ok(productService.getListByPagination(pageNo, pageSize));
     }
 

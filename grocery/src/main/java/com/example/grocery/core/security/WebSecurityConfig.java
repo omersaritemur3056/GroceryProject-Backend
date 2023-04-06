@@ -91,7 +91,7 @@ public class WebSecurityConfig {
                         "configuration/ui",
                         "configuration/security",
                         "/webjars/**",
-                        //"/api/**", it allow every end points
+                        "/api/**", //it allow every end points
                         "/swagger-ui/index.html",
                         "/v3/api-docs/**",
                         "/swagger-ui/**",

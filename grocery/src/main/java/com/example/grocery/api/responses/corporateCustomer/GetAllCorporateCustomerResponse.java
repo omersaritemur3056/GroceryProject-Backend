@@ -24,4 +24,6 @@ public class GetAllCorporateCustomerResponse {
     private String companyName;
 
     private String taxNumber;
+
+    private String imageUrl;
 }

@@ -24,4 +24,6 @@ public class GetByIdCorporateCustomerResponse {
     private String companyName;
 
     private String taxNumber;
+
+    private String imageUrl;
 }

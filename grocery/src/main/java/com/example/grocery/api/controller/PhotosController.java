@@ -25,7 +25,6 @@ public class PhotosController {
     private PhotoService photoService;
 
     @PostMapping("/add")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     public ResponseEntity<Result> add(MultipartFile file) {
         return ResponseEntity.ok(photoService.upload(file));
     }
@@ -47,7 +46,6 @@ public class PhotosController {
     }
 
     @GetMapping("/getall")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<DataResult<List<GetAllImageResponse>>> getAll() {
         return new ResponseEntity<>(this.photoService.getAll(), HttpStatus.OK);
     }
@@ -69,6 +67,7 @@ public class PhotosController {
     }
 
     @GetMapping("/getlistbypagination")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<DataResult<List<GetAllImageResponse>>> getListByPagination(
             @RequestParam(defaultValue = "0") int pageNo, @RequestParam(defaultValue = "10") int pageSize) {
         return ResponseEntity.ok(photoService.getListByPagination(pageNo, pageSize));

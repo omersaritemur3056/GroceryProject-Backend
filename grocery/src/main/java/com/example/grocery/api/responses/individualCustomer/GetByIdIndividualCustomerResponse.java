@@ -30,4 +30,6 @@ public class GetByIdIndividualCustomerResponse {
     private Gender gender;
 
     private String nationalIdentity;
+
+    private String imageUrl;
 }

@@ -34,4 +34,6 @@ public class GetByIdEmployeeResponse {
     private LocalDate birthYear;
 
     private double salary;
+
+    private String imageUrl;
 }

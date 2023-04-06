@@ -23,7 +23,7 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/api/user")
 @AllArgsConstructor
-@CrossOrigin(origins = "*")
+@CrossOrigin
 public class UsersController {
 
     private final UserService userService;

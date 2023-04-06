@@ -34,4 +34,6 @@ public class GetAllEmployeeResponse {
     private LocalDate birthYear;
 
     private double salary;
+
+    private String imageUrl;
 }
