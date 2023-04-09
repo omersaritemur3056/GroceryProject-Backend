@@ -91,13 +91,14 @@ public class WebSecurityConfig {
                         "configuration/ui",
                         "configuration/security",
                         "/webjars/**",
-                        "/api/**", //it allow every end points
+                        // "/api/**", // it allow every end points
                         "/swagger-ui/index.html",
                         "/v3/api-docs/**",
                         "/swagger-ui/**",
                         "/v2/api-docs/**",
                         "/swagger-resources/**",
                         "/api/product/getlistbypaginationandsorting",
+                        "/api/product/getlistbysorting",
                         "/api/product/getallbycategory",
                         "/api/product/getall",
                         "/api/category/getall",
@@ -105,9 +106,9 @@ public class WebSecurityConfig {
                         "/api/user/signup")
                 .permitAll()
                 .requestMatchers("/api/order/**")
-                .hasAnyAuthority("ADMIN","MODERATOR","USER","EDITOR")
+                .hasAnyAuthority("ADMIN", "MODERATOR", "USER", "EDITOR")
                 .requestMatchers("/api/**")
-                .hasAnyAuthority("ADMIN","MODERATOR")
+                .hasAnyAuthority("ADMIN", "MODERATOR")
                 .anyRequest()
                 .authenticated()
                 .and()

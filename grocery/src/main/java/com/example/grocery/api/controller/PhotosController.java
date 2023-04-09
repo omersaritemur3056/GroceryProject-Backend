@@ -29,8 +29,8 @@ public class PhotosController {
         return ResponseEntity.ok(photoService.upload(file));
     }
 
-    @DeleteMapping("/delete/{imageUrl}")
-    public ResponseEntity<Result> delete(@PathVariable String imageUrl) {
+    @DeleteMapping("/delete")
+    public ResponseEntity<Result> delete(@RequestParam String imageUrl) {
         return ResponseEntity.ok(photoService.delete(imageUrl));
     }
 
@@ -50,13 +50,13 @@ public class PhotosController {
         return new ResponseEntity<>(this.photoService.getAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/getbyid/{id}")
-    public ResponseEntity<DataResult<GetByIdImageResponse>> getById(@PathVariable Long id) {
+    @GetMapping("/getbyid")
+    public ResponseEntity<DataResult<GetByIdImageResponse>> getById(@RequestParam Long id) {
         return new ResponseEntity<>(this.photoService.getById(id), HttpStatus.OK);
     }
 
-    @GetMapping("/{imageUrl}")
-    public ResponseEntity<DataResult<GetByUrlImageResponse>> getByUrl(@PathVariable String imageUrl) {
+    @GetMapping("/getbyurl")
+    public ResponseEntity<DataResult<GetByUrlImageResponse>> getByUrl(@RequestParam String imageUrl) {
         return new ResponseEntity<>(this.photoService.getByUrl(imageUrl), HttpStatus.OK);
     }
 

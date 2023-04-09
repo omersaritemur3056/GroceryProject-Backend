@@ -47,5 +47,5 @@ public class CreateProductRequest {
     @Positive
     private Long producerId;
 
-    private String[] imageUrls;
+    private Long[] imageIds;
 }

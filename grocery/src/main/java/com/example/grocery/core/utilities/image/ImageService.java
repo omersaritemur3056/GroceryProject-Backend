@@ -7,7 +7,7 @@ import com.example.grocery.core.utilities.results.Result;
 
 public interface ImageService {
 
-    DataResult<?> save(MultipartFile file);
+    DataResult<Object> save(MultipartFile file);
 
     Result delete(String imageUrl);
 

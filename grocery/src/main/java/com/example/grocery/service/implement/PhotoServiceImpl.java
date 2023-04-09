@@ -1,11 +1,10 @@
 package com.example.grocery.service.implement;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 
-import com.example.grocery.service.constants.Messages;
 import com.example.grocery.service.rules.PhotoBusinessRules;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -63,9 +62,9 @@ public class PhotoServiceImpl implements PhotoService {
     @Override
     @Transactional
     public Result delete(String imageUrl) {
-        imageService.delete(imageUrl);
         Image image = imageRepository.findByUrl(imageUrl)
                 .orElseThrow(() -> new BusinessException(ErrorMessages.IMAGE_URL_NOT_FOUND));
+        imageService.delete(imageUrl);
         log.info(LogInfoMessages.DELETED_IMAGE_URL, image.getUrl());
         imageRepository.delete(image);
         return new SuccessResult(DeleteMessages.IMAGE_DELETED);
@@ -74,7 +73,6 @@ public class PhotoServiceImpl implements PhotoService {
     @Override
     @Transactional
     public Result deleteFromDbById(Long id) {
-        //imageService.delete(imageUrl);
         Image image = imageRepository.findById(id)
                 .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
         log.info("Image deleted from only Db: ", image.getUrl());
@@ -181,7 +179,7 @@ public class PhotoServiceImpl implements PhotoService {
     @Override
     public List<Image> getImagesByUrls(String[] imageUrls) {
         List<Image> resultList = new ArrayList<>();
-        String x = imageUrls.toString();
+        String x = Arrays.toString(imageUrls);
         if (Objects.isNull(imageUrls) || x.contains("")) {
             return resultList;
         }

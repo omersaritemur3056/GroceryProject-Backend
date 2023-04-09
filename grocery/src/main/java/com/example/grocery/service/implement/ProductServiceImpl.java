@@ -59,7 +59,7 @@ public class ProductServiceImpl implements ProductService {
         addProduct.setCategory(categoryService.getCategoryById(createProductRequest.getCategoryId()));
         addProduct.setProducer(producerService.getProducerById(createProductRequest.getProducerId()));
         addProduct.setSupplier(supplierService.getSupplierById(createProductRequest.getSupplierId()));
-        addProduct.setImages(photoService.getImagesByUrls(createProductRequest.getImageUrls()));
+        addProduct.setImages(photoService.getImagesByIds(createProductRequest.getImageIds()));
         productRepository.save((addProduct));
         log.info(LogInfoMessages.PRODUCT_ADDED, createProductRequest.getName());
         return new SuccessResult(CreateMessages.PRODUCT_CREATED);
@@ -86,7 +86,7 @@ public class ProductServiceImpl implements ProductService {
         product.setCategory(categoryService.getCategoryById(updateProductRequest.getCategoryId()));
         product.setProducer(producerService.getProducerById(updateProductRequest.getProducerId()));
         product.setSupplier(supplierService.getSupplierById(updateProductRequest.getSupplierId()));
-        product.setImages(photoService.getImagesByUrls(updateProductRequest.getImageUrls()));
+        product.setImages(photoService.getImagesByIds(updateProductRequest.getImageIds()));
         log.info(LogInfoMessages.PRODUCT_UPDATED, updateProductRequest.getName());
         productRepository.save(product);
 
