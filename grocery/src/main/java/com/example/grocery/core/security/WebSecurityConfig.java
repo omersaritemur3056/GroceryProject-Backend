@@ -103,6 +103,7 @@ public class WebSecurityConfig {
                         "/api/product/getall",
                         "/api/category/getall",
                         "/api/user/signin",
+                        "/api/user/googlelogin",
                         "/api/user/signup")
                 .permitAll()
                 .requestMatchers("/api/order/**")

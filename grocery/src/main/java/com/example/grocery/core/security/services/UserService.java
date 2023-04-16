@@ -2,10 +2,7 @@ package com.example.grocery.core.security.services;
 
 import java.util.List;
 
-import com.example.grocery.core.security.DTOs.request.TokenRefreshRequest;
-import com.example.grocery.core.security.DTOs.request.UpdateUserRequestDto;
-import com.example.grocery.core.security.DTOs.request.UserForLoginDto;
-import com.example.grocery.core.security.DTOs.request.UserForRegisterDto;
+import com.example.grocery.core.security.DTOs.request.*;
 import com.example.grocery.core.security.DTOs.response.GetAllUserResponseDto;
 import com.example.grocery.core.security.DTOs.response.GetByIdUserResponseDto;
 import com.example.grocery.core.security.DTOs.response.JwtResponse;
@@ -19,6 +16,8 @@ public interface UserService {
     Result register(UserForRegisterDto userForRegisterDto);
 
     DataResult<JwtResponse> login(UserForLoginDto userForLoginDto);
+
+    Result googleLogin(GoogleLoginRequest googleLoginRequest);
 
     Result update(Long id, UpdateUserRequestDto updateUserRequestDto);
 

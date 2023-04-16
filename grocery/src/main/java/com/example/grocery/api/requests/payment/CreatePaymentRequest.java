@@ -28,7 +28,7 @@ public class CreatePaymentRequest {
 
     @Min(value = 1)
     @Max(value = 12)
-    private int cardExpirationMonth;
+    private int cardExpirationMonth; //bunun enum olması gerek!
 
     @NotNull
     @NotBlank

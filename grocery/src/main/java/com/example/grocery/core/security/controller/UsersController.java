@@ -2,14 +2,11 @@ package com.example.grocery.core.security.controller;
 
 import java.util.List;
 
+import com.example.grocery.core.security.DTOs.request.*;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.example.grocery.core.security.DTOs.request.TokenRefreshRequest;
-import com.example.grocery.core.security.DTOs.request.UpdateUserRequestDto;
-import com.example.grocery.core.security.DTOs.request.UserForLoginDto;
-import com.example.grocery.core.security.DTOs.request.UserForRegisterDto;
 import com.example.grocery.core.security.DTOs.response.GetAllUserResponseDto;
 import com.example.grocery.core.security.DTOs.response.GetByIdUserResponseDto;
 import com.example.grocery.core.security.DTOs.response.JwtResponse;
@@ -46,6 +43,11 @@ public class UsersController {
     @PostMapping("/signin")
     public ResponseEntity<DataResult<JwtResponse>> login(@Valid @RequestBody UserForLoginDto userForLoginDto) {
         return ResponseEntity.ok(userService.login(userForLoginDto));
+    }
+
+    @PostMapping("/googlelogin")
+    public ResponseEntity googleLogin(@RequestBody GoogleLoginRequest googleLoginRequest){
+        return ResponseEntity.ok(userService.googleLogin(googleLoginRequest));
     }
 
     @PostMapping("/refreshtoken")

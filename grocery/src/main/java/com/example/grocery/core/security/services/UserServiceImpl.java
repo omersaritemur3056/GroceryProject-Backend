@@ -1,10 +1,10 @@
 package com.example.grocery.core.security.services;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.time.LocalDateTime;
+import java.util.*;
 
+import com.example.grocery.core.security.DTOs.request.*;
+import com.example.grocery.core.security.enums.RegisterType;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -23,10 +23,6 @@ import com.example.grocery.service.constants.Messages.GetByIdMessages;
 import com.example.grocery.service.constants.Messages.GetListMessages;
 import com.example.grocery.service.constants.Messages.UpdateMessages;
 import com.example.grocery.service.constants.Messages.LogMessages.LogInfoMessages;
-import com.example.grocery.core.security.DTOs.request.TokenRefreshRequest;
-import com.example.grocery.core.security.DTOs.request.UpdateUserRequestDto;
-import com.example.grocery.core.security.DTOs.request.UserForLoginDto;
-import com.example.grocery.core.security.DTOs.request.UserForRegisterDto;
 import com.example.grocery.core.security.DTOs.response.GetAllUserResponseDto;
 import com.example.grocery.core.security.DTOs.response.GetByIdUserResponseDto;
 import com.example.grocery.core.security.DTOs.response.JwtResponse;
@@ -75,6 +71,7 @@ public class UserServiceImpl implements UserService {
 
         User user = mapperService.forRequest().map(userForRegisterDto, User.class);
         user.setPassword(passwordEncoder.encode(userForRegisterDto.getPassword()));
+        user.setRegisterType(RegisterType.STANDARD);
 
         Set<String> strRoles = userForRegisterDto.getRole();
         Set<Role> roles = new HashSet<>();
@@ -132,9 +129,36 @@ public class UserServiceImpl implements UserService {
 
         RefreshToken refreshToken = refreshTokenService.createRefreshToken(userDetails.getId());
 
-        log.info(LogInfoMessages.USER_LOGINED, userForLoginDto.getUsername());
         return new SuccessDataResult<>(new JwtResponse(jwt, refreshToken.getToken(), userDetails.getId(),
                 userDetails.getUsername(), userDetails.getEmail(), roles));
+    }
+
+    @Override
+    public Result googleLogin(GoogleLoginRequest googleLoginRequest) {
+        User inDbUser = userRepository.findByUsername(googleLoginRequest.getName()).orElse(null);
+        if (inDbUser == null) {
+            User googleUser = new User();
+            Set<Role> roles = new HashSet<>();
+            Role userRole = roleRepository.findByName(Authority.USER).get();
+            roles.add(userRole);
+            googleUser.setUsername(googleLoginRequest.getName());
+            googleUser.setEmail(googleLoginRequest.getEmail());
+            googleUser.setRoles(roles);
+            googleUser.setPassword(passwordEncoder.encode(generateRandomString()));
+            googleUser.setActive(true);
+            googleUser.setCreatedDateTime(LocalDateTime.now());
+            googleUser.setRegisterType(RegisterType.GOOGLE);
+
+            userRepository.save(googleUser);
+            log.info(LogInfoMessages.GOOGLE_USER_CREATED, googleLoginRequest.getName(), googleLoginRequest.getEmail());
+            return new SuccessResult(CreateMessages.GOOGLE_USER_CREATED);
+        }
+
+        if (!inDbUser.getRegisterType().equals(RegisterType.GOOGLE)){
+            throw new BusinessException(ErrorMessages.REGISTER_TYPE_ERROR);
+        }
+
+        return new SuccessResult();
     }
 
     @Override
@@ -153,6 +177,7 @@ public class UserServiceImpl implements UserService {
         user.setId(inDbUser.getId());
         user.setPassword(passwordEncoder.encode(updateUserRequestDto.getPassword()));
         user.setCreatedDateTime(inDbUser.getCreatedDateTime());
+        user.setRegisterType(RegisterType.STANDARD);
 
         Set<String> strRoles = updateUserRequestDto.getRole();
         Set<Role> roles = new HashSet<>();
@@ -295,6 +320,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean existById(Long id) {
         return userRepository.existsById(id);
+    }
+
+    private String generateRandomString(){
+        final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        final int LENGTH = 20;
+
+        StringBuilder sb = new StringBuilder();
+        Random random = new Random();
+        for (int i = 0; i < LENGTH; i++) {
+            int randomIndex = random.nextInt(CHARACTERS.length());
+            char randomChar = CHARACTERS.charAt(randomIndex);
+            sb.append(randomChar);
+        }
+        return sb.toString();
     }
 
     // signout tasarlanacak...

@@ -42,7 +42,7 @@ public class Messages {
         public static final String EMAIL_NOT_VERIFIED = "Email could not verified!";
         public static final String USER_ID_REPEATED = "User id can not be repeat!";
         public static final String IMAGE_ID_REPEATED = "Image id can not be repeat!";
-
+        public static final String REGISTER_TYPE_ERROR = "Register type error!";
     }
 
     public class GetListMessages {
@@ -135,6 +135,7 @@ public class Messages {
         public static final String PAYMENT_CREATED = "Debit card information saved to DB";
         public static final String ORDER_CREATED = "Order saved to DB!";
         public static final String IMAGE_UPLOADED_AND_ADDED = "Image uploaded and saved to DB!";
+        public static final String GOOGLE_USER_CREATED = "Google user saved to DB!";
     }
 
     public class DeleteMessages {
@@ -225,7 +226,7 @@ public class Messages {
             public static final String USER_LOGINED = "User: {} logined!";
             public static final String USER_DELETED = "User: {}, {} deleted!";
             public static final String USER_UPDATED = "User: {} updated!";
-
+            public static final String GOOGLE_USER_CREATED = "Google user: {} and gmail: {} saved in DB";
         }
 
         public class LogWarnMessages {
