@@ -3,6 +3,7 @@ package com.example.grocery.core.security.jwt;
 import java.io.IOException;
 import java.util.Objects;
 
+import com.example.grocery.core.security.services.constants.Messages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -11,8 +12,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
-
-import com.example.grocery.service.constants.Messages.LogMessages.LogErrorMessages;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -44,7 +43,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         } catch (Exception e) {
-            log.error(LogErrorMessages.CANNOT_SET_USER_AUTHENTICATION, e.getMessage());
+            log.error(Messages.LogMessages.LogErrorMessages.CANNOT_SET_USER_AUTHENTICATION, e.getMessage());
         }
 
         filterChain.doFilter(request, response);

@@ -5,6 +5,9 @@ import java.util.*;
 
 import com.example.grocery.core.security.DTOs.request.*;
 import com.example.grocery.core.security.enums.RegisterType;
+import com.example.grocery.core.security.services.constants.Messages;
+import com.example.grocery.core.security.services.constants.Messages.ErrorMessages;
+
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -16,13 +19,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.example.grocery.service.constants.Messages.CreateMessages;
-import com.example.grocery.service.constants.Messages.DeleteMessages;
-import com.example.grocery.service.constants.Messages.ErrorMessages;
-import com.example.grocery.service.constants.Messages.GetByIdMessages;
-import com.example.grocery.service.constants.Messages.GetListMessages;
-import com.example.grocery.service.constants.Messages.UpdateMessages;
-import com.example.grocery.service.constants.Messages.LogMessages.LogInfoMessages;
 import com.example.grocery.core.security.DTOs.response.GetAllUserResponseDto;
 import com.example.grocery.core.security.DTOs.response.GetByIdUserResponseDto;
 import com.example.grocery.core.security.DTOs.response.JwtResponse;
@@ -78,29 +74,29 @@ public class UserServiceImpl implements UserService {
 
         if (Objects.isNull(strRoles)) {
             Role userRole = roleRepository.findByName(Authority.USER)
-                    .orElseThrow(() -> new BusinessException(ErrorMessages.ROLE_NOT_FOUND));
+                    .orElseThrow(() -> new BusinessException(Messages.ErrorMessages.ROLE_NOT_FOUND));
             roles.add(userRole);
         } else {
             strRoles.forEach(role -> {
                 switch (role) {
                     case "ADMIN":
                         Role adminRole = roleRepository.findByName(Authority.ADMIN)
-                                .orElseThrow(() -> new BusinessException(ErrorMessages.ROLE_NOT_FOUND));
+                                .orElseThrow(() -> new BusinessException(Messages.ErrorMessages.ROLE_NOT_FOUND));
                         roles.add(adminRole);
                         break;
                     case "MODERATOR":
                         Role moderatorRole = roleRepository.findByName(Authority.MODERATOR)
-                                .orElseThrow(() -> new BusinessException(ErrorMessages.ROLE_NOT_FOUND));
+                                .orElseThrow(() -> new BusinessException(Messages.ErrorMessages.ROLE_NOT_FOUND));
                         roles.add(moderatorRole);
                         break;
                     case "EDITOR":
                         Role editorRole = roleRepository.findByName(Authority.EDITOR)
-                                .orElseThrow(() -> new BusinessException(ErrorMessages.ROLE_NOT_FOUND));
+                                .orElseThrow(() -> new BusinessException(Messages.ErrorMessages.ROLE_NOT_FOUND));
                         roles.add(editorRole);
                         break;
                     default:
                         Role userRole = roleRepository.findByName(Authority.USER)
-                                .orElseThrow(() -> new BusinessException(ErrorMessages.ROLE_NOT_FOUND));
+                                .orElseThrow(() -> new BusinessException(Messages.ErrorMessages.ROLE_NOT_FOUND));
                         roles.add(userRole);
                 }
             });
@@ -112,8 +108,8 @@ public class UserServiceImpl implements UserService {
         // isVerifiedEmail(userForRegisterDto.getEmail());
 
         userRepository.save(user);
-        log.info(LogInfoMessages.USER_CREATED, user.getUsername());
-        return new SuccessResult(CreateMessages.USER_CREATED);
+        log.info(Messages.LogMessages.LogInfoMessages.USER_CREATED, user.getUsername());
+        return new SuccessResult(Messages.CreateMessages.USER_CREATED);
     }
 
     @Override
@@ -135,11 +131,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Result googleLogin(GoogleLoginRequest googleLoginRequest) {
-        User inDbUser = userRepository.findByUsername(googleLoginRequest.getName()).orElse(null);
+        User inDbUser = userRepository.findByEmail(googleLoginRequest.getEmail()).orElse(null);
+
+        if (inDbUser != null && !inDbUser.getRegisterType().equals(RegisterType.GOOGLE)) {
+            throw new BusinessException(Messages.ErrorMessages.REGISTER_TYPE_ERROR);
+        }
+
         if (inDbUser == null) {
             User googleUser = new User();
             Set<Role> roles = new HashSet<>();
-            Role userRole = roleRepository.findByName(Authority.USER).get();
+            Role userRole = roleRepository.findByName(Authority.USER)
+                    .orElseThrow(() -> new BusinessException(ErrorMessages.ROLE_NOT_FOUND));
             roles.add(userRole);
             googleUser.setUsername(googleLoginRequest.getName());
             googleUser.setEmail(googleLoginRequest.getEmail());
@@ -150,12 +152,41 @@ public class UserServiceImpl implements UserService {
             googleUser.setRegisterType(RegisterType.GOOGLE);
 
             userRepository.save(googleUser);
-            log.info(LogInfoMessages.GOOGLE_USER_CREATED, googleLoginRequest.getName(), googleLoginRequest.getEmail());
-            return new SuccessResult(CreateMessages.GOOGLE_USER_CREATED);
+            log.info(Messages.LogMessages.LogInfoMessages.GOOGLE_USER_CREATED, googleLoginRequest.getName(),
+                    googleLoginRequest.getEmail());
+            return new SuccessResult(Messages.CreateMessages.GOOGLE_USER_CREATED);
         }
 
-        if (!inDbUser.getRegisterType().equals(RegisterType.GOOGLE)){
-            throw new BusinessException(ErrorMessages.REGISTER_TYPE_ERROR);
+        return new SuccessResult();
+    }
+
+    @Override
+    public Result facebookLogin(FacebookLoginRequest facebookLoginRequest) {
+        User inDbUser = userRepository.findByEmail(facebookLoginRequest.getEmail()).orElse(null);
+
+        if (inDbUser != null && !inDbUser.getRegisterType().equals(RegisterType.FACEBOOK)) {
+            throw new BusinessException(Messages.ErrorMessages.REGISTER_TYPE_ERROR);
+        }
+
+        if (inDbUser == null) {
+            User facebookUser = new User();
+            Set<Role> roles = new HashSet<>();
+            Role userRole = roleRepository.findByName(Authority.USER)
+                    .orElseThrow(() -> new BusinessException(ErrorMessages.ROLE_NOT_FOUND));
+            
+            roles.add(userRole);
+            facebookUser.setUsername(facebookLoginRequest.getName());
+            facebookUser.setEmail(facebookLoginRequest.getEmail());
+            facebookUser.setRoles(roles);
+            facebookUser.setPassword(passwordEncoder.encode(generateRandomString()));
+            facebookUser.setActive(true);
+            facebookUser.setCreatedDateTime(LocalDateTime.now());
+            facebookUser.setRegisterType(RegisterType.FACEBOOK);
+
+            userRepository.save(facebookUser);
+            log.info(Messages.LogMessages.LogInfoMessages.FACEBOOK_USER_CREATED, facebookLoginRequest.getName(),
+                    facebookLoginRequest.getEmail());
+            return new SuccessResult(Messages.CreateMessages.FACEBOOK_USER_CREATED);
         }
 
         return new SuccessResult();
@@ -184,29 +215,29 @@ public class UserServiceImpl implements UserService {
 
         if (Objects.isNull(strRoles)) {
             Role userRole = roleRepository.findByName(Authority.USER)
-                    .orElseThrow(() -> new BusinessException(ErrorMessages.ROLE_NOT_FOUND));
+                    .orElseThrow(() -> new BusinessException(Messages.ErrorMessages.ROLE_NOT_FOUND));
             roles.add(userRole);
         } else {
             strRoles.forEach(role -> {
                 switch (role) {
                     case "ADMIN":
                         Role adminRole = roleRepository.findByName(Authority.ADMIN)
-                                .orElseThrow(() -> new BusinessException(ErrorMessages.ROLE_NOT_FOUND));
+                                .orElseThrow(() -> new BusinessException(Messages.ErrorMessages.ROLE_NOT_FOUND));
                         roles.add(adminRole);
                         break;
                     case "MODERATOR":
                         Role moderatorRole = roleRepository.findByName(Authority.MODERATOR)
-                                .orElseThrow(() -> new BusinessException(ErrorMessages.ROLE_NOT_FOUND));
+                                .orElseThrow(() -> new BusinessException(Messages.ErrorMessages.ROLE_NOT_FOUND));
                         roles.add(moderatorRole);
                         break;
                     case "EDITOR":
                         Role editorRole = roleRepository.findByName(Authority.EDITOR)
-                                .orElseThrow(() -> new BusinessException(ErrorMessages.ROLE_NOT_FOUND));
+                                .orElseThrow(() -> new BusinessException(Messages.ErrorMessages.ROLE_NOT_FOUND));
                         roles.add(editorRole);
                         break;
                     default:
                         Role userRole = roleRepository.findByName(Authority.USER)
-                                .orElseThrow(() -> new BusinessException(ErrorMessages.ROLE_NOT_FOUND));
+                                .orElseThrow(() -> new BusinessException(Messages.ErrorMessages.ROLE_NOT_FOUND));
                         roles.add(userRole);
                 }
             });
@@ -214,17 +245,17 @@ public class UserServiceImpl implements UserService {
 
         user.setRoles(roles);
         userRepository.save(user);
-        log.info(LogInfoMessages.USER_UPDATED, user.getUsername());
-        return new SuccessResult(UpdateMessages.USER_UPDATED);
+        log.info(Messages.LogMessages.LogInfoMessages.USER_UPDATED, user.getUsername());
+        return new SuccessResult(Messages.UpdateMessages.USER_UPDATED);
     }
 
     @Override
     @Transactional
     public Result delete(Long id) {
         User user = getUserById(id);
-        log.info(LogInfoMessages.USER_DELETED, user.getUsername(), user.getEmail());
+        log.info(Messages.LogMessages.LogInfoMessages.USER_DELETED, user.getUsername(), user.getEmail());
         userRepository.delete(user);
-        return new SuccessResult(DeleteMessages.USER_DELETED);
+        return new SuccessResult(Messages.DeleteMessages.USER_DELETED);
     }
 
     @Override
@@ -239,7 +270,8 @@ public class UserServiceImpl implements UserService {
                     return new SuccessDataResult<>(new TokenRefreshResponse(token, requestRefreshToken));
                 })
                 .orElseThrow(
-                        () -> new TokenRefreshException(requestRefreshToken, ErrorMessages.REFRESH_TOKEN_NOT_FOUND));
+                        () -> new TokenRefreshException(requestRefreshToken,
+                                Messages.ErrorMessages.REFRESH_TOKEN_NOT_FOUND));
     }
 
     @Override
@@ -248,16 +280,16 @@ public class UserServiceImpl implements UserService {
         List<GetAllUserResponseDto> returnList = userList.stream()
                 .map(u -> mapperService.forResponse().map(u, GetAllUserResponseDto.class)).toList();
 
-        return new SuccessDataResult<>(returnList, GetListMessages.USERS_LISTED);
+        return new SuccessDataResult<>(returnList, Messages.GetListMessages.USERS_LISTED);
     }
 
     @Override
     public DataResult<GetByIdUserResponseDto> getById(Long id) {
         User inDbUser = userRepository.findById(id)
-                .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
+                .orElseThrow(() -> new BusinessException(Messages.ErrorMessages.ID_NOT_FOUND));
         GetByIdUserResponseDto returnObj = mapperService.forResponse().map(inDbUser, GetByIdUserResponseDto.class);
         returnObj.setRoles(inDbUser.getRoles());
-        return new SuccessDataResult<>(returnObj, GetByIdMessages.USER_LISTED);
+        return new SuccessDataResult<>(returnObj, Messages.GetByIdMessages.USER_LISTED);
     }
 
     @Override
@@ -268,7 +300,7 @@ public class UserServiceImpl implements UserService {
         List<GetAllUserResponseDto> returnList = userList.stream()
                 .map(u -> mapperService.forResponse().map(u, GetAllUserResponseDto.class)).toList();
 
-        return new SuccessDataResult<>(returnList, GetListMessages.USERS_SORTED + sortBy);
+        return new SuccessDataResult<>(returnList, Messages.GetListMessages.USERS_SORTED + sortBy);
     }
 
     @Override
@@ -280,7 +312,7 @@ public class UserServiceImpl implements UserService {
         List<GetAllUserResponseDto> returnList = userList.stream()
                 .map(u -> mapperService.forResponse().map(u, GetAllUserResponseDto.class)).toList();
 
-        return new SuccessDataResult<>(returnList, GetListMessages.USERS_PAGINATED);
+        return new SuccessDataResult<>(returnList, Messages.GetListMessages.USERS_PAGINATED);
     }
 
     @Override
@@ -295,7 +327,7 @@ public class UserServiceImpl implements UserService {
         List<GetAllUserResponseDto> returnList = userList.stream()
                 .map(u -> mapperService.forResponse().map(u, GetAllUserResponseDto.class)).toList();
 
-        return new SuccessDataResult<>(returnList, GetListMessages.USERS_PAGINATED_AND_SORTED + sortBy);
+        return new SuccessDataResult<>(returnList, Messages.GetListMessages.USERS_PAGINATED_AND_SORTED + sortBy);
     }
 
     // Bağımlılığı kontrol altına almak üzere tasarlandılar
@@ -303,13 +335,13 @@ public class UserServiceImpl implements UserService {
     public User getUserById(Long userId) {
 
         return userRepository.findById(userId)
-                .orElseThrow(() -> new BusinessException(ErrorMessages.USER_ID_NOT_FOUND));
+                .orElseThrow(() -> new BusinessException(Messages.ErrorMessages.USER_ID_NOT_FOUND));
     }
 
     @Override
     public User getByEmail(String email) {
         return userRepository.findByEmail(email)
-                .orElseThrow(() -> new BusinessException(ErrorMessages.USER_EMAIL_NOT_FOUND));
+                .orElseThrow(() -> new BusinessException(Messages.ErrorMessages.USER_EMAIL_NOT_FOUND));
     }
 
     @Override
@@ -322,7 +354,7 @@ public class UserServiceImpl implements UserService {
         return userRepository.existsById(id);
     }
 
-    private String generateRandomString(){
+    private String generateRandomString() {
         final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         final int LENGTH = 20;
 

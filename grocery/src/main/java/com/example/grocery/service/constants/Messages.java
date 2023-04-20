@@ -11,7 +11,6 @@ public class Messages {
         public static final String CATEGORY_ID_NOT_FOUND = "Entered category id not found in DB";
         public static final String PRODUCER_ID_NOT_FOUND = "Entered producer id not found in DB";
         public static final String SUPPLIER_ID_NOT_FOUND = "Entered supplier id not found in DB";
-        public static final String USER_ID_NOT_FOUND = "Entered user id not found in DB";
         public static final String PRODUCT_ID_NOT_FOUND = "Entered product id not found in DB";
         public static final String CUSTOMER_ID_NOT_FOUND = "Entered customer id not found in DB";
         public static final String PAYMENT_ID_NOT_FOUND = "Entered payment id not found in DB";
@@ -25,13 +24,8 @@ public class Messages {
 
         public static final String EMAIL_REPEATED = "Email address can not be repeat!";
         public static final String PHONE_NUMBER_REPEATED = "Phone number can not be repeat!";
-        public static final String PASSWORD_NOT_VALID = "Password can not contains username!";
         public static final String AGE_NOT_PERMISSIBLE = "Employee is must older than 18";
         public static final String DEBIT_CARD_NOT_VALID = "Debit card informations not valid!";
-        public static final String USER_EMAIL_NOT_FOUND = "Entered user email not found in DB!";
-        public static final String REFRESH_TOKEN_NOT_FOUND = "Refresh token is not in DB!";
-        public static final String USERNAME_EXIST = "Username already exists";
-        public static final String ROLE_NOT_FOUND = "Role not found in DB!";
         public static final String UNSUPPORTED_FORMAT = "Unsupported format!";
         public static final String IMAGE_URL_NOT_FOUND = "Entered image url not found in DB!";
         public static final String IMAGE_ID_NOT_FOUND = "Entered image id not found in DB!";
@@ -39,10 +33,8 @@ public class Messages {
         public static final String PAGE_NUMBER_NEGATIVE = "Page number value must be positive number or zero!";
         public static final String PAGE_SIZE_NEGATIVE = "Page size number must be greater than 0!";
         public static final String SORT_PARAMETER_NOT_VALID = "Entered sort parameter not valid!";
-        public static final String EMAIL_NOT_VERIFIED = "Email could not verified!";
         public static final String USER_ID_REPEATED = "User id can not be repeat!";
         public static final String IMAGE_ID_REPEATED = "Image id can not be repeat!";
-        public static final String REGISTER_TYPE_ERROR = "Register type error!";
     }
 
     public class GetListMessages {
@@ -50,7 +42,6 @@ public class Messages {
         private GetListMessages() {
         }
 
-        public static final String USERS_LISTED = "Users listed!";
         public static final String SUPPLIERS_LISTED = "Suppliers listed!";
         public static final String PRODUCTS_LISTED = "Products listed!";
         public static final String PRODUCERS_LISTED = "Producers listed!";
@@ -95,9 +86,6 @@ public class Messages {
         public static final String IMAGES_SORTED = "Images listed sorted by: ";
         public static final String IMAGES_PAGINATED = "Images listed by pagination";
         public static final String IMAGES_PAGINATED_AND_SORTED = "Images listed by pagination and sorted by: ";
-        public static final String USERS_SORTED = "Users listed sorted by: ";
-        public static final String USERS_PAGINATED = "Users listed by pagination";
-        public static final String USERS_PAGINATED_AND_SORTED = "Users listed by pagination and sorted by: ";
     }
 
     public class GetByIdMessages {
@@ -105,7 +93,6 @@ public class Messages {
         private GetByIdMessages() {
         }
 
-        public static final String USER_LISTED = "User listed by entered id!";
         public static final String SUPPLIER_LISTED = "Supplier listed by entered id!";
         public static final String PRODUCT_LISTED = "Product listed by entered id!";
         public static final String PRODUCER_LISTED = "Producer listed by entered id!";
@@ -131,11 +118,9 @@ public class Messages {
         public static final String EMPLOYEE_CREATED = "Employee saved to DB!";
         public static final String INDIVIDUAL_CUSTOMER_CREATED = "Individual customer saved to DB!";
         public static final String CORPORATE_CUSTOMER_CREATED = "Corporate customer saved to DB!";
-        public static final String USER_CREATED = "User saved to DB!";
         public static final String PAYMENT_CREATED = "Debit card information saved to DB";
         public static final String ORDER_CREATED = "Order saved to DB!";
         public static final String IMAGE_UPLOADED_AND_ADDED = "Image uploaded and saved to DB!";
-        public static final String GOOGLE_USER_CREATED = "Google user saved to DB!";
     }
 
     public class DeleteMessages {
@@ -150,10 +135,8 @@ public class Messages {
         public static final String EMPLOYEE_DELETED = "Employee removed from DB!";
         public static final String INDIVIDUAL_CUSTOMER_DELETED = "Individual customer removed from DB!";
         public static final String CORPORATE_CUSTOMER_DELETED = "Corporate customer removed from DB!";
-        public static final String USER_DELETED = "User removed from DB";
         public static final String PAYMENT_DELETED = "Debit card information removed from DB";
         public static final String ORDER_DELETED = "Order removed from DB!";
-        public static final String SIGN_OUT = "Log out successful!";
         public static final String IMAGE_DELETED = "Image removed from DB!";
     }
 
@@ -169,11 +152,9 @@ public class Messages {
         public static final String EMPLOYEE_MODIFIED = "Employee updated!";
         public static final String INDIVIDUAL_CUSTOMER_MODIFIED = "Individual customer updated!";
         public static final String CORPORATE_CUSTOMER_MODIFIED = "Corporate customer updated!";
-        public static final String USER_MODIFIED = "User updated!";
         public static final String PAYMENT_UPDATED = "Debit card updated!";
         public static final String ORDER_UPDATED = "Order updated!";
         public static final String IMAGE_UPDATED_AND_ADDED = "Image updated and saved to DB!";
-        public static final String USER_UPDATED = "User: {} updated!";
     }
 
     public class GetByUrlMessages {
@@ -222,11 +203,6 @@ public class Messages {
             public static final String PAYMENT_CREATED = "Card number: {}, Fullname: {}, Card expiration year: {}, Card expiration month: {}, Card cvv: {} has been successfully saved to the database";
             public static final String PAYMENT_DELETED = "Card id: {} has been successfully removed from DB";
             public static final String PAYMENT_UPDATED = "Card information id: {} -> Card number: {}, Fullname: {}, Card expiration year: {}, Card expiration month: {}, Card cvv: {} has been successfully updated";
-            public static final String USER_CREATED = "User: {} saved in DB!";
-            public static final String USER_LOGINED = "User: {} logined!";
-            public static final String USER_DELETED = "User: {}, {} deleted!";
-            public static final String USER_UPDATED = "User: {} updated!";
-            public static final String GOOGLE_USER_CREATED = "Google user: {} and gmail: {} saved in DB";
         }
 
         public class LogWarnMessages {
@@ -244,14 +220,10 @@ public class Messages {
             public static final String AGE_NOT_PERMISSIBLE = "Entered birthdate: {} not permissible!";
             public static final String TAX_NUMBER_REPEATED = "Tax number: {} already exists!";
             public static final String DEBIT_CARD_NOT_VALID = "Card informations {}, {}, {}, {}, {} not valid!";
-            public static final String USERNAME_EXIST = "Username: {} already exists!";
-            public static final String USER_EMAIL_REPEATED = "Email: {} already exists!";
-            public static final String USER_PASSWORD_NOT_VALID = "Invalid password! {} include {}";
             public static final String UNSUPPORTED_FORMAT = "Unsupported format!";
             public static final String PAGE_NUMBER_NEGATIVE = "Page number must be positive or zero!";
             public static final String PAGE_SIZE_NEGATIVE = "Page size number must be greater than 0!";
             public static final String SORT_PARAMETER_NOT_VALID = "Entered sort parameter not valid!";
-            public static final String EMAIL_NOT_VERIFIED = "Email: {} could not verified!";
             public static final String USER_ID_REPEATED = "User id: {} can not be repeat!";
             public static final String IMAGE_ID_REPEATED = "Image id: {} can not be repeat!";
 
@@ -262,12 +234,6 @@ public class Messages {
             private LogErrorMessages() {
             }
 
-            public static final String UNAUTHORIZED_ERROR = "Unauthorized error: {}";
-            public static final String CANNOT_SET_USER_AUTHENTICATION = "Cannot set user authentication: {}";
-            public static final String INVALID_JWT_TOKEN = "Invalid JWT token: {}";
-            public static final String JWT_TOKEN_EXPIRED = "JWT token is expired: {}";
-            public static final String JWT_TOKEN_UNSUPPORTED = "JWT token is unsupported: {}";
-            public static final String JWT_CLAIMS_EMPTY = "JWT claims string is empty: {}";
             public static final String UPLOAD_FAILED = "Cloudinary upload failed! IOException message: {}";
             public static final String DELETE_FAILED = "Cloudinary delete failed! IOException message: {}";
             public static final String FILE_IS_NULL = "Sending file is null!";

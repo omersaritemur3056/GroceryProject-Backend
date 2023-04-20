@@ -3,10 +3,9 @@ package com.example.grocery.core.security.jwt;
 import java.security.Key;
 import java.util.Date;
 
+import com.example.grocery.core.security.services.constants.Messages;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-
-import com.example.grocery.service.constants.Messages.LogMessages.LogErrorMessages;
 import com.example.grocery.core.security.services.UserDetailsImpl;
 
 import io.jsonwebtoken.*;
@@ -43,13 +42,13 @@ public class JwtUtils {
             Jwts.parserBuilder().setSigningKey(jwtSecret).build().parseClaimsJws(authToken);
             return true;
         } catch (MalformedJwtException e) {
-            log.error(LogErrorMessages.INVALID_JWT_TOKEN, e.getMessage());
+            log.error(Messages.LogMessages.LogErrorMessages.INVALID_JWT_TOKEN, e.getMessage());
         } catch (ExpiredJwtException e) {
-            log.error(LogErrorMessages.JWT_TOKEN_EXPIRED, e.getMessage());
+            log.error(Messages.LogMessages.LogErrorMessages.JWT_TOKEN_EXPIRED, e.getMessage());
         } catch (UnsupportedJwtException e) {
-            log.error(LogErrorMessages.JWT_TOKEN_UNSUPPORTED, e.getMessage());
+            log.error(Messages.LogMessages.LogErrorMessages.JWT_TOKEN_UNSUPPORTED, e.getMessage());
         } catch (IllegalArgumentException e) {
-            log.error(LogErrorMessages.JWT_CLAIMS_EMPTY, e.getMessage());
+            log.error(Messages.LogMessages.LogErrorMessages.JWT_CLAIMS_EMPTY, e.getMessage());
         }
 
         return false;

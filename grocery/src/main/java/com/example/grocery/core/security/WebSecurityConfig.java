@@ -104,6 +104,7 @@ public class WebSecurityConfig {
                         "/api/category/getall",
                         "/api/user/signin",
                         "/api/user/googlelogin",
+                        "/api/user/facebooklogin",
                         "/api/user/signup")
                 .permitAll()
                 .requestMatchers("/api/order/**")

@@ -1,9 +1,9 @@
 package com.example.grocery.core.security.services;
 
-import com.example.grocery.service.constants.Messages;
 import com.example.grocery.core.mailing.service.EmailService;
 import com.example.grocery.core.security.models.User;
 import com.example.grocery.core.security.repository.UserRepository;
+import com.example.grocery.core.security.services.constants.Messages;
 import com.example.grocery.core.utilities.exceptions.BusinessException;
 import com.example.grocery.core.utilities.results.Result;
 import com.example.grocery.core.utilities.results.SuccessResult;

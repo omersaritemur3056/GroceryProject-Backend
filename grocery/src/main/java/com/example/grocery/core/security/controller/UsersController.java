@@ -46,8 +46,13 @@ public class UsersController {
     }
 
     @PostMapping("/googlelogin")
-    public ResponseEntity googleLogin(@RequestBody GoogleLoginRequest googleLoginRequest){
+    public ResponseEntity<Result> googleLogin(@RequestBody GoogleLoginRequest googleLoginRequest) {
         return ResponseEntity.ok(userService.googleLogin(googleLoginRequest));
+    }
+
+    @PostMapping("/facebooklogin")
+    public ResponseEntity<Result> facebookLogin(@RequestBody FacebookLoginRequest facebookLoginRequest) {
+        return ResponseEntity.ok(userService.facebookLogin(facebookLoginRequest));
     }
 
     @PostMapping("/refreshtoken")

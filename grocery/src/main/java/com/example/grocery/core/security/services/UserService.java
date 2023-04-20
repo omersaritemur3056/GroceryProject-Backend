@@ -19,6 +19,8 @@ public interface UserService {
 
     Result googleLogin(GoogleLoginRequest googleLoginRequest);
 
+    Result facebookLogin(FacebookLoginRequest facebookLoginRequest);
+
     Result update(Long id, UpdateUserRequestDto updateUserRequestDto);
 
     Result delete(Long id);
