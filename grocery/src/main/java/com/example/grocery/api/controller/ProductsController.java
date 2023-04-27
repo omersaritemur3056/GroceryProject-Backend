@@ -50,7 +50,7 @@ public class ProductsController {
         return ResponseEntity.ok(productService.getAll());
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/getbyid")
     public ResponseEntity<DataResult<GetByIdProductResponse>> getById(@RequestParam Long id) {
         return new ResponseEntity<>(productService.getById(id), HttpStatus.OK);
     }

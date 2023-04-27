@@ -142,10 +142,13 @@ public class ProductServiceImpl implements ProductService {
         GetByIdProductResponse getByIdProductResponse = mapperService.forResponse().map(product,
                 GetByIdProductResponse.class);
         List<Long> ids = new ArrayList<>();
+        List<String> urls = new ArrayList<>();
         for (Image x : product.getImages()) {
             ids.add(x.getId());
+            urls.add(x.getUrl());
         }
         getByIdProductResponse.setImageIds(ids);
+        getByIdProductResponse.setUrls(urls);
         return new SuccessDataResult<>(getByIdProductResponse, GetByIdMessages.PRODUCT_LISTED);
     }
 

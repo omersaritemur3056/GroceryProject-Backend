@@ -101,6 +101,7 @@ public class WebSecurityConfig {
                         "/api/product/getlistbysorting",
                         "/api/product/getallbycategory",
                         "/api/product/getall",
+                        "/api/product/getbyid",
                         "/api/category/getall",
                         "/api/user/signin",
                         "/api/user/googlelogin",

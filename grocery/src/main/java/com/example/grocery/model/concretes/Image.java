@@ -50,6 +50,9 @@ public class Image {
     @Column(name = "image_width")
     private int width;
 
+    @Column(name = "showcase")
+    private boolean showcase;
+
     @OneToMany(mappedBy = "image")
     private List<Customer> customers;
 

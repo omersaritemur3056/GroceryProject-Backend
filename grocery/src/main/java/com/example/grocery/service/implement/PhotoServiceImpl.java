@@ -54,6 +54,7 @@ public class PhotoServiceImpl implements PhotoService {
 
         var result = imageService.save(file);
         Image image = mapperService.forRequest().map(result.getData(), Image.class);
+        image.setShowcase(false);
         imageRepository.save(image);
         log.info(LogInfoMessages.SAVED_IMAGE_URL, image.getUrl());
         return new SuccessDataResult<>(image.getUrl(), CreateMessages.IMAGE_UPLOADED_AND_ADDED);
