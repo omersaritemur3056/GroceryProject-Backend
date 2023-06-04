@@ -34,6 +34,6 @@ public class Category {
     @Column(name = "category_name", nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "category")
     private List<Product> products;
 }

@@ -31,6 +31,7 @@ public class Messages {
         public static final String USERS_SORTED = "Users listed sorted by: ";
         public static final String USERS_PAGINATED = "Users listed by pagination";
         public static final String USERS_PAGINATED_AND_SORTED = "Users listed by pagination and sorted by: ";
+        public static final String ROLES_LISTED = "Roles listed!";
     }
 
     public class GetByIdMessages {

@@ -54,7 +54,7 @@ public class Product {
     @Column(name = "product_stock")
     private int stock;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_fk_id")
     private Category category;
 
