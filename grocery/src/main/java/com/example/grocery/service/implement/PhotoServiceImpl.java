@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Objects;
 
 import com.example.grocery.service.rules.PhotoBusinessRules;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -39,7 +39,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class PhotoServiceImpl implements PhotoService {
 
     private final ImageRepository imageRepository;
@@ -72,7 +72,6 @@ public class PhotoServiceImpl implements PhotoService {
     }
 
     @Override
-    @Transactional
     public Result deleteFromDbById(Long id) {
         Image image = imageRepository.findById(id)
                 .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
@@ -103,7 +102,8 @@ public class PhotoServiceImpl implements PhotoService {
     public DataResult<List<GetAllImageResponse>> getAll() {
         List<Image> images = imageRepository.findAll();
         List<GetAllImageResponse> responseList = images.stream()
-                .map(i -> mapperService.forResponse().map(i, GetAllImageResponse.class)).toList();
+                .map(i -> mapperService.forResponse().map(i, GetAllImageResponse.class))
+                .toList();
         return new SuccessDataResult<>(responseList, GetListMessages.IMAGES_LISTED);
     }
 
@@ -124,11 +124,11 @@ public class PhotoServiceImpl implements PhotoService {
 
     @Override
     public DataResult<List<GetAllImageResponse>> getListBySorting(String sortBy) {
-        photoBusinessRules.isValidSortParameter(sortBy);
 
         List<Image> images = imageRepository.findAll(Sort.by(Sort.Direction.ASC, sortBy));
         List<GetAllImageResponse> responseList = images.stream()
-                .map(i -> mapperService.forResponse().map(i, GetAllImageResponse.class)).toList();
+                .map(i -> mapperService.forResponse().map(i, GetAllImageResponse.class))
+                .toList();
         return new SuccessDataResult<>(responseList, GetListMessages.IMAGES_SORTED + sortBy);
     }
 
@@ -137,9 +137,11 @@ public class PhotoServiceImpl implements PhotoService {
         photoBusinessRules.isPageNumberValid(pageNo);
         photoBusinessRules.isPageSizeValid(pageSize);
 
-        List<Image> images = imageRepository.findAll(PageRequest.of(pageNo, pageSize)).toList();
+        List<Image> images = imageRepository.findAll(PageRequest.of(pageNo, pageSize))
+                .toList();
         List<GetAllImageResponse> responseList = images.stream()
-                .map(i -> mapperService.forResponse().map(i, GetAllImageResponse.class)).toList();
+                .map(i -> mapperService.forResponse().map(i, GetAllImageResponse.class))
+                .toList();
         return new SuccessDataResult<>(responseList, GetListMessages.IMAGES_PAGINATED);
     }
 
@@ -148,12 +150,12 @@ public class PhotoServiceImpl implements PhotoService {
             String sortBy) {
         photoBusinessRules.isPageNumberValid(pageNo);
         photoBusinessRules.isPageSizeValid(pageSize);
-        photoBusinessRules.isValidSortParameter(sortBy);
 
         List<Image> images = imageRepository.findAll(PageRequest.of(pageNo, pageSize).withSort(Sort.by(sortBy)))
                 .toList();
         List<GetAllImageResponse> responseList = images.stream()
-                .map(i -> mapperService.forResponse().map(i, GetAllImageResponse.class)).toList();
+                .map(i -> mapperService.forResponse().map(i, GetAllImageResponse.class))
+                .toList();
         return new SuccessDataResult<>(responseList, GetListMessages.IMAGES_PAGINATED_AND_SORTED + sortBy);
     }
 

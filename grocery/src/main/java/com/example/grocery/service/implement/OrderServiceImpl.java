@@ -15,14 +15,13 @@ import com.example.grocery.core.utilities.results.SuccessDataResult;
 import com.example.grocery.core.utilities.results.SuccessResult;
 import com.example.grocery.repository.OrderRepository;
 import com.example.grocery.model.concretes.Order;
-import com.example.grocery.model.concretes.Product;
 import com.example.grocery.api.requests.order.CreateOrderRequest;
 import com.example.grocery.api.requests.order.DeleteOrderRequest;
 import com.example.grocery.api.requests.order.UpdateOrderRequest;
 import com.example.grocery.api.responses.order.GetAllOrderResponse;
 import com.example.grocery.api.responses.order.GetByIdOrderResponse;
 import jakarta.transaction.Transactional;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
@@ -31,12 +30,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
@@ -50,7 +48,6 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     @CacheEvict(cacheNames = "order", allEntries = true)
     public Result add(CreateOrderRequest createOrderRequest) {
-
         Result rules = BusinessRules.run(orderBusinessRules.isExistCustomerId(createOrderRequest.getCustomerId()),
                 orderBusinessRules.isExistPaymentId(createOrderRequest.getPaymentId()));
         if (!rules.isSuccess())
@@ -70,7 +67,6 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     @CacheEvict(cacheNames = "order", key = "#deleteOrderRequest.id")
     public Result delete(DeleteOrderRequest deleteOrderRequest) {
-
         Result rules = BusinessRules.run(orderBusinessRules.isExistId(deleteOrderRequest.getId()));
         if (!rules.isSuccess())
             return rules;
@@ -112,18 +108,14 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Cacheable(value = "order")
     public DataResult<List<GetAllOrderResponse>> getAll() {
-        List<GetAllOrderResponse> returnList = new ArrayList<>();
         List<Order> orderList = orderRepository.findAll();
-        for (Order order : orderList) {
-            GetAllOrderResponse addFields = mapperService.forResponse().map(order,
-                    GetAllOrderResponse.class);
-            List<Long> ids = new ArrayList<>();
-            for (Product x : order.getProducts()) {
-                ids.add(x.getId());
-            }
-            addFields.setProductIds(ids);
-            returnList.add(addFields);
-        }
+        List<GetAllOrderResponse> returnList = orderList.stream()
+                .map(o -> {
+                    GetAllOrderResponse returnObj = mapperService.forResponse().map(o, GetAllOrderResponse.class);
+                    returnObj.setProductIds(o.getProducts().stream().map(p -> p.getId()).toList());
+                    return returnObj;
+                })
+                .toList();
         return new SuccessDataResult<>(returnList, Messages.GetListMessages.ORDERS_LISTED);
     }
 
@@ -134,31 +126,22 @@ public class OrderServiceImpl implements OrderService {
                 .orElseThrow(() -> new BusinessException(Messages.ErrorMessages.ID_NOT_FOUND));
         GetByIdOrderResponse getByIdOrderResponse = mapperService.forResponse().map(order,
                 GetByIdOrderResponse.class);
-        List<Long> ids = new ArrayList<>();
-        for (Product x : order.getProducts()) {
-            ids.add(x.getId());
-        }
-        getByIdOrderResponse.setProductIds(ids);
+        getByIdOrderResponse.setProductIds(order.getProducts().stream().map(p -> p.getId()).toList());
         return new SuccessDataResult<>(getByIdOrderResponse, Messages.GetByIdMessages.ORDER_LISTED);
     }
 
     @Override
     @Cacheable(value = "order", key = "#sortBy")
     public DataResult<List<GetAllOrderResponse>> getListBySorting(String sortBy) {
-        orderBusinessRules.isValidSortParameter(sortBy);
 
-        List<GetAllOrderResponse> returnList = new ArrayList<>();
         List<Order> orderList = orderRepository.findAll(Sort.by(Sort.Direction.ASC, sortBy));
-        for (Order order : orderList) {
-            GetAllOrderResponse addFields = mapperService.forResponse().map(order,
-                    GetAllOrderResponse.class);
-            List<Long> ids = new ArrayList<>();
-            for (Product x : order.getProducts()) {
-                ids.add(x.getId());
-            }
-            addFields.setProductIds(ids);
-            returnList.add(addFields);
-        }
+        List<GetAllOrderResponse> returnList = orderList.stream()
+                .map(o -> {
+                    GetAllOrderResponse returnObj = mapperService.forResponse().map(o, GetAllOrderResponse.class);
+                    returnObj.setProductIds(o.getProducts().stream().map(p -> p.getId()).toList());
+                    return returnObj;
+                })
+                .toList();
         return new SuccessDataResult<>(returnList, Messages.GetListMessages.ORDERS_SORTED + sortBy);
     }
 
@@ -167,18 +150,14 @@ public class OrderServiceImpl implements OrderService {
         orderBusinessRules.isPageNumberValid(pageNo);
         orderBusinessRules.isPageSizeValid(pageSize);
 
-        List<GetAllOrderResponse> returnList = new ArrayList<>();
         List<Order> orderList = orderRepository.findAll(PageRequest.of(pageNo, pageSize)).toList();
-        for (Order order : orderList) {
-            GetAllOrderResponse addFields = mapperService.forResponse().map(order,
-                    GetAllOrderResponse.class);
-            List<Long> ids = new ArrayList<>();
-            for (Product x : order.getProducts()) {
-                ids.add(x.getId());
-            }
-            addFields.setProductIds(ids);
-            returnList.add(addFields);
-        }
+        List<GetAllOrderResponse> returnList = orderList.stream()
+                .map(o -> {
+                    GetAllOrderResponse returnObj = mapperService.forResponse().map(o, GetAllOrderResponse.class);
+                    returnObj.setProductIds(o.getProducts().stream().map(p -> p.getId()).toList());
+                    return returnObj;
+                })
+                .toList();
         return new SuccessDataResult<>(returnList, Messages.GetListMessages.ORDERS_PAGINATED);
     }
 
@@ -187,22 +166,16 @@ public class OrderServiceImpl implements OrderService {
             String sortBy) {
         orderBusinessRules.isPageNumberValid(pageNo);
         orderBusinessRules.isPageSizeValid(pageSize);
-        orderBusinessRules.isValidSortParameter(sortBy);
 
-        List<GetAllOrderResponse> returnList = new ArrayList<>();
         List<Order> orderList = orderRepository.findAll(PageRequest.of(pageNo, pageSize).withSort(Sort.by(sortBy)))
                 .toList();
-        for (Order order : orderList) {
-            GetAllOrderResponse addFields = mapperService.forResponse().map(order,
-                    GetAllOrderResponse.class);
-            List<Long> ids = new ArrayList<>();
-            for (Product x : order.getProducts()) {
-                ids.add(x.getId());
-            }
-            addFields.setProductIds(ids);
-            returnList.add(addFields);
-        }
+        List<GetAllOrderResponse> returnList = orderList.stream()
+                .map(o -> {
+                    GetAllOrderResponse returnObj = mapperService.forResponse().map(o, GetAllOrderResponse.class);
+                    returnObj.setProductIds(o.getProducts().stream().map(p -> p.getId()).toList());
+                    return returnObj;
+                })
+                .toList();
         return new SuccessDataResult<>(returnList, Messages.GetListMessages.ORDERS_PAGINATED_AND_SORTED + sortBy);
     }
-
 }

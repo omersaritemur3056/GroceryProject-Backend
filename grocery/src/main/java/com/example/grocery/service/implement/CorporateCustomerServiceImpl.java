@@ -1,6 +1,5 @@
 package com.example.grocery.service.implement;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.example.grocery.service.interfaces.PhotoService;
@@ -34,7 +33,6 @@ import com.example.grocery.api.requests.corporateCustomer.UpdateCorporateCustome
 import com.example.grocery.api.responses.corporateCustomer.GetAllCorporateCustomerResponse;
 import com.example.grocery.api.responses.corporateCustomer.GetByIdCorporateCustomerResponse;
 
-import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
@@ -49,7 +47,6 @@ public class CorporateCustomerServiceImpl implements CorporateCustomerService {
         private final CorporateCustomerBusinessRules corporateCustomerBusinessRules;
 
         @Override
-        @Transactional
         public Result add(CreateCorporateCustomerRequest createCorporateCustomerRequest) {
                 Result rules = BusinessRules.run(
                                 corporateCustomerBusinessRules
@@ -73,7 +70,6 @@ public class CorporateCustomerServiceImpl implements CorporateCustomerService {
         }
 
         @Override
-        @Transactional
         public Result delete(DeleteCorporateCustomerRequest deleteCorporateCustomerRequest) {
                 Result rules = BusinessRules
                                 .run(corporateCustomerBusinessRules.isExistId(deleteCorporateCustomerRequest.getId()));
@@ -92,7 +88,6 @@ public class CorporateCustomerServiceImpl implements CorporateCustomerService {
         }
 
         @Override
-        @Transactional
         public Result update(UpdateCorporateCustomerRequest updateCorporateCustomerRequest, Long id) {
                 CorporateCustomer inDbCorporateCustomer = corporateCustomerRepository.findById(id)
                                 .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
@@ -111,12 +106,9 @@ public class CorporateCustomerServiceImpl implements CorporateCustomerService {
         @Override
         public DataResult<List<GetAllCorporateCustomerResponse>> getAll() {
                 List<CorporateCustomer> corporateCustomers = corporateCustomerRepository.findAll();
-                List<GetAllCorporateCustomerResponse> returnList = new ArrayList<>();
-                for (CorporateCustomer forEachCustomer : corporateCustomers) {
-                        GetAllCorporateCustomerResponse obj = mapperService.forResponse().map(forEachCustomer,
-                                        GetAllCorporateCustomerResponse.class);
-                        returnList.add(obj);
-                }
+                List<GetAllCorporateCustomerResponse> returnList = corporateCustomers.stream()
+                        .map(c -> mapperService.forResponse().map(c, GetAllCorporateCustomerResponse.class))
+                        .toList();
                 return new SuccessDataResult<>(returnList,
                                 GetListMessages.CORPORATE_CUSTOMERS_LISTED);
         }
@@ -133,18 +125,13 @@ public class CorporateCustomerServiceImpl implements CorporateCustomerService {
 
         @Override
         public DataResult<List<GetAllCorporateCustomerResponse>> getListBySorting(String sortBy) {
-                corporateCustomerBusinessRules.isValidSortParameter(sortBy);
 
                 List<CorporateCustomer> corporateCustomers = corporateCustomerRepository
                                 .findAll(Sort.by(Sort.Direction.ASC, sortBy));
-                List<GetAllCorporateCustomerResponse> returnList = new ArrayList<>();
-                for (CorporateCustomer forEachCustomer : corporateCustomers) {
-                        GetAllCorporateCustomerResponse obj = mapperService.forResponse().map(forEachCustomer,
-                                        GetAllCorporateCustomerResponse.class);
-                        returnList.add(obj);
-                }
-                return new SuccessDataResult<>(returnList,
-                                GetListMessages.CORPORATE_CUSTOMERS_SORTED + sortBy);
+                List<GetAllCorporateCustomerResponse> returnList = corporateCustomers.stream()
+                        .map(c -> mapperService.forResponse().map(c, GetAllCorporateCustomerResponse.class))
+                        .toList();
+                return new SuccessDataResult<>(returnList, GetListMessages.CORPORATE_CUSTOMERS_SORTED + sortBy);
         }
 
         @Override
@@ -154,14 +141,10 @@ public class CorporateCustomerServiceImpl implements CorporateCustomerService {
 
                 List<CorporateCustomer> corporateCustomers = corporateCustomerRepository
                                 .findAll(PageRequest.of(pageNo, pageSize)).toList();
-                List<GetAllCorporateCustomerResponse> returnList = new ArrayList<>();
-                for (CorporateCustomer forEachCustomer : corporateCustomers) {
-                        GetAllCorporateCustomerResponse obj = mapperService.forResponse().map(forEachCustomer,
-                                        GetAllCorporateCustomerResponse.class);
-                        returnList.add(obj);
-                }
-                return new SuccessDataResult<>(returnList,
-                                GetListMessages.CORPORATE_CUSTOMERS_PAGINATED);
+                List<GetAllCorporateCustomerResponse> returnList = corporateCustomers.stream()
+                        .map(c -> mapperService.forResponse().map(c, GetAllCorporateCustomerResponse.class))
+                        .toList();
+                return new SuccessDataResult<>(returnList, GetListMessages.CORPORATE_CUSTOMERS_PAGINATED);
         }
 
         @Override
@@ -169,18 +152,13 @@ public class CorporateCustomerServiceImpl implements CorporateCustomerService {
                         String sortBy) {
                 corporateCustomerBusinessRules.isPageNumberValid(pageNo);
                 corporateCustomerBusinessRules.isPageSizeValid(pageSize);
-                corporateCustomerBusinessRules.isValidSortParameter(sortBy);
 
                 List<CorporateCustomer> corporateCustomers = corporateCustomerRepository
                                 .findAll(PageRequest.of(pageNo, pageSize).withSort(Sort.by(sortBy))).toList();
-                List<GetAllCorporateCustomerResponse> returnList = new ArrayList<>();
-                for (CorporateCustomer forEachCustomer : corporateCustomers) {
-                        GetAllCorporateCustomerResponse obj = mapperService.forResponse().map(forEachCustomer,
-                                        GetAllCorporateCustomerResponse.class);
-                        returnList.add(obj);
-                }
-                return new SuccessDataResult<>(returnList,
-                                GetListMessages.CORPORATE_CUSTOMERS_PAGINATED_AND_SORTED + sortBy);
+                List<GetAllCorporateCustomerResponse> returnList = corporateCustomers.stream()
+                        .map(c -> mapperService.forResponse().map(c, GetAllCorporateCustomerResponse.class))
+                        .toList();
+                return new SuccessDataResult<>(returnList, GetListMessages.CORPORATE_CUSTOMERS_PAGINATED_AND_SORTED + sortBy);
         }
 
 }

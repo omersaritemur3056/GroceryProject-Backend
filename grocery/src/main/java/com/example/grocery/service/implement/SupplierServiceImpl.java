@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.example.grocery.service.constants.Messages;
 import com.example.grocery.service.rules.SupplierBusinessRules;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -29,7 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class SupplierServiceImpl implements SupplierService {
 
     private final SupplierRepository supplierRepository;
@@ -38,7 +38,6 @@ public class SupplierServiceImpl implements SupplierService {
 
     @Override
     public Result add(CreateSupplierRequest createSupplierRequest) {
-
         Result rules = BusinessRules.run(supplierBusinessRules.isExistEmail(createSupplierRequest.getEmail()),
                 supplierBusinessRules.isExistName(createSupplierRequest.getName()),
                 supplierBusinessRules.isExistPhoneNumber(createSupplierRequest.getPhoneNumber()));
@@ -53,7 +52,6 @@ public class SupplierServiceImpl implements SupplierService {
 
     @Override
     public Result update(UpdateSupplierRequest updateSupplierRequest, Long id) {
-
         Result rules = BusinessRules.run(supplierBusinessRules.isExistEmail(updateSupplierRequest.getEmail()),
                 supplierBusinessRules.isExistName(updateSupplierRequest.getName()),
                 supplierBusinessRules.isExistPhoneNumber(updateSupplierRequest.getPhoneNumber()),
@@ -72,7 +70,6 @@ public class SupplierServiceImpl implements SupplierService {
 
     @Override
     public Result delete(DeleteSupplierRequest deleteSupplierRequest) {
-
         Result rules = BusinessRules.run(supplierBusinessRules.isExistId(deleteSupplierRequest.getId()));
         if (!rules.isSuccess())
             return rules;
@@ -87,7 +84,8 @@ public class SupplierServiceImpl implements SupplierService {
     public DataResult<List<GetAllSupplierResponse>> getAll() {
         List<Supplier> suppliers = supplierRepository.findAll();
         List<GetAllSupplierResponse> returnList = suppliers.stream()
-                .map(s -> mapperService.forResponse().map(s, GetAllSupplierResponse.class)).toList();
+                .map(s -> mapperService.forResponse().map(s, GetAllSupplierResponse.class))
+                .toList();
         return new SuccessDataResult<>(returnList, Messages.GetListMessages.SUPPLIERS_LISTED);
     }
 
@@ -102,11 +100,11 @@ public class SupplierServiceImpl implements SupplierService {
 
     @Override
     public DataResult<List<GetAllSupplierResponse>> getListBySorting(String sortBy) {
-        supplierBusinessRules.isValidSortParameter(sortBy);
 
         List<Supplier> suppliers = supplierRepository.findAll(Sort.by(Sort.Direction.ASC, sortBy));
         List<GetAllSupplierResponse> returnList = suppliers.stream()
-                .map(s -> mapperService.forResponse().map(s, GetAllSupplierResponse.class)).toList();
+                .map(s -> mapperService.forResponse().map(s, GetAllSupplierResponse.class))
+                .toList();
         return new SuccessDataResult<>(returnList, Messages.GetListMessages.SUPPLIERS_SORTED + sortBy);
     }
 
@@ -115,9 +113,11 @@ public class SupplierServiceImpl implements SupplierService {
         supplierBusinessRules.isPageNumberValid(pageNo);
         supplierBusinessRules.isPageSizeValid(pageSize);
 
-        List<Supplier> suppliers = supplierRepository.findAll(PageRequest.of(pageNo, pageSize)).toList();
+        List<Supplier> suppliers = supplierRepository.findAll(PageRequest.of(pageNo, pageSize))
+                .toList();
         List<GetAllSupplierResponse> returnList = suppliers.stream()
-                .map(s -> mapperService.forResponse().map(s, GetAllSupplierResponse.class)).toList();
+                .map(s -> mapperService.forResponse().map(s, GetAllSupplierResponse.class))
+                .toList();
         return new SuccessDataResult<>(returnList, Messages.GetListMessages.SUPPLIERS_PAGINATED);
     }
 
@@ -126,12 +126,13 @@ public class SupplierServiceImpl implements SupplierService {
             String sortBy) {
         supplierBusinessRules.isPageNumberValid(pageNo);
         supplierBusinessRules.isPageSizeValid(pageSize);
-        supplierBusinessRules.isValidSortParameter(sortBy);
 
         List<Supplier> suppliers = supplierRepository
-                .findAll(PageRequest.of(pageNo, pageSize).withSort(Sort.by(sortBy))).toList();
+                .findAll(PageRequest.of(pageNo, pageSize).withSort(Sort.by(sortBy)))
+                .toList();
         List<GetAllSupplierResponse> returnList = suppliers.stream()
-                .map(s -> mapperService.forResponse().map(s, GetAllSupplierResponse.class)).toList();
+                .map(s -> mapperService.forResponse().map(s, GetAllSupplierResponse.class))
+                .toList();
         return new SuccessDataResult<>(returnList, Messages.GetListMessages.SUPPLIERS_PAGINATED_AND_SORTED + sortBy);
     }
 

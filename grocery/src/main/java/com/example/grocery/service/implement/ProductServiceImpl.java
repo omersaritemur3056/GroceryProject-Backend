@@ -12,7 +12,6 @@ import com.example.grocery.core.utilities.results.Result;
 import com.example.grocery.core.utilities.results.SuccessDataResult;
 import com.example.grocery.core.utilities.results.SuccessResult;
 import com.example.grocery.repository.ProductRepository;
-import com.example.grocery.model.concretes.Image;
 import com.example.grocery.model.concretes.Product;
 import com.example.grocery.api.requests.product.CreateProductRequest;
 import com.example.grocery.api.requests.product.DeleteProductRequest;
@@ -20,7 +19,7 @@ import com.example.grocery.api.requests.product.UpdateProductRequest;
 import com.example.grocery.api.responses.product.GetAllProductResponse;
 import com.example.grocery.api.responses.product.GetByIdProductResponse;
 import jakarta.transaction.Transactional;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
@@ -29,12 +28,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
@@ -49,7 +48,6 @@ public class ProductServiceImpl implements ProductService {
     @Transactional
     @CacheEvict(cacheNames = "product", allEntries = true)
     public Result add(CreateProductRequest createProductRequest) {
-
         Result rules = BusinessRules.run(productBusinessRules.isExistName(createProductRequest.getName()),
                 productBusinessRules.isExistCategoryId(createProductRequest.getCategoryId()));
         if (!rules.isSuccess())
@@ -69,7 +67,6 @@ public class ProductServiceImpl implements ProductService {
     @Transactional
     @CachePut(cacheNames = "product", key = "#id")
     public Result update(UpdateProductRequest updateProductRequest, Long id) {
-
         Product inDbProduct = productRepository.findById(id)
                 .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
 
@@ -89,7 +86,6 @@ public class ProductServiceImpl implements ProductService {
         product.setImages(photoService.getImagesByIds(updateProductRequest.getImageIds()));
         log.info(LogInfoMessages.PRODUCT_UPDATED, updateProductRequest.getName());
         productRepository.save(product);
-
         return new SuccessResult(UpdateMessages.PRODUCT_MODIFIED);
     }
 
@@ -97,11 +93,9 @@ public class ProductServiceImpl implements ProductService {
     @Transactional
     @CacheEvict(cacheNames = "product", key = "#deleteProductRequest.id")
     public Result delete(DeleteProductRequest deleteProductRequest) {
-
         Result rules = BusinessRules.run(productBusinessRules.isExistId(deleteProductRequest.getId()));
         if (!rules.isSuccess())
             return rules;
-        productBusinessRules.removeExpiratedProduct();
 
         Product product = mapperService.forRequest().map(deleteProductRequest, Product.class);
 
@@ -109,28 +103,23 @@ public class ProductServiceImpl implements ProductService {
                 .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
         log.info(LogInfoMessages.PRODUCT_DELETED, productForLog.getName());
         productRepository.delete(product);
-
         return new SuccessResult(DeleteMessages.PRODUCT_DELETED);
     }
 
     @Override
     @Cacheable(value = "product")
     public DataResult<List<GetAllProductResponse>> getAll() {
-        List<GetAllProductResponse> returnList = new ArrayList<>();
+        productBusinessRules.findExpiredProduct();
+
         List<Product> productList = productRepository.findAll();
-        for (Product product : productList) {
-            GetAllProductResponse addFields = mapperService.forResponse().map(product,
-                    GetAllProductResponse.class);
-            List<Long> ids = new ArrayList<>();
-            List<String> urls = new ArrayList<>();
-            for (Image x : product.getImages()) {
-                ids.add(x.getId());
-                urls.add(x.getUrl());
-            }
-            addFields.setImageIds(ids);
-            addFields.setUrls(urls);
-            returnList.add(addFields);
-        }
+        List<GetAllProductResponse> returnList = productList.stream()
+                .map(p -> {
+                    GetAllProductResponse returnObj = mapperService.forResponse().map(p, GetAllProductResponse.class);
+                    returnObj.setImageIds(p.getImages().stream().map(image -> image.getId()).toList());
+                    returnObj.setUrls(p.getImages().stream().map(url -> url.getUrl()).toList());
+                    return returnObj;
+                })
+                .toList();
         return new SuccessDataResult<>(returnList, GetListMessages.PRODUCTS_LISTED);
     }
 
@@ -141,37 +130,25 @@ public class ProductServiceImpl implements ProductService {
                 .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
         GetByIdProductResponse getByIdProductResponse = mapperService.forResponse().map(product,
                 GetByIdProductResponse.class);
-        List<Long> ids = new ArrayList<>();
-        List<String> urls = new ArrayList<>();
-        for (Image x : product.getImages()) {
-            ids.add(x.getId());
-            urls.add(x.getUrl());
-        }
-        getByIdProductResponse.setImageIds(ids);
-        getByIdProductResponse.setUrls(urls);
+        getByIdProductResponse.setImageIds(product.getImages().stream().map(image -> image.getId()).toList());
+        getByIdProductResponse.setUrls(product.getImages().stream().map(url -> url.getUrl()).toList());
         return new SuccessDataResult<>(getByIdProductResponse, GetByIdMessages.PRODUCT_LISTED);
     }
 
     @Override
     @Cacheable(value = "product")
     public DataResult<List<GetAllProductResponse>> getListBySorting(String sortBy) {
-        productBusinessRules.isValidSortParameter(sortBy);
+        productBusinessRules.findExpiredProduct();
 
-        List<GetAllProductResponse> returnList = new ArrayList<>();
         List<Product> productList = productRepository.findAll(Sort.by(Sort.Direction.ASC, sortBy));
-        for (Product product : productList) {
-            GetAllProductResponse addFields = mapperService.forResponse().map(product,
-                    GetAllProductResponse.class);
-            List<Long> ids = new ArrayList<>();
-            List<String> urls = new ArrayList<>();
-            for (Image x : product.getImages()) {
-                ids.add(x.getId());
-                urls.add(x.getUrl());
-            }
-            addFields.setImageIds(ids);
-            addFields.setUrls(urls);
-            returnList.add(addFields);
-        }
+        List<GetAllProductResponse> returnList = productList.stream()
+                .map(p -> {
+                    GetAllProductResponse returnObj = mapperService.forResponse().map(p, GetAllProductResponse.class);
+                    returnObj.setImageIds(p.getImages().stream().map(image -> image.getId()).toList());
+                    returnObj.setUrls(p.getImages().stream().map(url -> url.getUrl()).toList());
+                    return returnObj;
+                })
+                .toList();
         return new SuccessDataResult<>(returnList, GetListMessages.PRODUCTS_SORTED + sortBy);
     }
 
@@ -179,22 +156,17 @@ public class ProductServiceImpl implements ProductService {
     public DataResult<List<GetAllProductResponse>> getListByPagination(int pageNo, int pageSize) {
         productBusinessRules.isPageNumberValid(pageNo);
         productBusinessRules.isPageSizeValid(pageSize);
+        productBusinessRules.findExpiredProduct();
 
-        List<GetAllProductResponse> returnList = new ArrayList<>();
         List<Product> productList = productRepository.findAll(PageRequest.of(pageNo, pageSize)).toList();
-        for (Product product : productList) {
-            GetAllProductResponse addFields = mapperService.forResponse().map(product,
-                    GetAllProductResponse.class);
-            List<Long> ids = new ArrayList<>();
-            List<String> urls = new ArrayList<>();
-            for (Image x : product.getImages()) {
-                ids.add(x.getId());
-                urls.add(x.getUrl());
-            }
-            addFields.setImageIds(ids);
-            addFields.setUrls(urls);
-            returnList.add(addFields);
-        }
+        List<GetAllProductResponse> returnList = productList.stream()
+                .map(p -> {
+                    GetAllProductResponse returnObj = mapperService.forResponse().map(p, GetAllProductResponse.class);
+                    returnObj.setImageIds(p.getImages().stream().map(image -> image.getId()).toList());
+                    returnObj.setUrls(p.getImages().stream().map(url -> url.getUrl()).toList());
+                    return returnObj;
+                })
+                .toList();
         return new SuccessDataResult<>(returnList, GetListMessages.PRODUCTS_PAGINATED);
     }
 
@@ -203,46 +175,34 @@ public class ProductServiceImpl implements ProductService {
             String sortBy) {
         productBusinessRules.isPageNumberValid(pageNo);
         productBusinessRules.isPageSizeValid(pageSize);
-        productBusinessRules.isValidSortParameter(sortBy);
+        productBusinessRules.findExpiredProduct();
 
-        List<GetAllProductResponse> returnList = new ArrayList<>();
         List<Product> productList = productRepository
                 .findAll(PageRequest.of(pageNo, pageSize).withSort(Sort.by(sortBy))).toList();
-        for (Product product : productList) {
-            GetAllProductResponse addFields = mapperService.forResponse().map(product,
-                    GetAllProductResponse.class);
-            List<Long> ids = new ArrayList<>();
-            List<String> urls = new ArrayList<>();
-            for (Image x : product.getImages()) {
-                ids.add(x.getId());
-                urls.add(x.getUrl());
-            }
-            addFields.setImageIds(ids);
-            addFields.setUrls(urls);
-            returnList.add(addFields);
-        }
+        List<GetAllProductResponse> returnList = productList.stream()
+                .map(p -> {
+                    GetAllProductResponse returnObj = mapperService.forResponse().map(p, GetAllProductResponse.class);
+                    returnObj.setImageIds(p.getImages().stream().map(image -> image.getId()).toList());
+                    returnObj.setUrls(p.getImages().stream().map(url -> url.getUrl()).toList());
+                    return returnObj;
+                })
+                .toList();
         return new SuccessDataResult<>(returnList, GetListMessages.PRODUCTS_PAGINATED_AND_SORTED + sortBy);
     }
 
     @Override
     @Cacheable(value = "product", key = "#categoryId")
     public DataResult<List<GetAllProductResponse>> getAllByCategoryId(Long categoryId) {
-        List<GetAllProductResponse> returnList = new ArrayList<>();
         List<Product> productList = productRepository.findAllByCategory_Id(categoryId)
                 .orElseThrow(() -> new BusinessException(ErrorMessages.CATEGORY_ID_NOT_FOUND));
-        for (Product product : productList) {
-            GetAllProductResponse addFields = mapperService.forResponse().map(product,
-                    GetAllProductResponse.class);
-            List<Long> ids = new ArrayList<>();
-            List<String> urls = new ArrayList<>();
-            for (Image x : product.getImages()) {
-                ids.add(x.getId());
-                urls.add(x.getUrl());
-            }
-            addFields.setImageIds(ids);
-            addFields.setUrls(urls);
-            returnList.add(addFields);
-        }
+        List<GetAllProductResponse> returnList = productList.stream()
+                .map(p -> {
+                    GetAllProductResponse returnObj = mapperService.forResponse().map(p, GetAllProductResponse.class);
+                    returnObj.setImageIds(p.getImages().stream().map(image -> image.getId()).toList());
+                    returnObj.setUrls(p.getImages().stream().map(url -> url.getUrl()).toList());
+                    return returnObj;
+                })
+                .toList();
         return new SuccessDataResult<>(returnList, GetListMessages.PRODUCTS_LISTED);
     }
 
@@ -255,16 +215,11 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> getProductsByIds(Long[] productsId) {
-        List<Product> resultList = new ArrayList<>();
-        if (productsId == null) {
-            return resultList;
+        if (productsId.length < 1) {
+            throw new BusinessException("Insert product IDs!");
         }
-        for (Long forEachId : productsId) {
-            Product findProductById = productRepository.findById(forEachId)
-                    .orElseThrow(() -> new BusinessException(ErrorMessages.ID_NOT_FOUND));
-            resultList.add(findProductById);
-        }
+        List<Long> x = Arrays.stream(productsId).toList();
+        List<Product> resultList = productRepository.findAllById(x);
         return resultList;
     }
-
 }

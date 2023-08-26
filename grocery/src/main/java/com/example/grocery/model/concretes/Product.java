@@ -54,6 +54,9 @@ public class Product {
     @Column(name = "product_stock")
     private int stock;
 
+    @Column(name = "product_is_expired", nullable = false)
+    private boolean expired;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_fk_id")
     private Category category;

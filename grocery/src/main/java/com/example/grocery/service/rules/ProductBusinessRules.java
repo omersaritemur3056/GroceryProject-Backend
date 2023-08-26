@@ -8,8 +8,7 @@ import com.example.grocery.core.utilities.exceptions.BusinessException;
 import com.example.grocery.core.utilities.results.Result;
 import com.example.grocery.core.utilities.results.SuccessResult;
 import com.example.grocery.repository.ProductRepository;
-import com.example.grocery.model.concretes.Product;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +16,7 @@ import java.time.LocalDate;
 
 @Slf4j
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ProductBusinessRules {
 
     private final ProductRepository productRepository;
@@ -25,12 +24,16 @@ public class ProductBusinessRules {
     private final SupplierService supplierService;
     private final CategoryService categoryService;
 
-    public void removeExpiratedProduct() {
-        for (Product product : productRepository.findAll()) {
-            if (product.getExpirationDate().isBefore(LocalDate.now())) {
-                productRepository.delete(product);
-            }
-        }
+    public void findExpiredProduct() {
+        productRepository.findByExpirationDateBefore(LocalDate.now()).stream()
+                .forEach(product -> {
+                    if (!product.isExpired()) {
+                        product.setExpired(true);
+                        productRepository.save(product);
+                        log.warn("Product id: {}, Product name: {} has been expired", product.getId(),
+                                product.getName());
+                    }
+                });
     }
 
     public Result isExistId(Long id) {
@@ -80,14 +83,6 @@ public class ProductBusinessRules {
         if (pageSize < 1) {
             log.warn(Messages.LogMessages.LogWarnMessages.PAGE_SIZE_NEGATIVE);
             throw new BusinessException(Messages.ErrorMessages.PAGE_SIZE_NEGATIVE);
-        }
-    }
-
-    public void isValidSortParameter(String sortBy) {
-        Product checkField = new Product();
-        if (!checkField.toString().contains(sortBy)) {
-            log.warn(Messages.LogMessages.LogWarnMessages.SORT_PARAMETER_NOT_VALID);
-            throw new BusinessException(Messages.ErrorMessages.SORT_PARAMETER_NOT_VALID);
         }
     }
 }

@@ -1,12 +1,11 @@
 package com.example.grocery.service.implement;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.example.grocery.service.constants.Messages;
 import com.example.grocery.service.interfaces.PhotoService;
 import com.example.grocery.service.rules.IndividualCustomerBusinessRules;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -28,12 +27,11 @@ import com.example.grocery.api.requests.individualCustomer.UpdateIndividualCusto
 import com.example.grocery.api.responses.individualCustomer.GetAllIndividualCustomerResponse;
 import com.example.grocery.api.responses.individualCustomer.GetByIdIndividualCustomerResponse;
 
-import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class IndividualCustomerServiceImpl implements IndividualCustomerService {
 
         private final IndividualCustomerRepository individualCustomerRepository;
@@ -43,9 +41,7 @@ public class IndividualCustomerServiceImpl implements IndividualCustomerService 
         private final IndividualCustomerBusinessRules individualCustomerBusinessRules;
 
         @Override
-        @Transactional
         public Result add(CreateIndividualCustomerRequest createIndividualCustomerRequest) {
-
                 Result rules = BusinessRules.run(
                                 individualCustomerBusinessRules.isExistNationalId(
                                                 createIndividualCustomerRequest.getNationalIdentity()),
@@ -69,9 +65,7 @@ public class IndividualCustomerServiceImpl implements IndividualCustomerService 
         }
 
         @Override
-        @Transactional
         public Result delete(DeleteIndividualCustomerRequest deleteIndividualCustomerRequest) {
-
                 Result rules = BusinessRules.run(
                                 individualCustomerBusinessRules.isExistId(deleteIndividualCustomerRequest.getId()));
                 if (!rules.isSuccess())
@@ -90,7 +84,6 @@ public class IndividualCustomerServiceImpl implements IndividualCustomerService 
         }
 
         @Override
-        @Transactional
         public Result update(UpdateIndividualCustomerRequest updateIndividualCustomerRequest, Long id) {
                 IndividualCustomer inDbIndividualCustomer = individualCustomerRepository.findById(id)
                                 .orElseThrow(() -> new BusinessException(Messages.ErrorMessages.ID_NOT_FOUND));
@@ -111,14 +104,10 @@ public class IndividualCustomerServiceImpl implements IndividualCustomerService 
         @Override
         public DataResult<List<GetAllIndividualCustomerResponse>> getAll() {
                 List<IndividualCustomer> individualCustomers = individualCustomerRepository.findAll();
-                List<GetAllIndividualCustomerResponse> returnList = new ArrayList<>();
-                for (var forEachCustomer : individualCustomers) {
-                        GetAllIndividualCustomerResponse obj = mapperService.forResponse().map(forEachCustomer,
-                                        GetAllIndividualCustomerResponse.class);
-                        returnList.add(obj);
-                }
-                return new SuccessDataResult<>(returnList,
-                                Messages.GetListMessages.INDIVIDUAL_CUSTOMERS_LISTED);
+                List<GetAllIndividualCustomerResponse> returnList = individualCustomers.stream()
+                        .map(c -> mapperService.forResponse().map(c, GetAllIndividualCustomerResponse.class))
+                        .toList();
+                return new SuccessDataResult<>(returnList, Messages.GetListMessages.INDIVIDUAL_CUSTOMERS_LISTED);
         }
 
         @Override
@@ -128,24 +117,19 @@ public class IndividualCustomerServiceImpl implements IndividualCustomerService 
                 GetByIdIndividualCustomerResponse returnObj = mapperService.forResponse().map(
                                 inDbIndividualCustomer,
                                 GetByIdIndividualCustomerResponse.class);
-                return new SuccessDataResult<>(returnObj,
-                                Messages.GetByIdMessages.INDIVIDUAL_CUSTOMER_LISTED);
+                return new SuccessDataResult<>(returnObj, Messages.GetByIdMessages.INDIVIDUAL_CUSTOMER_LISTED);
         }
 
         @Override
         public DataResult<List<GetAllIndividualCustomerResponse>> getListBySorting(String sortBy) {
-                individualCustomerBusinessRules.isValidSortParameter(sortBy);
 
                 List<IndividualCustomer> individualCustomers = individualCustomerRepository
                                 .findAll(Sort.by(Sort.Direction.ASC, sortBy));
-                List<GetAllIndividualCustomerResponse> returnList = new ArrayList<>();
-                for (var forEachCustomer : individualCustomers) {
-                        GetAllIndividualCustomerResponse obj = mapperService.forResponse().map(forEachCustomer,
-                                        GetAllIndividualCustomerResponse.class);
-                        returnList.add(obj);
-                }
+                List<GetAllIndividualCustomerResponse> returnList = individualCustomers.stream()
+                        .map(c -> mapperService.forResponse().map(c, GetAllIndividualCustomerResponse.class))
+                        .toList();
                 return new SuccessDataResult<>(returnList,
-                                Messages.GetListMessages.INDIVIDUAL_CUSTOMERS_SORTED + sortBy);
+                        Messages.GetListMessages.INDIVIDUAL_CUSTOMERS_SORTED + sortBy);
         }
 
         @Override
@@ -155,14 +139,10 @@ public class IndividualCustomerServiceImpl implements IndividualCustomerService 
 
                 List<IndividualCustomer> individualCustomers = individualCustomerRepository
                                 .findAll(PageRequest.of(pageNo, pageSize)).toList();
-                List<GetAllIndividualCustomerResponse> returnList = new ArrayList<>();
-                for (var forEachCustomer : individualCustomers) {
-                        GetAllIndividualCustomerResponse obj = mapperService.forResponse().map(forEachCustomer,
-                                        GetAllIndividualCustomerResponse.class);
-                        returnList.add(obj);
-                }
-                return new SuccessDataResult<>(returnList,
-                                Messages.GetListMessages.INDIVIDUAL_CUSTOMERS_PAGINATED);
+                List<GetAllIndividualCustomerResponse> returnList = individualCustomers.stream()
+                        .map(c -> mapperService.forResponse().map(c, GetAllIndividualCustomerResponse.class))
+                        .toList();
+                return new SuccessDataResult<>(returnList, Messages.GetListMessages.INDIVIDUAL_CUSTOMERS_PAGINATED);
         }
 
         @Override
@@ -170,18 +150,14 @@ public class IndividualCustomerServiceImpl implements IndividualCustomerService 
                         int pageSize, String sortBy) {
                 individualCustomerBusinessRules.isPageNumberValid(pageNo);
                 individualCustomerBusinessRules.isPageSizeValid(pageSize);
-                individualCustomerBusinessRules.isValidSortParameter(sortBy);
 
                 List<IndividualCustomer> individualCustomers = individualCustomerRepository
                                 .findAll(PageRequest.of(pageNo, pageSize).withSort(Sort.by(sortBy))).toList();
-                List<GetAllIndividualCustomerResponse> returnList = new ArrayList<>();
-                for (var forEachCustomer : individualCustomers) {
-                        GetAllIndividualCustomerResponse obj = mapperService.forResponse().map(forEachCustomer,
-                                        GetAllIndividualCustomerResponse.class);
-                        returnList.add(obj);
-                }
+                List<GetAllIndividualCustomerResponse> returnList = individualCustomers.stream()
+                        .map(c -> mapperService.forResponse().map(c, GetAllIndividualCustomerResponse.class))
+                        .toList();
                 return new SuccessDataResult<>(returnList,
-                                Messages.GetListMessages.INDIVIDUAL_CUSTOMERS_PAGINATED_AND_SORTED + sortBy);
+                        Messages.GetListMessages.INDIVIDUAL_CUSTOMERS_PAGINATED_AND_SORTED + sortBy);
         }
 
 }

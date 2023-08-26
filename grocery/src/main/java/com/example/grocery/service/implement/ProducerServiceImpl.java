@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.example.grocery.service.constants.Messages;
 import com.example.grocery.service.rules.ProducerBusinessRules;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -29,7 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ProducerServiceImpl implements ProducerService {
 
     private final ProducerRepository producerRepository;
@@ -38,7 +38,6 @@ public class ProducerServiceImpl implements ProducerService {
 
     @Override
     public Result add(CreateProducerRequest createProducerRequest) {
-
         Result rules = BusinessRules.run(producerBusinessRules.isExistName(createProducerRequest.getName()));
         if (!rules.isSuccess())
             return rules;
@@ -51,7 +50,6 @@ public class ProducerServiceImpl implements ProducerService {
 
     @Override
     public Result update(UpdateProducerRequest updateProducerRequest, Long id) {
-
         Result rules = BusinessRules.run(producerBusinessRules.isExistId(id),
                 producerBusinessRules.isExistName(updateProducerRequest.getName()));
         if (!rules.isSuccess())
@@ -68,7 +66,6 @@ public class ProducerServiceImpl implements ProducerService {
 
     @Override
     public Result delete(DeleteProducerRequest deleteProducerRequest) {
-
         Result rules = BusinessRules.run(producerBusinessRules.isExistId(deleteProducerRequest.getId()));
         if (!rules.isSuccess())
             return rules;
@@ -83,7 +80,8 @@ public class ProducerServiceImpl implements ProducerService {
     public DataResult<List<GetAllProducerResponse>> getAll() {
         List<Producer> producers = producerRepository.findAll();
         List<GetAllProducerResponse> returnList = producers.stream()
-                .map(p -> mapperService.forResponse().map(p, GetAllProducerResponse.class)).toList();
+                .map(p -> mapperService.forResponse().map(p, GetAllProducerResponse.class))
+                .toList();
         return new SuccessDataResult<>(returnList, Messages.GetListMessages.PRODUCERS_LISTED);
     }
 
@@ -98,11 +96,11 @@ public class ProducerServiceImpl implements ProducerService {
 
     @Override
     public DataResult<List<GetAllProducerResponse>> getListBySorting(String sortBy) {
-        producerBusinessRules.isValidSortParameter(sortBy);
 
         List<Producer> producers = producerRepository.findAll(Sort.by(Sort.Direction.ASC, sortBy));
         List<GetAllProducerResponse> returnList = producers.stream()
-                .map(p -> mapperService.forResponse().map(p, GetAllProducerResponse.class)).toList();
+                .map(p -> mapperService.forResponse().map(p, GetAllProducerResponse.class))
+                .toList();
         return new SuccessDataResult<>(returnList, Messages.GetListMessages.PRODUCERS_SORTED + sortBy);
     }
 
@@ -113,7 +111,8 @@ public class ProducerServiceImpl implements ProducerService {
 
         List<Producer> producers = producerRepository.findAll(PageRequest.of(pageNo, pageSize)).toList();
         List<GetAllProducerResponse> returnList = producers.stream()
-                .map(p -> mapperService.forResponse().map(p, GetAllProducerResponse.class)).toList();
+                .map(p -> mapperService.forResponse().map(p, GetAllProducerResponse.class))
+                .toList();
         return new SuccessDataResult<>(returnList, Messages.GetListMessages.PRODUCERS_PAGINATED);
     }
 
@@ -122,12 +121,13 @@ public class ProducerServiceImpl implements ProducerService {
             String sortBy) {
         producerBusinessRules.isPageNumberValid(pageNo);
         producerBusinessRules.isPageSizeValid(pageSize);
-        producerBusinessRules.isValidSortParameter(sortBy);
 
         List<Producer> producers = producerRepository
-                .findAll(PageRequest.of(pageNo, pageSize).withSort(Sort.by(sortBy))).toList();
+                .findAll(PageRequest.of(pageNo, pageSize).withSort(Sort.by(sortBy)))
+                .toList();
         List<GetAllProducerResponse> returnList = producers.stream()
-                .map(p -> mapperService.forResponse().map(p, GetAllProducerResponse.class)).toList();
+                .map(p -> mapperService.forResponse().map(p, GetAllProducerResponse.class))
+                .toList();
         return new SuccessDataResult<>(returnList, Messages.GetListMessages.PRODUCERS_PAGINATED_AND_SORTED + sortBy);
     }
 

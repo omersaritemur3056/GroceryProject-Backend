@@ -17,8 +17,7 @@ import com.example.grocery.api.requests.payment.DeletePaymentRequest;
 import com.example.grocery.api.requests.payment.UpdatePaymentRequest;
 import com.example.grocery.api.responses.payment.GetAllPaymentResponse;
 import com.example.grocery.api.responses.payment.GetByIdPaymentResponse;
-import jakarta.transaction.Transactional;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -28,22 +27,22 @@ import java.util.List;
 
 @Slf4j
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class PaymentServiceImpl implements PaymentService {
 
-        private PaymentRepository paymentRepository;
-        private MapperService mapperService;
-        private PaymentBusinessRules paymentBusinessRules;
+        private final PaymentRepository paymentRepository;
+        private final MapperService mapperService;
+        private final PaymentBusinessRules paymentBusinessRules;
 
         @Override
-        @Transactional
         public Result add(CreatePaymentRequest createPaymentRequest) {
                 Result rules = BusinessRules
-                                .run(paymentBusinessRules.isValidCard(createPaymentRequest.getCardNumber(),
-                                                createPaymentRequest.getFullName(),
-                                                createPaymentRequest.getCardExpirationYear(),
-                                                createPaymentRequest.getCardExpirationMonth(),
-                                                createPaymentRequest.getCardCvv()));
+                        .run(paymentBusinessRules.isValidCard(
+                                createPaymentRequest.getCardNumber(),
+                                createPaymentRequest.getFullName(),
+                                createPaymentRequest.getCardExpirationYear(),
+                                createPaymentRequest.getCardExpirationMonth(),
+                                createPaymentRequest.getCardCvv()));
                 if (!rules.isSuccess())
                         return rules;
 
@@ -57,9 +56,7 @@ public class PaymentServiceImpl implements PaymentService {
         }
 
         @Override
-        @Transactional
         public Result delete(DeletePaymentRequest deletePaymentRequest) {
-
                 Result rules = BusinessRules.run(paymentBusinessRules.isExistId(deletePaymentRequest.getId()));
                 if (!rules.isSuccess())
                         return rules;
@@ -71,14 +68,16 @@ public class PaymentServiceImpl implements PaymentService {
         }
 
         @Override
-        @Transactional
         public Result update(UpdatePaymentRequest updatePaymentRequest, Long id) {
                 Payment inDbPayment = paymentRepository.findById(id)
                                 .orElseThrow(() -> new BusinessException(Messages.ErrorMessages.ID_NOT_FOUND));
 
-                Result rules = BusinessRules.run(paymentBusinessRules.isValidCard(updatePaymentRequest.getCardNumber(),
+                Result rules = BusinessRules
+                        .run(paymentBusinessRules.isValidCard(
+                                updatePaymentRequest.getCardNumber(),
                                 updatePaymentRequest.getFullName(), updatePaymentRequest.getCardExpirationYear(),
-                                updatePaymentRequest.getCardExpirationMonth(), updatePaymentRequest.getCardCvv()),
+                                updatePaymentRequest.getCardExpirationMonth(), updatePaymentRequest.getCardCvv()
+                                ),
                                 paymentBusinessRules.isExistId(id));
                 if (!rules.isSuccess())
                         return rules;
@@ -97,8 +96,8 @@ public class PaymentServiceImpl implements PaymentService {
         public DataResult<List<GetAllPaymentResponse>> getAll() {
                 List<Payment> payments = paymentRepository.findAll();
                 List<GetAllPaymentResponse> returnList = payments.stream()
-                                .map(c -> mapperService.forResponse().map(c, GetAllPaymentResponse.class)).toList();
-
+                        .map(c -> mapperService.forResponse().map(c, GetAllPaymentResponse.class))
+                        .toList();
                 return new SuccessDataResult<>(returnList, Messages.GetListMessages.PAYMENTS_LISTED);
         }
 
@@ -113,12 +112,11 @@ public class PaymentServiceImpl implements PaymentService {
 
         @Override
         public DataResult<List<GetAllPaymentResponse>> getListBySorting(String sortBy) {
-                paymentBusinessRules.isValidSortParameter(sortBy);
 
                 List<Payment> payments = paymentRepository.findAll(Sort.by(Sort.Direction.ASC, sortBy));
                 List<GetAllPaymentResponse> returnList = payments.stream()
-                                .map(c -> mapperService.forResponse().map(c, GetAllPaymentResponse.class)).toList();
-
+                        .map(c -> mapperService.forResponse().map(c, GetAllPaymentResponse.class))
+                        .toList();
                 return new SuccessDataResult<>(returnList, Messages.GetListMessages.PAYMENTS_SORTED + sortBy);
         }
 
@@ -129,8 +127,8 @@ public class PaymentServiceImpl implements PaymentService {
 
                 List<Payment> payments = paymentRepository.findAll(PageRequest.of(pageNo, pageSize)).toList();
                 List<GetAllPaymentResponse> returnList = payments.stream()
-                                .map(c -> mapperService.forResponse().map(c, GetAllPaymentResponse.class)).toList();
-
+                        .map(c -> mapperService.forResponse().map(c, GetAllPaymentResponse.class))
+                        .toList();
                 return new SuccessDataResult<>(returnList, Messages.GetListMessages.PAYMENTS_PAGINATED);
         }
 
@@ -139,14 +137,13 @@ public class PaymentServiceImpl implements PaymentService {
                         String sortBy) {
                 paymentBusinessRules.isPageNumberValid(pageNo);
                 paymentBusinessRules.isPageSizeValid(pageSize);
-                paymentBusinessRules.isValidSortParameter(sortBy);
 
                 List<Payment> payments = paymentRepository
                                 .findAll(PageRequest.of(pageNo, pageSize).withSort(Sort.by(sortBy)))
                                 .toList();
                 List<GetAllPaymentResponse> returnList = payments.stream()
-                                .map(c -> mapperService.forResponse().map(c, GetAllPaymentResponse.class)).toList();
-
+                        .map(c -> mapperService.forResponse().map(c, GetAllPaymentResponse.class))
+                        .toList();
                 return new SuccessDataResult<>(returnList, Messages.GetListMessages.PAYMENTS_PAGINATED_AND_SORTED + sortBy);
         }
 
@@ -154,7 +151,7 @@ public class PaymentServiceImpl implements PaymentService {
         @Override
         public Payment getPaymentById(Long id) {
                 return paymentRepository.findById(id)
-                                .orElseThrow(() -> new BusinessException(Messages.ErrorMessages.PAYMENT_ID_NOT_FOUND));
+                        .orElseThrow(() -> new BusinessException(Messages.ErrorMessages.PAYMENT_ID_NOT_FOUND));
         }
 
 }

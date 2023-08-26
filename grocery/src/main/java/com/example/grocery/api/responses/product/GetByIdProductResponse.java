@@ -21,6 +21,7 @@ public class GetByIdProductResponse {
     private LocalDate productionDate;
     private LocalDate expirationDate;
     private int stock;
+    private boolean expired;
     private Long categoryId;
     private String categoryName;
     private Long supplierId;

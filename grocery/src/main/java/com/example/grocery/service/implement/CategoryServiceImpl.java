@@ -18,18 +18,17 @@ import com.example.grocery.api.requests.category.UpdateCategoryRequest;
 import com.example.grocery.api.responses.category.GetAllCategoryResponse;
 import com.example.grocery.api.responses.category.GetByIdCategoryResponse;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryRepository categoryRepository;
@@ -38,7 +37,6 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Result add(CreateCategoryRequest createCategoryRequest) {
-
         Result rules = BusinessRules.run(categoryBusinessRules.isExistName(createCategoryRequest.getName()));
         if (!rules.isSuccess())
             return rules;
@@ -51,7 +49,6 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Result delete(DeleteCategoryRequest deleteCategoryRequest) {
-
         Result rules = BusinessRules.run(categoryBusinessRules.isExistId(deleteCategoryRequest.getId()));
         if (!rules.isSuccess())
             return rules;
@@ -64,7 +61,6 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Result update(UpdateCategoryRequest updateCategoryRequest, Long id) {
-
         Result rules = BusinessRules.run(categoryBusinessRules.isExistName(updateCategoryRequest.getName()),
                 categoryBusinessRules.isExistId(id));
         if (!rules.isSuccess())
@@ -83,8 +79,8 @@ public class CategoryServiceImpl implements CategoryService {
     public DataResult<List<GetAllCategoryResponse>> getAll() {
         List<Category> categories = categoryRepository.findAll();
         List<GetAllCategoryResponse> returnList = categories.stream()
-                .map(c -> mapperService.forResponse().map(c, GetAllCategoryResponse.class)).toList();
-
+                .map(c -> mapperService.forResponse().map(c, GetAllCategoryResponse.class))
+                .toList();
         return new SuccessDataResult<>(returnList, Messages.GetListMessages.CATEGORIES_LISTED);
     }
 
@@ -99,11 +95,11 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public DataResult<List<GetAllCategoryResponse>> getListBySorting(String sortBy) {
-        categoryBusinessRules.isValidSortParameter(sortBy);
 
         List<Category> categories = categoryRepository.findAll(Sort.by(Sort.Direction.ASC, sortBy));
         List<GetAllCategoryResponse> returnList = categories.stream()
-                .map(c -> mapperService.forResponse().map(c, GetAllCategoryResponse.class)).toList();
+                .map(c -> mapperService.forResponse().map(c, GetAllCategoryResponse.class))
+                .toList();
         return new SuccessDataResult<>(returnList, Messages.GetListMessages.CATEGORIES_SORTED + sortBy);
     }
 
@@ -115,7 +111,7 @@ public class CategoryServiceImpl implements CategoryService {
         List<Category> categories = categoryRepository.findAll(PageRequest.of(pageNo, pageSize)).toList();
         List<GetAllCategoryResponse> returnList = categories.stream()
                 .map(c -> mapperService.forResponse().map(c, GetAllCategoryResponse.class))
-                .collect(Collectors.toList());
+                .toList();
         return new SuccessDataResult<>(returnList, Messages.GetListMessages.CATEGORIED_PAGINATED);
     }
 
@@ -124,13 +120,12 @@ public class CategoryServiceImpl implements CategoryService {
             String sortBy) {
         categoryBusinessRules.isPageNumberValid(pageNo);
         categoryBusinessRules.isPageSizeValid(pageSize);
-        categoryBusinessRules.isValidSortParameter(sortBy);
 
         List<Category> categories = categoryRepository
                 .findAll(PageRequest.of(pageNo, pageSize).withSort(Sort.by(sortBy))).toList();
         List<GetAllCategoryResponse> returnList = categories.stream()
                 .map(c -> mapperService.forResponse().map(c, GetAllCategoryResponse.class))
-                .collect(Collectors.toList());
+                .toList();
         return new SuccessDataResult<>(returnList, Messages.GetListMessages.CATEGORIES_PAGINATED_AND_SORTED + sortBy);
     }
 

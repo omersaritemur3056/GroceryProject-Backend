@@ -8,7 +8,7 @@ import com.example.grocery.core.validation.mernisValidation.MernisValidationServ
 import com.example.grocery.repository.EmployeeRepository;
 import com.example.grocery.model.concretes.Employee;
 import com.example.grocery.model.enums.Nationality;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +17,7 @@ import java.time.Period;
 
 @Slf4j
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class EmployeeBusinessRules {
 
     private final EmployeeRepository employeeRepository;
@@ -86,14 +86,6 @@ public class EmployeeBusinessRules {
         if (pageSize < 1) {
             log.warn(Messages.LogMessages.LogWarnMessages.PAGE_SIZE_NEGATIVE);
             throw new BusinessException(Messages.ErrorMessages.PAGE_SIZE_NEGATIVE);
-        }
-    }
-
-    public void isValidSortParameter(String sortBy) {
-        Employee checkField = new Employee();
-        if (!checkField.toString().contains(sortBy)) {
-            log.warn(Messages.LogMessages.LogWarnMessages.SORT_PARAMETER_NOT_VALID);
-            throw new BusinessException(Messages.ErrorMessages.SORT_PARAMETER_NOT_VALID);
         }
     }
 }

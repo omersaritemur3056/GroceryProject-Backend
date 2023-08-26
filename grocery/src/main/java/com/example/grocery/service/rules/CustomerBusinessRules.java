@@ -2,7 +2,6 @@ package com.example.grocery.service.rules;
 
 import com.example.grocery.service.constants.Messages;
 import com.example.grocery.core.utilities.exceptions.BusinessException;
-import com.example.grocery.model.concretes.Customer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -21,14 +20,6 @@ public class CustomerBusinessRules {
         if (pageSize < 1) {
             log.warn(Messages.LogMessages.LogWarnMessages.PAGE_SIZE_NEGATIVE);
             throw new BusinessException(Messages.ErrorMessages.PAGE_SIZE_NEGATIVE);
-        }
-    }
-
-    public void isValidSortParameter(String sortBy) {
-        Customer checkField = new Customer();
-        if (!checkField.toString().contains(sortBy)) {
-            log.warn(Messages.LogMessages.LogWarnMessages.SORT_PARAMETER_NOT_VALID);
-            throw new BusinessException(Messages.ErrorMessages.SORT_PARAMETER_NOT_VALID);
         }
     }
 }
